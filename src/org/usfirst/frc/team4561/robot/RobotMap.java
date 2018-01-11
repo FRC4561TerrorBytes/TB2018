@@ -13,11 +13,36 @@ package org.usfirst.frc.team4561.robot;
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
  */
+
+
+
 public class RobotMap {
+	
+	//Joystick Ports
+	public static final int LEFT_JOYSTICK_PORT = 0;
+	public static final int RIGHT_JOYSTICK_PORT = 1;
+	
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
 	// public static int leftMotor = 1;
 	// public static int rightMotor = 2;
+	
+	//Left Motor Ports
+	public static final int FRONT_LEFT_MOTOR_PORT = 9;
+	public static final int MID_LEFT_MOTOR_PORT = 5;
+	public static final int BACK_LEFT_MOTOR_PORT = 3;
+	
+	//Right Motor Ports
+	public static final int FRONT_RIGHT_MOTOR_PORT = 0;
+	public static final int MID_RIGHT_MOTOR_PORT = 4;
+	public static final int BACK_RIGHT_MOTOR_PORT = 10;
+	
+	//Transmission Motor Ports
+	public static final int TRANSMISSION_SPEED_BUTTON = 6;
+	public static final int TRANSMISSION_TORQUE_BUTTON = 4;
+	
+	//Drive Mode 
+	public static final int DRIVE_MODE = 0; // 1 is arcade drive, 0 is tank drive
 
 	// If you are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:
