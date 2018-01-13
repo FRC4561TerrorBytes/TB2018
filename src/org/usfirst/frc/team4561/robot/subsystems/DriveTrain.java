@@ -62,6 +62,7 @@ public class DriveTrain extends Subsystem {
 	
 	public void tankDrive(double leftPower, double rightPower) {
 		robotDrive.tankDrive(leftPower, rightPower);
+		//System.out.println("yo");
 	}
 	
 	public void arcadeDrive (double leftPower, double rightPower) {
@@ -69,7 +70,11 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		// Set the default command for a subsystem here.
-		// setDefaultCommand(new MySpecialCommand());
+		if (RobotMap.DRIVE_MODE == 1){
+			setDefaultCommand(new ArcadeDrive());
+		}
+		else{
+			setDefaultCommand(new TankDrive());
+		}
 	}
 }

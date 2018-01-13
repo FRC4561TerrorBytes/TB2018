@@ -28,14 +28,14 @@ public class RobotMap {
 	// public static int rightMotor = 2;
 	
 	//Left Motor Ports
-	public static final int FRONT_LEFT_MOTOR_PORT = 9;
-	public static final int MID_LEFT_MOTOR_PORT = 5;
+	public static final int FRONT_LEFT_MOTOR_PORT = 1;
+	public static final int MID_LEFT_MOTOR_PORT = 2;
 	public static final int BACK_LEFT_MOTOR_PORT = 3;
 	
 	//Right Motor Ports
-	public static final int FRONT_RIGHT_MOTOR_PORT = 0;
-	public static final int MID_RIGHT_MOTOR_PORT = 4;
-	public static final int BACK_RIGHT_MOTOR_PORT = 10;
+	public static final int FRONT_RIGHT_MOTOR_PORT = 4;
+	public static final int MID_RIGHT_MOTOR_PORT = 5;
+	public static final int BACK_RIGHT_MOTOR_PORT = 6;
 	
 	//Transmission Motor Ports
 	public static final int TRANSMISSION_SPEED_BUTTON = 6;
