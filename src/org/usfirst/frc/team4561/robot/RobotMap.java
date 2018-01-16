@@ -43,7 +43,13 @@ public class RobotMap {
 	
 	//Drive Mode 
 	public static final int DRIVE_MODE = 0; // 1 is arcade drive, 0 is tank drive
-
+	
+	// Elevator Ports (zeros for placeholders)
+	public static final int ELEVATOR_MOTOR_1_PORT = 0;
+	public static final int ELEVATOR_MOTOR_2_PORT = 0;
+	public static final int ELEVATOR_MOTOR_3_PORT = 0;
+	public static final int ELEVATOR_MOTOR_4_PORT = 0;
+	
 	// If you are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:
 	// public static int rangefinderPort = 1;
