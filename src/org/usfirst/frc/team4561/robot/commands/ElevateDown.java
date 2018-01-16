@@ -8,13 +8,12 @@ import edu.wpi.first.wpilibj.command.Command;
  * Make the non-PID climber climb down.
  * @author Ben
  */
-public class ClimbDown extends Command {
+public class ElevateDown extends Command {
 
-    public ClimbDown() {
+    public ElevateDown() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.m_Elevator);
-    	setInterruptible(false);
     }
 
     // Called just before this Command runs the first time
