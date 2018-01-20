@@ -14,6 +14,7 @@ public class ArmPID extends Subsystem {
 	private WPI_TalonSRX motorTwo;
 	public ArmPID() {
 		motorOne = new WPI_TalonSRX(RobotMap.ARM_MOTOR_1_PORT);
+		motorTwo = new WPI_TalonSRX(RobotMap.ARM_MOTOR_2_PORT);
 		motorTwo.set(follower, RobotMap.ARM_MOTOR_1_PORT);
 	}
 	// Arm on ground to intake block
