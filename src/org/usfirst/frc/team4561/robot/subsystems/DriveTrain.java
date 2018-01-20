@@ -62,11 +62,16 @@ public class DriveTrain extends Subsystem {
 	
 	public void tankDrive(double leftPower, double rightPower) {
 		robotDrive.tankDrive(leftPower, rightPower);
-		//System.out.println("yo");
+		if (RobotMap.DRIVETRAIN_DEBUG) {
+			System.out.println("[Subsystem] Driving in tank mode, left: " + leftPower + ", right: " + rightPower);
+		}
 	}
 	
 	public void arcadeDrive (double leftPower, double rightPower) {
 		robotDrive.arcadeDrive(leftPower, rightPower);
+		if (RobotMap.DRIVETRAIN_DEBUG) {
+			System.out.println("[Subsystem] Driving in arcade mode, left: " + leftPower + ", right: " + rightPower);
+		}
 	}
 
 	public void initDefaultCommand() {

@@ -50,6 +50,9 @@ public class RobotMap {
 	public static final int ELEVATOR_MOTOR_3_PORT = 0;
 	public static final int ELEVATOR_MOTOR_4_PORT = 0;
 	
+	// Debug variables
+	public static final boolean DRIVETRAIN_DEBUG = false;
+	
 	// If you are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:
 	// public static int rangefinderPort = 1;
