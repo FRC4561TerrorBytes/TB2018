@@ -54,7 +54,11 @@ public class RobotMap {
 	// Arm ports (zeros for placeholders)
 	public static final int ARM_MOTOR_1_PORT = 0;
 	public static final int ARM_MOTOR_2_PORT = 0;
-	
+	public static final int TRANSMISSION_SOLENOID_PORT = 0;
+	public static final boolean TRANSMISSION_VERBOSE = false;
+	public static int TRANSMISSION_SOLENOID_TWO_PORT = 2;
+	public static int PCM = 7;
+
 
 	
 	// Debug variables
