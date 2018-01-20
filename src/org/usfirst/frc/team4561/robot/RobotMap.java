@@ -50,6 +50,13 @@ public class RobotMap {
 	public static final int ELEVATOR_MOTOR_3_PORT = 0;
 	public static final int ELEVATOR_MOTOR_4_PORT = 0;
 	
+	
+	// Arm ports (zeros for placeholders)
+	public static final int ARM_MOTOR_1_PORT = 0;
+	public static final int ARM_MOTOR_2_PORT = 0;
+	
+
+	
 	// Debug variables
 	public static final boolean DRIVETRAIN_DEBUG = false;
 	
