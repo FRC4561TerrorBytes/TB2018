@@ -7,7 +7,11 @@
 
 package org.usfirst.frc.team4561.robot;
 
+import org.usfirst.frc.team4561.robot.commands.ArmIntakePosition;
+import org.usfirst.frc.team4561.robot.commands.ArmReleasePosition;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -16,7 +20,13 @@ import edu.wpi.first.wpilibj.Joystick;
 public class OI {
 	private static Joystick leftStick = new Joystick (RobotMap.LEFT_JOYSTICK_PORT);
 	private static Joystick rightStick = new Joystick (RobotMap.RIGHT_JOYSTICK_PORT);
-
+	private static JoystickButton IntakePosition = new JoystickButton(leftStick, 5);
+	private static JoystickButton ReleasePosition = new JoystickButton(leftStick, 6);
+	public OI () {
+		
+		IntakePosition.whenPressed(new ArmIntakePosition());
+		ReleasePosition.whenPressed(new ArmReleasePosition());
+	}
 	public double getRightStickY() {
 		
 		double rightStickY = rightStick.getY(); 
@@ -48,7 +58,6 @@ public double getLeftStickX() {
 		return leftStickX;
 		
 	}
-	
 	
 	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
