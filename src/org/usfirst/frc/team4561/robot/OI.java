@@ -12,6 +12,7 @@ import org.usfirst.frc.team4561.robot.commands.ArmReleasePosition;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import org.usfirst.frc.team4561.robot.commands.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -22,6 +23,9 @@ public class OI {
 	private static Joystick rightStick = new Joystick (RobotMap.RIGHT_JOYSTICK_PORT);
 	private static JoystickButton IntakePosition = new JoystickButton(leftStick, 5);
 	private static JoystickButton ReleasePosition = new JoystickButton(leftStick, 6);
+	private static JoystickButton intake = new JoystickButton (rightStick, RobotMap.IntakeButton);
+	private static JoystickButton release = new JoystickButton (rightStick, RobotMap.ReleaseButton);
+	
 	public OI () {
 		
 		IntakePosition.whenPressed(new ArmIntakePosition());
@@ -59,31 +63,8 @@ public double getLeftStickX() {
 		
 	}
 	
-	//// CREATING BUTTONS
-	// One type of button is a joystick button which is any button on a
-	//// joystick.
-	// You create one by telling it which joystick it's on and which button
-	// number it is.
-	// Joystick stick = new Joystick(port);
-	// Button button = new JoystickButton(stick, buttonNumber);
-
-	// There are a few additional built in buttons you can use. Additionally,
-	// by subclassing Button you can create custom triggers and bind those to
-	// commands the same as any other Button.
-
-	//// TRIGGERING COMMANDS WITH BUTTONS
-	// Once you have a button, it's trivial to bind it to a button in one of
-	// three ways:
-
-	// Start the command when the button is pressed and let it run the command
-	// until it is finished as determined by it's isFinished method.
-	// button.whenPressed(new ExampleCommand());
-
-	// Run the command while the button is being held down and interrupt it once
-	// the button is released.
-	// button.whileHeld(new ExampleCommand());
-
-	// Start the command when the button is released and let it run the command
-	// until it is finished as determined by it's isFinished method.
-	// button.whenReleased(new ExampleCommand());
+	public void matchMode () {
+		intake.whileHeld(new Intake());
+		release.whileHeld(new IntakeRelease());
+	}
 }

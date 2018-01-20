@@ -55,10 +55,16 @@ public class RobotMap {
 	public static final int ARM_MOTOR_1_PORT = 0;
 	public static final int ARM_MOTOR_2_PORT = 0;
 	
+	public static final int ARM_LEFT_MOTOR_PORT = 0;
+	public static final int ARM_RIGHT_MOTOR_PORT = 0;
+	
+	
 
 	
 	// Debug variables
 	public static final boolean DRIVETRAIN_DEBUG = false;
+	public static final int IntakeButton = 0;
+	public static final int ReleaseButton = 0;
 	
 	// If you are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:
