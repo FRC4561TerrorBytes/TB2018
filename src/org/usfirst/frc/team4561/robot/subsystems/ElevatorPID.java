@@ -31,6 +31,22 @@ public class ElevatorPID extends Subsystem {
 		motorOne.config_kP(0, 0, 0);
 	}
 	
+	public void setmotorOnePower(double power) {
+		if (power > 1) {
+			if (RobotMap.ELEVATOR_DEBUG) {
+				System.out.println("[Subsystem] Power to the Elevator was set too high: " + power + ", changing to full forward.");
+			}
+			power = 1;
+		} 
+	else if (power < -1) {
+			if (RobotMap.ELEVATOR_DEBUG) {
+				System.out.println("[Subsystem] Power to the Elevator was set too low: " + power + ", changing to full reverse.");
+			}
+			power = -1;
+		}
+		motorOne.set(power);
+	}
+	
 	//Elevator position with Arm touching ground
 	public void GroundPosition() {
 		motorOne.set(ControlMode.Position, 0);
@@ -44,6 +60,14 @@ public class ElevatorPID extends Subsystem {
 	//Elevator position with Arm at scale height
 	public void ScalePosition() {
 		motorOne.set(ControlMode.Position, 1);
+	}
+	
+	public double getElevatorPos(){
+		return motorOne.getSelectedSensorPosition(0);
+	}
+	
+	public double getElevatorSpeed(){
+		return motorOne.getSelectedSensorVelocity(0);
 	}
 	
 	@Override
