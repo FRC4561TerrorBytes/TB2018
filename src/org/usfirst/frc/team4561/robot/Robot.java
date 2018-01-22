@@ -25,6 +25,7 @@ import org.usfirst.frc.team4561.robot.subsystems.*;
 public class Robot extends TimedRobot {
 	public static final DriveTrain DriveTrain = new DriveTrain();
 	public static OI m_oi;
+	public static final ElevatorPID ElevatorPID = new ElevatorPID();
 	public static final ArmPID ArmPID = new ArmPID();
 	public static final Intake Intake = new Intake();
 

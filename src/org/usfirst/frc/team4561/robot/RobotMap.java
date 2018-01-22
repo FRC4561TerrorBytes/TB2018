@@ -22,6 +22,10 @@ public class RobotMap {
 	public static final int LEFT_JOYSTICK_PORT = 0;
 	public static final int RIGHT_JOYSTICK_PORT = 1;
 	
+	//Buttons
+	public static final int ReleaseButton = 0;
+	public static final int IntakeButton = 0;
+	
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
 	// public static int leftMotor = 1;
@@ -67,6 +71,7 @@ public class RobotMap {
 	
 	// Debug variables
 	public static final boolean DRIVETRAIN_DEBUG = false;
+	public static final boolean ELEVATOR_DEBUG = false;
 	
 	// If you are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:
