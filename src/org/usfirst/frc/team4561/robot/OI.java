@@ -64,7 +64,7 @@ public double getLeftStickX() {
 	}
 	
 	public void matchMode () {
-		intake.whileHeld(new Intake());
+		intake.whileHeld(new IntakeIn());
 		release.whileHeld(new IntakeRelease());
 	}
 }
