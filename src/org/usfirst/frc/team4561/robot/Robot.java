@@ -33,6 +33,7 @@ public class Robot extends TimedRobot {
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 	public static Elevator m_Elevator = new Elevator();
 	public static Transmission transmission = new Transmission();
+	public static Arm m_Arm = new Arm(); // non-PID arm
 
 	/**
 	 * This function is run when the robot is first started up and should be
