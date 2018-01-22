@@ -3,6 +3,7 @@ package org.usfirst.frc.team4561.robot.commands;
 import org.usfirst.frc.team4561.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Make the non-PID climber climb down.
@@ -23,6 +24,9 @@ public class ElevateDown extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.m_Elevator.climbDown();
+    	
+    	SmartDashboard.putNumber("Elevator Encoder Position", Robot.m_Elevator.getEncoderPosition());
+    	SmartDashboard.putNumber("Elevator Encoder Velocity", Robot.m_Elevator.getEncoderPosition());
     }
 
     // Make this return true when this Command no longer needs to run execute()
