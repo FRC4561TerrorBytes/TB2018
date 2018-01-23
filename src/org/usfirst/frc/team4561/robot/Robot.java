@@ -34,6 +34,8 @@ public class Robot extends TimedRobot {
 	public static Elevator m_Elevator = new Elevator();
 	public static Transmission transmission = new Transmission();
 	public static Arm m_Arm = new Arm(); // non-PID arm
+	
+	public static boolean switchFMSSideRight; // true if right, false is left
 
 	/**
 	 * This function is run when the robot is first started up and should be
