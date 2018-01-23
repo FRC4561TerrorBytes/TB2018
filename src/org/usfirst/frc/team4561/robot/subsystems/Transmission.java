@@ -2,10 +2,15 @@ package org.usfirst.frc.team4561.robot.subsystems;
 
 import org.usfirst.frc.team4561.robot.RobotMap;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Transmission extends Subsystem {
+	private WPI_TalonSRX motorOne = new WPI_TalonSRX(RobotMap.TRANSMISSION_SPEED_BUTTON);
+	private WPI_TalonSRX motorTwo = new WPI_TalonSRX(RobotMap.TRANSMISSION_TORQUE_BUTTON);
 	
 	private DoubleSolenoid doubleSolenoidTrans;
 	
@@ -18,27 +23,57 @@ public class Transmission extends Subsystem {
 	
 	
 	public void torqueGear() {
+		if (RobotMap.TRANSMISSION_DEBUG) {
+  			System.out.println("[Transmission] Switching to high torque gear...");
+		}
+		
+		
 		doubleSolenoidTrans.set(DoubleSolenoid.Value.kForward);
 		String currentState;
 		String lastChange = currentState = "Torque";
+		
+		
+	}
+	
+	public String getTransMode() {
+		String transmission = doubleSolenoidTrans.get().toString();
+		return transmission;
 	}
 	
 	public void speedGear() {
-		doubleSolenoidTrans.set(DoubleSolenoid.Value.kReverse);
-		String currentState;
-		String lastChange = currentState = "Speed";
+		String transmission = doubleSolenoidTrans.get().toString();
+		SmartDashboard.putString("SpeedGear", transmission);
+		if (RobotMap.TRANSMISSION_DEBUG) {
+  			System.out.println("[Transmission] Switching to high speed gear...");
+		}
+  			doubleSolenoidTrans.set(DoubleSolenoid.Value.kReverse);
+  			String currentState;
+  			String lastChange = currentState = "Speed";
+		
+	
 	}
+		
+		
+		
 	
 	public void stop() {
-		doubleSolenoidTrans.set(DoubleSolenoid.Value.kReverse);
-		String currentState;
-		String lastChange = currentState = "Off";
+		String transmission = doubleSolenoidTrans.get().toString();
+		SmartDashboard.putString("Stop", transmission);
+		if (RobotMap.TRANSMISSION_DEBUG) {
+  			System.out.println("[Transmission] Robot stops");
+		}
+  			doubleSolenoidTrans.set(DoubleSolenoid.Value.kReverse);
+  			String currentState;
+  			String lastChange = currentState = "Off";
+		
 	}
+	
+}
 	
 	
 	
 
-    }
+
 
 	
 	
