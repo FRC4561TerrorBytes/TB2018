@@ -3,6 +3,7 @@ package org.usfirst.frc.team4561.robot.commands;
 import org.usfirst.frc.team4561.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -21,6 +22,8 @@ public class IntakeRelease extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.Intake.release();
+    	SmartDashboard.putNumber("IntakeRelease Encoder Position", Robot.Intake.getIntakeLeftPosition());
+    	SmartDashboard.putNumber("IntakeRelease Encoder Velocity", Robot.Intake.getIntakeRightPosition());
     }
 
     // Make this return true when this Command no longer needs to run execute()
