@@ -3,6 +3,7 @@ package org.usfirst.frc.team4561.robot.automodes;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import org.usfirst.frc.team4561.robot.commands.TorqueGear;
+import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.commands.TankDriveTimed;
 /**
  * This auto mode drives past the auto line if the robot is in the center of the field.
@@ -10,6 +11,9 @@ import org.usfirst.frc.team4561.robot.commands.TankDriveTimed;
  */
 public class AutoDriveToLineCenter extends CommandGroup {
 	public AutoDriveToLineCenter() {
+		// we need DriveTrain and transmission
+		requires(Robot.DriveTrain);
+		requires(Robot.transmission);
 		// torque mode
 		addSequential(new TorqueGear());
 		// forward
