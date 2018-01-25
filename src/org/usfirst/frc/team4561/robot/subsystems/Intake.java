@@ -21,6 +21,7 @@ public class Intake extends Subsystem {
 	private WPI_TalonSRX intakeLeftMotor;
 	private WPI_TalonSRX intakeRightMotor; 
 	
+	
 	public Intake () {
 		intakeLeftMotor = new WPI_TalonSRX (RobotMap.ARM_LEFT_MOTOR_PORT);
 		intakeRightMotor = new WPI_TalonSRX (RobotMap.ARM_RIGHT_MOTOR_PORT);
@@ -49,6 +50,7 @@ public class Intake extends Subsystem {
 		intakeRightMotor.set(-0.5);
 	}
 
+	//These two methods are mainly used in the Intake debug
 	public double getIntakeLeftPosition() {
     	return intakeLeftMotor.getSelectedSensorPosition(0);
     }
