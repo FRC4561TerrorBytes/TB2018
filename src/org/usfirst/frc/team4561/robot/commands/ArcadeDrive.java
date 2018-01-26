@@ -7,11 +7,11 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ArcadeDrive extends Command {
 	
 	public ArcadeDrive() {
-		requires(Robot.DriveTrain);
+		requires(Robot.driveTrain);
 	}
 	
 	protected void execute() {
-		Robot.DriveTrain.arcadeDrive(Robot.m_oi.getLeftStickX(), Robot.m_oi.getRightStickY());
+		Robot.driveTrain.arcadeDrive(Robot.oi.getLeftStickX(), Robot.oi.getRightStickY());
 	}	  
 	  
 	protected void initialize() {}

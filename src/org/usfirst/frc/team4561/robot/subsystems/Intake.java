@@ -23,8 +23,8 @@ public class Intake extends Subsystem {
 	
 	
 	public Intake () {
-		intakeLeftMotor = new WPI_TalonSRX (RobotMap.ARM_LEFT_MOTOR_PORT);
-		intakeRightMotor = new WPI_TalonSRX (RobotMap.ARM_RIGHT_MOTOR_PORT);
+		intakeLeftMotor = new WPI_TalonSRX (RobotMap.INTAKE_LEFT_MOTOR_PORT);
+		intakeRightMotor = new WPI_TalonSRX (RobotMap.INTAKE_RIGHT_MOTOR_PORT);
 		
 		intakeLeftMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		intakeRightMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);

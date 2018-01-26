@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class TankDrive extends Command {
 
 	public TankDrive(){
-		requires(Robot.DriveTrain);
+		requires(Robot.driveTrain);
 	}
 	@Override
 	protected boolean isFinished() {
@@ -16,11 +16,11 @@ public class TankDrive extends Command {
 	}
 	
 	protected void execute(){
-		Robot.DriveTrain.tankDrive(Robot.m_oi.getLeftStickY(), Robot.m_oi.getRightStickY());
+		Robot.driveTrain.tankDrive(Robot.oi.getLeftStickY(), Robot.oi.getRightStickY());
 	}
 	
 	protected void stop(){
-		Robot.DriveTrain.tankDrive(0, 0);
+		Robot.driveTrain.tankDrive(0, 0);
 	}
 
 }

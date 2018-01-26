@@ -13,7 +13,7 @@ public class ArmReleasePosition extends Command {
     public ArmReleasePosition() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.ArmPID);
+    	requires(Robot.armPID);
     }
 
     // Called just before this Command runs the first time
@@ -22,9 +22,9 @@ public class ArmReleasePosition extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.ArmPID.ReleasePosition();
-    	SmartDashboard.putNumber("ArmPID Encoder Position", Robot.ArmPID.getEncoderPosition());
-    	SmartDashboard.putNumber("ArmPID Encoder Velocity", Robot.ArmPID.getEncoderPosition());
+    	Robot.armPID.ReleasePosition();
+    	SmartDashboard.putNumber("ArmPID Encoder Position", Robot.armPID.getEncoderPosition());
+    	SmartDashboard.putNumber("ArmPID Encoder Velocity", Robot.armPID.getEncoderPosition());
     }
 
     // Make this return true when this Command no longer needs to run execute()

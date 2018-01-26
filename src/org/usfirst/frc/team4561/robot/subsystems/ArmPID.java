@@ -14,6 +14,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
  * @author Max
  *
  */
+//TODO: Remove placeholder values
 public class ArmPID extends Subsystem {
 	private ControlMode follower = com.ctre.phoenix.motorcontrol.ControlMode.Follower;
 	private WPI_TalonSRX motorOne;

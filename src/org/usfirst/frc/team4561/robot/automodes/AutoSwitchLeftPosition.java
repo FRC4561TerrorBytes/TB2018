@@ -34,9 +34,9 @@ public class AutoSwitchLeftPosition extends CommandGroup {
         // arm.
     	
     	// we require DriveTrain, ArmPID, Intake
-    	requires(Robot.DriveTrain);
-    	requires(Robot.ArmPID);
-    	requires(Robot.Intake);
+    	requires(Robot.driveTrain);
+    	requires(Robot.armPID);
+    	requires(Robot.intake);
     	// get side of switch from FMS
     	addSequential(new CheckSwitchSide());
     	// on the left

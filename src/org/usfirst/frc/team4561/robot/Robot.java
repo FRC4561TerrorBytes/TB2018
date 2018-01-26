@@ -23,17 +23,17 @@ import org.usfirst.frc.team4561.robot.subsystems.*;
  * project.
  */
 public class Robot extends TimedRobot {
-	public static final DriveTrain DriveTrain = new DriveTrain();
-	public static OI m_oi;
-	public static final ElevatorPID ElevatorPID = new ElevatorPID();
-	public static final ArmPID ArmPID = new ArmPID();
-	public static final Intake Intake = new Intake();
+	public static final DriveTrain driveTrain = new DriveTrain();
+	public static OI oi;
+	public static final ElevatorPID elevatorPID = new ElevatorPID();
+	public static final ArmPID armPID = new ArmPID();
+	public static final Intake intake = new Intake();
 
-	Command m_autonomousCommand;
-	SendableChooser<Command> m_chooser = new SendableChooser<>();
-	public static Elevator m_Elevator = new Elevator();
+	Command autonomousCommand;
+	SendableChooser<Command> chooser = new SendableChooser<>();
+	//public static Elevator elevator = new Elevator();
 	public static Transmission transmission = new Transmission();
-	public static Arm m_Arm = new Arm(); // non-PID arm
+	//public static Arm arm = new Arm(); // non-PID arm
 	
 	public static boolean switchFMSSideRight; // true if right, false if left
 	public static boolean scaleFMSSideRight; // true if right, false if left
@@ -44,10 +44,13 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		m_oi = new OI();
+		oi = new OI();
+		assert false;
+		//TODO: CODE IS NOT READY TO RUN
+		//BEFORE REMOVING THIS ASSERT STATEMENT, REMOVE ALL PLACEHOLDER VALUES
 		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", m_chooser);
+		SmartDashboard.putData("Auto mode", chooser);
 	}
 
 	/**
@@ -78,7 +81,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = m_chooser.getSelected();
+		autonomousCommand = chooser.getSelected();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -88,8 +91,8 @@ public class Robot extends TimedRobot {
 		 */
 
 		// schedule the autonomous command (example)
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.start();
+		if (autonomousCommand != null) {
+			autonomousCommand.start();
 		}
 	}
 
@@ -107,8 +110,8 @@ public class Robot extends TimedRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (m_autonomousCommand != null) {
-			m_autonomousCommand.cancel();
+		if (autonomousCommand != null) {
+			autonomousCommand.cancel();
 		}
 	}
 

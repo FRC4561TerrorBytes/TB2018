@@ -9,8 +9,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Transmission extends Subsystem {
-	private WPI_TalonSRX motorOne = new WPI_TalonSRX(RobotMap.TRANSMISSION_SPEED_BUTTON);
-	private WPI_TalonSRX motorTwo = new WPI_TalonSRX(RobotMap.TRANSMISSION_TORQUE_BUTTON);
+	
 	
 	private DoubleSolenoid doubleSolenoidTrans;
 	

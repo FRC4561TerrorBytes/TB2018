@@ -35,10 +35,10 @@ public class AutoScaleLeftPosition extends CommandGroup {
         // arm.
     	
     	// we require DriveTrain, ArmPID, Intake
-    	requires(Robot.DriveTrain);
-    	requires(Robot.ArmPID);
-    	requires(Robot.Intake);
-    	requires(Robot.ElevatorPID);
+    	requires(Robot.driveTrain);
+    	requires(Robot.armPID);
+    	requires(Robot.intake);
+    	requires(Robot.elevatorPID);
     	// if our side is the left
     	if (!(Robot.scaleFMSSideRight)) {
     		addSequential(new TankDriveTimed(1, 1, 3)); // forward

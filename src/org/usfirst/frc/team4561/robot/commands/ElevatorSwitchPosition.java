@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class ElevatorSwitchPosition extends Command {
 	
 	public ElevatorSwitchPosition() {
-    	requires(Robot.ElevatorPID);
+    	requires(Robot.elevatorPID);
     }
 
     // Called just before this Command runs the first time
@@ -17,10 +17,10 @@ public class ElevatorSwitchPosition extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.ElevatorPID.SwitchPosition();
+    	Robot.elevatorPID.SwitchPosition();
     	
-    	SmartDashboard.putNumber("Elevator Speed", Robot.ElevatorPID.getElevatorSpeed());
-		SmartDashboard.putNumber("Elevator Pos", Robot.ElevatorPID.getElevatorPos());
+    	SmartDashboard.putNumber("Elevator Speed", Robot.elevatorPID.getElevatorSpeed());
+		SmartDashboard.putNumber("Elevator Pos", Robot.elevatorPID.getElevatorPos());
     }
 
     // Make this return true when this Command no longer needs to run execute()

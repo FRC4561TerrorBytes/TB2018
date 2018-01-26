@@ -12,7 +12,7 @@ import org.usfirst.frc.team4561.robot.commands.TankDriveTimed;
 public class AutoDriveToLine extends CommandGroup {
 	public AutoDriveToLine() {
 		// we need DriveTrain and transmission
-		requires(Robot.DriveTrain);
+		requires(Robot.driveTrain);
 		requires(Robot.transmission);
 		// torque mode
 		addSequential(new TorqueGear());
