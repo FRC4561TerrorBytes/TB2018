@@ -6,18 +6,18 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- * This command checks what side of the switch is ours.
+ * This command checks to see which side of the scale is ours.
  * This is currently in progress.
  * @author Ben
  */
-public class CheckSwitchSide extends Command {
+public class CheckScaleSide extends Command {
 
-    public CheckSwitchSide() {
+    public CheckScaleSide() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	// test to see if this works for the side of the switch:
+    	// TODO: change his so it works. this is a placeholder now.
     	System.out.println(DriverStation.getInstance().getGameSpecificMessage());
-    	Robot.switchFMSSideRight = DriverStation.getInstance().getGameSpecificMessage().charAt(0) == 'R';
+    	Robot.scaleFMSSideRight = DriverStation.getInstance().getGameSpecificMessage().charAt(0) == 'R';
     }
 
     // Called just before this Command runs the first time

@@ -2,20 +2,20 @@ package org.usfirst.frc.team4561.robot.automodes;
 
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.commands.ArmReleasePosition;
-import org.usfirst.frc.team4561.robot.commands.CheckSwitchSide;
+import org.usfirst.frc.team4561.robot.commands.ElevatorGroundPosition;
 import org.usfirst.frc.team4561.robot.commands.IntakeRelease;
 import org.usfirst.frc.team4561.robot.commands.TankDriveTimed;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- * This automode places a power cube on the switch if the robot is in the center of the arcade.
+ * This automode places a power cube on the scale if the robot is in the center of the Arcade.
  * This is currently in progress.
  * @author Ben
  */
-public class AutoSwitchCenterPosition extends CommandGroup {
+public class AutoScaleCenterPosition extends CommandGroup {
 
-    public AutoSwitchCenterPosition() {
+    public AutoScaleCenterPosition() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -32,36 +32,37 @@ public class AutoSwitchCenterPosition extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	
+ 
     	// we require DriveTrain, ArmPID, Intake
     	requires(Robot.DriveTrain);
     	requires(Robot.ArmPID);
     	requires(Robot.Intake);
-    	// get side of switch from FMS
-    	addSequential(new CheckSwitchSide());
-    	// on the right
-    	if (Robot.switchFMSSideRight) {
+    	requires(Robot.ElevatorPID);
+    	// if our side is the right
+    	if (Robot.scaleFMSSideRight) {
     		addSequential(new TankDriveTimed(1, 1, 1)); // forward
-    		addSequential(new TankDriveTimed(1, 0, 0.25)); // turn right
-    		addSequential(new TankDriveTimed(1, 1, 1.5)); // forward
-    		addSequential(new TankDriveTimed(0, 1, 0.25)); // turn left
-    		addSequential(new TankDriveTimed(1, 1, 1.25)); // forward
-    		addSequential(new TankDriveTimed(0, 1, 0.25)); // turn left
+    		addSequential(new TankDriveTimed(1, 0, 0.25)); // right
+    		addSequential(new TankDriveTimed(1, 1, 1)); // forward
+    		addSequential(new TankDriveTimed(0, 1, 0.25)); // left
+    		addSequential(new TankDriveTimed(1, 1, 2)); // forward
+    		addSequential(new TankDriveTimed(0, 1, 0.25)); // left
     		addSequential(new TankDriveTimed(1, 1, 0.25)); // forward
     		addSequential(new ArmReleasePosition()); // lift arm
     		addSequential(new IntakeRelease()); // drop power cube
+    		addSequential(new ElevatorGroundPosition()); // put the elevator down
     	}
-    	// on the left
+    	// if we are on the left
     	else {
     		addSequential(new TankDriveTimed(1, 1, 1)); // forward
-    		addSequential(new TankDriveTimed(0, 1, 0.25)); // turn left
-    		addSequential(new TankDriveTimed(1, 1, 1.5)); // forward
-    		addSequential(new TankDriveTimed(1, 0, 0.25)); // turn right
-    		addSequential(new TankDriveTimed(1, 1, 1.25)); // forward
-    		addSequential(new TankDriveTimed(1, 0, 0.25)); // turn right
+    		addSequential(new TankDriveTimed(0, 1, 0.25)); // left
+    		addSequential(new TankDriveTimed(1, 1, 1)); // forward
+    		addSequential(new TankDriveTimed(1, 0, 0.25)); // right
+    		addSequential(new TankDriveTimed(1, 1, 2)); // forward
+    		addSequential(new TankDriveTimed(1, 0, 0.25)); // right
     		addSequential(new TankDriveTimed(1, 1, 0.25)); // forward
     		addSequential(new ArmReleasePosition()); // lift arm
     		addSequential(new IntakeRelease()); // drop power cube
+    		addSequential(new ElevatorGroundPosition()); // put the elevator down
     	}
     }
 }

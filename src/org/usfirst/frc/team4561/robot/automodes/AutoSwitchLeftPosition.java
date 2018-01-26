@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  * This automode puts a block on the switch if the robot is on the left side of the field.
+ * This is currently in progress.
  * @author Ben
  */
 public class AutoSwitchLeftPosition extends CommandGroup {

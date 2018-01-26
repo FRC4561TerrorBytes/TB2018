@@ -7,6 +7,7 @@ import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.commands.TankDriveTimed;
 /**
  * This auto mode drives past the auto line if the robot is in the center of the field.
+ * This is currently in progress.
  * @author Ben
  */
 public class AutoDriveToLineCenter extends CommandGroup {
