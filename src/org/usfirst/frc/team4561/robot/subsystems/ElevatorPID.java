@@ -8,7 +8,13 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+
 //TODO: Remove placeholder values
+
+/**
+ * This is the PID Elevator subsystem
+ * @author Snehil
+ */
 public class ElevatorPID extends Subsystem {
 	
 	private ControlMode follower = com.ctre.phoenix.motorcontrol.ControlMode.Follower;
