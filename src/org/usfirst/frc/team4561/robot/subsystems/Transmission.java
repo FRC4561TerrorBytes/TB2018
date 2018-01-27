@@ -7,7 +7,10 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+/**
+ *This is the Transmission subsystem
+ * @author Krishna
+ */
 public class Transmission extends Subsystem {
 	
 	
