@@ -9,6 +9,11 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ *This is the SpeedGear command
+ *@author krishna
+ */
+
 public class SpeedGear extends Command {
 	private WPI_TalonSRX motorOne = new WPI_TalonSRX(RobotMap.TRANSMISSION_SPEED_BUTTON);
 	
