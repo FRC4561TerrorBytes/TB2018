@@ -5,6 +5,10 @@ import org.usfirst.frc.team4561.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ * @author Snehil
+ */
+
 public class ElevatorScalePosition extends Command {
 
 	public ElevatorScalePosition() {
