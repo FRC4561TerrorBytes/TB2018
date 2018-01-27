@@ -6,7 +6,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ *This is the IntakeLeft command
+ *@author karth
  */
 public class IntakeLeft extends Command {
 

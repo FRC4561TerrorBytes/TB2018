@@ -6,7 +6,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ *This is the IntakeRelease command
+ *@author karth
  */
 public class IntakeRelease extends Command {
 

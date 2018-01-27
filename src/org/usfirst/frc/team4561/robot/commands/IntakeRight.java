@@ -8,7 +8,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
- *
+ *This is the IntakeRight command
+ *@author karth
  */
 public class IntakeRight extends Command {
 
