@@ -33,12 +33,7 @@ public class AutoScaleRightPosition extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	
-    	// we require DriveTrain, ArmPID, Intake
-    	requires(Robot.driveTrain);
-    	requires(Robot.armPID);
-    	requires(Robot.intake);
-    	requires(Robot.elevatorPID);
+    
     	// if our side is the right
     	if (Robot.scaleFMSSideRight) {
     		addSequential(new TankDriveTimed(1, 1, 3)); // forward

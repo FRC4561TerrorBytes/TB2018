@@ -33,10 +33,6 @@ public class AutoSwitchCenterPosition extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	// we require DriveTrain, ArmPID, Intake
-    	requires(Robot.driveTrain);
-    	requires(Robot.armPID);
-    	requires(Robot.intake);
     	// get side of switch from FMS
     	addSequential(new CheckSwitchSide());
     	// on the right
