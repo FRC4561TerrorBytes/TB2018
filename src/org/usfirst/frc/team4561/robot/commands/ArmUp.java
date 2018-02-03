@@ -9,12 +9,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * Moves the non-PID arm up.
  * @author Ben
  */
+// Non-PID arm is not currently in use
+/**
 public class ArmUp extends Command {
 
     public ArmUp() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.m_Arm);
+    	requires(Robot.arm);
     }
 
     // Called just before this Command runs the first time
@@ -23,10 +25,10 @@ public class ArmUp extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.m_Arm.up();
+    	Robot.arm.up();
     	
-    	SmartDashboard.putNumber("Arm Encoder Position", Robot.m_Arm.getEncoderPosition());
-    	SmartDashboard.putNumber("Arm Encoder Velocity", Robot.m_Arm.getEncoderPosition());
+    	SmartDashboard.putNumber("Arm Encoder Position", Robot.arm.getEncoderPosition());
+    	SmartDashboard.putNumber("Arm Encoder Velocity", Robot.arm.getEncoderPosition());
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -36,7 +38,7 @@ public class ArmUp extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.m_Arm.stop();
+    	Robot.arm.stop();
     }
 
     // Called when another command which requires one or more of the same
@@ -45,3 +47,4 @@ public class ArmUp extends Command {
     	end();
     }
 }
+*/

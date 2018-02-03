@@ -18,7 +18,7 @@ public class TankDriveTimed extends Command {
     public TankDriveTimed(double left, double right, double seconds) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.DriveTrain);
+    	requires(Robot.driveTrain);
     	this.leftPower = left;
     	this.rightPower = right;
     	this.time = seconds;
@@ -34,7 +34,7 @@ public class TankDriveTimed extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.DriveTrain.tankDrive(leftPower, rightPower);
+    	Robot.driveTrain.tankDrive(leftPower, rightPower);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -47,7 +47,7 @@ public class TankDriveTimed extends Command {
         if (RobotMap.DRIVETRAIN_DEBUG) {
         	System.out.println("[Command] Stopping TankDriveTimed");
         }
-        Robot.DriveTrain.tankDrive(0, 0);
+        Robot.driveTrain.tankDrive(0, 0);
     }
 
     // Called when another command which requires one or more of the same

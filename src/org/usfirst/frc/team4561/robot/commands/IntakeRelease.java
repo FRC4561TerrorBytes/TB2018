@@ -6,12 +6,13 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ *This is the IntakeRelease command
+ *@author karth
  */
 public class IntakeRelease extends Command {
 
     public IntakeRelease() {
-        requires(Robot.Intake);
+        requires(Robot.intake);
     }
 
     // Called just before this Command runs the first time
@@ -21,9 +22,9 @@ public class IntakeRelease extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.Intake.release();
-    	SmartDashboard.putNumber("IntakeRelease Encoder Position", Robot.Intake.getIntakeLeftPosition());
-    	SmartDashboard.putNumber("IntakeRelease Encoder Velocity", Robot.Intake.getIntakeRightPosition());
+    	Robot.intake.release();
+    	SmartDashboard.putNumber("IntakeRelease Encoder Position", Robot.intake.getIntakeLeftPosition());
+    	SmartDashboard.putNumber("IntakeRelease Encoder Velocity", Robot.intake.getIntakeRightPosition());
     }
 
     // Make this return true when this Command no longer needs to run execute()

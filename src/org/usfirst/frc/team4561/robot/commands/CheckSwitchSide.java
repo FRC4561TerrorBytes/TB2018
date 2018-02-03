@@ -6,7 +6,9 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * This command checks what side of the switch is ours.
+ * This is currently in progress.
+ * @author Ben
  */
 public class CheckSwitchSide extends Command {
 

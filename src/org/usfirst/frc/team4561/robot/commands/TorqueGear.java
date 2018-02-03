@@ -12,6 +12,11 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+/**
+ *This is the TorqueGear command
+ *@author krishna
+ */
+
 public class TorqueGear extends Command {
 	private WPI_TalonSRX motorTwo = new WPI_TalonSRX(RobotMap.TRANSMISSION_TORQUE_BUTTON);
 	

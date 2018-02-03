@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  * This automode places a power cube on the switch if the robot is in the center of the arcade.
+ * This is currently in progress.
  * @author Ben
  */
 public class AutoSwitchCenterPosition extends CommandGroup {
@@ -31,10 +32,10 @@ public class AutoSwitchCenterPosition extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	requires(Robot.DriveTrain);
-    	requires(Robot.ArmPID);
-    	requires(Robot.Intake);
+    	
+    	// get side of switch from FMS
     	addSequential(new CheckSwitchSide());
+    	// on the right
     	if (Robot.switchFMSSideRight) {
     		addSequential(new TankDriveTimed(1, 1, 1)); // forward
     		addSequential(new TankDriveTimed(1, 0, 0.25)); // turn right
@@ -46,6 +47,7 @@ public class AutoSwitchCenterPosition extends CommandGroup {
     		addSequential(new ArmReleasePosition()); // lift arm
     		addSequential(new IntakeRelease()); // drop power cube
     	}
+    	// on the left
     	else {
     		addSequential(new TankDriveTimed(1, 1, 1)); // forward
     		addSequential(new TankDriveTimed(0, 1, 0.25)); // turn left

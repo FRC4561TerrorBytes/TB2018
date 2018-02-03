@@ -21,15 +21,21 @@ import org.usfirst.frc.team4561.robot.commands.*;
 public class OI {
 	private static Joystick leftStick = new Joystick (RobotMap.LEFT_JOYSTICK_PORT);
 	private static Joystick rightStick = new Joystick (RobotMap.RIGHT_JOYSTICK_PORT);
-	private static JoystickButton IntakePosition = new JoystickButton(leftStick, 5);
-	private static JoystickButton ReleasePosition = new JoystickButton(leftStick, 6);
-	private static JoystickButton intake = new JoystickButton (rightStick, RobotMap.IntakeButton);
-	private static JoystickButton release = new JoystickButton (rightStick, RobotMap.ReleaseButton);
+	private static JoystickButton intakePositionButton = new JoystickButton(leftStick, RobotMap.INTAKE_POSITION_BUTTON);
+	private static JoystickButton releasePositionButton = new JoystickButton(leftStick, RobotMap.RELEASE_POSITION_BUTTON);
+	private static JoystickButton intakeButton = new JoystickButton (rightStick, RobotMap.INTAKE_BUTTON);
+	private static JoystickButton releaseButton = new JoystickButton (rightStick, RobotMap.RELEASE_BUTTON);
+	private static JoystickButton speedButton = new JoystickButton(leftStick, RobotMap.TRANSMISSION_SPEED_BUTTON);
+	private static JoystickButton torqueButton = new JoystickButton(leftStick, RobotMap.TRANSMISSION_TORQUE_BUTTON);
 	
 	public OI () {
 		
-		IntakePosition.whenPressed(new ArmIntakePosition());
-		ReleasePosition.whenPressed(new ArmReleasePosition());
+		intakePositionButton.whenPressed(new ArmIntakePosition());
+		releasePositionButton.whenPressed(new ArmReleasePosition());
+		intakeButton.whileHeld(new IntakeIn());
+		releaseButton.whileHeld(new IntakeRelease());
+		speedButton.whenPressed(new SpeedGear());
+		torqueButton.whenPressed(new TorqueGear());
 	}
 	public double getRightStickY() {
 		
@@ -64,7 +70,6 @@ public double getLeftStickX() {
 	}
 	
 	public void matchMode () {
-		intake.whileHeld(new IntakeIn());
-		release.whileHeld(new IntakeRelease());
+		
 	}
 }

@@ -9,7 +9,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
- * This is the Intake
+ * This is the Intake subsystem
  * @author karth
  *
  */
@@ -21,9 +21,10 @@ public class Intake extends Subsystem {
 	private WPI_TalonSRX intakeLeftMotor;
 	private WPI_TalonSRX intakeRightMotor; 
 	
+	
 	public Intake () {
-		intakeLeftMotor = new WPI_TalonSRX (RobotMap.ARM_LEFT_MOTOR_PORT);
-		intakeRightMotor = new WPI_TalonSRX (RobotMap.ARM_RIGHT_MOTOR_PORT);
+		intakeLeftMotor = new WPI_TalonSRX (RobotMap.INTAKE_LEFT_MOTOR_PORT);
+		intakeRightMotor = new WPI_TalonSRX (RobotMap.INTAKE_RIGHT_MOTOR_PORT);
 		
 		intakeLeftMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		intakeRightMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
@@ -49,6 +50,7 @@ public class Intake extends Subsystem {
 		intakeRightMotor.set(-0.5);
 	}
 
+	//These two methods are mainly used in the Intake debug
 	public double getIntakeLeftPosition() {
     	return intakeLeftMotor.getSelectedSensorPosition(0);
     }
