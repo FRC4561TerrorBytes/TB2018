@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *This is the IntakeLeft command
- *@author karth
+ *@author Karth, Lucas
  */
 public class IntakeLeft extends Command {
 
@@ -17,19 +17,19 @@ public class IntakeLeft extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	setTimeout(0.125);
+    	//setTimeout(0.125);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.intake.leftIntake();
     	SmartDashboard.putNumber("IntakeLeft Encoder Position", Robot.intake.getIntakeLeftPosition());
-    	SmartDashboard.putNumber("IntakeLeft Encoder Velocity", Robot.intake.getIntakeRightPosition());
+    	SmartDashboard.putNumber("IntakeLeft Encoder Velocity", Robot.intake.getIntakeLeftVelocity());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return isTimedOut();
+        return false; //isTimedOut();
     }
 
     // Called once after isFinished returns true

@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * This is the Intake subsystem
- * @author karth
+ * @author Karth, Lucas
  *
  */
 
@@ -50,7 +50,7 @@ public class Intake extends Subsystem {
 		intakeRightMotor.set(-0.5);
 	}
 
-	//These two methods are mainly used in the Intake debug
+	//These four methods are mainly used in the Intake debug
 	public double getIntakeLeftPosition() {
     	return intakeLeftMotor.getSelectedSensorPosition(0);
     }
@@ -59,7 +59,13 @@ public class Intake extends Subsystem {
     	return intakeRightMotor.getSelectedSensorPosition(0);
     }
 	
+	public double getIntakeLeftVelocity() {
+		return intakeLeftMotor.getSelectedSensorVelocity(0);
+	}
 	
+	public double getIntakeRightVelocity() {
+		return intakeRightMotor.getSelectedSensorVelocity(0);
+	}
 
 	@Override
 	protected void initDefaultCommand() {
