@@ -73,12 +73,11 @@ public class RobotMap {
 
 	
 	// Debug variables
-	public static final boolean MASTER_DEBUG = false;
-	public static final boolean DRIVETRAIN_DEBUG = false || MASTER_DEBUG;
-	public static final boolean ELEVATOR_DEBUG = false || MASTER_DEBUG;
-	public static final boolean ARM_DEBUG = false || MASTER_DEBUG;
-	public static final boolean TRANSMISSION_DEBUG = false || MASTER_DEBUG;
-	public static final boolean INTAKE_DEBUG = false || MASTER_DEBUG;
+	public static final boolean DRIVETRAIN_DEBUG = false;
+	public static final boolean ELEVATOR_DEBUG = false;
+	public static final boolean TRANSMISSION_DEBUG = false;
+	public static final boolean ARM_DEBUG = false;
+	
 	
 	// If you are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:
