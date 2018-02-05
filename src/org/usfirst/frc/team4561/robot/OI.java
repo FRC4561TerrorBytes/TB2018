@@ -7,9 +7,6 @@
 
 package org.usfirst.frc.team4561.robot;
 
-//import org.usfirst.frc.team4561.robot.commands.ArmIntakePosition;
-//import org.usfirst.frc.team4561.robot.commands.ArmReleasePosition;
-import org.usfirst.frc.team4561.robot.commands.ArmUp;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.usfirst.frc.team4561.robot.commands.*;
@@ -65,7 +62,7 @@ public class OI {
 		
 	}
 	
-public double getLeftStickX() {
+	public double getLeftStickX() {
 		
 		double leftStickX = leftStick.getX(); 
 		
@@ -73,11 +70,8 @@ public double getLeftStickX() {
 		
 	}
 
-public boolean getLeftButton(int button){
-	return leftStick.getRawButton(button);
-}
-	
-	public void matchMode () {
-		
+	public boolean getLeftButton(int button){
+		return leftStick.getRawButton(button);
 	}
+	
 }
