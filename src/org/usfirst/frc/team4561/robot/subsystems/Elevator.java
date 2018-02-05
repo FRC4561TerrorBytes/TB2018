@@ -14,17 +14,12 @@ public class Elevator extends Subsystem {
 
     private WPI_TalonSRX motorOne;
     private WPI_TalonSRX motorTwo;
-    private WPI_TalonSRX motorThree;
-    private WPI_TalonSRX motorFour;
+
     public Elevator() {
     	motorOne = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_1_PORT);
     	motorOne.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
     	motorTwo = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_2_PORT);
     	motorTwo.set(ControlMode.Follower, RobotMap.ELEVATOR_MOTOR_1_PORT);
-    	motorThree = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_3_PORT);
-    	motorThree.set(ControlMode.Follower, RobotMap.ELEVATOR_MOTOR_1_PORT);
-    	motorFour = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_4_PORT);
-    	motorFour.set(ControlMode.Follower, RobotMap.ELEVATOR_MOTOR_1_PORT);
     }
     
     public void climbUp() {
