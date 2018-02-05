@@ -23,13 +23,14 @@ public class Arm extends Subsystem {
 	public Arm() {
 		motorOne = new WPI_TalonSRX(RobotMap.ARM_MOTOR_1_PORT);
 		motorOne.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-		motorTwo = new WPI_TalonSRX(RobotMap.ARM_MOTOR_2_PORT);
-		motorTwo.set(follower, RobotMap.ARM_MOTOR_1_PORT);
+		motorOne.setSensorPhase(true);
+		//motorTwo = new WPI_TalonSRX(RobotMap.ARM_MOTOR_2_PORT);
+		//motorTwo.set(follower, RobotMap.ARM_MOTOR_1_PORT);
 	}
 	
 	public void down() {
 		// down (half speed)
-		motorOne.set(-0.5);
+		motorOne.set(-0.1);
 		if (RobotMap.ARM_DEBUG) {
 			System.out.println("[Subsystem] Non-PID Arm: Going down");
 		}
@@ -37,7 +38,7 @@ public class Arm extends Subsystem {
 	
 	public void up() {
 		// up (half speed)
-		motorOne.set(0.5);
+		motorOne.set(0.1);
 		if (RobotMap.ARM_DEBUG) {
 			System.out.println("[Subsystem] Non-PID Arm: Going up");
 		}
@@ -57,6 +58,10 @@ public class Arm extends Subsystem {
     
     public double getEncoderPosition() {
     	return motorOne.getSelectedSensorPosition(0);
+    }
+    
+    public void resetEncoder(){
+    	motorOne.setSelectedSensorPosition(0, 0, 0);
     }
     
     /**

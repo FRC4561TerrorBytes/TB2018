@@ -26,8 +26,11 @@ public class RobotMap {
 	public static final int RELEASE_BUTTON = 0;
 	public static final int INTAKE_BUTTON = 0;
 	
-	public static final int INTAKE_POSITION_BUTTON = 0;
-	public static final int RELEASE_POSITION_BUTTON = 0;
+	public static final int INTAKE_POSITION_BUTTON = 2;
+	public static final int RELEASE_POSITION_BUTTON = 2;
+	
+	public static final int ARM_UP_BUTTON = 1;
+	public static final int ARM_DOWN_BUTTON = 1;
 	
 	public static final int TRANSMISSION_SPEED_BUTTON = 6;
 	public static final int TRANSMISSION_TORQUE_BUTTON = 4;
@@ -56,7 +59,7 @@ public class RobotMap {
 	public static final int ELEVATOR_MOTOR_2_PORT = 0;	
 	
 	// Arm ports (zeros for placeholders)
-	public static final int ARM_MOTOR_1_PORT = 0;
+	public static final int ARM_MOTOR_1_PORT = 2;
 	public static final int ARM_MOTOR_2_PORT = 0;
 
 	//Intake ports
@@ -65,15 +68,16 @@ public class RobotMap {
 	
 	//Transmission Ports
 	public static final int TRANSMISSION_SOLENOID_PORT = 0;
-	public static int TRANSMISSION_SOLENOID_TWO_PORT = 2;
+	public static int TRANSMISSION_SOLENOID_TWO_PORT = 0;
 	public static int PCM = 7;
 
 	
 	// Debug variables
-	public static final boolean DRIVETRAIN_DEBUG = false;
-	public static final boolean ELEVATOR_DEBUG = false;
-	public static final boolean TRANSMISSION_DEBUG = false;
-	public static final boolean ARM_DEBUG = false;
+	public static final boolean MASTER_DEBUG = false;
+	public static final boolean DRIVETRAIN_DEBUG = false || MASTER_DEBUG;
+	public static final boolean ELEVATOR_DEBUG = false || MASTER_DEBUG;
+	public static final boolean TRANSMISSION_DEBUG = false || MASTER_DEBUG;
+	public static final boolean ARM_DEBUG = true || MASTER_DEBUG;
 	
 	
 	// If you are using multiple modules, make sure to define both the port

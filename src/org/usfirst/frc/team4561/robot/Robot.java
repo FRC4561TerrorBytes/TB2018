@@ -27,6 +27,7 @@ public class Robot extends TimedRobot {
 	public static OI oi;
 	public static final ElevatorPID elevatorPID = new ElevatorPID();
 	public static final ArmPID armPID = new ArmPID();
+	public static final Arm arm = new Arm();
 	public static final Intake intake = new Intake();
 
 	Command autonomousCommand;
@@ -45,12 +46,14 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		assert false;
-		//TODO: CODE IS NOT READY TO RUN
+		//assert false;
+		//TODO: CODE IS NOT READY TO RUN ON THE ROBOT
+			//AS OF 2-1-2018, THIS CODE WAS MADE READY TO TEST THE ARM
 		//BEFORE REMOVING THIS ASSERT STATEMENT, REMOVE ALL PLACEHOLDER VALUES
 		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
+		System.out.println("Things are not on fire");
 	}
 
 	/**
@@ -66,6 +69,13 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		//arm.resetEncoder();
+	}
+	
+	public void robotPeriodic(){
+		SmartDashboard.putNumber("ArmPID Encoder Position", Robot.armPID.getEncoderPosition());
+    	SmartDashboard.putNumber("ArmPID Encoder Velocity", Robot.armPID.getEncoderVelocity());
+    	SmartDashboard.putBoolean("SmartDashboard Works", true);
 	}
 
 	/**
@@ -121,6 +131,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
 	}
 
 	/**
