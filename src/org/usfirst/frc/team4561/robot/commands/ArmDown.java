@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * @author Ben
  */
 // Non-PID arm is not currently in use
-/**
+
 public class ArmDown extends Command {
 
     public ArmDown() {
@@ -28,7 +28,7 @@ public class ArmDown extends Command {
     	Robot.arm.down();
     	
     	SmartDashboard.putNumber("Arm Encoder Position", Robot.arm.getEncoderPosition());
-    	SmartDashboard.putNumber("Arm Encoder Velocity", Robot.arm.getEncoderPosition());
+    	SmartDashboard.putNumber("Arm Encoder Velocity", Robot.arm.getEncoderVelocity());
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -47,4 +47,4 @@ public class ArmDown extends Command {
     	end();
     }
 }
-*/
+

@@ -7,9 +7,9 @@
 
 package org.usfirst.frc.team4561.robot;
 
-import org.usfirst.frc.team4561.robot.commands.ArmIntakePosition;
-import org.usfirst.frc.team4561.robot.commands.ArmReleasePosition;
-
+//import org.usfirst.frc.team4561.robot.commands.ArmIntakePosition;
+//import org.usfirst.frc.team4561.robot.commands.ArmReleasePosition;
+import org.usfirst.frc.team4561.robot.commands.ArmUp;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.usfirst.frc.team4561.robot.commands.*;
@@ -22,9 +22,11 @@ public class OI {
 	private static Joystick leftStick = new Joystick (RobotMap.LEFT_JOYSTICK_PORT);
 	private static Joystick rightStick = new Joystick (RobotMap.RIGHT_JOYSTICK_PORT);
 	private static JoystickButton intakePositionButton = new JoystickButton(leftStick, RobotMap.INTAKE_POSITION_BUTTON);
-	private static JoystickButton releasePositionButton = new JoystickButton(leftStick, RobotMap.RELEASE_POSITION_BUTTON);
+	private static JoystickButton releasePositionButton = new JoystickButton(rightStick, RobotMap.RELEASE_POSITION_BUTTON);
 	private static JoystickButton intakeButton = new JoystickButton (rightStick, RobotMap.INTAKE_BUTTON);
 	private static JoystickButton releaseButton = new JoystickButton (rightStick, RobotMap.RELEASE_BUTTON);
+	private static JoystickButton armUpButton = new JoystickButton (leftStick, RobotMap.ARM_UP_BUTTON);
+	private static JoystickButton armDownButton = new JoystickButton(rightStick, RobotMap.ARM_DOWN_BUTTON);
 	private static JoystickButton speedButton = new JoystickButton(leftStick, RobotMap.TRANSMISSION_SPEED_BUTTON);
 	private static JoystickButton torqueButton = new JoystickButton(leftStick, RobotMap.TRANSMISSION_TORQUE_BUTTON);
 	
@@ -36,6 +38,8 @@ public class OI {
 		releaseButton.whileHeld(new IntakeRelease());
 		speedButton.whenPressed(new SpeedGear());
 		torqueButton.whenPressed(new TorqueGear());
+		//armUpButton.whileHeld(new ArmUp());
+		//armDownButton.whileHeld(new ArmDown());
 	}
 	public double getRightStickY() {
 		
@@ -68,6 +72,10 @@ public double getLeftStickX() {
 		return leftStickX;
 		
 	}
+
+public boolean getLeftButton(int button){
+	return leftStick.getRawButton(button);
+}
 	
 	public void matchMode () {
 		
