@@ -4,12 +4,12 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  *This is the IntakeIn command
- *@author karth
+ *@author Karth, Lucas
  */
 public class IntakeIn extends CommandGroup {
 
     public IntakeIn() {
-        addSequential(new IntakeLeft());
+        addParallel(new IntakeLeft());
         addSequential(new IntakeRight());        
     }
 }
