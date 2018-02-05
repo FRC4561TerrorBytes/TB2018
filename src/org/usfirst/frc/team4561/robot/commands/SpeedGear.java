@@ -48,9 +48,7 @@ protected void execute() {
 }
 
 
-protected boolean isFinished1() {
-	return isTimedOut();
-	}
+
 
 protected void end() {
 	if (RobotMap.TRANSMISSION_DEBUG)
@@ -59,7 +57,7 @@ protected void end() {
 
 
 	protected boolean isFinished() {
-		return false;
+		return isTimedOut();
 	}
 
 }
