@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
+ * This is the Elavator PID subsystem
  * @author Snehil
  */
 
@@ -20,20 +21,16 @@ public class ElevatorPID extends Subsystem {
 
 	private WPI_TalonSRX motorOne = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_1_PORT);
 	private WPI_TalonSRX motorTwo = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_2_PORT);
-	private WPI_TalonSRX motorThree = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_3_PORT);
-	private WPI_TalonSRX motorFour = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_4_PORT);
 	
 	public ElevatorPID() {
 		motorOne.set(RobotMap.ELEVATOR_MOTOR_1_PORT);
 		motorTwo.set(follower, RobotMap.ELEVATOR_MOTOR_1_PORT);
-		motorThree.set(follower, RobotMap.ELEVATOR_MOTOR_1_PORT);
-		motorFour.set(follower, RobotMap.ELEVATOR_MOTOR_1_PORT);
 		
 		motorOne.set(ControlMode.Position , 0);
 		motorOne.config_kF(0, 0, 0);
 		motorOne.config_kP(0, 0, 0);
 		motorOne.config_kI(0, 0, 0);
-		motorOne.config_kP(0, 0, 0);
+		motorOne.config_kD(0, 0, 0);
 	}
 	
 	public void setmotorOnePower(double power) {
