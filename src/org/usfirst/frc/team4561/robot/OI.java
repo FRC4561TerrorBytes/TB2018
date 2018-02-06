@@ -7,9 +7,6 @@
 
 package org.usfirst.frc.team4561.robot;
 
-//import org.usfirst.frc.team4561.robot.commands.ArmIntakePosition;
-//import org.usfirst.frc.team4561.robot.commands.ArmReleasePosition;
-import org.usfirst.frc.team4561.robot.commands.ArmUp;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.usfirst.frc.team4561.robot.commands.*;
@@ -32,8 +29,8 @@ public class OI {
 	
 	public OI () {
 		
-		//intakePositionButton.whenPressed(new ArmIntakePosition());
-		//releasePositionButton.whenPressed(new ArmReleasePosition());
+		intakePositionButton.whenPressed(new ArmIntakePosition());
+		releasePositionButton.whenPressed(new ArmReleasePosition());
 		intakeButton.whileHeld(new IntakeIn());
 		releaseButton.whileHeld(new IntakeRelease());
 		speedButton.whenPressed(new SpeedGear());
@@ -65,7 +62,7 @@ public class OI {
 		
 	}
 	
-public double getLeftStickX() {
+	public double getLeftStickX() {
 		
 		double leftStickX = leftStick.getX(); 
 		
@@ -73,15 +70,12 @@ public double getLeftStickX() {
 		
 	}
 
-public boolean getLeftButton(int button){
-	return leftStick.getRawButton(button);
-}
+	public boolean getLeftButton(int button){
+		return leftStick.getRawButton(button);
+	}
 
 public boolean getRightButton(int button){
 	return rightStick.getRawButton(button);
 }
 	
-	public void matchMode () {
-		
-	}
 }
