@@ -23,8 +23,8 @@ public class RobotMap {
 	public static final int RIGHT_JOYSTICK_PORT = 1;
 	
 	//Buttons
-	public static final int RELEASE_BUTTON = 0;
-	public static final int INTAKE_BUTTON = 0;
+	public static final int RELEASE_BUTTON = 99;
+	public static final int INTAKE_BUTTON = 99;
 	
 	public static final int INTAKE_POSITION_BUTTON = 2;
 	public static final int RELEASE_POSITION_BUTTON = 2;
@@ -32,8 +32,8 @@ public class RobotMap {
 	public static final int ARM_UP_BUTTON = 1;
 	public static final int ARM_DOWN_BUTTON = 1;
 	
-	public static final int TRANSMISSION_SPEED_BUTTON = 6;
-	public static final int TRANSMISSION_TORQUE_BUTTON = 4;
+	public static final int TRANSMISSION_SPEED_BUTTON = 99;
+	public static final int TRANSMISSION_TORQUE_BUTTON = 99;
 	
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
@@ -72,7 +72,7 @@ public class RobotMap {
 	//Transmission Ports
 	public static final int TRANSMISSION_SOLENOID_PORT = 0;
 	public static int TRANSMISSION_SOLENOID_TWO_PORT = 0;
-	public static int PCM = 7;
+	public static int PCM = 0;
 
 	
 	// Debug variables

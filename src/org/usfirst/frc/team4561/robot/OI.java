@@ -32,8 +32,8 @@ public class OI {
 	
 	public OI () {
 		
-		intakePositionButton.whenPressed(new ArmIntakePosition());
-		releasePositionButton.whenPressed(new ArmReleasePosition());
+		//intakePositionButton.whenPressed(new ArmIntakePosition());
+		//releasePositionButton.whenPressed(new ArmReleasePosition());
 		intakeButton.whileHeld(new IntakeIn());
 		releaseButton.whileHeld(new IntakeRelease());
 		speedButton.whenPressed(new SpeedGear());
@@ -75,6 +75,10 @@ public double getLeftStickX() {
 
 public boolean getLeftButton(int button){
 	return leftStick.getRawButton(button);
+}
+
+public boolean getRightButton(int button){
+	return rightStick.getRawButton(button);
 }
 	
 	public void matchMode () {
