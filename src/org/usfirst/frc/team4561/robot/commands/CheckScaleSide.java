@@ -15,9 +15,10 @@ public class CheckScaleSide extends Command {
     public CheckScaleSide() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	// TODO: change his so it works. this is a placeholder now.
+    	//change his so it works. this is a placeholder now.
+    		//it works now
     	System.out.println(DriverStation.getInstance().getGameSpecificMessage());
-    	Robot.scaleFMSSideRight = DriverStation.getInstance().getGameSpecificMessage().charAt(0) == 'R';
+    	Robot.scaleFMSSideRight = DriverStation.getInstance().getGameSpecificMessage().charAt(1) == 'R';
     }
 
     // Called just before this Command runs the first time

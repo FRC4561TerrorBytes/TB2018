@@ -17,9 +17,7 @@ public class Arm extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-	private ControlMode follower = com.ctre.phoenix.motorcontrol.ControlMode.Follower;
 	private WPI_TalonSRX motorOne;
-	private WPI_TalonSRX motorTwo;
 	public Arm() {
 		motorOne = new WPI_TalonSRX(RobotMap.ARM_MOTOR_1_PORT);
 		motorOne.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);

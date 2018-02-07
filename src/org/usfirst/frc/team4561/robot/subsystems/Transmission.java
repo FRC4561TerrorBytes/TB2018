@@ -34,8 +34,7 @@ public class Transmission extends Subsystem {
 		
 		
 		doubleSolenoidTrans.set(DoubleSolenoid.Value.kForward);
-		String currentState;
-		String lastChange = currentState = "Torque";
+		
 		
 		
 	}
@@ -52,8 +51,7 @@ public class Transmission extends Subsystem {
   			System.out.println("[Transmission] Switching to high speed gear...");
 		}
   			doubleSolenoidTrans.set(DoubleSolenoid.Value.kReverse);
-  			String currentState;
-  			String lastChange = currentState = "Speed";
+  			
 		
 	
 	}
@@ -67,9 +65,8 @@ public class Transmission extends Subsystem {
 		if (RobotMap.TRANSMISSION_DEBUG) {
   			System.out.println("[Transmission] Robot stops");
 		}
-  			doubleSolenoidTrans.set(DoubleSolenoid.Value.kReverse);
-  			String currentState;
-  			String lastChange = currentState = "Off";
+  			doubleSolenoidTrans.set(DoubleSolenoid.Value.kOff);
+  			
 		
 	}
 	

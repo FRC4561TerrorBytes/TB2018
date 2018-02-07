@@ -1,6 +1,8 @@
 package org.usfirst.frc.team4561.robot.subsystems;
 
 import org.usfirst.frc.team4561.robot.RobotMap;
+import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
+import org.usfirst.frc.team4561.robot.commands.TankDrive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -110,8 +112,12 @@ public class DriveTrainPID extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
-		
+		if (RobotMap.DRIVE_MODE == 1){
+			setDefaultCommand(new ArcadeDrive());
+		}
+		else{
+			setDefaultCommand(new TankDrive());
+		}
 	}	
 
 }

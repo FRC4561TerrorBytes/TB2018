@@ -29,8 +29,6 @@ public class OI {
 	
 	public OI () {
 		
-		intakePositionButton.whenPressed(new ArmIntakePosition());
-		releasePositionButton.whenPressed(new ArmReleasePosition());
 		intakeButton.whileHeld(new IntakeIn());
 		releaseButton.whileHeld(new IntakeRelease());
 		speedButton.whenPressed(new SpeedGear());

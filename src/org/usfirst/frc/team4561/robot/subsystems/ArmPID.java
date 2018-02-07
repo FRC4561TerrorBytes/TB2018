@@ -17,9 +17,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
  * @author Max
  *
  */
-//TODO: Remove placeholder values
 public class ArmPID extends Subsystem {
-	private ControlMode follower = com.ctre.phoenix.motorcontrol.ControlMode.Follower;
 	private WPI_TalonSRX motorOne;
 	private int goal = 0;
 	//private WPI_TalonSRX motorTwo;
@@ -28,12 +26,13 @@ public class ArmPID extends Subsystem {
 		motorOne.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		motorOne.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
 		motorOne.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
-		motorOne.configSetParameter(ParamEnum.eClearPositionOnLimitF, 1, 0, 0, 0);
+		motorOne.configSetParameter(ParamEnum.eClearPositionOnLimitR, 1, 0, 0, 0);
+		motorOne.configSetParameter(ParamEnum.eClearPositionOnLimitF, 0, 0, 0, 0);
 		//motorTwo = new WPI_TalonSRX(RobotMap.ARM_MOTOR_2_PORT);
 		//motorTwo.set(followerRobotMap.ARM_MOTOR_1_PORT);
 		motorOne.config_kP(0, 90, 0);
 		motorOne.config_kI(0, 0.005, 0);
-		motorOne.config_kD(0, 0, 0);
+		motorOne.config_kD(0, 45, 0);
 		motorOne.configPeakOutputForward(0.5, 0);
 		motorOne.configPeakOutputReverse(-0.5, 0);
 		motorOne.configNominalOutputForward(0, 0);
@@ -50,7 +49,7 @@ public class ArmPID extends Subsystem {
 		}
 	//Arm in straight release position
 	public void ReleasePosition() {
-		goal = -1000;
+		goal = 1120;
 		setToGoal();
 		if (RobotMap.ARM_DEBUG) {
 			System.out.println("[Subsystem] ArmPID: Up to Release Position");
@@ -67,9 +66,11 @@ public class ArmPID extends Subsystem {
     }
     public void increaseGoal(){
     		goal = goal + 20;
+    		setToGoal();
     }
     public void decreaseGoal(){
     		goal = goal - 20;
+    		setToGoal();
     }
     /**
      * Gets the encoder velocity of the arm.
@@ -83,8 +84,19 @@ public class ArmPID extends Subsystem {
     }
 	@Override
 	protected void initDefaultCommand() {
-		//setDefaultCommand(new ArmDrive());
+		setDefaultCommand(new ArmDrive());
 
+	}
+	
+	public void setEncoderPos(int pos){
+		motorOne.setSelectedSensorPosition(0, pos, 0);
+	}
+	
+	public boolean getFwdSwitch(){
+		return motorOne.getSensorCollection().isFwdLimitSwitchClosed();
+	}
+	public boolean getRevSwitch(){
+		return motorOne.getSensorCollection().isRevLimitSwitchClosed();
 	}
 	
 

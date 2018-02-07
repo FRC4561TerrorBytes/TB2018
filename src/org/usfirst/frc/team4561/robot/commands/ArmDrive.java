@@ -22,7 +22,16 @@ public class ArmDrive extends Command {
 		if (Robot.oi.getLeftButton(4)){
 			Robot.armPID.decreaseGoal();
 		}
+		if (Robot.oi.getLeftButton(2)){
+			Robot.armPID.IntakePosition();
+		}
+		if (Robot.oi.getRightButton(2)){
+			Robot.armPID.ReleasePosition();
+		}
 		Robot.armPID.setToGoal();
+		if (Robot.armPID.getFwdSwitch()){
+			Robot.armPID.setEncoderPos(1120);
+		}
 	}
 	
 	protected void stop(){
