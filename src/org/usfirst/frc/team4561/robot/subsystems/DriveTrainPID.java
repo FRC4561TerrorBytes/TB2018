@@ -84,9 +84,15 @@ public class DriveTrainPID extends Subsystem {
 				rightMotorOutput = xSpeed - zRotation;
 			}
 		}
-			
-		frontRight.set(velocity, maxSpeed * rightMotorOutput);
-		frontLeft.set(velocity, maxSpeed * leftMotorOutput);
+		
+		if (RobotMap.DRIVETRAIN_PID){
+			frontRight.set(velocity, maxSpeed * rightMotorOutput);
+			frontLeft.set(velocity, maxSpeed * leftMotorOutput);
+		}
+		else{
+			frontRight.set(ControlMode.PercentOutput, rightMotorOutput);
+			frontLeft.set(ControlMode.PercentOutput, leftMotorOutput);
+		}
 	}
 		
 	//Set the right and left sides of the robot to speeds based on input speeds in both motor sides.
@@ -94,9 +100,15 @@ public class DriveTrainPID extends Subsystem {
 			
 		leftSpeed = limit(leftSpeed);
 		rightSpeed = limit(rightSpeed);
-		    
-		frontRight.set(velocity, maxSpeed * rightSpeed);
-		frontLeft.set(velocity, maxSpeed * leftSpeed);
+		
+		if (RobotMap.DRIVETRAIN_PID){
+			frontRight.set(velocity, maxSpeed * rightSpeed);
+			frontLeft.set(velocity, maxSpeed * leftSpeed);
+		}
+		else {
+			frontRight.set(ControlMode.PercentOutput, rightSpeed);
+			frontLeft.set(ControlMode.PercentOutput, leftSpeed);
+		}
 	}
 		
 	//Set value to number between -1 and 1

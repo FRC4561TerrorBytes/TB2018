@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4561.robot.subsystems;
 
 import org.usfirst.frc.team4561.robot.RobotMap;
+import org.usfirst.frc.team4561.robot.commands.ElevatorDrive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -22,8 +23,10 @@ public class ElevatorPID extends Subsystem {
 	private WPI_TalonSRX motorOne = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_1_PORT);
 	private WPI_TalonSRX motorTwo = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_2_PORT);
 	
+	private int goal = 0;
+	
 	public ElevatorPID() {
-		motorOne.set(RobotMap.ELEVATOR_MOTOR_1_PORT);
+		//motorOne.set(RobotMap.ELEVATOR_MOTOR_1_PORT);
 		motorTwo.set(follower, RobotMap.ELEVATOR_MOTOR_1_PORT);
 		
 		motorOne.config_kP(0, 0, 0);
@@ -32,22 +35,42 @@ public class ElevatorPID extends Subsystem {
 	}
 	
 	
-	
+	public void set(double speed){
+		goal = goal + (int) (speed*20);
+		if (RobotMap.ELEVATOR_PID) setToGoal();
+		else motorOne.set(ControlMode.PercentOutput, speed);
+	}
+	public void setToGoal(){
+		motorOne.set(ControlMode.Position, goal);
+	}
+	public void stop(){
+		motorOne.set(ControlMode.PercentOutput, 0);
+	}
 	//Elevator position with Arm touching ground
 	public void GroundPosition() {
-		motorOne.set(ControlMode.Position, 0);
+		goal = 0;
+		if (RobotMap.ELEVATOR_PID) setToGoal();
 	}
 	
 	//Elevator position with Arm at switch height
 	public void SwitchPosition() {
-		motorOne.set(ControlMode.Position, 0.25);
+		goal = 0;
+		if (RobotMap.ELEVATOR_PID) setToGoal();
 	}
 	
 	//Elevator position with Arm at scale height
-	public void ScalePosition() {
-		motorOne.set(ControlMode.Position, 1);
+	public void ScalePositionMid() {
+		goal = 0;
+		if (RobotMap.ELEVATOR_PID) setToGoal();
 	}
-	
+	public void ScalePositionLow(){
+		goal = 0;
+		if (RobotMap.ELEVATOR_PID) setToGoal();
+	}
+	public void ScalePositionHigh(){
+		goal = 0;
+		if (RobotMap.ELEVATOR_PID) setToGoal();
+	}
 	public double getElevatorPos(){
 		return motorOne.getSelectedSensorPosition(0);
 	}
@@ -59,6 +82,7 @@ public class ElevatorPID extends Subsystem {
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
+		setDefaultCommand(new ElevatorDrive());
 
 	}
 

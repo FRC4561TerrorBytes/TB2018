@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4561.robot.automodes;
 
 import org.usfirst.frc.team4561.robot.Robot;
+import org.usfirst.frc.team4561.robot.commands.ArmReleasePosition;
 import org.usfirst.frc.team4561.robot.commands.CheckSwitchSide;
 import org.usfirst.frc.team4561.robot.commands.IntakeRelease;
 import org.usfirst.frc.team4561.robot.commands.TankDriveTimed;
@@ -37,7 +38,7 @@ public class AutoSwitchRightPosition extends CommandGroup {
     	// on the right
     	if (Robot.switchFMSSideRight) {
     		addSequential(new TankDriveTimed(1, 1, 2)); // forward
-    		Robot.armPID.ReleasePosition();
+    		addSequential(new ArmReleasePosition());
     		addSequential(new IntakeRelease()); // drop power cube
     	}
     	// on the left
@@ -47,7 +48,7 @@ public class AutoSwitchRightPosition extends CommandGroup {
     		addSequential(new TankDriveTimed(1, 1, 2)); // forward
     		addSequential(new TankDriveTimed(1, 0, 0.25)); // turn right
     		addSequential(new TankDriveTimed(1, 1, 1)); // forward
-    		Robot.armPID.ReleasePosition();
+    		addSequential(new ArmReleasePosition());
     		addSequential(new IntakeRelease()); // drop power cube
     	}
     }

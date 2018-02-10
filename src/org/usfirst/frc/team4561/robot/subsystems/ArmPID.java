@@ -42,17 +42,24 @@ public class ArmPID extends Subsystem {
 	// Arm on ground to intake block
 	public void IntakePosition() {
 		goal = 0;
-		setToGoal();
+		if (RobotMap.ARM_PID) setToGoal();
 		if (RobotMap.ARM_DEBUG) {
 			System.out.println("[Subsystem] ArmPID: Down to Intake Position");
 			}
 		}
 	//Arm in straight release position
 	public void ReleasePosition() {
-		goal = 1120;
-		setToGoal();
+		goal = 120;
+		if (RobotMap.ARM_PID) setToGoal();
 		if (RobotMap.ARM_DEBUG) {
 			System.out.println("[Subsystem] ArmPID: Up to Release Position");
+		}
+	}
+	public void UpPostition(){
+		goal = 1000;
+		if (RobotMap.ARM_PID) setToGoal();
+		if (RobotMap.ARM_DEBUG){
+			System.out.println("[Subsystem] ArmPID: Up to Up Position");
 		}
 	}
 	/**
@@ -64,13 +71,10 @@ public class ArmPID extends Subsystem {
     public double getEncoderPosition() {
     	return motorOne.getSelectedSensorPosition(0);
     }
-    public void increaseGoal(){
-    		goal = goal + 20;
-    		setToGoal();
-    }
-    public void decreaseGoal(){
-    		goal = goal - 20;
-    		setToGoal();
+    public void set(double speed){
+    		goal = goal + (int) (20*speed);
+    		if (RobotMap.ARM_PID) setToGoal();
+    		else motorOne.set(ControlMode.PercentOutput, 0.5*speed);;
     }
     /**
      * Gets the encoder velocity of the arm.

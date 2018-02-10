@@ -24,9 +24,8 @@ import org.usfirst.frc.team4561.robot.subsystems.*;
 public class Robot extends IterativeRobot {
 	public static final DriveTrainPID driveTrain = new DriveTrainPID();
 	public static OI oi;
-	public static final ElevatorPID elevatorPID = new ElevatorPID();
-	public static final ArmPID armPID = new ArmPID();
-	public static final Arm arm = new Arm();
+	public static final ElevatorPID elevator = new ElevatorPID();
+	public static final ArmPID arm = new ArmPID();
 	public static final Intake intake = new Intake();
 
 	Command autonomousCommand;
@@ -72,9 +71,10 @@ public class Robot extends IterativeRobot {
 	}
 	
 	public void robotPeriodic(){
-		SmartDashboard.putNumber("ArmPID Encoder Position", Robot.armPID.getEncoderPosition());
-    	SmartDashboard.putNumber("ArmPID Encoder Velocity", Robot.armPID.getEncoderVelocity());
+		SmartDashboard.putNumber("ArmPID Encoder Position", Robot.arm.getEncoderPosition());
+    	SmartDashboard.putNumber("ArmPID Encoder Velocity", Robot.arm.getEncoderVelocity());
     	SmartDashboard.putBoolean("SmartDashboard Works", true);
+    	//SmartDashboard.putNumber("Controller POV", oi.getControllerPOV());
 	}
 
 	/**

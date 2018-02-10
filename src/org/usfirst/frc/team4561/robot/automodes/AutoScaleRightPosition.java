@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4561.robot.automodes;
 
 import org.usfirst.frc.team4561.robot.Robot;
+import org.usfirst.frc.team4561.robot.commands.ArmReleasePosition;
 import org.usfirst.frc.team4561.robot.commands.ElevatorGroundPosition;
 import org.usfirst.frc.team4561.robot.commands.ElevatorScalePosition;
 import org.usfirst.frc.team4561.robot.commands.IntakeRelease;
@@ -39,7 +40,7 @@ public class AutoScaleRightPosition extends CommandGroup {
     		addSequential(new TankDriveTimed(0, 1, 0.25)); // left
     		addSequential(new TankDriveTimed(1, 1, 0.25)); // forward
     		addSequential(new ElevatorScalePosition()); // elevate
-    		Robot.armPID.ReleasePosition();
+    		addSequential(new ArmReleasePosition());
     		addSequential(new IntakeRelease()); // drop power cube
     		addSequential(new ElevatorGroundPosition()); // put the elevator down
     	}
@@ -53,7 +54,7 @@ public class AutoScaleRightPosition extends CommandGroup {
     		addSequential(new TankDriveTimed(1, 0, 0.25)); // right
     		addSequential(new TankDriveTimed(1, 1, 0.25)); // forward
     		addSequential(new ElevatorScalePosition()); // elevate
-    		Robot.armPID.ReleasePosition();
+    		addSequential(new ArmReleasePosition());
     		addSequential(new IntakeRelease()); // drop power cube
     		addSequential(new ElevatorGroundPosition()); // put the elevator down
     	}

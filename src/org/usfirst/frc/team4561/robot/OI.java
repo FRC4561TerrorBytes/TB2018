@@ -18,23 +18,29 @@ import org.usfirst.frc.team4561.robot.commands.*;
 public class OI {
 	private static Joystick leftStick = new Joystick (RobotMap.LEFT_JOYSTICK_PORT);
 	private static Joystick rightStick = new Joystick (RobotMap.RIGHT_JOYSTICK_PORT);
-	private static JoystickButton intakePositionButton = new JoystickButton(leftStick, RobotMap.INTAKE_POSITION_BUTTON);
-	private static JoystickButton releasePositionButton = new JoystickButton(rightStick, RobotMap.RELEASE_POSITION_BUTTON);
+	private static Joystick controller = new Joystick (RobotMap.CONTROLLER_PORT);
+	
+	private static JoystickButton controllerIntake = new JoystickButton(controller, RobotMap.CONTROLLER_INTAKE);
+	private static JoystickButton controllerIntakeLeft = new JoystickButton(controller, RobotMap.CONTROLLER_LEFT_INTAKE);
+	private static JoystickButton controllerIntakeRight = new JoystickButton(controller, RobotMap.CONTROLLER_RIGHT_INTAKE);
+	
 	private static JoystickButton intakeButton = new JoystickButton (rightStick, RobotMap.INTAKE_BUTTON);
-	private static JoystickButton releaseButton = new JoystickButton (rightStick, RobotMap.RELEASE_BUTTON);
-	private static JoystickButton armUpButton = new JoystickButton (leftStick, RobotMap.ARM_UP_BUTTON);
-	private static JoystickButton armDownButton = new JoystickButton(rightStick, RobotMap.ARM_DOWN_BUTTON);
+	private static JoystickButton releaseButton = new JoystickButton (leftStick, RobotMap.RELEASE_BUTTON);
+	
 	private static JoystickButton speedButton = new JoystickButton(leftStick, RobotMap.TRANSMISSION_SPEED_BUTTON);
-	private static JoystickButton torqueButton = new JoystickButton(leftStick, RobotMap.TRANSMISSION_TORQUE_BUTTON);
+	private static JoystickButton torqueButton = new JoystickButton(rightStick, RobotMap.TRANSMISSION_TORQUE_BUTTON);
 	
 	public OI () {
 		
 		intakeButton.whileHeld(new IntakeIn());
 		releaseButton.whileHeld(new IntakeRelease());
+		
 		speedButton.whenPressed(new SpeedGear());
 		torqueButton.whenPressed(new TorqueGear());
-		//armUpButton.whileHeld(new ArmUp());
-		//armDownButton.whileHeld(new ArmDown());
+		
+		controllerIntake.whileHeld(new IntakeIn());
+		controllerIntakeLeft.whileHeld(new IntakeLeft());
+		controllerIntakeRight.whileHeld(new IntakeRight());
 	}
 	public double getRightStickY() {
 		
@@ -67,9 +73,45 @@ public class OI {
 		return leftStickX;
 		
 	}
-
+	
+	public double getControllerAxis(int axis){
+		return controller.getRawAxis(axis);
+	}
+	
+	public double getControllerLeftX(){
+		return controller.getRawAxis(0);
+	}
+	
+	public double getControllerLeftY(){
+		return controller.getRawAxis(1);
+	}
+	
+	public boolean getControllerLTrigger(){
+		return (controller.getRawAxis(2)==1);
+	}
+	
+	public boolean getControllerRTrigger(){
+		return (controller.getRawAxis(3)==1);
+	}
+	
+	public double getControllerRightX(){
+		return controller.getRawAxis(4);
+	}
+	
+	public double getControllerRightY(){
+		return controller.getRawAxis(5);
+	}
+	
+	public boolean getControllerButton(int button){
+		return controller.getRawButton(button);
+	}
+	
 	public boolean getLeftButton(int button){
 		return leftStick.getRawButton(button);
+	}
+	
+	public int getControllerPOV(){
+		return controller.getPOV();
 	}
 
 public boolean getRightButton(int button){

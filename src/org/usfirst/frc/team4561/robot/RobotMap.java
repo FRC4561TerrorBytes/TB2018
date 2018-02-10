@@ -21,19 +21,33 @@ public class RobotMap {
 	//Joystick Ports
 	public static final int LEFT_JOYSTICK_PORT = 0;
 	public static final int RIGHT_JOYSTICK_PORT = 1;
+	public static final int CONTROLLER_PORT = 2;
 	
 	//Buttons
-	public static final int RELEASE_BUTTON = 99;
-	public static final int INTAKE_BUTTON = 99;
+	public static final int RELEASE_BUTTON = 1;
+	public static final int INTAKE_BUTTON = 1;
 	
 	public static final int INTAKE_POSITION_BUTTON = 2;
 	public static final int RELEASE_POSITION_BUTTON = 2;
 	
-	public static final int ARM_UP_BUTTON = 1;
-	public static final int ARM_DOWN_BUTTON = 1;
+	public static final int CONTROLLER_INTAKE = 2;
+	public static final int ARM_BOTTOM_POS = 1;
+	public static final int ARM_MIDDLE_POS = 3;
+	public static final int ARM_TOP_POS= 4;
 	
-	public static final int TRANSMISSION_SPEED_BUTTON = 99;
-	public static final int TRANSMISSION_TORQUE_BUTTON = 99;
+	public static final int CONTROLLER_LEFT_INTAKE = 5;
+	public static final int CONTROLLER_RIGHT_INTAKE = 6;
+	
+	public static final int ARM_UP_POV = 0;
+	public static final int ARM_MIDDLE_POV1 = 90;
+	public static final int ARM_MIDDLE_POV2 = 270;
+	public static final int ARM_DOWN_POV = 180;
+	
+	public static final int TRANSMISSION_SPEED_BUTTON = 2;
+	public static final int TRANSMISSION_TORQUE_BUTTON = 2;
+	
+	
+	
 	
 	// For example to map the left and right motors, you could define the
 	// following variables to use with your drivetrain subsystem.
@@ -55,8 +69,8 @@ public class RobotMap {
 	public static final int DRIVE_MODE = 0; // 1 is arcade drive, 0 is tank drive
 	
 	// Elevator Ports (zeros for placeholders)
-	public static final int ELEVATOR_MOTOR_1_PORT = 0;
-	public static final int ELEVATOR_MOTOR_2_PORT = 0;	
+	public static final int ELEVATOR_MOTOR_1_PORT = 11;
+	public static final int ELEVATOR_MOTOR_2_PORT = 2;	
 	
 	// Arm ports (zeros for placeholders)
 	public static final int ARM_MOTOR_1_PORT = 2;
@@ -77,8 +91,13 @@ public class RobotMap {
 	public static final boolean DRIVETRAIN_DEBUG = false || MASTER_DEBUG;
 	public static final boolean ELEVATOR_DEBUG = false || MASTER_DEBUG;
 	public static final boolean TRANSMISSION_DEBUG = false || MASTER_DEBUG;
-	public static final boolean ARM_DEBUG = true || MASTER_DEBUG;
+	public static final boolean ARM_DEBUG = false || MASTER_DEBUG;
 	
+	//PID variables
+	public static boolean MASTER_PID = false;
+	public static boolean DRIVETRAIN_PID = false || MASTER_PID;
+	public static boolean ELEVATOR_PID = false || MASTER_PID;
+	public static boolean ARM_PID = true || MASTER_PID;
 	
 	// If you are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:

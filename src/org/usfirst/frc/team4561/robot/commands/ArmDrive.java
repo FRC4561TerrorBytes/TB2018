@@ -1,13 +1,14 @@
 package org.usfirst.frc.team4561.robot.commands;
 
 import org.usfirst.frc.team4561.robot.Robot;
+import org.usfirst.frc.team4561.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ArmDrive extends Command {
 
 	public ArmDrive(){
-		requires(Robot.armPID);
+		requires(Robot.arm);
 	}
 	@Override
 	protected boolean isFinished() {
@@ -16,25 +17,24 @@ public class ArmDrive extends Command {
 	}
 	
 	protected void execute(){
-		if (Robot.oi.getLeftButton(3)){
-			Robot.armPID.increaseGoal();
+		int pov = Robot.oi.getControllerPOV();
+		if (pov == RobotMap.ARM_DOWN_POV){
+			Robot.arm.IntakePosition();
 		}
-		if (Robot.oi.getLeftButton(4)){
-			Robot.armPID.decreaseGoal();
+		else if (pov == RobotMap.ARM_MIDDLE_POV1 || pov == RobotMap.ARM_MIDDLE_POV2){
+			Robot.arm.ReleasePosition();
 		}
-		if (Robot.oi.getLeftButton(2)){
-			Robot.armPID.IntakePosition();
+		else if (pov == RobotMap.ARM_UP_POV){
+			Robot.arm.UpPostition();
 		}
-		if (Robot.oi.getRightButton(2)){
-			Robot.armPID.ReleasePosition();
-		}
-		Robot.armPID.setToGoal();
-		if (Robot.armPID.getFwdSwitch()){
-			Robot.armPID.setEncoderPos(1120);
+		Robot.arm.set(Robot.oi.getControllerLeftY());
+		Robot.arm.setToGoal();
+		if (Robot.arm.getFwdSwitch()){
+			Robot.arm.setEncoderPos(1120);
 		}
 	}
 	
 	protected void stop(){
-		Robot.armPID.stop();
+		Robot.arm.stop();
 	}
 }
