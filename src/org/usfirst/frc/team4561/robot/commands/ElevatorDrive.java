@@ -6,6 +6,9 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ElevatorDrive extends Command {
 
+	public ElevatorDrive(){
+		requires(Robot.elevator);
+	}
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub

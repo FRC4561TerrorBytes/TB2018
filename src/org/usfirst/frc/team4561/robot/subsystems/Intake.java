@@ -32,12 +32,19 @@ public class Intake extends Subsystem {
 	
 	//Intake speed
 	public void leftIntake () {
-		intakeLeftMotor.set(-1);
+		intakeLeftMotor.set(1);
 	}
 	public void rightIntake () {
 		intakeRightMotor.set(1);
 	}
-	
+	public void intakeIn(){
+		intakeLeftMotor.set(1);
+		intakeRightMotor.set(1);
+	}
+	public void stop(){
+		intakeLeftMotor.set(0);
+		intakeRightMotor.set(0);
+	}
 	public void leftIntakeStop () {
 		intakeLeftMotor.set(0);
 	}
@@ -46,7 +53,7 @@ public class Intake extends Subsystem {
 	}
 	
 	public void release () {
-		intakeLeftMotor.set(0.5);
+		intakeLeftMotor.set(-0.5);
 		intakeRightMotor.set(-0.5);
 	}
 

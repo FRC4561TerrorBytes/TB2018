@@ -17,10 +17,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Transmission extends Subsystem {
 	
 	
-	private DoubleSolenoid doubleSolenoidTrans;
+	private DoubleSolenoid doubleSolenoidTrans = new DoubleSolenoid(RobotMap.PCM, RobotMap.TRANSMISSION_SOLENOID_PORT, RobotMap.TRANSMISSION_SOLENOID_TWO_PORT);
 	
 	public Transmission() {
-		//doubleSolenoidTrans = new DoubleSolenoid(RobotMap.PCM, RobotMap.TRANSMISSION_SOLENOID_PORT, RobotMap.TRANSMISSION_SOLENOID_TWO_PORT);
 	}
 	
 	public void initDefaultCommand() {}

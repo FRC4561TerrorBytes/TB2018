@@ -30,6 +30,10 @@ public class OI {
 	private static JoystickButton speedButton = new JoystickButton(leftStick, RobotMap.TRANSMISSION_SPEED_BUTTON);
 	private static JoystickButton torqueButton = new JoystickButton(rightStick, RobotMap.TRANSMISSION_TORQUE_BUTTON);
 	
+	private static JoystickButton toggleArmPID = new JoystickButton(leftStick, RobotMap.TOGGLE_ARM_BUTTON);
+	private static JoystickButton toggleElevatorPID = new JoystickButton(leftStick, RobotMap.TOGGLE_ELEVATOR_BUTTON);
+	private static JoystickButton toggleDriveTrainPID = new JoystickButton(leftStick, RobotMap.TOGGLE_DRIVETRAIN_BUTTON);
+	
 	public OI () {
 		
 		intakeButton.whileHeld(new IntakeIn());
@@ -41,6 +45,10 @@ public class OI {
 		controllerIntake.whileHeld(new IntakeIn());
 		controllerIntakeLeft.whileHeld(new IntakeLeft());
 		controllerIntakeRight.whileHeld(new IntakeRight());
+		
+		toggleArmPID.whenPressed(new ToggleArmPID());
+		toggleElevatorPID.whenPressed(new ToggleElevatorPID());
+		toggleDriveTrainPID.whenPressed(new ToggleDriveTrainPID());
 	}
 	public double getRightStickY() {
 		

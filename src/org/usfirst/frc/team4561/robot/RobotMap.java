@@ -55,36 +55,39 @@ public class RobotMap {
 	// public static int rightMotor = 2;
 	
 	//Left Motor Ports
-	public static final int FRONT_LEFT_MOTOR_PORT = 1;
-	public static final int MID_LEFT_MOTOR_PORT = 2;
-	public static final int BACK_LEFT_MOTOR_PORT = 3;
+	public static final int FRONT_LEFT_MOTOR_PORT = 7;
+	public static final int MID_LEFT_MOTOR_PORT = 11;
+	public static final int BACK_LEFT_MOTOR_PORT = 12;
 	
 	//Right Motor Ports
-	public static final int FRONT_RIGHT_MOTOR_PORT = 4;
-	public static final int MID_RIGHT_MOTOR_PORT = 5;
-	public static final int BACK_RIGHT_MOTOR_PORT = 6;
+	public static final int FRONT_RIGHT_MOTOR_PORT = 8;
+	public static final int MID_RIGHT_MOTOR_PORT = 9;
+	public static final int BACK_RIGHT_MOTOR_PORT = 10;
 		
 	
 	//Drive Mode 
 	public static final int DRIVE_MODE = 0; // 1 is arcade drive, 0 is tank drive
 	
 	// Elevator Ports (zeros for placeholders)
-	public static final int ELEVATOR_MOTOR_1_PORT = 11;
-	public static final int ELEVATOR_MOTOR_2_PORT = 2;	
+	public static final int ELEVATOR_MOTOR_1_PORT = 6;
+	public static final int ELEVATOR_MOTOR_2_PORT = 5;	
 	
 	// Arm ports (zeros for placeholders)
-	public static final int ARM_MOTOR_1_PORT = 2;
-	public static final int ARM_MOTOR_2_PORT = 0;
+	public static final int ARM_MOTOR_1_PORT = 4;
 
 	//Intake ports
-	public static final int INTAKE_LEFT_MOTOR_PORT = 0;
-	public static final int INTAKE_RIGHT_MOTOR_PORT = 0;
+	public static final int INTAKE_LEFT_MOTOR_PORT = 3;
+	public static final int INTAKE_RIGHT_MOTOR_PORT = 2;
 	
 	//Transmission Ports
 	public static final int TRANSMISSION_SOLENOID_PORT = 0;
-	public static int TRANSMISSION_SOLENOID_TWO_PORT = 0;
-	public static int PCM = 0;
+	public static final int TRANSMISSION_SOLENOID_TWO_PORT = 1;
+	public static final int PCM = 13;
 
+	//Toggle PID Buttons
+	public static final int TOGGLE_ARM_BUTTON = 7;
+	public static final int TOGGLE_ELEVATOR_BUTTON = 9;
+	public static final int TOGGLE_DRIVETRAIN_BUTTON = 11;
 	
 	// Debug variables
 	public static final boolean MASTER_DEBUG = false;
