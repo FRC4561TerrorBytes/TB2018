@@ -3,6 +3,7 @@ package org.usfirst.frc.team4561.robot.commands;
 import org.usfirst.frc.team4561.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ElevatorDrive extends Command {
 
@@ -36,6 +37,9 @@ public class ElevatorDrive extends Command {
 			Robot.elevator.ScalePositionHigh();
 		}
 		Robot.elevator.set(Robot.oi.getControllerRightY());
+		
+		SmartDashboard.putNumber("Elevator Speed", Robot.elevator.getElevatorSpeed());
+		SmartDashboard.putNumber("Elevator Pos", Robot.elevator.getElevatorPos());
 	}
 
 }

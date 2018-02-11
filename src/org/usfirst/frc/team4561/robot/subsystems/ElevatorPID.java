@@ -4,6 +4,7 @@ import org.usfirst.frc.team4561.robot.RobotMap;
 import org.usfirst.frc.team4561.robot.commands.ElevatorDrive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 
@@ -27,6 +28,7 @@ public class ElevatorPID extends Subsystem {
 	
 	public ElevatorPID() {
 		//motorOne.set(RobotMap.ELEVATOR_MOTOR_1_PORT);
+		motorOne.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0);
 		motorTwo.set(follower, RobotMap.ELEVATOR_MOTOR_1_PORT);
 		
 		motorOne.config_kP(0, 0, 0);

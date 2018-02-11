@@ -18,13 +18,13 @@ public class ArmDrive extends Command {
 	
 	protected void execute(){
 		int pov = Robot.oi.getControllerPOV();
-		if (pov == RobotMap.ARM_DOWN_POV){
+		if (pov == RobotMap.ARM_DOWN_POV || Robot.oi.getRightButton(8)){
 			Robot.arm.IntakePosition();
 		}
-		else if (pov == RobotMap.ARM_MIDDLE_POV1 || pov == RobotMap.ARM_MIDDLE_POV2){
+		else if (pov == RobotMap.ARM_MIDDLE_POV1 || pov == RobotMap.ARM_MIDDLE_POV2 || Robot.oi.getRightButton(10)){
 			Robot.arm.ReleasePosition();
 		}
-		else if (pov == RobotMap.ARM_UP_POV){
+		else if (pov == RobotMap.ARM_UP_POV || Robot.oi.getRightButton(12)){
 			Robot.arm.UpPostition();
 		}
 		Robot.arm.set(Robot.oi.getControllerLeftY());

@@ -69,11 +69,11 @@ public class RobotMap {
 	public static final int DRIVE_MODE = 0; // 1 is arcade drive, 0 is tank drive
 	
 	// Elevator Ports (zeros for placeholders)
-	public static final int ELEVATOR_MOTOR_1_PORT = 6;
+	public static final int ELEVATOR_MOTOR_1_PORT = 5;
 	public static final int ELEVATOR_MOTOR_2_PORT = 5;	
 	
 	// Arm ports (zeros for placeholders)
-	public static final int ARM_MOTOR_1_PORT = 4;
+	public static final int ARM_MOTOR_1_PORT = 6;
 
 	//Intake ports
 	public static final int INTAKE_LEFT_MOTOR_PORT = 3;
@@ -92,7 +92,7 @@ public class RobotMap {
 	// Debug variables
 	public static final boolean MASTER_DEBUG = false;
 	public static final boolean DRIVETRAIN_DEBUG = false || MASTER_DEBUG;
-	public static final boolean ELEVATOR_DEBUG = false || MASTER_DEBUG;
+	public static final boolean ELEVATOR_DEBUG = true || MASTER_DEBUG;
 	public static final boolean TRANSMISSION_DEBUG = false || MASTER_DEBUG;
 	public static final boolean ARM_DEBUG = false || MASTER_DEBUG;
 	
