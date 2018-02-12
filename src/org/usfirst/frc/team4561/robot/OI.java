@@ -122,8 +122,8 @@ public class OI {
 		return controller.getPOV();
 	}
 
-public boolean getRightButton(int button){
-	return rightStick.getRawButton(button);
-}
-	
+	public boolean getRightButton(int button){
+		return rightStick.getRawButton(button);
+	}
+
 }
