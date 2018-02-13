@@ -69,7 +69,7 @@ public class RobotMap {
 	public static final int DRIVE_MODE = 0; // 1 is arcade drive, 0 is tank drive
 	
 	// Elevator Ports (zeros for placeholders)
-	public static final int ELEVATOR_MOTOR_1_PORT = 5;
+	public static final int ELEVATOR_MOTOR_1_PORT = 4;
 	public static final int ELEVATOR_MOTOR_2_PORT = 5;	
 	
 	// Arm ports (zeros for placeholders)
