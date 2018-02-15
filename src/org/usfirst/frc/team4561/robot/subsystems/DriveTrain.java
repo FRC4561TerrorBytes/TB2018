@@ -82,4 +82,34 @@ public class DriveTrain extends Subsystem {
 			setDefaultCommand(new TankDrive());
 		}
 	}
+	
+	public void setLeftMotorPower(double power) {
+		if (power > 1) {
+			if (RobotMap.DRIVETRAIN_DEBUG) {
+				System.out.println("[Subsystem] Power to left side of drivetrain was set too high: " + power + ", changing to full forward.");
+			}
+			power = 1;
+		} else if (power < -1) {
+			if (RobotMap.DRIVETRAIN_DEBUG) {
+				System.out.println("[Subsystem] Power to left side of drivetrain was set too low: " + power + ", changing to full reverse.");
+			}
+			power = -1;
+		}
+		frontLeft.set(power);
+	}
+	
+	public void setRightMotorPower(double power) {
+		if (power > 1) {
+			if (RobotMap.DRIVETRAIN_DEBUG) {
+				System.out.println("[Subsystem] Power to right side of drivetrain was set too high: " + power + ", changing to full forward.");
+			}
+			power = 1;
+		} else if (power < -1) {
+			if (RobotMap.DRIVETRAIN_DEBUG) {
+				System.out.println("[Subsystem] Power to right side of drivetrain was set too low: " + power + ", changing to full reverse.");
+			}
+			power = -1;
+		}
+		frontRight.set(power);
+	}
 }
