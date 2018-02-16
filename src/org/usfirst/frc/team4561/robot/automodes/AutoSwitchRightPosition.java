@@ -3,8 +3,10 @@ package org.usfirst.frc.team4561.robot.automodes;
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.commands.ArmReleasePosition;
 import org.usfirst.frc.team4561.robot.commands.CheckSwitchSide;
+import org.usfirst.frc.team4561.robot.commands.DriveMagic;
 import org.usfirst.frc.team4561.robot.commands.IntakeRelease;
 import org.usfirst.frc.team4561.robot.commands.TankDriveTimed;
+import org.usfirst.frc.team4561.robot.commands.TurnToArbritaryAngleMagic;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -37,17 +39,17 @@ public class AutoSwitchRightPosition extends CommandGroup {
     	addSequential(new CheckSwitchSide());
     	// on the right
     	if (Robot.switchFMSSideRight) {
-    		addSequential(new TankDriveTimed(1, 1, 2)); // forward
+    		addSequential(new DriveMagic(100, 100)); // forward
     		addSequential(new ArmReleasePosition());
     		addSequential(new IntakeRelease()); // drop power cube
     	}
     	// on the left
     	else {
-    		addSequential(new TankDriveTimed(1, 1, 1)); // forward
-    		addSequential(new TankDriveTimed(0, 1, 0.25)); // turn left
-    		addSequential(new TankDriveTimed(1, 1, 2)); // forward
-    		addSequential(new TankDriveTimed(1, 0, 0.25)); // turn right
-    		addSequential(new TankDriveTimed(1, 1, 1)); // forward
+    		addSequential(new DriveMagic(100, 100)); // forward
+    		addSequential(new TurnToArbritaryAngleMagic(270)); // turn left
+    		addSequential(new DriveMagic(100, 100)); // forward
+    		addSequential(new TurnToArbritaryAngleMagic(90)); // turn right
+    		addSequential(new DriveMagic(100, 100)); // forward
     		addSequential(new ArmReleasePosition());
     		addSequential(new IntakeRelease()); // drop power cube
     	}
