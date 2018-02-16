@@ -11,7 +11,7 @@ public class ArcadeDrive extends Command {
 	}
 	
 	protected void execute() {
-		Robot.driveTrain.arcadeDrive(Robot.oi.getLeftStickX(), Robot.oi.getRightStickY());
+		Robot.driveTrain.arcadeDrive(Robot.oi.getLeftStickY(), Robot.oi.getRightStickX());
 	}	  
 	  
 	protected void initialize() {}

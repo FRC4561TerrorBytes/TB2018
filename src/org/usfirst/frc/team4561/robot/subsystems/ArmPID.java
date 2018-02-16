@@ -26,8 +26,8 @@ public class ArmPID extends Subsystem {
 		motorOne.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		motorOne.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
 		motorOne.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
-		motorOne.configSetParameter(ParamEnum.eClearPositionOnLimitR, 1, 0, 0, 0);
-		motorOne.configSetParameter(ParamEnum.eClearPositionOnLimitF, 0, 0, 0, 0);
+		motorOne.configSetParameter(ParamEnum.eClearPositionOnLimitR, 0, 0, 0, 0);
+		motorOne.configSetParameter(ParamEnum.eClearPositionOnLimitF, 1, 0, 0, 0);
 		//motorTwo = new WPI_TalonSRX(RobotMap.ARM_MOTOR_2_PORT);
 		//motorTwo.set(followerRobotMap.ARM_MOTOR_1_PORT);
 		motorOne.config_kP(0, 90, 0);
@@ -41,7 +41,7 @@ public class ArmPID extends Subsystem {
 	}
 	// Arm on ground to intake block
 	public void IntakePosition() {
-		goal = 0;
+		goal = 1120;
 		if (RobotMap.ARM_PID) setToGoal();
 		if (RobotMap.ARM_DEBUG) {
 			System.out.println("[Subsystem] ArmPID: Down to Intake Position");
@@ -49,14 +49,14 @@ public class ArmPID extends Subsystem {
 		}
 	//Arm in straight release position
 	public void ReleasePosition() {
-		goal = 120;
+		goal = 1000;
 		if (RobotMap.ARM_PID) setToGoal();
 		if (RobotMap.ARM_DEBUG) {
 			System.out.println("[Subsystem] ArmPID: Up to Release Position");
 		}
 	}
 	public void UpPostition(){
-		goal = 1000;
+		goal = 120;
 		if (RobotMap.ARM_PID) setToGoal();
 		if (RobotMap.ARM_DEBUG){
 			System.out.println("[Subsystem] ArmPID: Up to Up Position");
@@ -103,5 +103,8 @@ public class ArmPID extends Subsystem {
 		return motorOne.getSensorCollection().isRevLimitSwitchClosed();
 	}
 	
+	public int getGoal(){
+		return goal;
+	}
 
 }

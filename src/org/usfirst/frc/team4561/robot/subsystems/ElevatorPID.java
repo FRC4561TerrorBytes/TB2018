@@ -3,8 +3,11 @@ package org.usfirst.frc.team4561.robot.subsystems;
 import org.usfirst.frc.team4561.robot.RobotMap;
 import org.usfirst.frc.team4561.robot.commands.ElevatorDrive;
 
+import com.ctre.phoenix.ParamEnum;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
+import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 
@@ -30,8 +33,18 @@ public class ElevatorPID extends Subsystem {
 		//motorOne.set(RobotMap.ELEVATOR_MOTOR_1_PORT);
 		motorOne.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0);
 		motorTwo.set(follower, RobotMap.ELEVATOR_MOTOR_1_PORT);
-		
-		motorOne.config_kP(0, 0, 0);
+		motorTwo.setInverted(false);
+		motorOne.setInverted(true);
+		motorOne.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
+		motorOne.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
+		motorOne.configSetParameter(ParamEnum.eClearPositionOnLimitR, 1, 0, 0, 0);
+		motorOne.configReverseSoftLimitEnable(false, 0);
+		motorOne.configForwardSoftLimitEnable(false, 0);
+		motorOne.overrideSoftLimitsEnable(true);
+		motorOne.overrideLimitSwitchesEnable(true);
+		motorOne.configPeakCurrentLimit(20, 0);
+		motorOne.enableCurrentLimit(false);
+		motorOne.config_kP(0, 1, 0);
 		motorOne.config_kI(0, 0, 0);
 		motorOne.config_kD(0, 0, 0);
 	}
@@ -50,13 +63,13 @@ public class ElevatorPID extends Subsystem {
 	}
 	//Elevator position with Arm touching ground
 	public void GroundPosition() {
-		goal = 0;
+		goal = 15;
 		if (RobotMap.ELEVATOR_PID) setToGoal();
 	}
 	
 	//Elevator position with Arm at switch height
 	public void SwitchPosition() {
-		goal = 0;
+		goal = 85;
 		if (RobotMap.ELEVATOR_PID) setToGoal();
 	}
 	
@@ -70,7 +83,7 @@ public class ElevatorPID extends Subsystem {
 		if (RobotMap.ELEVATOR_PID) setToGoal();
 	}
 	public void ScalePositionHigh(){
-		goal = 0;
+		goal = 350;
 		if (RobotMap.ELEVATOR_PID) setToGoal();
 	}
 	public double getElevatorPos(){
@@ -88,4 +101,16 @@ public class ElevatorPID extends Subsystem {
 
 	}
 
+	public double motorOneVoltage(){
+		return motorOne.getMotorOutputVoltage();
+	}
+	public double motorTwoVoltage(){
+		return motorTwo.getMotorOutputVoltage();
+	}
+	public boolean limitSwitch(){
+		return motorOne.getSensorCollection().isRevLimitSwitchClosed();
+	}
+	public double getGoal(){
+		return goal;
+	}
 }

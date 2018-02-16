@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.usfirst.frc.team4561.robot.automodes.AutoDriveToLine;
 import org.usfirst.frc.team4561.robot.subsystems.*;
 
 /**
@@ -44,12 +46,9 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		//assert false;
-		//TODO: CODE IS NOT READY TO RUN ON THE ROBOT
-			//AS OF 2-1-2018, THIS CODE WAS MADE READY TO TEST THE ARM
-		//BEFORE REMOVING THIS ASSERT STATEMENT, REMOVE ALL PLACEHOLDER VALUES
 		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
+		chooser.addDefault("Go To Line", new AutoDriveToLine());
 		SmartDashboard.putData("Auto mode", chooser);
 		System.out.println("Things are not on fire");
 	}
@@ -73,8 +72,18 @@ public class Robot extends IterativeRobot {
 	public void robotPeriodic(){
 		SmartDashboard.putNumber("ArmPID Encoder Position", Robot.arm.getEncoderPosition());
     	SmartDashboard.putNumber("ArmPID Encoder Velocity", Robot.arm.getEncoderVelocity());
+    	SmartDashboard.putNumber("ArmPID Goal Position", Robot.arm.getGoal());
+    	SmartDashboard.putNumber("Elevator Position", Robot.elevator.getElevatorPos());
+    	SmartDashboard.putNumber("Elevator Motor One Voltage", Robot.elevator.motorOneVoltage());
+    	SmartDashboard.putNumber("Elevator Motor Two Voltage", Robot.elevator.motorTwoVoltage());
+    	SmartDashboard.putNumber("Elevator Goal", Robot.elevator.getGoal());
+    	SmartDashboard.putBoolean("Elevator Limit Switch", Robot.elevator.limitSwitch());
     	SmartDashboard.putBoolean("SmartDashboard Works", true);
+    	SmartDashboard.putString("Transmission State", Robot.transmission.getTransMode());
     	//SmartDashboard.putNumber("Controller POV", oi.getControllerPOV());
+    	if (Robot.arm.getRevSwitch()){
+			Robot.arm.setEncoderPos(1120);
+		}
 	}
 
 	/**

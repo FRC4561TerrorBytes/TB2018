@@ -19,7 +19,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 
 public class SpeedGear extends Command {
-	private WPI_TalonSRX motorOne = new WPI_TalonSRX(RobotMap.TRANSMISSION_SPEED_BUTTON);
 	
 	
 	public SpeedGear() {
@@ -28,7 +27,6 @@ public class SpeedGear extends Command {
 
 	
 protected void initialize()  {
-	setTimeout(1);
 	if (RobotMap.TRANSMISSION_DEBUG)  {
 		System.out.println("[C:SpeedGear] Initializing...");
 	}
@@ -39,8 +37,7 @@ protected void initialize()  {
 	
 protected void execute() {
 	Robot.transmission.speedGear();
-	String transmission = Robot.transmission.getTransMode();
-	SmartDashboard.putString("Transmission Mode", transmission);
+	
 	if (RobotMap.TRANSMISSION_DEBUG)  {
 		System.out.println("[C:SpeedGear] Robot executes...");
 	}
@@ -55,9 +52,12 @@ protected void end() {
 		System.out.println("C:SpeedGear]  Command finished.");
 }
 
+	protected void interrupted(){
+		end();
+	}
 
 	protected boolean isFinished() {
-		return isTimedOut();
+		return true;
 	}
 
 }

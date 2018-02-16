@@ -27,11 +27,9 @@ public class ArmDrive extends Command {
 		else if (pov == RobotMap.ARM_UP_POV || Robot.oi.getRightButton(12)){
 			Robot.arm.UpPostition();
 		}
-		Robot.arm.set(Robot.oi.getControllerLeftY());
-		Robot.arm.setToGoal();
-		if (Robot.arm.getFwdSwitch()){
-			Robot.arm.setEncoderPos(1120);
-		}
+		Robot.arm.set(-Robot.oi.getControllerLeftY());
+		if (RobotMap.ARM_PID) Robot.arm.setToGoal();
+		
 	}
 	
 	protected void stop(){

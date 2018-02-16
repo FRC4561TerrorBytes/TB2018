@@ -28,7 +28,7 @@ public class OI {
 	private static JoystickButton releaseButton = new JoystickButton (leftStick, RobotMap.RELEASE_BUTTON);
 	
 	private static JoystickButton speedButton = new JoystickButton(leftStick, RobotMap.TRANSMISSION_SPEED_BUTTON);
-	private static JoystickButton torqueButton = new JoystickButton(rightStick, RobotMap.TRANSMISSION_TORQUE_BUTTON);
+	private static JoystickButton torqueButton = new JoystickButton(leftStick, RobotMap.TRANSMISSION_TORQUE_BUTTON);
 	
 	private static JoystickButton toggleArmPID = new JoystickButton(leftStick, RobotMap.TOGGLE_ARM_BUTTON);
 	private static JoystickButton toggleElevatorPID = new JoystickButton(leftStick, RobotMap.TOGGLE_ELEVATOR_BUTTON);
@@ -54,6 +54,24 @@ public class OI {
 		
 		double rightStickY = rightStick.getY(); 
 		
+		if (Math.abs(rightStick.getMagnitude()) < RobotMap.RIGHT_JOYSTICK_DEAD_ZONE) {
+			rightStickY = 0;
+		}
+		
+		// Reductions - joystick reduction reduces velocity from given joystick direction
+		if (rightStickY > 0) {
+			rightStickY = (rightStickY - RobotMap.RIGHT_JOYSTICK_REDUCTION) * (1/(1-RobotMap.LEFT_JOYSTICK_REDUCTION));
+			if (rightStickY < 0) {
+				rightStickY = 0;
+			}
+		} else if (rightStickY < 0) {
+			rightStickY = (rightStickY + RobotMap.RIGHT_JOYSTICK_REDUCTION) * (1/(1-RobotMap.LEFT_JOYSTICK_REDUCTION));
+			if (rightStickY > 0) 
+			{
+				rightStickY = 0;
+			}
+		}
+		
 		return rightStickY;
 		
 	}
@@ -61,6 +79,24 @@ public class OI {
 	public double getRightStickX() {
 		
 		double rightStickX = rightStick.getX(); 
+		
+		// Dead zone management
+				if (Math.abs(rightStick.getMagnitude()) < RobotMap.RIGHT_JOYSTICK_DEAD_ZONE) {
+					rightStickX = 0;
+				}
+				
+				// Reductions
+				if (rightStickX > 0) {
+					rightStickX = (rightStickX - RobotMap.RIGHT_JOYSTICK_REDUCTION) * (1/(1-RobotMap.LEFT_JOYSTICK_REDUCTION));
+					if (rightStickX < 0) {
+						rightStickX = 0;
+					}
+				} else if (rightStickX < 0) {
+					rightStickX = (rightStickX + RobotMap.RIGHT_JOYSTICK_REDUCTION) * (1/(1-RobotMap.LEFT_JOYSTICK_REDUCTION));
+					if (rightStickX > 0) {
+						rightStickX = 0;
+					}
+				}
 		
 		return rightStickX;
 		
@@ -70,6 +106,24 @@ public class OI {
 		
 		double leftStickY = leftStick.getY(); 
 		
+		// Dead zone management
+				if (Math.abs(leftStick.getMagnitude()) < RobotMap.LEFT_JOYSTICK_DEAD_ZONE) {
+					leftStickY = 0;
+				}
+				
+				// Reductions
+				if (leftStickY > 0) {
+					leftStickY = (leftStickY - RobotMap.LEFT_JOYSTICK_REDUCTION) * (1/(1-RobotMap.LEFT_JOYSTICK_REDUCTION));
+					if(leftStickY < 0) {
+						leftStickY = 0;
+					}
+				} else if (leftStickY < 0) {
+					leftStickY = (leftStickY + RobotMap.LEFT_JOYSTICK_REDUCTION) * (1/(1-RobotMap.LEFT_JOYSTICK_REDUCTION));
+					if (leftStickY > 0) {
+						leftStickY = 0;
+					}
+				}
+		
 		return leftStickY;
 		
 	}
@@ -77,6 +131,24 @@ public class OI {
 	public double getLeftStickX() {
 		
 		double leftStickX = leftStick.getX(); 
+		
+		// Dead zone management
+				if (Math.abs(leftStick.getMagnitude()) < RobotMap.LEFT_JOYSTICK_DEAD_ZONE) {
+					leftStickX = 0;
+				}
+				
+				// Reductions
+				if (leftStickX > 0) {
+					leftStickX = (leftStickX - RobotMap.LEFT_JOYSTICK_REDUCTION) * (1/(1-RobotMap.LEFT_JOYSTICK_REDUCTION));
+					if(leftStickX < 0){
+						leftStickX = 0;
+					}
+				} else if (leftStickX < 0) {
+					leftStickX = (leftStickX + RobotMap.LEFT_JOYSTICK_REDUCTION) * (1/(1-RobotMap.LEFT_JOYSTICK_REDUCTION));
+					if(leftStickX > 0) {
+						leftStickX = 0;
+					}
+				}
 		
 		return leftStickX;
 		

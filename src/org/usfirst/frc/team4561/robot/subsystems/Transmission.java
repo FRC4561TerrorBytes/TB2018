@@ -8,6 +8,7 @@ import org.usfirst.frc.team4561.robot.RobotMap;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
@@ -17,8 +18,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Transmission extends Subsystem {
 	
 	
-	private DoubleSolenoid doubleSolenoidTrans = new DoubleSolenoid(RobotMap.PCM, RobotMap.TRANSMISSION_SOLENOID_PORT, RobotMap.TRANSMISSION_SOLENOID_TWO_PORT);
-	
+	private DoubleSolenoid doubleSolenoidTransLeft = new DoubleSolenoid(RobotMap.PCM, RobotMap.TRANSMISSION_SOLENOID_PORT, RobotMap.TRANSMISSION_SOLENOID_PORT_TWO);
+	private DoubleSolenoid doubleSolenoidTransRight = new DoubleSolenoid(RobotMap.PCM, RobotMap.TRANSMISSION_SOLENOID_TWO_PORT, RobotMap.TRANSMISSION_SOLENOID_TWO_PORT_TWO);
+	private Solenoid funSolenoid = new Solenoid(RobotMap.PCM, 7);
 	public Transmission() {
 	}
 	
@@ -32,25 +34,23 @@ public class Transmission extends Subsystem {
 		}
 		
 		
-		doubleSolenoidTrans.set(DoubleSolenoid.Value.kForward);
-		
+		doubleSolenoidTransLeft.set(DoubleSolenoid.Value.kForward);
+		doubleSolenoidTransRight.set(DoubleSolenoid.Value.kForward);
 		
 		
 	}
 	
 	public String getTransMode() {
-		String transmission = doubleSolenoidTrans.get().toString();
+		String transmission = doubleSolenoidTransLeft.get().toString();
 		return transmission;
 	}
 	
 	public void speedGear() {
-		String transmission = doubleSolenoidTrans.get().toString();
-		SmartDashboard.putString("SpeedGear", transmission);
 		if (RobotMap.TRANSMISSION_DEBUG) {
   			System.out.println("[Transmission] Switching to high speed gear...");
 		}
-  			doubleSolenoidTrans.set(DoubleSolenoid.Value.kReverse);
-  			
+  			doubleSolenoidTransLeft.set(DoubleSolenoid.Value.kReverse);
+  			doubleSolenoidTransRight.set(DoubleSolenoid.Value.kReverse);
 		
 	
 	}
@@ -59,13 +59,12 @@ public class Transmission extends Subsystem {
 		
 	
 	public void stop() {
-		String transmission = doubleSolenoidTrans.get().toString();
-		SmartDashboard.putString("Stop", transmission);
+		
 		if (RobotMap.TRANSMISSION_DEBUG) {
   			System.out.println("[Transmission] Robot stops");
 		}
-  			doubleSolenoidTrans.set(DoubleSolenoid.Value.kOff);
-  			
+  			doubleSolenoidTransLeft.set(DoubleSolenoid.Value.kOff);
+  			doubleSolenoidTransLeft.set(DoubleSolenoid.Value.kOff);
 		
 	}
 	

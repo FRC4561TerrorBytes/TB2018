@@ -63,15 +63,18 @@ public class DriveTrainPID extends Subsystem {
 		
 		rearLeft.set(follower, RobotMap.FRONT_LEFT_MOTOR_PORT);
 		
+		frontRight.setInverted(true);
+		midRight.setInverted(true);
+		rearRight.setInverted(true);
 		gyro.calibrate();
 		
 		frontLeft.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0,0);
 		frontRight.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 			
-		frontRight.config_kF(0, 0, 0);
-		frontRight.config_kP(0, 0, 0);
+		frontRight.config_kF(0, 0.225, 0);
+		frontRight.config_kP(0, 5, 0);
 		frontRight.config_kI(0, 0, 0);
-		frontRight.config_kD(0, 0, 0);
+		frontRight.config_kD(0, 1, 0);
 		frontRight.config_IntegralZone(0, 50, 0);
 		frontRight.configMotionCruiseVelocity(666, 0);
 		rightSpeed = 0.225;
@@ -83,10 +86,10 @@ public class DriveTrainPID extends Subsystem {
 		frontRight.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 0);
 		frontRight.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0);
 			
-		frontLeft.config_kF(0, 0, 0);
-		frontLeft.config_kP(0, 0, 0);
+		frontLeft.config_kF(0, 0.225, 0);
+		frontLeft.config_kP(0, 5, 0);
 		frontLeft.config_kI(0, 0, 0);
-		frontLeft.config_kD(0, 0, 0);
+		frontLeft.config_kD(0, 1, 0);
 		frontLeft.config_IntegralZone(0, 50, 0);
 		frontLeft.configMotionCruiseVelocity(1333, 0);
 		leftSpeed = 0.225;
@@ -108,7 +111,7 @@ public class DriveTrainPID extends Subsystem {
 		double rightMotorOutput = 0;
 
 		double maxInput = Math.copySign(Math.max(Math.abs(xSpeed), Math.abs(zRotation)), xSpeed);
-
+		zRotation = -zRotation;
 		if (xSpeed >= 0.0) {
 			// First quadrant, else second quadrant
 			if (zRotation >= 0.0) {
@@ -187,8 +190,8 @@ public class DriveTrainPID extends Subsystem {
 				//System.out.println("Correcting Right");
 			}
 			else if (sideChooser < 0 && timeout == 0){
-				leftSpeed = leftSpeed + (leftSpeedOriginal * correction * sideChooser);
-				rightSpeed = rightSpeed - (rightSpeedOriginal * correction * sideChooser);
+				leftSpeed = leftSpeed - (leftSpeedOriginal * correction * sideChooser);
+				rightSpeed = rightSpeed + (rightSpeedOriginal * correction * sideChooser);
 				frontLeft.config_kF(0, leftSpeed, 0);
 				frontRight.config_kF(0, rightSpeed, 0);
 				timeout = 1;

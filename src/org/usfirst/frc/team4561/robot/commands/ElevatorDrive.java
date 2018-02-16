@@ -36,7 +36,7 @@ public class ElevatorDrive extends Command {
 		else if (Robot.oi.getControllerButton(4)){
 			Robot.elevator.ScalePositionHigh();
 		}
-		Robot.elevator.set(Robot.oi.getControllerRightY());
+		Robot.elevator.set(-Robot.oi.getControllerRightY());
 		
 		SmartDashboard.putNumber("Elevator Speed", Robot.elevator.getElevatorSpeed());
 		SmartDashboard.putNumber("Elevator Pos", Robot.elevator.getElevatorPos());
