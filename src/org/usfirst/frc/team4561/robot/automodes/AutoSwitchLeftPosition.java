@@ -6,7 +6,7 @@ import org.usfirst.frc.team4561.robot.commands.CheckSwitchSide;
 import org.usfirst.frc.team4561.robot.commands.DriveMagic;
 import org.usfirst.frc.team4561.robot.commands.IntakeRelease;
 import org.usfirst.frc.team4561.robot.commands.TankDriveTimed;
-import org.usfirst.frc.team4561.robot.commands.TurnToArbritaryAngleMagic;
+import org.usfirst.frc.team4561.robot.commands.TurnToArbritraryAngleMagic;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -46,9 +46,9 @@ public class AutoSwitchLeftPosition extends CommandGroup {
     	// on the right
     	else {
     		addSequential(new DriveMagic(100, 100)); // forward
-    		addSequential(new TurnToArbritaryAngleMagic(90)); // turn right
+    		addSequential(new TurnToArbritraryAngleMagic(90)); // turn right
     		addSequential(new DriveMagic(100, 100)); // forward
-    		addSequential(new TurnToArbritaryAngleMagic(270)); // turn left
+    		addSequential(new TurnToArbritraryAngleMagic(270)); // turn left
     		addSequential(new DriveMagic(100, 100)); // forward
     		addSequential(new ArmReleasePosition());
     		addSequential(new IntakeRelease()); // drop power cube
