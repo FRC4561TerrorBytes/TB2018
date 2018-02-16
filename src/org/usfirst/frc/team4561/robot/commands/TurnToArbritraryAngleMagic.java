@@ -11,11 +11,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *This is the Motion Magic angle command
  *@author Lucas
  */
-public class TurnToArbritaryAngleMagic extends Command {
+public class TurnToArbritraryAngleMagic extends Command {
 
 	double angleA;
 	
-    public TurnToArbritaryAngleMagic(double angle) {
+    public TurnToArbritraryAngleMagic(double angle) {
         requires(Robot.driveTrain);
         angle = angleA;
     }

@@ -6,6 +6,7 @@ import org.usfirst.frc.team4561.robot.RobotMap;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
@@ -21,6 +22,8 @@ public class Intake extends Subsystem {
 	private WPI_TalonSRX intakeLeftMotor;
 	private WPI_TalonSRX intakeRightMotor; 
 	
+	//Cube Detector
+	public DigitalInput cubeDetector = new DigitalInput(0);
 	
 	public Intake () {
 		intakeLeftMotor = new WPI_TalonSRX (RobotMap.INTAKE_LEFT_MOTOR_PORT);
@@ -73,7 +76,9 @@ public class Intake extends Subsystem {
 	public double getIntakeRightVelocity() {
 		return intakeRightMotor.getSelectedSensorVelocity(0);
 	}
-
+	public boolean detectorState() {
+		return cubeDetector.get();
+	}
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
