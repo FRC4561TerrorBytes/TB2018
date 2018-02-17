@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team4561.robot.automodes.AutoDriveToLine;
+import org.usfirst.frc.team4561.robot.automodes.*;
 import org.usfirst.frc.team4561.robot.subsystems.*;
 
 /**
@@ -49,6 +49,13 @@ public class Robot extends IterativeRobot {
 		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		chooser.addDefault("Go To Line", new AutoDriveToLine());
+		chooser.addObject("Go To Line (From Center)", new AutoDriveToLineCenter());
+		chooser.addObject("Score Scale (From Center)", new AutoScaleCenterPosition());
+		chooser.addObject("Score Scale (From Left)", new AutoScaleLeftPosition());
+		chooser.addObject("Score Scale (From Right)", new AutoScaleRightPosition());
+		chooser.addObject("Score Switch (From Center)", new AutoSwitchCenterPosition());
+		chooser.addObject("Score Switch (From Left)", new AutoSwitchLeftPosition());
+		chooser.addObject("Score Switch (From Right)", new AutoSwitchRightPosition());
 		SmartDashboard.putData("Auto mode", chooser);
 		System.out.println("Things are not on fire");
 	}
@@ -84,6 +91,24 @@ public class Robot extends IterativeRobot {
     	if (Robot.arm.getRevSwitch()){
 			Robot.arm.setEncoderPos(1120);
 		}
+    	if (RobotMap.ARM_PID){
+    		SmartDashboard.putString("DB/String 3", "Arm PID: ON");
+    	}
+    	else {
+    		SmartDashboard.putString("DB/String 3", "!!Arm PID: OFF!!");
+    	}
+    	if (RobotMap.ELEVATOR_PID){
+    		SmartDashboard.putString("DB/String 2", "Elv PID: ON");
+    	}
+    	else {
+    		SmartDashboard.putString("DB/String 2", "!!Elv PID: OFF!!");
+    	}
+    	if (RobotMap.DRIVETRAIN_PID) {
+    		SmartDashboard.putString("DB/String 1", "Drv PID: ON");
+    	}
+    	else {
+    		SmartDashboard.putString("DB/String 1", "!!Drv PID: OFF!!");
+    	}
 	}
 
 	/**
@@ -101,12 +126,6 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		autonomousCommand = chooser.getSelected();
 
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
 
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null) {

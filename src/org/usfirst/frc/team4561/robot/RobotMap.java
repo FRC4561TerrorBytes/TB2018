@@ -90,9 +90,13 @@ public class RobotMap {
 	public static final int PCM = 13;
 
 	//Toggle PID Buttons
-	public static final int TOGGLE_ARM_BUTTON = 7;
-	public static final int TOGGLE_ELEVATOR_BUTTON = 9;
-	public static final int TOGGLE_DRIVETRAIN_BUTTON = 11;
+	public static final int TOGGLE_ARM_BUTTON = 9;
+	public static final int TOGGLE_ELEVATOR_BUTTON = 10;
+	public static final int TOGGLE_DRIVETRAIN_BUTTON_ONE = 11;
+	public static final int TOGGLE_DRIVETRAIN_BUTTON_TWO = 9;
+	public static final int TOGGLE_DRIVETRAIN_BUTTON_THREE = 7;
+	public static final int TOGGLE_PID_BUTTON_ONE = 8;
+	public static final int TOGGLE_PID_BUTTON_TWO = 7;
 	
 	// Debug variables
 	public static final boolean MASTER_DEBUG = true;

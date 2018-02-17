@@ -9,7 +9,12 @@ package org.usfirst.frc.team4561.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.Trigger;
+
 import org.usfirst.frc.team4561.robot.commands.*;
+import org.usfirst.frc.team4561.robot.triggers.ToggleArmPIDTrigger;
+import org.usfirst.frc.team4561.robot.triggers.ToggleDriveTrainPIDTrigger;
+import org.usfirst.frc.team4561.robot.triggers.ToggleElevatorPIDTrigger;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -30,9 +35,9 @@ public class OI {
 	private static JoystickButton speedButton = new JoystickButton(leftStick, RobotMap.TRANSMISSION_SPEED_BUTTON);
 	private static JoystickButton torqueButton = new JoystickButton(leftStick, RobotMap.TRANSMISSION_TORQUE_BUTTON);
 	
-	private static JoystickButton toggleArmPID = new JoystickButton(leftStick, RobotMap.TOGGLE_ARM_BUTTON);
-	private static JoystickButton toggleElevatorPID = new JoystickButton(leftStick, RobotMap.TOGGLE_ELEVATOR_BUTTON);
-	private static JoystickButton toggleDriveTrainPID = new JoystickButton(leftStick, RobotMap.TOGGLE_DRIVETRAIN_BUTTON);
+	private static Trigger toggleArmPID = new ToggleArmPIDTrigger();
+	private static Trigger toggleElevatorPID = new ToggleElevatorPIDTrigger();
+	private static Trigger toggleDriveTrainPID = new ToggleDriveTrainPIDTrigger();
 	
 	public OI () {
 		
@@ -46,9 +51,9 @@ public class OI {
 		controllerIntakeLeft.whileHeld(new IntakeLeft());
 		controllerIntakeRight.whileHeld(new IntakeRight());
 		
-		toggleArmPID.whenPressed(new ToggleArmPID());
-		toggleElevatorPID.whenPressed(new ToggleElevatorPID());
-		toggleDriveTrainPID.whenPressed(new ToggleDriveTrainPID());
+		toggleArmPID.whenActive(new ToggleArmPID());
+		toggleElevatorPID.whenActive(new ToggleElevatorPID());
+		toggleDriveTrainPID.whenActive(new ToggleDriveTrainPID());
 	}
 	public double getRightStickY() {
 		
