@@ -50,6 +50,7 @@ public class Robot extends IterativeRobot {
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		chooser.addDefault("Go To Line", new AutoDriveToLine());
 		chooser.addObject("Go To Line (From Center)", new AutoDriveToLineCenter());
+		chooser.addObject("2 cube left side", new TwoCubeAutoLeftPosition());
 		chooser.addObject("Score Scale (From Center)", new AutoScaleCenterPosition());
 		chooser.addObject("Score Scale (From Left)", new AutoScaleLeftPosition());
 		chooser.addObject("Score Scale (From Right)", new AutoScaleRightPosition());
