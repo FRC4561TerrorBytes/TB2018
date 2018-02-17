@@ -10,6 +10,7 @@ package org.usfirst.frc.team4561.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team4561.robot.commands.*;
 import org.usfirst.frc.team4561.robot.triggers.ToggleArmPIDTrigger;
@@ -202,5 +203,8 @@ public class OI {
 	public boolean getRightButton(int button){
 		return rightStick.getRawButton(button);
 	}
-
+	
+	public double getDashboardDelaySlider() {
+		return SmartDashboard.getNumber("DB/Slider 0", 0);
+	}
 }

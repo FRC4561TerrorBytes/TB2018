@@ -13,9 +13,14 @@ import org.usfirst.frc.team4561.robot.commands.TankDriveTimed;
  * @author Ben
  */
 public class AutoDriveToLineCenter extends CommandGroup {
+	
+	double delay = Robot.oi.getDashboardDelaySlider();
+	
 	public AutoDriveToLineCenter() {
 		// torque mode
 		addSequential(new TorqueGear());
+		// wait preassigned time
+    	addSequential(new WaitCommand(delay));
 		// forward
 		addSequential(new DriveMagic(100, 100));
 		// turn right

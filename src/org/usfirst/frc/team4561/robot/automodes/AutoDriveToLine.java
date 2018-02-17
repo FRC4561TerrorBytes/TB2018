@@ -11,9 +11,14 @@ import org.usfirst.frc.team4561.robot.commands.TankDriveTimed;
  * @author Ben
  */
 public class AutoDriveToLine extends CommandGroup {
+	
+	double delay = Robot.oi.getDashboardDelaySlider();
+	
 	public AutoDriveToLine() {
 		// torque mode
 		addSequential(new TorqueGear());
+		// wait preassigned time
+    	addSequential(new WaitCommand(delay));
 		// cross the auto line and score points
 		addSequential(new DriveMagic(100, 100));
 		// addSequential(new WaitCommand(3));

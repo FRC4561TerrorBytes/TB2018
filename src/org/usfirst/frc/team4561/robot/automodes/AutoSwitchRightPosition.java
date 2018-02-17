@@ -6,9 +6,11 @@ import org.usfirst.frc.team4561.robot.commands.CheckSwitchSide;
 import org.usfirst.frc.team4561.robot.commands.DriveMagic;
 import org.usfirst.frc.team4561.robot.commands.IntakeRelease;
 import org.usfirst.frc.team4561.robot.commands.TankDriveTimed;
+import org.usfirst.frc.team4561.robot.commands.TorqueGear;
 import org.usfirst.frc.team4561.robot.commands.TurnToArbritraryAngleMagic;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.WaitCommand;
 
 /**
  * This automode puts a block on the switch if the robot is on the right side of the field.
@@ -17,24 +19,13 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class AutoSwitchRightPosition extends CommandGroup {
 
+	double delay = Robot.oi.getDashboardDelaySlider();
+	
     public AutoSwitchRightPosition() {
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
-
-        // To run multiple commands at the same time,
-        // use addParallel()
-        // e.g. addParallel(new Command1());
-        //      addSequential(new Command2());
-        // Command1 and Command2 will run in parallel.
-
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-        // arm.
-  
+        
+    	addSequential(new TorqueGear());
+    	// wait preassigned time
+    	addSequential(new WaitCommand(delay));
     	// get side of switch from FMS
     	addSequential(new CheckSwitchSide());
     	// on the right

@@ -11,14 +11,17 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
  * @author Lucas
  */
 public class TwoCubeAutoLeftPosition extends CommandGroup {
-
+	
+	double delay = Robot.oi.getDashboardDelaySlider();
+	
     public TwoCubeAutoLeftPosition() {
-        
     	// get side of switch and scale from FMS
     	addSequential(new CheckSwitchSide());
     	addSequential(new CheckScaleSide());
     	// set transmission to low gear
     	addSequential(new TorqueGear());
+    	// wait preassigned time
+    	addSequential(new WaitCommand(delay));
     	// scale is on the right
     	if (Robot.scaleFMSSideRight) {
     		if(Robot.switchFMSSideRight){
