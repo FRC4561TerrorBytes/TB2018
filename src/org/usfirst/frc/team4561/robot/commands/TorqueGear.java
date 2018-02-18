@@ -31,7 +31,7 @@ protected void initialize() {
 
 protected void execute() {
 	Robot.transmission.torqueGear();
-	
+	Robot.driveTrain.switchToTorque();
 	if (RobotMap.TRANSMISSION_DEBUG) {
 		System.out.println("[TorqueGear] Command executes." );
 	}

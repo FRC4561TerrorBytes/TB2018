@@ -24,8 +24,9 @@ public class RobotMap {
 	public static final int CONTROLLER_PORT = 2;
 	
 	//Buttons
-	public static final int RELEASE_BUTTON = 1;
+	public static final int RELEASE_BUTTON = 4;
 	public static final int INTAKE_BUTTON = 1;
+	public static final int INTAKE_FULL_BUTTON = 6;
 	
 	public static final int INTAKE_POSITION_BUTTON = 2;
 	public static final int RELEASE_POSITION_BUTTON = 2;
@@ -43,8 +44,8 @@ public class RobotMap {
 	public static final int ARM_MIDDLE_POV2 = 270;
 	public static final int ARM_DOWN_POV = 180;
 	
-	public static final int TRANSMISSION_SPEED_BUTTON = 6;
-	public static final int TRANSMISSION_TORQUE_BUTTON = 4;
+	public static final int TRANSMISSION_SPEED_BUTTON = 5;
+	public static final int TRANSMISSION_TORQUE_BUTTON = 3;
 	
 	public static final double RIGHT_JOYSTICK_DEAD_ZONE = 0.25;
 	public static final double LEFT_JOYSTICK_DEAD_ZONE = 0.25;
@@ -108,8 +109,8 @@ public class RobotMap {
 	//PID variables
 	public static boolean MASTER_PID = false;
 	public static boolean DRIVETRAIN_PID = false || MASTER_PID;
-	public static boolean ELEVATOR_PID = false || MASTER_PID;
-	public static boolean ARM_PID = false || MASTER_PID;
+	public static boolean ELEVATOR_PID = true || MASTER_PID;
+	public static boolean ARM_PID = true || MASTER_PID;
 	
 	// If you are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:

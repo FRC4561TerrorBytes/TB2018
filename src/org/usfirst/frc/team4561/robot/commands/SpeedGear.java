@@ -37,7 +37,7 @@ protected void initialize()  {
 	
 protected void execute() {
 	Robot.transmission.speedGear();
-	
+	Robot.driveTrain.switchToSpeed();
 	if (RobotMap.TRANSMISSION_DEBUG)  {
 		System.out.println("[C:SpeedGear] Robot executes...");
 	}
