@@ -18,7 +18,11 @@ public class CheckScaleSide extends Command {
     	//change his so it works. this is a placeholder now.
     		//it works now
     	System.out.println(DriverStation.getInstance().getGameSpecificMessage());
-    	Robot.scaleFMSSideRight = DriverStation.getInstance().getGameSpecificMessage().charAt(1) == 'R';
+    	String data = "";
+    	while (data == ""){
+    		data = DriverStation.getInstance().getGameSpecificMessage();
+    	}
+    	Robot.scaleFMSSideRight = data.charAt(1) == 'R';
     }
 
     // Called just before this Command runs the first time

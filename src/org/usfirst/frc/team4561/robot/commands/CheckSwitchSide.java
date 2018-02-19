@@ -17,7 +17,11 @@ public class CheckSwitchSide extends Command {
         // eg. requires(chassis);
     	// test to see if this works for the side of the switch:
     	System.out.println(DriverStation.getInstance().getGameSpecificMessage());
-    	Robot.switchFMSSideRight = DriverStation.getInstance().getGameSpecificMessage().charAt(0) == 'R';
+    	String data = "";
+    	while (data == ""){
+    		data = DriverStation.getInstance().getGameSpecificMessage();
+    	}
+    	Robot.switchFMSSideRight = data.charAt(0) == 'R';
     }
 
     // Called just before this Command runs the first time

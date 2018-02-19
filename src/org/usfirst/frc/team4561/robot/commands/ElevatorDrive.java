@@ -18,15 +18,18 @@ public class ElevatorDrive extends Command {
 	
 	protected void execute(){
 		if (Robot.oi.getControllerButton(1)){
-			if (Robot.oi.getControllerRTrigger()){
+			if (!Robot.oi.getControllerButton(6)){
 				Robot.elevator.ScalePositionLow();
 			}
 			else{
 				Robot.elevator.GroundPosition();
 			}
 		}
+		else if (Robot.oi.getControllerButton(2)){
+			Robot.elevator.GroundPosition();
+		}
 		else if (Robot.oi.getControllerButton(3)){
-			if (Robot.oi.getControllerRTrigger()){
+			if (!Robot.oi.getControllerButton(6)){
 				Robot.elevator.ScalePositionMid();
 			}
 			else {
@@ -38,8 +41,7 @@ public class ElevatorDrive extends Command {
 		}
 		Robot.elevator.set(-Robot.oi.getControllerRightY());
 		
-		SmartDashboard.putNumber("Elevator Speed", Robot.elevator.getElevatorSpeed());
-		SmartDashboard.putNumber("Elevator Pos", Robot.elevator.getElevatorPos());
+		//SmartDashboard.putNumber("Elevator Pos", Robot.elevator.getElevatorPos());
 	}
 
 }

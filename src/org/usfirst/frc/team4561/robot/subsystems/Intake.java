@@ -2,6 +2,7 @@ package org.usfirst.frc.team4561.robot.subsystems;
 
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
+import org.usfirst.frc.team4561.robot.commands.IntakeDrive;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
@@ -41,8 +42,12 @@ public class Intake extends Subsystem {
 		intakeRightMotor.set(1);
 	}
 	public void intakeIn(){
-		intakeLeftMotor.set(1);
-		intakeRightMotor.set(1);
+		intakeLeftMotor.set(0.75);
+		intakeRightMotor.set(0.75);
+	}
+	public void intakeOutHalf(){
+		intakeLeftMotor.set(-0.4);
+		intakeRightMotor.set(-0.4);
 	}
 	public void stop(){
 		intakeLeftMotor.set(0);
@@ -56,8 +61,13 @@ public class Intake extends Subsystem {
 	}
 	
 	public void release () {
-		intakeLeftMotor.set(-0.5);
-		intakeRightMotor.set(-0.5);
+		intakeLeftMotor.set(-0.85);
+		intakeRightMotor.set(-0.85);
+	}
+	
+	public void set(double left, double right){
+		intakeLeftMotor.set(left);
+		intakeRightMotor.set(right);
 	}
 
 	//These four methods are mainly used in the Intake debug
@@ -81,7 +91,7 @@ public class Intake extends Subsystem {
 	}
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
+		setDefaultCommand(new IntakeDrive());
 
 	}
 

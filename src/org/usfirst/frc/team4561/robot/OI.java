@@ -13,9 +13,7 @@ import edu.wpi.first.wpilibj.buttons.Trigger;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team4561.robot.commands.*;
-import org.usfirst.frc.team4561.robot.triggers.ToggleArmPIDTrigger;
-import org.usfirst.frc.team4561.robot.triggers.ToggleDriveTrainPIDTrigger;
-import org.usfirst.frc.team4561.robot.triggers.ToggleElevatorPIDTrigger;
+import org.usfirst.frc.team4561.robot.triggers.*;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -26,35 +24,36 @@ public class OI {
 	private static Joystick rightStick = new Joystick (RobotMap.RIGHT_JOYSTICK_PORT);
 	private static Joystick controller = new Joystick (RobotMap.CONTROLLER_PORT);
 	
-	private static JoystickButton controllerIntake = new JoystickButton(controller, RobotMap.CONTROLLER_INTAKE);
-	private static JoystickButton controllerIntakeLeft = new JoystickButton(controller, RobotMap.CONTROLLER_LEFT_INTAKE);
-	private static JoystickButton controllerIntakeRight = new JoystickButton(controller, RobotMap.CONTROLLER_RIGHT_INTAKE);
+	//private static JoystickButton controllerIntakeLeft = new JoystickButton(controller, RobotMap.CONTROLLER_LEFT_INTAKE);
+	//private static JoystickButton controllerIntakeRight = new JoystickButton(controller, RobotMap.CONTROLLER_RIGHT_INTAKE);
 	
-	private static JoystickButton intakeButton = new JoystickButton (rightStick, RobotMap.INTAKE_BUTTON);
-	private static JoystickButton releaseButton = new JoystickButton (leftStick, RobotMap.RELEASE_BUTTON);
 	
-	private static JoystickButton speedButton = new JoystickButton(leftStick, RobotMap.TRANSMISSION_SPEED_BUTTON);
-	private static JoystickButton torqueButton = new JoystickButton(leftStick, RobotMap.TRANSMISSION_TORQUE_BUTTON);
+	private static JoystickButton speedButton = new JoystickButton(rightStick, RobotMap.TRANSMISSION_SPEED_BUTTON);
+	private static JoystickButton torqueButton = new JoystickButton(rightStick, RobotMap.TRANSMISSION_TORQUE_BUTTON);
 	
-	private static Trigger toggleArmPID = new ToggleArmPIDTrigger();
-	private static Trigger toggleElevatorPID = new ToggleElevatorPIDTrigger();
-	private static Trigger toggleDriveTrainPID = new ToggleDriveTrainPIDTrigger();
+	public static Trigger startElevatorRelative;
+	public static Trigger toggleArmPID;
+	public static Trigger toggleElevatorPID;
+	public static Trigger toggleDriveTrainPID;
+	public static Trigger stopElevatorRelative;
 	
 	public OI () {
 		
-		intakeButton.whileHeld(new IntakeIn());
-		releaseButton.whileHeld(new IntakeRelease());
 		
 		speedButton.whenPressed(new SpeedGear());
 		torqueButton.whenPressed(new TorqueGear());
 		
-		controllerIntake.whileHeld(new IntakeIn());
-		controllerIntakeLeft.whileHeld(new IntakeLeft());
-		controllerIntakeRight.whileHeld(new IntakeRight());
+		//controllerIntake.whileHeld(new IntakeIn());
+		//controllerIntakeLeft.whileHeld(new IntakeLeft());
+		//controllerIntakeRight.whileHeld(new IntakeRight());
 		
-		toggleArmPID.whenActive(new ToggleArmPID());
-		toggleElevatorPID.whenActive(new ToggleElevatorPID());
-		toggleDriveTrainPID.whenActive(new ToggleDriveTrainPID());
+		toggleArmPID = new ToggleArmPIDTrigger();
+		toggleElevatorPID = new ToggleElevatorPIDTrigger();
+		toggleDriveTrainPID = new ToggleDriveTrainPIDTrigger();
+		stopElevatorRelative = new StopElevatorRelative();
+		startElevatorRelative = new StartElevatorRelative();
+		
+		
 	}
 	public double getRightStickY() {
 		
@@ -172,12 +171,12 @@ public class OI {
 		return controller.getRawAxis(1);
 	}
 	
-	public boolean getControllerLTrigger(){
-		return (controller.getRawAxis(2)==1);
+	public double getControllerLTrigger(){
+		return controller.getRawAxis(2);
 	}
 	
-	public boolean getControllerRTrigger(){
-		return (controller.getRawAxis(3)==1);
+	public double getControllerRTrigger(){
+		return controller.getRawAxis(3);
 	}
 	
 	public double getControllerRightX(){
@@ -205,6 +204,6 @@ public class OI {
 	}
 	
 	public double getDashboardDelaySlider() {
-		return SmartDashboard.getNumber("DB/Slider 0", 0);
+		return SmartDashboard.getNumber("DB/Slider 1", 0);
 	}
 }

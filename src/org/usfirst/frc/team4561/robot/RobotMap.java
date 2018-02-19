@@ -26,7 +26,7 @@ public class RobotMap {
 	//Buttons
 	public static final int RELEASE_BUTTON = 4;
 	public static final int INTAKE_BUTTON = 1;
-	public static final int INTAKE_FULL_BUTTON = 6;
+	public static final int OUTTAKE_FULL_BUTTON = 6;
 	
 	public static final int INTAKE_POSITION_BUTTON = 2;
 	public static final int RELEASE_POSITION_BUTTON = 2;
@@ -109,7 +109,7 @@ public class RobotMap {
 	//PID variables
 	public static boolean MASTER_PID = false;
 	public static boolean DRIVETRAIN_PID = false || MASTER_PID;
-	public static boolean ELEVATOR_PID = true || MASTER_PID;
+	public static boolean ELEVATOR_PID = false || MASTER_PID;
 	public static boolean ARM_PID = true || MASTER_PID;
 	
 	// If you are using multiple modules, make sure to define both the port

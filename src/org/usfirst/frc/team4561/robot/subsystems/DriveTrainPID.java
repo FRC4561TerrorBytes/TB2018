@@ -24,7 +24,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrainPID extends Subsystem {
 	
-	double maxSpeed;		//Maximum RPM
+	double maxSpeed = 3500;		//Maximum RPM
+	double maxSpeedHighGear = 9300;
+	double maxSpeedLowGear = 3500;
+	double speedF = 0.161;
+	double torqueF = 0.417;
 	
 	//Control Modes
 	private ControlMode follower = com.ctre.phoenix.motorcontrol.ControlMode.Follower;
@@ -56,6 +60,8 @@ public class DriveTrainPID extends Subsystem {
 	public DriveTrainPID() {
 			
 		midRight.set(follower, RobotMap.FRONT_RIGHT_MOTOR_PORT);
+		midRight.configPeakOutputForward(1, 0);
+		midRight.configPeakOutputReverse(-1, 0);
 			
 		rearRight.set(follower, RobotMap.FRONT_RIGHT_MOTOR_PORT);
 			
@@ -68,13 +74,17 @@ public class DriveTrainPID extends Subsystem {
 		rearRight.setInverted(true);
 		gyro.calibrate();
 		
+		double kP = 0.25;
+		double kI = 0.01;
+		double kD = 0;
+		
 		frontLeft.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0,0);
 		frontRight.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 			
-		frontRight.config_kF(0, 0.225, 0);
-		frontRight.config_kP(0, 5, 0);
-		frontRight.config_kI(0, 0, 0);
-		frontRight.config_kD(0, 1, 0);
+		frontRight.config_kF(0, torqueF, 0);
+		frontRight.config_kP(0, kP, 0);
+		frontRight.config_kI(0, kI, 0);
+		frontRight.config_kD(0, kD, 0);
 		frontRight.config_IntegralZone(0, 50, 0);
 		frontRight.configMotionCruiseVelocity(666, 0);
 		rightSpeed = 0.225;
@@ -86,10 +96,10 @@ public class DriveTrainPID extends Subsystem {
 		frontRight.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 0);
 		frontRight.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0);
 			
-		frontLeft.config_kF(0, 0.225, 0);
-		frontLeft.config_kP(0, 5, 0);
-		frontLeft.config_kI(0, 0, 0);
-		frontLeft.config_kD(0, 1, 0);
+		frontLeft.config_kF(0, torqueF, 0);
+		frontLeft.config_kP(0, kP, 0);
+		frontLeft.config_kI(0, kI, 0);
+		frontLeft.config_kD(0, kD, 0);
 		frontLeft.config_IntegralZone(0, 50, 0);
 		frontLeft.configMotionCruiseVelocity(1333, 0);
 		leftSpeed = 0.225;
@@ -132,7 +142,7 @@ public class DriveTrainPID extends Subsystem {
 			}
 		}
 		
-		if (RobotMap.DRIVETRAIN_PID){
+		if (RobotMap.DRIVETRAIN_PID){ 
 			frontRight.set(velocity, maxSpeed * rightMotorOutput);
 			frontLeft.set(velocity, maxSpeed * leftMotorOutput);
 		}
@@ -291,6 +301,24 @@ public class DriveTrainPID extends Subsystem {
 		frontLeft.setSelectedSensorPosition(0, 0, 0);
 		frontRight.setSelectedSensorPosition(0, 0, 0);
 	}
+	public double fLThrottle(){
+		return frontLeft.getMotorOutputPercent();
+	}
+	public double mLThrottle(){
+		return midLeft.getMotorOutputPercent();
+	}
+	public double rLThrottle(){
+		return rearLeft.getMotorOutputPercent();
+	}
+	public double fRThrottle(){
+		return frontRight.getMotorOutputPercent();
+	}
+	public double mRThrottle(){
+		return midRight.getMotorOutputPercent();
+	}
+	public double rRThrottle(){
+		return rearRight.getMotorOutputPercent();
+	}
 	public double getGyroAngle(){
 		return gyro.getAngle();
 	}
@@ -306,7 +334,34 @@ public class DriveTrainPID extends Subsystem {
 	public double getRightError(){
 		return frontRight.getClosedLoopError(0);
 	}
-		
+	public double getLeftCurrent(){
+		return frontLeft.getOutputCurrent();
+	}
+	public double getRightCurrent(){
+		return frontRight.getOutputCurrent();
+	}
+	public double getLeftMidCurrent(){
+		return midLeft.getOutputCurrent();
+	}
+	public double getRightMidCurrent(){
+		return midRight.getOutputCurrent();
+	}
+	public double getLeftRearCurrent(){
+		return rearLeft.getOutputCurrent();
+	}
+	public double getRightRearCurrent(){
+		return rearRight.getOutputCurrent();
+	}
+	public void switchToTorque(){
+		maxSpeed = maxSpeedLowGear;
+		frontLeft.config_kF(0, torqueF, 0);
+		frontRight.config_kF(0, torqueF, 0);
+	}
+	public void switchToSpeed(){
+		maxSpeed = maxSpeedHighGear;
+		frontLeft.config_kF(0, speedF, 0);
+		frontRight.config_kF(0, speedF, 0);
+	}
 	//Set value to number between -1 and 1
 	protected double limit(double value) {
 		if (value > 1.0) {

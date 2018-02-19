@@ -7,6 +7,9 @@
 
 package org.usfirst.frc.team4561.robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.vision.USBCamera;
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -34,6 +37,7 @@ public class Robot extends IterativeRobot {
 	public static final ElevatorPID elevator = new ElevatorPID();
 	public static final ArmPID arm = new ArmPID();
 	public static final Intake intake = new Intake();
+	public static CameraServer cam;
 	//public static final Encoder testEncoder = new Encoder(0, 1);
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -51,23 +55,49 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
+		
+		UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
 		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		chooser.addDefault("Go To Line", new AutoDriveToLine());
-		chooser.addObject("Go To Line (From Center)", new AutoDriveToLineCenter());
-		chooser.addObject("2 cube left side", new TwoCubeAutoLeftPosition());
-		chooser.addObject("Score Scale (From Center)", new AutoScaleCenterPosition());
-		chooser.addObject("Score Scale (From Left)", new AutoScaleLeftPosition());
-		chooser.addObject("Score Scale (From Right)", new AutoScaleRightPosition());
-		chooser.addObject("Score Switch (From Center)", new AutoSwitchCenterPosition());
-		chooser.addObject("Score Switch (From Left)", new AutoSwitchLeftPosition());
-		chooser.addObject("Score Switch (From Right)", new AutoSwitchRightPosition());
+		int auto = (int) SmartDashboard.getNumber("DB/Slider 0", 0);
+		switch (auto){
+		case 0:
+			autonomousCommand = new AutoDriveToLine();
+			break;
+		case 1:
+			autonomousCommand = new AutoDriveToLineCenter();
+			break;
+		case 2:
+			autonomousCommand = new AutoScaleCenterPosition();
+			break;
+		case 3:
+			autonomousCommand = new AutoScaleLeftPosition();
+			break;
+		case 4:
+			autonomousCommand = new AutoScaleRightPosition();
+			break;
+		case 5:
+			autonomousCommand = new AutoSwitchCenterPosition();
+			break;
+		case 6:
+			autonomousCommand = new AutoSwitchLeftPosition();
+			break;
+		case 7:
+			autonomousCommand = new AutoSwitchRightPosition();
+			break;
+		case 8:
+			autonomousCommand = new TwoCubeAutoLeftPosition();
+			break;
+		case 9:
+			autonomousCommand = null;
+		}
 		SmartDashboard.putData("Auto mode", chooser);
 		System.out.println("Things are not on fire");
 		oi.toggleArmPID.whenActive(new ToggleArmPID());
 		oi.toggleElevatorPID.whenActive(new ToggleElevatorPID());
 		oi.toggleDriveTrainPID.whenActive(new ToggleDriveTrainPID());
 		oi.stopElevatorRelative.whenActive(new ResetElevator());
+		oi.startElevatorRelative.whenActive(new ResetElevator());
 		
 	}
 
@@ -104,6 +134,7 @@ public class Robot extends IterativeRobot {
 	    	SmartDashboard.putNumber("Elevator/Goal", Robot.elevator.getGoal());
 	    	SmartDashboard.putBoolean("Elevator/Limit Switch", Robot.elevator.limitSwitch());
 			SmartDashboard.putNumber("Elevator/Speed", Robot.elevator.getElevatorSpeed());
+			SmartDashboard.putNumber("Elevator/Sensor Voltage", Robot.elevator.getPotVolt());
 		}
     	
     	SmartDashboard.putNumber("Heartbeat <3", Math.random());
@@ -126,6 +157,12 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putNumber("Drive Current/Drive Train Right Mid", Robot.driveTrain.getRightMidCurrent());
     	SmartDashboard.putNumber("Drive Current/Drive Train Left Rear", Robot.driveTrain.getLeftRearCurrent());
     	SmartDashboard.putNumber("Drive Current/Drive Train Right Rear", Robot.driveTrain.getRightRearCurrent());
+    	SmartDashboard.putNumber("Drive Throttle/Drive Train Left Front Throttle", Robot.driveTrain.fLThrottle());
+    	SmartDashboard.putNumber("Drive Throttle/Drive Train Left Mid Throttle", Robot.driveTrain.mLThrottle());
+    	SmartDashboard.putNumber("Drive Throttle/Drive Train Left Rear Throttle", Robot.driveTrain.rLThrottle());
+    	SmartDashboard.putNumber("Drive Throttle/Drive Train Right Front Throttle", Robot.driveTrain.fRThrottle());
+    	SmartDashboard.putNumber("Drive Throttle/Drive Train Right Mid Throttle", Robot.driveTrain.mRThrottle());
+    	SmartDashboard.putNumber("Drive Throttle/Drive Train Right Rear Throttle", Robot.driveTrain.rRThrottle());
     	SmartDashboard.putNumber("Motor Current/Arm", Robot.arm.getCurrent());
     	SmartDashboard.putNumber("Motor Current/Elevator Master", Robot.elevator.getCurrentOne());
     	SmartDashboard.putNumber("Motor Current/Elevator Slave", Robot.elevator.getCurrentTwo());
@@ -166,7 +203,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
 
 
 		// schedule the autonomous command (example)
