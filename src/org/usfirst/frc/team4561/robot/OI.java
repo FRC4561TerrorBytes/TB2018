@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team4561.robot.automodes.AutoDriveToLine;
 import org.usfirst.frc.team4561.robot.commands.*;
 import org.usfirst.frc.team4561.robot.triggers.*;
 
@@ -40,7 +41,7 @@ public class OI {
 	public OI () {
 		
 		
-		speedButton.whenPressed(new SpeedGear());
+		speedButton.whenPressed(new DriveMagic(100,100));
 		torqueButton.whenPressed(new TorqueGear());
 		
 		//controllerIntake.whileHeld(new IntakeIn());

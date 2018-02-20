@@ -102,14 +102,16 @@ public class ArmPID extends Subsystem {
     }
 	@Override
 	protected void initDefaultCommand() {
-		setDefaultCommand(new ArmDrive());
+		//setDefaultCommand(new ArmDrive());
 
 	}
 	
 	public void setEncoderPos(int pos){
 		motorOne.setSelectedSensorPosition(pos, 0, 0);
 	}
-	
+	public boolean nearGoal(){
+		return Math.abs(motorOne.getClosedLoopError(0))<15;
+	}
 	public boolean getFwdSwitch(){
 		return motorOne.getSensorCollection().isFwdLimitSwitchClosed();
 	}

@@ -9,11 +9,11 @@ public class ArmReleasePosition extends Command {
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return true;
+		return Robot.arm.nearGoal();
 	}
 	
 	protected void execute(){
-		Robot.arm.ReleasePosition();
+		Robot.arm.DiagonalPosition();
 	}
 
 }

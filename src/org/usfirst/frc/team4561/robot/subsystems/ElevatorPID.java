@@ -109,7 +109,7 @@ public class ElevatorPID extends Subsystem {
 		if (RobotMap.ELEVATOR_PID) setToGoal();
 	}
 	public void ScalePositionHigh(){
-		goal = 498;
+		goal = 460;
 		if (RobotMap.ELEVATOR_PID) setToGoal();
 	}
 	public double getElevatorPos(){
@@ -123,7 +123,7 @@ public class ElevatorPID extends Subsystem {
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-		setDefaultCommand(new ElevatorDrive());
+		//setDefaultCommand(new ElevatorDrive());
 
 	}
 
@@ -138,6 +138,9 @@ public class ElevatorPID extends Subsystem {
 	}
 	public double getGoal(){
 		return goal;
+	}
+	public boolean nearGoal(){
+		return Math.abs(motorOne.getClosedLoopError(0))<16;
 	}
 	public double getCurrentOne(){
 		return motorOne.getOutputCurrent();

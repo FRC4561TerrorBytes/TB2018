@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 import org.usfirst.frc.team4561.robot.commands.TorqueGear;
 import org.usfirst.frc.team4561.robot.commands.TurnToArbritraryAngleMagic;
 import org.usfirst.frc.team4561.robot.Robot;
+import org.usfirst.frc.team4561.robot.RobotMap;
 import org.usfirst.frc.team4561.robot.commands.DriveMagic;
 import org.usfirst.frc.team4561.robot.commands.TankDriveTimed;
 /**
@@ -24,13 +25,13 @@ public class AutoDriveToLineCenter extends CommandGroup {
 		// forward
 		addSequential(new DriveMagic(100, 100));
 		// turn right
-		addSequential(new TurnToArbritraryAngleMagic(90));
+		addSequential(new DriveMagic((int) (RobotMap.DRIVETRAIN_CIRCUMFERENCE/4), -(int) (RobotMap.DRIVETRAIN_CIRCUMFERENCE/4)));
 		// forward
-		addSequential(new DriveMagic(100, 100));
+		addSequential(new DriveMagic(25, 25));
 		// turn left
-		addSequential(new TurnToArbritraryAngleMagic(270));
+		addSequential(new DriveMagic(-(int) (RobotMap.DRIVETRAIN_CIRCUMFERENCE/4), (int) (RobotMap.DRIVETRAIN_CIRCUMFERENCE/4)));
 		// cross the line and score points
-		addSequential(new DriveMagic(100, 100));
+		addSequential(new DriveMagic(30, 30));
 		// addSequential(new WaitCommand(3));
 		// done
 	}

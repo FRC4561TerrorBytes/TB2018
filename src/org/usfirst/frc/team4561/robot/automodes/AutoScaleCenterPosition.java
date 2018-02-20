@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4561.robot.automodes;
 
 import org.usfirst.frc.team4561.robot.Robot;
+import org.usfirst.frc.team4561.robot.RobotMap;
 import org.usfirst.frc.team4561.robot.commands.*;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -21,26 +22,26 @@ public class AutoScaleCenterPosition extends CommandGroup {
     	addSequential(new WaitCommand(delay));
     	// if our side is the right
     	if (Robot.scaleFMSSideRight) {
-    		addSequential(new TankDriveTimed(1, 1, 1)); // forward
-    		addSequential(new TankDriveTimed(1, 0, 0.25)); // right
-    		addSequential(new TankDriveTimed(1, 1, 1)); // forward
-    		addSequential(new TankDriveTimed(0, 1, 0.25)); // left
-    		addSequential(new TankDriveTimed(1, 1, 2)); // forward
-    		addSequential(new TankDriveTimed(0, 1, 0.25)); // left
-    		addSequential(new TankDriveTimed(1, 1, 0.25)); // forward
+    		addSequential(new DriveMagic(100, 100)); // forward
+    		addSequential(new DriveMagic((int) (RobotMap.DRIVETRAIN_CIRCUMFERENCE/4), -(int) (RobotMap.DRIVETRAIN_CIRCUMFERENCE/4))); // right
+    		addSequential(new DriveMagic(25, 25)); // forward
+    		addSequential(new DriveMagic(-(int) (RobotMap.DRIVETRAIN_CIRCUMFERENCE/4), (int) (RobotMap.DRIVETRAIN_CIRCUMFERENCE/4))); // left
+    		addSequential(new DriveMagic(196, 196)); // forward
+    		addSequential(new ElevatorScalePosition());
+    		addSequential(new DriveMagic(10,10));
     		addSequential(new ArmReleasePosition());
     		addSequential(new IntakeRelease()); // drop power cube
     		addSequential(new ElevatorGroundPosition()); // put the elevator down
     	}
     	// if we are on the left
     	else {
-    		addSequential(new TankDriveTimed(1, 1, 1)); // forward
-    		addSequential(new TankDriveTimed(0, 1, 0.25)); // left
-    		addSequential(new TankDriveTimed(1, 1, 1)); // forward
-    		addSequential(new TankDriveTimed(1, 0, 0.25)); // right
-    		addSequential(new TankDriveTimed(1, 1, 2)); // forward
-    		addSequential(new TankDriveTimed(1, 0, 0.25)); // right
-    		addSequential(new TankDriveTimed(1, 1, 0.25)); // forward
+    		addSequential(new DriveMagic(100, 100)); // forward
+    		addSequential(new DriveMagic((int) (-RobotMap.DRIVETRAIN_CIRCUMFERENCE/4), (int) (RobotMap.DRIVETRAIN_CIRCUMFERENCE/4))); // right
+    		addSequential(new DriveMagic(25, 25)); // forward
+    		addSequential(new DriveMagic((int) (RobotMap.DRIVETRAIN_CIRCUMFERENCE/4), -(int) (RobotMap.DRIVETRAIN_CIRCUMFERENCE/4))); // left
+    		addSequential(new DriveMagic(196, 196)); // forward
+    		addSequential(new ElevatorScalePosition());
+    		addSequential(new DriveMagic(10, 10));
     		addSequential(new ArmReleasePosition());
     		addSequential(new IntakeRelease()); // drop power cube
     		addSequential(new ElevatorGroundPosition()); // put the elevator down

@@ -106,10 +106,12 @@ public class RobotMap {
 	public static final boolean TRANSMISSION_DEBUG = false || MASTER_DEBUG;
 	public static final boolean ARM_DEBUG = false || MASTER_DEBUG;
 	
+	public static final double DRIVETRAIN_CIRCUMFERENCE = 72.25;
+	
 	//PID variables
 	public static boolean MASTER_PID = false;
 	public static boolean DRIVETRAIN_PID = false || MASTER_PID;
-	public static boolean ELEVATOR_PID = false || MASTER_PID;
+	public static boolean ELEVATOR_PID = true || MASTER_PID;
 	public static boolean ARM_PID = true || MASTER_PID;
 	
 	// If you are using multiple modules, make sure to define both the port

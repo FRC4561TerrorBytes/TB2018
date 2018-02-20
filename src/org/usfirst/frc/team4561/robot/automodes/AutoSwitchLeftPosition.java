@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4561.robot.automodes;
 
 import org.usfirst.frc.team4561.robot.Robot;
+import org.usfirst.frc.team4561.robot.RobotMap;
 import org.usfirst.frc.team4561.robot.commands.ArmReleasePosition;
 import org.usfirst.frc.team4561.robot.commands.CheckSwitchSide;
 import org.usfirst.frc.team4561.robot.commands.DriveMagic;
@@ -31,18 +32,20 @@ public class AutoSwitchLeftPosition extends CommandGroup {
     	addSequential(new CheckSwitchSide());
     	// on the left
     	if (!(Robot.switchFMSSideRight)) {
-    		addSequential(new DriveMagic(100, 100)); // forward
+    		addSequential(new DriveMagic(140, 140)); // forward
     		addSequential(new ArmReleasePosition());
+    		addSequential(new DriveMagic(10, 10));
     		addSequential(new IntakeRelease()); // drop power cube
     	}
     	// on the right
     	else {
     		addSequential(new DriveMagic(100, 100)); // forward
-    		addSequential(new TurnToArbritraryAngleMagic(90)); // turn right
-    		addSequential(new DriveMagic(100, 100)); // forward
-    		addSequential(new TurnToArbritraryAngleMagic(270)); // turn left
-    		addSequential(new DriveMagic(100, 100)); // forward
+    		addSequential(new DriveMagic((int) (RobotMap.DRIVETRAIN_CIRCUMFERENCE/4),-(int) (RobotMap.DRIVETRAIN_CIRCUMFERENCE/4))); // turn right
+    		addSequential(new DriveMagic(156, 156)); // forward
+    		addSequential(new DriveMagic(-(int) (RobotMap.DRIVETRAIN_CIRCUMFERENCE/4),(int) (RobotMap.DRIVETRAIN_CIRCUMFERENCE/4))); // turn left
+    		addSequential(new DriveMagic(40, 40)); // forward
     		addSequential(new ArmReleasePosition());
+    		addSequential(new DriveMagic(10,10));
     		addSequential(new IntakeRelease()); // drop power cube
     	}
     }

@@ -18,7 +18,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team4561.robot.automodes.*;
+import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
+import org.usfirst.frc.team4561.robot.commands.ArmDrive;
+import org.usfirst.frc.team4561.robot.commands.CheckScaleSide;
+import org.usfirst.frc.team4561.robot.commands.CheckSwitchSide;
+import org.usfirst.frc.team4561.robot.commands.ElevatorDrive;
+import org.usfirst.frc.team4561.robot.commands.IntakeDrive;
 import org.usfirst.frc.team4561.robot.commands.ResetElevator;
+import org.usfirst.frc.team4561.robot.commands.TankDrive;
 import org.usfirst.frc.team4561.robot.commands.ToggleArmPID;
 import org.usfirst.frc.team4561.robot.commands.ToggleDriveTrainPID;
 import org.usfirst.frc.team4561.robot.commands.ToggleElevatorPID;
@@ -60,6 +67,8 @@ public class Robot extends IterativeRobot {
 		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		int auto = (int) SmartDashboard.getNumber("DB/Slider 0", 0);
+		(new CheckScaleSide()).start();
+		(new CheckSwitchSide()).start();
 		switch (auto){
 		case 0:
 			autonomousCommand = new AutoDriveToLine();
@@ -166,6 +175,10 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putNumber("Motor Current/Arm", Robot.arm.getCurrent());
     	SmartDashboard.putNumber("Motor Current/Elevator Master", Robot.elevator.getCurrentOne());
     	SmartDashboard.putNumber("Motor Current/Elevator Slave", Robot.elevator.getCurrentTwo());
+    	
+    	SmartDashboard.putNumber("Left Error", Robot.driveTrain.getLeftError());
+		SmartDashboard.putNumber("Right Error", Robot.driveTrain.getRightError());
+		
     	//SmartDashboard.putNumber("Controller POV", oi.getControllerPOV());
     	if (Robot.arm.getRevSwitch()){
 			Robot.arm.setEncoderPos(-1120);
@@ -228,6 +241,11 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}
+		if (RobotMap.DRIVE_MODE == 1) (new ArcadeDrive()).start();
+		else (new TankDrive()).start();
+		(new ElevatorDrive()).start();
+		(new ArmDrive()).start();
+		(new IntakeDrive()).start();
 	}
 
 	/**
