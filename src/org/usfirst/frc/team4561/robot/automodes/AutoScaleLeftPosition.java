@@ -7,6 +7,8 @@ import org.usfirst.frc.team4561.robot.commands.ElevatorScalePosition;
 import org.usfirst.frc.team4561.robot.commands.IntakeRelease;
 import org.usfirst.frc.team4561.robot.commands.TankDriveTimed;
 import org.usfirst.frc.team4561.robot.commands.TorqueGear;
+import org.usfirst.frc.team4561.robot.commands.DriveMagic;
+import org.usfirst.frc.team4561.robot.commands.TurnToArbritraryAngleMagic;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
@@ -26,30 +28,31 @@ public class AutoScaleLeftPosition extends CommandGroup {
     	// wait preassigned time
     	addSequential(new WaitCommand(delay));
    
-    	// if our side is the left
-    	if (!(Robot.scaleFMSSideRight)) {
-    		addSequential(new TankDriveTimed(1, 1, 3)); // forward
-    		addSequential(new TankDriveTimed(1, 0, 0.25)); // right
-    		addSequential(new TankDriveTimed(1, 1, 0.25)); // forward
-    		addSequential(new ElevatorScalePosition()); // elevate
-    		addSequential(new ArmReleasePosition());
-    		addSequential(new IntakeRelease()); // drop power cube
-    		addSequential(new ElevatorGroundPosition()); // put the elevator down
-    	}
-    	// else
-    	else {
-    		addSequential(new TankDriveTimed(1, 1, 1)); // forward
-    		addSequential(new TankDriveTimed(1, 0, 0.25)); // right
-    		addSequential(new TankDriveTimed(1, 1, 2)); // forward
-    		addSequential(new TankDriveTimed(0, 1, 0.25)); // left
-    		addSequential(new TankDriveTimed(1, 1, 2)); // forward
-    		addSequential(new TankDriveTimed(0, 1, 0.25)); // left
-    		addSequential(new TankDriveTimed(1, 1, 0.25)); // forward
-    		addSequential(new ElevatorScalePosition()); // elevate
-    		addSequential(new ArmReleasePosition());
-    		addSequential(new IntakeRelease()); // drop power cube
-    		addSequential(new ElevatorGroundPosition()); // put the elevator down
-    	}
-    	
+    	 // if our side is the left
+        if (!(Robot.scaleFMSSideRight)) {
+            addSequential(new DriveMagic(100, 100)); // forward
+            addSequential(new TurnToArbritraryAngleMagic(90)); // right
+            addSequential(new DriveMagic(100, 100)); // forward
+            addSequential(new ElevatorScalePosition()); // elevate
+            addSequential(new ArmReleasePosition());
+            addSequential(new IntakeRelease()); // drop power cube
+            addSequential(new ElevatorGroundPosition()); // put the elevator down
+        }
+        // else
+        else {
+            addSequential(new DriveMagic(100, 100)); // forward
+            addSequential(new TurnToArbritraryAngleMagic(90)); // right
+            addSequential(new DriveMagic(100, 100)); // forward
+            addSequential(new TurnToArbritraryAngleMagic(270)); // left
+            addSequential(new DriveMagic(100, 100)); // forward
+            addSequential(new TurnToArbritraryAngleMagic(270)); // left
+            addSequential(new DriveMagic(100, 100)); // forward
+            addSequential(new ElevatorScalePosition()); // elevate
+            addSequential(new ArmReleasePosition());
+            addSequential(new IntakeRelease()); // drop power cube
+            addSequential(new ElevatorGroundPosition()); // put the elevator down
+        }
+        
     }
 }
+

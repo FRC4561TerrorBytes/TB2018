@@ -86,6 +86,17 @@ public class ElevatorPID extends Subsystem {
 		goal = 350;
 		if (RobotMap.ELEVATOR_PID) setToGoal();
 	}
+	
+    public void setPowerOne(double power) {
+           motorOne.set(ControlMode.PercentOutput, power);
+           
+       }
+       
+    public void setPowerTwo(double power) {
+           motorTwo.set(ControlMode.PercentOutput, power);
+           
+       }
+
 	public double getElevatorPos(){
 		return motorOne.getSelectedSensorPosition(0);
 	}

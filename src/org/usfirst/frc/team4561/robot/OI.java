@@ -207,4 +207,8 @@ public class OI {
 	public double getDashboardDelaySlider() {
 		return SmartDashboard.getNumber("DB/Slider 0", 0);
 	}
+    public double getDashboardSlider3() {
+        return SmartDashboard.getNumber("DB/Slider 3", 0);
+    }
+
 }

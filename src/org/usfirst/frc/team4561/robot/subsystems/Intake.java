@@ -1,8 +1,11 @@
 package org.usfirst.frc.team4561.robot.subsystems;
 
+import java.util.ResourceBundle.Control;
+
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -76,6 +79,18 @@ public class Intake extends Subsystem {
 	public double getIntakeRightVelocity() {
 		return intakeRightMotor.getSelectedSensorVelocity(0);
 	}
+	
+	
+	public void setLeftIntake(double power) {
+	     intakeLeftMotor.set(ControlMode.PercentOutput, power);
+	 }
+	    
+    public void setRightIntake(double power) {
+	     intakeRightMotor.set(ControlMode.PercentOutput, power);
+	   
+	   }
+
+
 	public boolean detectorState() {
 		return cubeDetector.get();
 	}

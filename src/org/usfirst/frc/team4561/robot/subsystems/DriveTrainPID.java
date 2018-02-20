@@ -291,6 +291,38 @@ public class DriveTrainPID extends Subsystem {
 		frontLeft.setSelectedSensorPosition(0, 0, 0);
 		frontRight.setSelectedSensorPosition(0, 0, 0);
 	}
+	
+    public void setLeftMotorPower(double power) {
+        if (power > 1) {
+            if (RobotMap.DRIVETRAIN_DEBUG) {
+                System.out.println("[Subsystem] Power to left side of drivetrain was set too high: " + power + ", changing to full forward.");
+            }
+            power = 1;
+        } else if (power < -1) {
+            if (RobotMap.DRIVETRAIN_DEBUG) {
+                System.out.println("[Subsystem] Power to left side of drivetrain was set too low: " + power + ", changing to full reverse.");
+            }
+            power = -1;
+        }
+        frontLeft.set(ControlMode.PercentOutput, power);
+    }
+    
+    public void setRightMotorPower(double power) {
+        if (power > 1) {
+            if (RobotMap.DRIVETRAIN_DEBUG) {
+                System.out.println("[Subsystem] Power to right side of drivetrain was set too high: " + power + ", changing to full forward.");
+            }
+            power = 1;
+        } else if (power < -1) {
+            if (RobotMap.DRIVETRAIN_DEBUG) {
+                System.out.println("[Subsystem] Power to right side of drivetrain was set too low: " + power + ", changing to full reverse.");
+            }
+            power = -1;
+        }
+        frontRight.set(ControlMode.PercentOutput, power);
+    }
+    
+
 	public double getGyroAngle(){
 		return gyro.getAngle();
 	}
