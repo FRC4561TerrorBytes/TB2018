@@ -25,15 +25,20 @@ public class TwoCubeAutoLeftPosition extends CommandGroup {
     	// scale is on the right
     	if (Robot.scaleFMSSideRight) {
     		if(Robot.switchFMSSideRight){
-    		addSequential(new DriveMagic(100, 100)); // forward to turning point
-    		addSequential(new TurnToArbritraryAngleMagic(90)); // turn right to face platform zone
-    		addSequential(new DriveMagic(100, 100)); // forward to right side of switch
-    		addSequential(new TurnToArbritraryAngleMagic(90)); // turn right to face the switch
-    		addSequential(new DriveMagic(100, 100)); // forward to drop cube on switch
-    		addSequential(new ElevatorSwitchPosition()); //elevator to switch position
-    		addSequential(new ArmReleasePosition()); //prepare arm to drop cube on switch
-    		addSequential(new IntakeRelease()); // drop power cube on switch
-    		addSequential(new DriveMagic(-100, -100)); // back up a tad so we can align to intake the second cube
+    			addSequential(new DriveMagic(50, 50)); // forward
+        		addSequential(new TurnMagic(90)); // turn right
+        		addSequential(new DriveMagic(36, 36)); // forward
+        		addSequential(new TurnMagic(-90)); // turn left
+        		addSequential(new DriveMagic(40, 40)); // forward
+        		addSequential(new ArmReleasePosition());
+        		addSequential(new DriveMagic(10,10));
+        		addSequential(new IntakeRelease()); // drop power cube
+        		
+    		addSequential(new DriveMagic(-50, -50)); // back up a tad so we can align to intake the second cube
+    		addSequential(new TurnMagic(-90));
+    		addSequential(new DriveMagic(25,25));
+    		addSequential(new TurnMagic(90));
+    		
     		addSequential(new TurnToArbritraryAngleMagic(315)); // align ourselves to intake the second cube
     		addSequential(new ElevatorGroundPosition()); //elevator to ground position
     		addSequential(new ArmIntakePosition()); //prepare arm to intake cube

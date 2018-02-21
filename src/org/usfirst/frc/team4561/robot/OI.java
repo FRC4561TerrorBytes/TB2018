@@ -37,11 +37,13 @@ public class OI {
 	public static Trigger toggleElevatorPID;
 	public static Trigger toggleDriveTrainPID;
 	public static Trigger stopElevatorRelative;
+	public static Trigger stopArmRelative;
+	public static Trigger startArmRelative;
 	
 	public OI () {
 		
 		
-		speedButton.whenPressed(new DriveMagic(100,100));
+		speedButton.whenPressed(new SpeedGear());
 		torqueButton.whenPressed(new TorqueGear());
 		
 		//controllerIntake.whileHeld(new IntakeIn());
@@ -53,6 +55,8 @@ public class OI {
 		toggleDriveTrainPID = new ToggleDriveTrainPIDTrigger();
 		stopElevatorRelative = new StopElevatorRelative();
 		startElevatorRelative = new StartElevatorRelative();
+		stopArmRelative = new StopArmRelative();
+		startArmRelative = new StartArmRelative();
 		
 		
 	}

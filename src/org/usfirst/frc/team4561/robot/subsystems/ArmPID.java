@@ -86,14 +86,16 @@ public class ArmPID extends Subsystem {
     	return motorOne.getSelectedSensorPosition(0);
     }
     public void set(double speed){
-    		goal = goal + (int) (20*speed);
+    		goal = goal + (int) (60*speed);
     		if (RobotMap.ARM_PID) setToGoal();
     		else motorOne.set(ControlMode.PercentOutput, 0.5*speed);
     }
     /**
      * Gets the encoder velocity of the arm.
      */
-    
+    public void reset(){
+    	goal = motorOne.getSelectedSensorPosition(0);
+    }
     public double getEncoderVelocity() {
     	return motorOne.getSelectedSensorVelocity(0);
     }
@@ -110,7 +112,9 @@ public class ArmPID extends Subsystem {
 		motorOne.setSelectedSensorPosition(pos, 0, 0);
 	}
 	public boolean nearGoal(){
-		return Math.abs(motorOne.getClosedLoopError(0))<15;
+		boolean yes = Math.abs(getEncoderPosition()-goal)<15;
+		if (yes) System.out.println("Yes");
+		return yes;
 	}
 	public boolean getFwdSwitch(){
 		return motorOne.getSensorCollection().isFwdLimitSwitchClosed();

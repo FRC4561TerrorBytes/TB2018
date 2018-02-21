@@ -16,12 +16,22 @@ public class CheckSwitchSide extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	// test to see if this works for the side of the switch:
+    	boolean failed = false;
+    	int count = 0;
     	System.out.println(DriverStation.getInstance().getGameSpecificMessage());
     	String data = "";
     	while (data == ""){
     		data = DriverStation.getInstance().getGameSpecificMessage();
+    		if (count < 1000){
+    			count ++;
+    		}
+    		else {
+    			failed = true;
+    			break;
+    		}
     	}
-    	Robot.switchFMSSideRight = data.charAt(0) == 'R';
+    	if (!failed)	Robot.switchFMSSideRight = data.charAt(1) == 'R';
+    	else			Robot.switchFMSSideRight = false;
     }
 
     // Called just before this Command runs the first time

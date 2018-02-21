@@ -22,14 +22,13 @@ public class Intake extends Subsystem {
 	//Motors
 	private WPI_TalonSRX intakeLeftMotor;
 	private WPI_TalonSRX intakeRightMotor; 
-	
 	//Cube Detector
 	public DigitalInput cubeDetector = new DigitalInput(0);
 	
 	public Intake () {
 		intakeLeftMotor = new WPI_TalonSRX (RobotMap.INTAKE_LEFT_MOTOR_PORT);
 		intakeRightMotor = new WPI_TalonSRX (RobotMap.INTAKE_RIGHT_MOTOR_PORT);
-		
+		intakeLeftMotor.setInverted(true);
 		intakeLeftMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		intakeRightMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 	}
@@ -42,8 +41,8 @@ public class Intake extends Subsystem {
 		intakeRightMotor.set(1);
 	}
 	public void intakeIn(){
-		intakeLeftMotor.set(0.85);
-		intakeRightMotor.set(0.85);
+		intakeLeftMotor.set(SmartDashboard.getNumber("DB/Slider 3", 0));
+		intakeRightMotor.set(SmartDashboard.getNumber("DB/Slider 3", 0));
 	}
 	public void intakeOutHalf(){
 		intakeLeftMotor.set(-0.4);

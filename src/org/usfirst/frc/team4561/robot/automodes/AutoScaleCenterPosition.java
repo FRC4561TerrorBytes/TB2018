@@ -22,11 +22,15 @@ public class AutoScaleCenterPosition extends CommandGroup {
     	addSequential(new WaitCommand(delay));
     	// if our side is the right
     	if (Robot.scaleFMSSideRight) {
-    		addSequential(new DriveMagic(100, 100)); // forward
-    		addSequential(new DriveMagic((int) (RobotMap.DRIVETRAIN_CIRCUMFERENCE/4), -(int) (RobotMap.DRIVETRAIN_CIRCUMFERENCE/4))); // right
-    		addSequential(new DriveMagic(25, 25)); // forward
-    		addSequential(new DriveMagic(-(int) (RobotMap.DRIVETRAIN_CIRCUMFERENCE/4), (int) (RobotMap.DRIVETRAIN_CIRCUMFERENCE/4))); // left
-    		addSequential(new DriveMagic(196, 196)); // forward
+    		addSequential(new DriveMagic(50, 50)); // forward
+    		addSequential(new TurnMagic(90)); // right
+    		addSequential(new DriveMagic(72, 72)); // forward
+    		addSequential(new TurnMagic(-90)); // left
+    		addSequential(new DriveMagic(100, 100));
+    		addSequential(new TurnMagic(-90));
+    		addSequential(new DriveMagic(10, 10));
+    		addSequential(new TurnMagic(90));
+    		addSequential(new DriveMagic(90, 90)); // forward
     		addSequential(new ElevatorScalePosition());
     		addSequential(new DriveMagic(10,10));
     		addSequential(new ArmReleasePosition());
@@ -35,11 +39,15 @@ public class AutoScaleCenterPosition extends CommandGroup {
     	}
     	// if we are on the left
     	else {
-    		addSequential(new DriveMagic(100, 100)); // forward
-    		addSequential(new DriveMagic((int) (-RobotMap.DRIVETRAIN_CIRCUMFERENCE/4), (int) (RobotMap.DRIVETRAIN_CIRCUMFERENCE/4))); // right
-    		addSequential(new DriveMagic(25, 25)); // forward
-    		addSequential(new DriveMagic((int) (RobotMap.DRIVETRAIN_CIRCUMFERENCE/4), -(int) (RobotMap.DRIVETRAIN_CIRCUMFERENCE/4))); // left
-    		addSequential(new DriveMagic(196, 196)); // forward
+    		addSequential(new DriveMagic(50, 50)); // forward
+    		addSequential(new TurnMagic(-90)); // right
+    		addSequential(new DriveMagic(72, 72)); // forward
+    		addSequential(new TurnMagic(90)); // left
+    		addSequential(new DriveMagic(100, 100));
+    		addSequential(new TurnMagic(90));
+    		addSequential(new DriveMagic(10, 10));
+    		addSequential(new TurnMagic(-90));
+    		addSequential(new DriveMagic(90, 90)); // forward
     		addSequential(new ElevatorScalePosition());
     		addSequential(new DriveMagic(10, 10));
     		addSequential(new ArmReleasePosition());

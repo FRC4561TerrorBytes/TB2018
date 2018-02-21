@@ -24,6 +24,7 @@ import org.usfirst.frc.team4561.robot.commands.CheckScaleSide;
 import org.usfirst.frc.team4561.robot.commands.CheckSwitchSide;
 import org.usfirst.frc.team4561.robot.commands.ElevatorDrive;
 import org.usfirst.frc.team4561.robot.commands.IntakeDrive;
+import org.usfirst.frc.team4561.robot.commands.ResetArm;
 import org.usfirst.frc.team4561.robot.commands.ResetElevator;
 import org.usfirst.frc.team4561.robot.commands.TankDrive;
 import org.usfirst.frc.team4561.robot.commands.ToggleArmPID;
@@ -54,7 +55,7 @@ public class Robot extends IterativeRobot {
 	
 	public static boolean switchFMSSideRight; // true if right, false if left
 	public static boolean scaleFMSSideRight; // true if right, false if left
-
+	private Command getFieldData;
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -66,40 +67,9 @@ public class Robot extends IterativeRobot {
 		UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
 		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		int auto = (int) SmartDashboard.getNumber("DB/Slider 0", 0);
-		(new CheckScaleSide()).start();
-		(new CheckSwitchSide()).start();
-		switch (auto){
-		case 0:
-			autonomousCommand = new AutoDriveToLine();
-			break;
-		case 1:
-			autonomousCommand = new AutoDriveToLineCenter();
-			break;
-		case 2:
-			autonomousCommand = new AutoScaleCenterPosition();
-			break;
-		case 3:
-			autonomousCommand = new AutoScaleLeftPosition();
-			break;
-		case 4:
-			autonomousCommand = new AutoScaleRightPosition();
-			break;
-		case 5:
-			autonomousCommand = new AutoSwitchCenterPosition();
-			break;
-		case 6:
-			autonomousCommand = new AutoSwitchLeftPosition();
-			break;
-		case 7:
-			autonomousCommand = new AutoSwitchRightPosition();
-			break;
-		case 8:
-			autonomousCommand = new TwoCubeAutoLeftPosition();
-			break;
-		case 9:
-			autonomousCommand = null;
-		}
+		getFieldData = new CheckScaleSide();
+		//(new CheckSwitchSide()).start();
+		
 		SmartDashboard.putData("Auto mode", chooser);
 		System.out.println("Things are not on fire");
 		oi.toggleArmPID.whenActive(new ToggleArmPID());
@@ -107,6 +77,8 @@ public class Robot extends IterativeRobot {
 		oi.toggleDriveTrainPID.whenActive(new ToggleDriveTrainPID());
 		oi.stopElevatorRelative.whenActive(new ResetElevator());
 		oi.startElevatorRelative.whenActive(new ResetElevator());
+		oi.startArmRelative.whenActive(new ResetArm());
+		oi.stopArmRelative.whenActive(new ResetArm());
 		
 	}
 
@@ -153,6 +125,8 @@ public class Robot extends IterativeRobot {
 	    	SmartDashboard.putNumber("DriveTrain/Right Speed", Robot.driveTrain.getRightSpeed());
 	    	SmartDashboard.putNumber("DriveTrain/Left Position", Robot.driveTrain.getLeftPos());
 	    	SmartDashboard.putNumber("DriveTrain/Right Position", Robot.driveTrain.getRightPos());
+	    	SmartDashboard.putNumber("DriveTrain/Average Error", Robot.driveTrain.avgErr());
+	    	SmartDashboard.putNumber("DriveTrain/Average Speed", Robot.driveTrain.avgSpeed());
     	}
     	
     	if (RobotMap.TRANSMISSION_DEBUG) {
@@ -216,7 +190,38 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-
+		int auto = (int) SmartDashboard.getNumber("DB/Slider 0", 0);
+		switch (auto){
+		case 0:
+			autonomousCommand = new AutoDriveToLine();
+			break;
+		case 1:
+			autonomousCommand = new AutoDriveToLineCenter();
+			break;
+		case 2:
+			autonomousCommand = new AutoScaleCenterPosition();
+			break;
+		case 3:
+			autonomousCommand = new AutoScaleLeftPosition();
+			break;
+		case 4:
+			autonomousCommand = new AutoScaleRightPosition();
+			break;
+		case 5:
+			autonomousCommand = new AutoSwitchCenterPosition();
+			break;
+		case 6:
+			autonomousCommand = new AutoSwitchLeftPosition();
+			break;
+		case 7:
+			autonomousCommand = new AutoSwitchRightPosition();
+			break;
+		case 8:
+			autonomousCommand = new TwoCubeAutoLeftPosition();
+			break;
+		case 9:
+			autonomousCommand = null;
+		}
 
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null) {
@@ -241,8 +246,10 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}
+		getFieldData.cancel();
 		if (RobotMap.DRIVE_MODE == 1) (new ArcadeDrive()).start();
 		else (new TankDrive()).start();
+		(new ResetElevator()).start();
 		(new ElevatorDrive()).start();
 		(new ArmDrive()).start();
 		(new IntakeDrive()).start();

@@ -29,7 +29,8 @@ public class DriveTrainPID extends Subsystem {
 	double maxSpeedLowGear = 3500;
 	double speedF = 0.161;
 	double torqueF = 0.417;
-	
+	double goalL;
+	double goalR;
 	//Control Modes
 	private ControlMode follower = com.ctre.phoenix.motorcontrol.ControlMode.Follower;
 	private ControlMode velocity = com.ctre.phoenix.motorcontrol.ControlMode.Velocity;
@@ -177,7 +178,7 @@ public class DriveTrainPID extends Subsystem {
 	}
 	
 	public double avgSpeed(){
-		return (-getLeftSpeed()+(getRightSpeed()*2))/2;
+		return (getLeftSpeed()+(getRightSpeed()))/2;
 	}
 	public double ticksToInches(double inches){
 		return inches*kInchesToTicks;
@@ -191,6 +192,8 @@ public class DriveTrainPID extends Subsystem {
 		System.out.println(leftRot+" "+rightRot);
 		frontLeft.set(ControlMode.MotionMagic, leftRot);
 		frontRight.set(ControlMode.MotionMagic, rightRot);
+		goalL = leftRot;
+		goalR = rightRot;
 		
 		//resetGyro();
 		
@@ -314,6 +317,9 @@ public class DriveTrainPID extends Subsystem {
 	public double getRightCurrent(){
 		return frontRight.getOutputCurrent();
 	}
+	public double getAvgError(){
+		return avgErr();
+	}
 	public double getLeftMidCurrent(){
 		return midLeft.getOutputCurrent();
 	}
@@ -323,8 +329,13 @@ public class DriveTrainPID extends Subsystem {
 	public double getLeftRearCurrent(){
 		return rearLeft.getOutputCurrent();
 	}
+	public int avgErr(){
+		return (int) (((Math.abs(getLeftPos()-goalL))+(Math.abs(getRightPos()-goalR)))/2);
+	}
 	public boolean nearGoal(){
-		return Math.abs((frontLeft.getClosedLoopError(0)+frontRight.getClosedLoopError(0)/2))<1;
+		boolean yes = Math.abs(avgErr())<250 && Math.abs(avgSpeed()) < 20;
+		if (yes) System.out.println("Yes");
+		return yes;
 	}
 	public double getRightRearCurrent(){
 		return rearRight.getOutputCurrent();

@@ -3,10 +3,12 @@ package org.usfirst.frc.team4561.robot.automodes;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 import org.usfirst.frc.team4561.robot.commands.TorqueGear;
+import org.usfirst.frc.team4561.robot.commands.TurnMagic;
 import org.usfirst.frc.team4561.robot.commands.TurnToArbritraryAngleMagic;
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
 import org.usfirst.frc.team4561.robot.commands.DriveMagic;
+import org.usfirst.frc.team4561.robot.commands.SpeedGear;
 import org.usfirst.frc.team4561.robot.commands.TankDriveTimed;
 /**
  * This auto mode drives past the auto line if the robot is in the center of the field.
@@ -19,19 +21,19 @@ public class AutoDriveToLineCenter extends CommandGroup {
 	
 	public AutoDriveToLineCenter() {
 		// torque mode
-		addSequential(new TorqueGear());
+		addSequential(new SpeedGear());
 		// wait preassigned time
     	addSequential(new WaitCommand(delay));
 		// forward
-		addSequential(new DriveMagic(100, 100));
+		addSequential(new DriveMagic(50, 50));
 		// turn right
-		addSequential(new DriveMagic((int) (RobotMap.DRIVETRAIN_CIRCUMFERENCE/4), -(int) (RobotMap.DRIVETRAIN_CIRCUMFERENCE/4)));
+		addSequential(new TurnMagic(90));
 		// forward
-		addSequential(new DriveMagic(25, 25));
+		addSequential(new DriveMagic(50, 50));
 		// turn left
-		addSequential(new DriveMagic(-(int) (RobotMap.DRIVETRAIN_CIRCUMFERENCE/4), (int) (RobotMap.DRIVETRAIN_CIRCUMFERENCE/4)));
+		addSequential(new TurnMagic(-90));
 		// cross the line and score points
-		addSequential(new DriveMagic(30, 30));
+		addSequential(new DriveMagic(50, 50));
 		// addSequential(new WaitCommand(3));
 		// done
 	}
