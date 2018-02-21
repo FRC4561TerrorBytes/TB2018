@@ -17,7 +17,7 @@ public class IntakeLeft extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	//setTimeout(0.125);
+    	setTimeout(0.125);
     }
 
     // Called repeatedly when this Command is scheduled to run
