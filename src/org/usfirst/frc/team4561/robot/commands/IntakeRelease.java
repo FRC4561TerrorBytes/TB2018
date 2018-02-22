@@ -22,7 +22,7 @@ public class IntakeRelease extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.intake.release();
+    	Robot.intake.intakeOutHalf();
     	SmartDashboard.putNumber("IntakeRelease Encoder Position", Robot.intake.getIntakeLeftPosition());
     	SmartDashboard.putNumber("IntakeRelease Encoder Velocity", Robot.intake.getIntakeRightPosition());
     }

@@ -24,8 +24,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrainPID extends Subsystem {
 	
-	double maxSpeed;		//Maximum RPM
-	
+	double maxSpeed = 3500;		//Maximum RPM
+	double maxSpeedHighGear = 9300;
+	double maxSpeedLowGear = 3500;
+	double speedF = 0.161;
+	double torqueF = 0.417;
+	double goalL;
+	double goalR;
 	//Control Modes
 	private ControlMode follower = com.ctre.phoenix.motorcontrol.ControlMode.Follower;
 	private ControlMode velocity = com.ctre.phoenix.motorcontrol.ControlMode.Velocity;
@@ -51,11 +56,15 @@ public class DriveTrainPID extends Subsystem {
 	double rightSpeed;
 	double leftSpeedOriginal;
 	double rightSpeedOriginal;
+	
+	public static final double kInchesToTicks = 487.6;
 		
 	//Set middle and back motors as followers to front two motors, and set the PIDF values (currently placeholders)
 	public DriveTrainPID() {
 			
 		midRight.set(follower, RobotMap.FRONT_RIGHT_MOTOR_PORT);
+		midRight.configPeakOutputForward(1, 0);
+		midRight.configPeakOutputReverse(-1, 0);
 			
 		rearRight.set(follower, RobotMap.FRONT_RIGHT_MOTOR_PORT);
 			
@@ -66,19 +75,27 @@ public class DriveTrainPID extends Subsystem {
 		frontRight.setInverted(true);
 		midRight.setInverted(true);
 		rearRight.setInverted(true);
+		
+		frontLeft.setSensorPhase(false);
+		frontRight.setSensorPhase(false);
+		
 		gyro.calibrate();
+		
+		double kP = 0.35;
+		double kI = 0.01;
+		double kD = 0;
 		
 		frontLeft.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0,0);
 		frontRight.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 			
-		frontRight.config_kF(0, 0.225, 0);
-		frontRight.config_kP(0, 5, 0);
-		frontRight.config_kI(0, 0, 0);
-		frontRight.config_kD(0, 1, 0);
+		frontRight.config_kF(0, torqueF, 0);
+		frontRight.config_kP(0, kP, 0);
+		frontRight.config_kI(0, kI, 0);
+		frontRight.config_kD(0, kD, 0);
 		frontRight.config_IntegralZone(0, 50, 0);
-		frontRight.configMotionCruiseVelocity(666, 0);
+		frontRight.configMotionCruiseVelocity(3500, 0);
 		rightSpeed = 0.225;
-		frontRight.configMotionAcceleration(166, 0);
+		frontRight.configMotionAcceleration(3500, 0);
 		frontRight.configNominalOutputForward(0, 0);
 		frontRight.configNominalOutputReverse(0, 0);
 		frontRight.configPeakOutputForward(1, 0);
@@ -86,21 +103,20 @@ public class DriveTrainPID extends Subsystem {
 		frontRight.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 0);
 		frontRight.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0);
 			
-		frontLeft.config_kF(0, 0.225, 0);
-		frontLeft.config_kP(0, 5, 0);
-		frontLeft.config_kI(0, 0, 0);
-		frontLeft.config_kD(0, 1, 0);
+		frontLeft.config_kF(0, torqueF, 0);
+		frontLeft.config_kP(0, kP, 0);
+		frontLeft.config_kI(0, kI, 0);
+		frontLeft.config_kD(0, kD, 0);
 		frontLeft.config_IntegralZone(0, 50, 0);
-		frontLeft.configMotionCruiseVelocity(1333, 0);
+		frontLeft.configMotionCruiseVelocity(3500, 0);
 		leftSpeed = 0.225;
-		frontLeft.configMotionAcceleration(333, 0);
+		frontLeft.configMotionAcceleration(3500, 0);
 		frontLeft.configNominalOutputForward(0, 0);
 		frontLeft.configNominalOutputReverse(0, 0);
 		frontLeft.configPeakOutputForward(1, 0);
 		frontLeft.configPeakOutputReverse(-1, 0);
 		frontLeft.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 0);
 		frontLeft.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0);
-		
 		gyro.calibrate();
 	}		
 	
@@ -132,9 +148,12 @@ public class DriveTrainPID extends Subsystem {
 			}
 		}
 		
-		if (RobotMap.DRIVETRAIN_PID){
+		if (RobotMap.DRIVETRAIN_PID){ 
 			frontRight.set(velocity, maxSpeed * rightMotorOutput);
 			frontLeft.set(velocity, maxSpeed * leftMotorOutput);
+			System.out.print(rightMotorOutput);
+			System.out.println(" ");
+			System.out.println(leftMotorOutput);
 		}
 		else{
 			frontRight.set(ControlMode.PercentOutput, rightMotorOutput);
@@ -159,65 +178,51 @@ public class DriveTrainPID extends Subsystem {
 	}
 	
 	public double avgSpeed(){
-		return (-getLeftSpeed()+(getRightSpeed()*2))/2;
+		return (getLeftSpeed()+(getRightSpeed()))/2;
 	}
-	public void magicDrive (double leftRot, double rightRot){
+	public double ticksToInches(double inches){
+		return inches*kInchesToTicks;
+	}
+	public double fLThrottle(){
+		return frontLeft.getMotorOutputPercent();
+	}
+	public double mLThrottle(){
+		return midLeft.getMotorOutputPercent();
+	}
+	public double rLThrottle(){
+		return rearLeft.getMotorOutputPercent();
+	}
+	public double fRThrottle(){
+		return frontRight.getMotorOutputPercent();
+	}
+	public double mRThrottle(){
+		return midRight.getMotorOutputPercent();
+	}
+	public double rRThrottle(){
+		return rearRight.getMotorOutputPercent();
+	}
+	public void magicDrive (double lInches, double rInches){
+		//System.out.println("Running for real");
+		double leftRot = -1*kInchesToTicks*lInches;
+		double rightRot = -1*kInchesToTicks*rInches;
+		resetEncoders();
+		//System.out.println("Running actually for real");
+		System.out.println(leftRot+" "+rightRot);
 		frontLeft.set(ControlMode.MotionMagic, leftRot);
 		frontRight.set(ControlMode.MotionMagic, rightRot);
-		resetGyro();
-		int timeout = 0;
-		double sideChooser = 0;
-		double kP = 1;
-		double kD = 20;	
-		while (((getLeftPos()-leftRot) > 5 || (leftRot-getLeftPos()) > 5) && ((getRightPos()-rightRot) > 5 || (rightRot-getRightPos()) > 5)){
-			double angle = getGyroAngle();
-			double rate = getGyroRate();
-			double correction = 1/100;
-			if (getLeftPos() > leftRot && getRightPos() > rightRot){
-				correction = -1/100;
-			}
-			angleAccum = angleAccum + (angle*avgSpeed()/(1333));
-			rateAccum = rateAccum + (rate);
-			angleAvg = angleAccum;
-			rateAvg = rateAccum;
-			sideChooser = (kP*angleAvg)+(kD*rateAvg);
-			if (sideChooser > 0 && timeout == 0){
-				rightSpeed = rightSpeed + (rightSpeedOriginal * correction * sideChooser);
-				leftSpeed = leftSpeed - (leftSpeedOriginal * correction * sideChooser);
-				frontRight.config_kF(0, rightSpeed, 0);
-				frontLeft.config_kF(0, leftSpeed, 0);
-				timeout = 1;
-				//System.out.println("Correcting Right");
-			}
-			else if (sideChooser < 0 && timeout == 0){
-				leftSpeed = leftSpeed - (leftSpeedOriginal * correction * sideChooser);
-				rightSpeed = rightSpeed + (rightSpeedOriginal * correction * sideChooser);
-				frontLeft.config_kF(0, leftSpeed, 0);
-				frontRight.config_kF(0, rightSpeed, 0);
-				timeout = 1;
-				//System.out.println("Correcting Left");
-			}
-			
-			if (timeout > 0){
-				timeout--;
-			}
-			SmartDashboard.putNumber("Gyro Angle", angleAvg);
-			SmartDashboard.putNumber("Gyro Rate", rateAvg);
-			SmartDashboard.putNumber("Correction Value", sideChooser);
-			SmartDashboard.putNumber("Left Speed", Robot.driveTrain.getLeftSpeed());
-			SmartDashboard.putNumber("Right Speed", Robot.driveTrain.getRightSpeed());
-			SmartDashboard.putNumber("Left Pos", Robot.driveTrain.getLeftPos());
-			SmartDashboard.putNumber("Right Pos", Robot.driveTrain.getRightPos());
-			SmartDashboard.putNumber("Left Error", Robot.driveTrain.getLeftError());
-			SmartDashboard.putNumber("Right Error", Robot.driveTrain.getRightError());
-			SmartDashboard.putNumber("Avg Speed", Robot.driveTrain.avgSpeed());
-		}
-		System.out.println("Arrived");
-		frontLeft.config_kF(0, leftSpeedOriginal, 0);
-		frontRight.config_kF(0, rightSpeedOriginal, 0);
-		leftSpeed = leftSpeedOriginal;
-		rightSpeed = rightSpeedOriginal;
-		goToAngle(0);
+		goalL = leftRot;
+		goalR = rightRot;
+		
+		//resetGyro();
+		
+		
+	}
+	public void setToPosition(){
+		frontLeft.set(ControlMode.Position, 0);
+		frontRight.set(ControlMode.Position, 0);
+	}
+	public String getMode(){
+		return frontLeft.getControlMode().toString();
 	}
 	public void goToAngle(double target){
 		int timeout = 0;
@@ -267,8 +272,8 @@ public class DriveTrainPID extends Subsystem {
 			SmartDashboard.putNumber("Avg Speed", Robot.driveTrain.avgSpeed());
 		}
 		System.out.println("Turned to the angle");
-		frontLeft.set(ControlMode.PercentOutput, 0);
-		frontRight.set(ControlMode.PercentOutput, 0);
+		//frontLeft.set(ControlMode.PercentOutput, 0);
+		//frontRight.set(ControlMode.PercentOutput, 0);
 		angleAccum = 0;
 		rateAccum = 0;
 		angleAvg = 0;
@@ -338,7 +343,45 @@ public class DriveTrainPID extends Subsystem {
 	public double getRightError(){
 		return frontRight.getClosedLoopError(0);
 	}
-		
+	public double getLeftCurrent(){
+		return frontLeft.getOutputCurrent();
+	}
+	public double getRightCurrent(){
+		return frontRight.getOutputCurrent();
+	}
+	public double getAvgError(){
+		return avgErr();
+	}
+	public double getLeftMidCurrent(){
+		return midLeft.getOutputCurrent();
+	}
+	public double getRightMidCurrent(){
+		return midRight.getOutputCurrent();
+	}
+	public double getLeftRearCurrent(){
+		return rearLeft.getOutputCurrent();
+	}
+	public int avgErr(){
+		return (int) (((Math.abs(getLeftPos()-goalL))+(Math.abs(getRightPos()-goalR)))/2);
+	}
+	public boolean nearGoal(){
+		boolean yes = Math.abs(avgErr())<250 && Math.abs(avgSpeed()) < 20;
+		if (yes) System.out.println("Yes");
+		return yes;
+	}
+	public double getRightRearCurrent(){
+		return rearRight.getOutputCurrent();
+	}
+	public void switchToTorque(){
+		maxSpeed = maxSpeedLowGear;
+		frontLeft.config_kF(0, torqueF, 0);
+		frontRight.config_kF(0, torqueF, 0);
+	}
+	public void switchToSpeed(){
+		maxSpeed = maxSpeedHighGear;
+		frontLeft.config_kF(0, speedF, 0);
+		frontRight.config_kF(0, speedF, 0);
+	}
 	//Set value to number between -1 and 1
 	protected double limit(double value) {
 		if (value > 1.0) {
@@ -353,7 +396,7 @@ public class DriveTrainPID extends Subsystem {
 	@Override
 	protected void initDefaultCommand() {
 		if (RobotMap.DRIVE_MODE == 1){
-			setDefaultCommand(new ArcadeDrive());
+			//setDefaultCommand(new ArcadeDrive());
 		}
 		else{
 			setDefaultCommand(new TankDrive());

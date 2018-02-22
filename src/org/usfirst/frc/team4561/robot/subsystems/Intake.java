@@ -4,6 +4,7 @@ import java.util.ResourceBundle.Control;
 
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
+import org.usfirst.frc.team4561.robot.commands.IntakeDrive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -24,14 +25,13 @@ public class Intake extends Subsystem {
 	//Motors
 	private WPI_TalonSRX intakeLeftMotor;
 	private WPI_TalonSRX intakeRightMotor; 
-	
 	//Cube Detector
 	public DigitalInput cubeDetector = new DigitalInput(0);
 	
 	public Intake () {
 		intakeLeftMotor = new WPI_TalonSRX (RobotMap.INTAKE_LEFT_MOTOR_PORT);
 		intakeRightMotor = new WPI_TalonSRX (RobotMap.INTAKE_RIGHT_MOTOR_PORT);
-		
+		intakeLeftMotor.setInverted(true);
 		intakeLeftMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		intakeRightMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 	}
@@ -44,8 +44,12 @@ public class Intake extends Subsystem {
 		intakeRightMotor.set(1);
 	}
 	public void intakeIn(){
-		intakeLeftMotor.set(1);
-		intakeRightMotor.set(1);
+		intakeLeftMotor.set(0.65);
+		intakeRightMotor.set(0.65);
+	}
+	public void intakeOutHalf(){
+		intakeLeftMotor.set(-0.4);
+		intakeRightMotor.set(-0.4);
 	}
 	public void stop(){
 		intakeLeftMotor.set(0);
@@ -59,8 +63,13 @@ public class Intake extends Subsystem {
 	}
 	
 	public void release () {
-		intakeLeftMotor.set(-0.5);
-		intakeRightMotor.set(-0.5);
+		intakeLeftMotor.set(-0.85);
+		intakeRightMotor.set(-0.85);
+	}
+	
+	public void set(double left, double right){
+		intakeLeftMotor.set(left);
+		intakeRightMotor.set(right);
 	}
 
 	//These four methods are mainly used in the Intake debug
@@ -96,7 +105,7 @@ public class Intake extends Subsystem {
 	}
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
+		//setDefaultCommand(new IntakeDrive());
 
 	}
 

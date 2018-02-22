@@ -4,16 +4,15 @@ import org.usfirst.frc.team4561.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ArmReleasePosition extends Command {
+public class ResetElevator extends Command {
 
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return Robot.arm.nearGoal();
-	}
-	
-	protected void initialize(){
-		Robot.arm.DiagonalPosition();
+		return true;
 	}
 
+	protected void execute(){
+		Robot.elevator.setGoalRelative((int) Robot.elevator.getElevatorPos());
+	}
 }

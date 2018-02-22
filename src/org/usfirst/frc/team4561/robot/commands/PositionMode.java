@@ -4,16 +4,16 @@ import org.usfirst.frc.team4561.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ArmReleasePosition extends Command {
+public class PositionMode extends Command {
 
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return Robot.arm.nearGoal();
+		return true;
 	}
 	
-	protected void initialize(){
-		Robot.arm.DiagonalPosition();
+	protected void execute(){
+		Robot.driveTrain.setToPosition();
 	}
 
 }

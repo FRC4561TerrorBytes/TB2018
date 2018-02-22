@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4561.robot.subsystems;
 
+import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
 import org.usfirst.frc.team4561.robot.commands.ElevatorDrive;
 
@@ -33,57 +34,82 @@ public class ElevatorPID extends Subsystem {
 		//motorOne.set(RobotMap.ELEVATOR_MOTOR_1_PORT);
 		motorOne.configSelectedFeedbackSensor(FeedbackDevice.Analog, 0, 0);
 		motorTwo.set(follower, RobotMap.ELEVATOR_MOTOR_1_PORT);
+		
 		motorTwo.setInverted(false);
 		motorOne.setInverted(true);
+		motorOne.setSensorPhase(true);
+		
 		motorOne.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
 		motorOne.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
-		motorOne.configSetParameter(ParamEnum.eClearPositionOnLimitR, 1, 0, 0, 0);
-		motorOne.configReverseSoftLimitEnable(false, 0);
-		motorOne.configForwardSoftLimitEnable(false, 0);
-		motorOne.overrideSoftLimitsEnable(true);
+		motorOne.configSetParameter(ParamEnum.eClearPositionOnLimitR, 0, 0, 0, 0);
 		motorOne.overrideLimitSwitchesEnable(true);
+		motorOne.setSelectedSensorPosition(motorOne.getSensorCollection().getAnalogInRaw(), 0, 0);
+		
+		motorOne.configForwardSoftLimitThreshold(593, 0);
+		motorOne.configForwardSoftLimitEnable(true, 0);
+		
 		motorOne.configPeakCurrentLimit(20, 0);
 		motorOne.enableCurrentLimit(false);
-		motorOne.config_kP(0, 1, 0);
+		
+		motorOne.configPeakOutputForward(1, 0);
+		motorOne.configPeakOutputReverse(-1, 0);
+		motorTwo.configPeakOutputForward(1, 0);
+		motorTwo.configPeakOutputReverse(-1, 0);
+		
+		motorOne.config_kP(0, 16, 0);
 		motorOne.config_kI(0, 0, 0);
 		motorOne.config_kD(0, 0, 0);
 	}
 	
 	
 	public void set(double speed){
-		goal = goal + (int) (speed*20);
+		goal = (int) (goal + speed*10);
+		if (goal > 593) {
+			goal = 593;
+		}
 		if (RobotMap.ELEVATOR_PID) setToGoal();
 		else motorOne.set(ControlMode.PercentOutput, speed);
 	}
 	public void setToGoal(){
-		motorOne.set(ControlMode.Position, goal);
+		if (Math.abs(goal - getElevatorPos()) > 10){
+			motorOne.set(ControlMode.Position, goal);
+		}
+		else{
+			motorOne.set(ControlMode.Position, goal);
+		}
+	}
+	public void setGoalRelative(int gol){
+		goal = gol;
 	}
 	public void stop(){
 		motorOne.set(ControlMode.PercentOutput, 0);
 	}
 	//Elevator position with Arm touching ground
 	public void GroundPosition() {
-		goal = 15;
+		goal = 31;
 		if (RobotMap.ELEVATOR_PID) setToGoal();
 	}
 	
 	//Elevator position with Arm at switch height
 	public void SwitchPosition() {
-		goal = 85;
+		goal = 153;
 		if (RobotMap.ELEVATOR_PID) setToGoal();
 	}
-	
+	public void setToInches(double inches){
+		goal = (int) (inches/16.5);
+		if (RobotMap.ELEVATOR_PID) setToGoal();
+	}
 	//Elevator position with Arm at scale height
 	public void ScalePositionMid() {
-		goal = 0;
+		goal = 343;
 		if (RobotMap.ELEVATOR_PID) setToGoal();
 	}
 	public void ScalePositionLow(){
-		goal = 0;
+		goal = 278;
 		if (RobotMap.ELEVATOR_PID) setToGoal();
 	}
 	public void ScalePositionHigh(){
-		goal = 350;
+		goal = 460;
 		if (RobotMap.ELEVATOR_PID) setToGoal();
 	}
 	
@@ -108,7 +134,7 @@ public class ElevatorPID extends Subsystem {
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-		setDefaultCommand(new ElevatorDrive());
+		//setDefaultCommand(new ElevatorDrive());
 
 	}
 
@@ -123,5 +149,17 @@ public class ElevatorPID extends Subsystem {
 	}
 	public double getGoal(){
 		return goal;
+	}
+	public boolean nearGoal(){
+		return Math.abs(motorOne.getClosedLoopError(0))<16;
+	}
+	public double getCurrentOne(){
+		return motorOne.getOutputCurrent();
+	}
+	public double getCurrentTwo(){
+		return motorTwo.getOutputCurrent();
+	}
+	public int getPotVolt(){
+		return motorOne.getSensorCollection().getAnalogIn();
 	}
 }

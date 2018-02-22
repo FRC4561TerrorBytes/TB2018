@@ -7,6 +7,10 @@
 
 package org.usfirst.frc.team4561.robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.vision.USBCamera;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -14,6 +18,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team4561.robot.automodes.*;
+import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
+import org.usfirst.frc.team4561.robot.commands.ArmDrive;
+import org.usfirst.frc.team4561.robot.commands.CheckScaleSide;
+import org.usfirst.frc.team4561.robot.commands.CheckSwitchSide;
+import org.usfirst.frc.team4561.robot.commands.ElevatorDrive;
+import org.usfirst.frc.team4561.robot.commands.IntakeDrive;
+import org.usfirst.frc.team4561.robot.commands.ResetArm;
+import org.usfirst.frc.team4561.robot.commands.ResetElevator;
+import org.usfirst.frc.team4561.robot.commands.TankDrive;
+import org.usfirst.frc.team4561.robot.commands.ToggleArmPID;
+import org.usfirst.frc.team4561.robot.commands.ToggleDriveTrainPID;
+import org.usfirst.frc.team4561.robot.commands.ToggleElevatorPID;
 import org.usfirst.frc.team4561.robot.subsystems.*;
 
 /**
@@ -29,7 +45,8 @@ public class Robot extends IterativeRobot {
 	public static final ElevatorPID elevator = new ElevatorPID();
 	public static final ArmPID arm = new ArmPID();
 	public static final Intake intake = new Intake();
-
+	public static CameraServer cam;
+	//public static final Encoder testEncoder = new Encoder(0, 1);
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	//public static Elevator elevator = new Elevator();
@@ -38,7 +55,7 @@ public class Robot extends IterativeRobot {
 	
 	public static boolean switchFMSSideRight; // true if right, false if left
 	public static boolean scaleFMSSideRight; // true if right, false if left
-
+	private Command getFieldData;
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -46,19 +63,23 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
+		
+		UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
 		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		chooser.addDefault("Go To Line", new AutoDriveToLine());
-		chooser.addObject("Go To Line (From Center)", new AutoDriveToLineCenter());
-		chooser.addObject("2 cube left side", new TwoCubeAutoLeftPosition());
-		chooser.addObject("Score Scale (From Center)", new AutoScaleCenterPosition());
-		chooser.addObject("Score Scale (From Left)", new AutoScaleLeftPosition());
-		chooser.addObject("Score Scale (From Right)", new AutoScaleRightPosition());
-		chooser.addObject("Score Switch (From Center)", new AutoSwitchCenterPosition());
-		chooser.addObject("Score Switch (From Left)", new AutoSwitchLeftPosition());
-		chooser.addObject("Score Switch (From Right)", new AutoSwitchRightPosition());
+		getFieldData = new CheckScaleSide();
+		//(new CheckSwitchSide()).start();
+		
 		SmartDashboard.putData("Auto mode", chooser);
 		System.out.println("Things are not on fire");
+		oi.toggleArmPID.whenActive(new ToggleArmPID());
+		oi.toggleElevatorPID.whenActive(new ToggleElevatorPID());
+		oi.toggleDriveTrainPID.whenActive(new ToggleDriveTrainPID());
+		oi.stopElevatorRelative.whenActive(new ResetElevator());
+		oi.startElevatorRelative.whenActive(new ResetElevator());
+		oi.startArmRelative.whenActive(new ResetArm());
+		oi.stopArmRelative.whenActive(new ResetArm());
+		
 	}
 
 	/**
@@ -78,19 +99,63 @@ public class Robot extends IterativeRobot {
 	}
 	
 	public void robotPeriodic(){
-		SmartDashboard.putNumber("ArmPID Encoder Position", Robot.arm.getEncoderPosition());
-    	SmartDashboard.putNumber("ArmPID Encoder Velocity", Robot.arm.getEncoderVelocity());
-    	SmartDashboard.putNumber("ArmPID Goal Position", Robot.arm.getGoal());
-    	SmartDashboard.putNumber("Elevator Position", Robot.elevator.getElevatorPos());
-    	SmartDashboard.putNumber("Elevator Motor One Voltage", Robot.elevator.motorOneVoltage());
-    	SmartDashboard.putNumber("Elevator Motor Two Voltage", Robot.elevator.motorTwoVoltage());
-    	SmartDashboard.putNumber("Elevator Goal", Robot.elevator.getGoal());
-    	SmartDashboard.putBoolean("Elevator Limit Switch", Robot.elevator.limitSwitch());
-    	SmartDashboard.putBoolean("SmartDashboard Works", true);
-    	SmartDashboard.putString("Transmission State", Robot.transmission.getTransMode());
+		if (RobotMap.ARM_DEBUG){
+			SmartDashboard.putNumber("Arm/Encoder Position", Robot.arm.getEncoderPosition());
+	    	SmartDashboard.putNumber("Arm/Encoder Velocity", Robot.arm.getEncoderVelocity());
+	    	SmartDashboard.putNumber("Arm/Goal Position", Robot.arm.getGoal());
+	    	SmartDashboard.putBoolean("Arm/Forward Limit Switch", Robot.arm.getFwdSwitch());
+	    	SmartDashboard.putBoolean("Arm/Reverse Limit switch", Robot.arm.getRevSwitch());
+	    	SmartDashboard.putNumber("Arm/Motor Voltage", Robot.arm.getVoltage());
+		}
+    	
+		if (RobotMap.ELEVATOR_DEBUG){
+	    	SmartDashboard.putNumber("Elevator/Position", Robot.elevator.getElevatorPos());
+	    	SmartDashboard.putNumber("Elevator/Motor One Voltage", Robot.elevator.motorOneVoltage());
+	    	SmartDashboard.putNumber("Elevator/Motor Two Voltage", Robot.elevator.motorTwoVoltage());
+	    	SmartDashboard.putNumber("Elevator/Goal", Robot.elevator.getGoal());
+	    	SmartDashboard.putBoolean("Elevator/Limit Switch", Robot.elevator.limitSwitch());
+			SmartDashboard.putNumber("Elevator/Speed", Robot.elevator.getElevatorSpeed());
+			SmartDashboard.putNumber("Elevator/Sensor Voltage", Robot.elevator.getPotVolt());
+		}
+    	
+    	SmartDashboard.putNumber("Heartbeat <3", Math.random());
+
+    	if (RobotMap.DRIVETRAIN_DEBUG){
+	    	SmartDashboard.putNumber("DriveTrain/Left Speed", Robot.driveTrain.getLeftSpeed());
+	    	SmartDashboard.putNumber("DriveTrain/Right Speed", Robot.driveTrain.getRightSpeed());
+	    	SmartDashboard.putNumber("DriveTrain/Left Position", Robot.driveTrain.getLeftPos());
+	    	SmartDashboard.putNumber("DriveTrain/Right Position", Robot.driveTrain.getRightPos());
+	    	SmartDashboard.putNumber("DriveTrain/Average Error", Robot.driveTrain.avgErr());
+	    	SmartDashboard.putNumber("DriveTrain/Average Speed", Robot.driveTrain.avgSpeed());
+    	}
+    	
+    	if (RobotMap.TRANSMISSION_DEBUG) {
+    		SmartDashboard.putString("Transmission/State", Robot.transmission.getTransMode());
+    	}
+    	//SmartDashboard.putNumber("Test Encoder", testEncoder.getDistance());
+    	//SmartDashboard.putNumber("Test Encoder speed", testEncoder.getRate());
+    	SmartDashboard.putNumber("Drive Current/Drive Train Left Front", Robot.driveTrain.getLeftCurrent());
+    	SmartDashboard.putNumber("Drive Current/Drive Train Right Front", Robot.driveTrain.getRightCurrent());
+    	SmartDashboard.putNumber("Drive Current/Drive Train Left Mid", Robot.driveTrain.getLeftMidCurrent());
+    	SmartDashboard.putNumber("Drive Current/Drive Train Right Mid", Robot.driveTrain.getRightMidCurrent());
+    	SmartDashboard.putNumber("Drive Current/Drive Train Left Rear", Robot.driveTrain.getLeftRearCurrent());
+    	SmartDashboard.putNumber("Drive Current/Drive Train Right Rear", Robot.driveTrain.getRightRearCurrent());
+    	SmartDashboard.putNumber("Drive Throttle/Drive Train Left Front Throttle", Robot.driveTrain.fLThrottle());
+    	SmartDashboard.putNumber("Drive Throttle/Drive Train Left Mid Throttle", Robot.driveTrain.mLThrottle());
+    	SmartDashboard.putNumber("Drive Throttle/Drive Train Left Rear Throttle", Robot.driveTrain.rLThrottle());
+    	SmartDashboard.putNumber("Drive Throttle/Drive Train Right Front Throttle", Robot.driveTrain.fRThrottle());
+    	SmartDashboard.putNumber("Drive Throttle/Drive Train Right Mid Throttle", Robot.driveTrain.mRThrottle());
+    	SmartDashboard.putNumber("Drive Throttle/Drive Train Right Rear Throttle", Robot.driveTrain.rRThrottle());
+    	SmartDashboard.putNumber("Motor Current/Arm", Robot.arm.getCurrent());
+    	SmartDashboard.putNumber("Motor Current/Elevator Master", Robot.elevator.getCurrentOne());
+    	SmartDashboard.putNumber("Motor Current/Elevator Slave", Robot.elevator.getCurrentTwo());
+    	
+    	SmartDashboard.putNumber("Left Error", Robot.driveTrain.getLeftError());
+		SmartDashboard.putNumber("Right Error", Robot.driveTrain.getRightError());
+		
     	//SmartDashboard.putNumber("Controller POV", oi.getControllerPOV());
     	if (Robot.arm.getRevSwitch()){
-			Robot.arm.setEncoderPos(1120);
+			Robot.arm.setEncoderPos(-1120);
 		}
     	if (RobotMap.ARM_PID){
     		SmartDashboard.putString("DB/String 3", "Arm PID: ON");
@@ -125,8 +190,44 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
-
+		int auto = (int) SmartDashboard.getNumber("DB/Slider 0", 0);
+		switch (auto){
+		case 0:
+			autonomousCommand = new AutoDriveToLine();
+			break;
+		case 1:
+			autonomousCommand = new AutoDriveToLineCenter();
+			break;
+		case 2:
+			autonomousCommand = new AutoScaleCenterPosition();
+			break;
+		case 3:
+			autonomousCommand = new AutoScaleLeftPosition();
+			break;
+		case 4:
+			autonomousCommand = new AutoScaleRightPosition();
+			break;
+		case 5:
+			autonomousCommand = new AutoSwitchCenterPosition();
+			break;
+		case 6:
+			autonomousCommand = new AutoSwitchLeftPosition();
+			break;
+		case 7:
+			autonomousCommand = new AutoSwitchRightPosition();
+			break;
+		case 8:
+			autonomousCommand = new TwoCubeAutoLeftPosition();
+			break;
+		case 9:
+			autonomousCommand = new ScaleLeftCurveTest();
+			break;
+		case 10:
+			autonomousCommand = new SwitchCenterCurveTest();
+			break;
+		case 11:
+			autonomousCommand = null;
+		}
 
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null) {
@@ -151,6 +252,13 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}
+		getFieldData.cancel();
+		if (RobotMap.DRIVE_MODE == 1) (new ArcadeDrive()).start();
+		else (new TankDrive()).start();
+		(new ResetElevator()).start();
+		(new ElevatorDrive()).start();
+		(new ArmDrive()).start();
+		(new IntakeDrive()).start();
 	}
 
 	/**

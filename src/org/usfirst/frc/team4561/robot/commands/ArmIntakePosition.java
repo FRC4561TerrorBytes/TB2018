@@ -9,7 +9,7 @@ public class ArmIntakePosition extends Command {
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return true;
+		return Robot.arm.nearGoal();
 	}
 
 	protected void execute(){

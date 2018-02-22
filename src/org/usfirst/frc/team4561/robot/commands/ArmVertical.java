@@ -4,7 +4,7 @@ import org.usfirst.frc.team4561.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ArmReleasePosition extends Command {
+public class ArmVertical extends Command {
 
 	@Override
 	protected boolean isFinished() {
@@ -13,7 +13,7 @@ public class ArmReleasePosition extends Command {
 	}
 	
 	protected void initialize(){
-		Robot.arm.DiagonalPosition();
+		Robot.arm.UpPostition();
 	}
 
 }

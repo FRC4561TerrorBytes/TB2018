@@ -17,8 +17,25 @@ public class CheckScaleSide extends Command {
         // eg. requires(chassis);
     	//change his so it works. this is a placeholder now.
     		//it works now
+    	boolean failed = false;
+    	int count = 0;
     	System.out.println(DriverStation.getInstance().getGameSpecificMessage());
-    	Robot.scaleFMSSideRight = DriverStation.getInstance().getGameSpecificMessage().charAt(1) == 'R';
+    	String data = "";
+    	while (data == ""){
+    		data = DriverStation.getInstance().getGameSpecificMessage();
+    		if (count < 1000){
+    			count ++;
+    		}
+    		else {
+    			failed = true;
+    			break;
+    		}
+    	}
+    	if (!failed)	Robot.scaleFMSSideRight = data.charAt(1) == 'R';
+    	else			Robot.scaleFMSSideRight = false;
+    	if (!failed)	Robot.switchFMSSideRight = data.charAt(1) == 'R';
+    	else			Robot.switchFMSSideRight = false;
+    	if (failed) System.out.println("Failed to get field data, assuming everything is on the left");
     }
 
     // Called just before this Command runs the first time

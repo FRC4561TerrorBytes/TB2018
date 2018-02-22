@@ -12,22 +12,22 @@ public class DriveMagic extends Command {
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return false;
+		return Robot.driveTrain.nearGoal();
 	}
 	
-	public DriveMagic(int Left, int Right){
-		left = Left;
-		right = Right;
-		requires(Robot.driveTrain);
+	public DriveMagic(int left, int right){
+		this.left = left;
+		this.right = right;
+	}
+	
+	protected void initialize(){
+		Robot.driveTrain.magicDrive(left, right);
+
 	}
 	protected void execute(){
 		
-			double tLeft = -3600*left;
-			double tRight = 1800*right;
-			Robot.driveTrain.magicDrive(tLeft, tRight);
-			System.out.print(tLeft);
-			System.out.print(" ");
-			System.out.println(tRight);
+		//System.out.println("Running");
+			
 			
 		SmartDashboard.putNumber("Left Speed", Robot.driveTrain.getLeftSpeed());
 		SmartDashboard.putNumber("Right Speed", Robot.driveTrain.getRightSpeed());
