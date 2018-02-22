@@ -29,7 +29,7 @@ public class TwoCubeAutoRightPosition extends CommandGroup {
     			addSequential(new ElevatorScalePosition()); // elevator to scale position
             	addSequential(new ArmReleasePosition()); // prepare arm to drop cube on scale
             	addSequential(new IntakeRelease()); // bye bye power cube
-            	addSequential(new TurnToArbritraryAngleMagic(225)); // turn around
+            	addSequential(new TurnMagic(225)); // turn around
             	addSequential(new ElevatorGroundPosition()); // put the elevator down
             	addSequential(new DriveMagic(100, 100)); // forward to power cube
             	addSequential(new ArmIntakePosition()); //prepare arm to intake cube
@@ -46,9 +46,9 @@ public class TwoCubeAutoRightPosition extends CommandGroup {
             	addSequential(new ArmReleasePosition()); // prepare arm to drop cube on scale
             	addSequential(new IntakeRelease()); // bye bye power cube
             	addSequential(new DriveMagic(-100, -100)); // backward
-            	addSequential(new TurnToArbritraryAngleMagic(270)); // turn left
+            	addSequential(new TurnMagic(270)); // turn left
             	addSequential(new DriveMagic(100, 100)); // forward
-            	addSequential(new TurnToArbritraryAngleMagic(225)); // angle toward power cube
+            	addSequential(new TurnMagic(225)); // angle toward power cube
             	addSequential(new ElevatorGroundPosition()); // put the elevator down
             	addSequential(new DriveMagic(100, 100)); // forward to power cube
             	addSequential(new ArmIntakePosition()); //prepare arm to intake cube
@@ -65,29 +65,29 @@ public class TwoCubeAutoRightPosition extends CommandGroup {
     	else {
     		if(Robot.switchFMSSideRight){ //switch on right
     			addSequential(new DriveMagic(100, 100)); // forward
-        		addSequential(new TurnToArbritraryAngleMagic(270)); // turn left
+        		addSequential(new TurnMagic(270)); // turn left
         		addSequential(new DriveMagic(100, 100)); // forward
-        		addSequential(new TurnToArbritraryAngleMagic(90)); // turn right
+        		addSequential(new TurnMagic(90)); // turn right
         		addSequential(new DriveMagic(100, 100)); // forward to scale
     			addSequential(new ElevatorScalePosition()); // elevator to scale position
             	addSequential(new ArmReleasePosition()); // prepare arm to drop cube on scale
             	addSequential(new IntakeRelease()); // bye bye power cube
-            	addSequential(new TurnToArbritraryAngleMagic(180)); // turn around
+            	addSequential(new TurnMagic(180)); // turn around
             	addSequential(new DriveMagic(100, 100)); // forward
-            	addSequential(new TurnToArbritraryAngleMagic(270)); // turn left
+            	addSequential(new TurnMagic(270)); // turn left
             	addSequential(new DriveMagic(100, 100)); // forward
-            	addSequential(new TurnToArbritraryAngleMagic(90)); // turn right
+            	addSequential(new TurnMagic(90)); // turn right
         		addSequential(new DriveMagic(100, 100)); // forward to cube
-        		addSequential(new TurnToArbritraryAngleMagic(90)); // turn right
+        		addSequential(new TurnMagic(90)); // turn right
         		addSequential(new ElevatorGroundPosition()); // put the elevator down
             	addSequential(new DriveMagic(100, 100)); // forward to power cube
             	addSequential(new ArmIntakePosition()); //prepare arm to intake cube
             	addSequential(new IntakeIn()); // what? a new power cube? YAY
                 addSequential(new DriveMagic(100, 100)); // forward to meet my friend, power cube
                 addSequential(new DriveMagic(-100, -100)); // backward
-                addSequential(new TurnToArbritraryAngleMagic(270)); // turn left
+                addSequential(new TurnMagic(270)); // turn left
                 addSequential(new DriveMagic(100, 100)); // forward to switch
-                addSequential(new TurnToArbritraryAngleMagic(270)); // turn left
+                addSequential(new TurnMagic(270)); // turn left
                 addSequential(new DriveMagic(100, 100)); // forward to switch (last little bit)
                 addSequential(new ElevatorSwitchPosition()); // elevator to switch position
                 addSequential(new ArmReleasePosition()); // arm to release position
@@ -96,14 +96,14 @@ public class TwoCubeAutoRightPosition extends CommandGroup {
     			//done
         	} else { //switch on left
         		addSequential(new DriveMagic(100, 100)); // forward
-        		addSequential(new TurnToArbritraryAngleMagic(270)); // turn left
+        		addSequential(new TurnMagic(270)); // turn left
         		addSequential(new DriveMagic(100, 100)); // forward
-        		addSequential(new TurnToArbritraryAngleMagic(90)); // turn right
+        		addSequential(new TurnMagic(90)); // turn right
         		addSequential(new DriveMagic(100, 100)); // forward to scale
     			addSequential(new ElevatorScalePosition()); // elevator to scale position
             	addSequential(new ArmReleasePosition()); // prepare arm to drop cube on scale
             	addSequential(new IntakeRelease()); // bye bye power cube
-            	addSequential(new TurnToArbritraryAngleMagic(180)); // turn around
+            	addSequential(new TurnMagic(180)); // turn around
             	addSequential(new ElevatorGroundPosition()); // put the elevator down
             	addSequential(new DriveMagic(100, 100)); // forward to power cube
             	addSequential(new ArmIntakePosition()); //prepare arm to intake cube

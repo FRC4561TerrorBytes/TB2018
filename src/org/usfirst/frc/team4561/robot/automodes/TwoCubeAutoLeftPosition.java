@@ -39,15 +39,15 @@ public class TwoCubeAutoLeftPosition extends CommandGroup {
     		addSequential(new DriveMagic(25,25));
     		addSequential(new TurnMagic(90));
     		
-    		addSequential(new TurnToArbritraryAngleMagic(315)); // align ourselves to intake the second cube
+    		addSequential(new TurnMagic(315)); // align ourselves to intake the second cube
     		addSequential(new ElevatorGroundPosition()); //elevator to ground position
     		addSequential(new ArmIntakePosition()); //prepare arm to intake cube
     		addSequential(new IntakeIn()); // spin up intake mech to intake cube
     		addSequential(new DriveMagic(100, 100)); // move forward to intake cube
     		addSequential(new DriveMagic(-100, -100)); // back up a tad
-    		addSequential(new TurnToArbritraryAngleMagic(315)); // turn left 45 degrees
+    		addSequential(new TurnMagic(315)); // turn left 45 degrees
     		addSequential(new DriveMagic(100, 100)); // move forward
-    		addSequential(new TurnToArbritraryAngleMagic(270)); // turn left to face the switch
+    		addSequential(new TurnMagic(270)); // turn left to face the switch
     		addSequential(new ElevatorScalePosition()); //elevator to scale position
     		addSequential(new ArmReleasePosition()); //prepare arm to drop cube on scale
     		addSequential(new DriveMagic(100, 100)); // move forward to scale
@@ -55,23 +55,23 @@ public class TwoCubeAutoLeftPosition extends CommandGroup {
     		//done
     		} else { //switch on right
     		addSequential(new DriveMagic(100, 100)); // forward to turning point
-        	addSequential(new TurnToArbritraryAngleMagic(90)); // turn right to face platform zone
+        	addSequential(new TurnMagic(90)); // turn right to face platform zone
         	addSequential(new DriveMagic(100, 100)); // forward to left side of switch, SHORTER DISTANCE THAN ABOVE SEQUENCE
-        	addSequential(new TurnToArbritraryAngleMagic(90)); // turn right to face the switch
+        	addSequential(new TurnMagic(90)); // turn right to face the switch
         	addSequential(new DriveMagic(100, 100)); // forward to drop cube on switch
         	addSequential(new ElevatorSwitchPosition()); //elevator to switch position
         	addSequential(new ArmReleasePosition()); //prepare arm to drop cube on switch
         	addSequential(new IntakeRelease()); // drop power cube on switch
         	addSequential(new DriveMagic(-100, -100)); // back up a tad so we can align to intake the second cube
-        	addSequential(new TurnToArbritraryAngleMagic(315)); // align ourselves to intake the second cube
+        	addSequential(new TurnMagic(315)); // align ourselves to intake the second cube
         	addSequential(new ElevatorGroundPosition()); //elevator to ground position
         	addSequential(new ArmIntakePosition()); //prepare arm to intake cube
         	addSequential(new IntakeIn()); // spin up intake mech to intake cube
         	addSequential(new DriveMagic(100, 100)); // move forward to intake cube
         	addSequential(new DriveMagic(-100, -100)); // back up a tad
-        	addSequential(new TurnToArbritraryAngleMagic(315)); // turn left 45 degrees
+        	addSequential(new TurnMagic(315)); // turn left 45 degrees
         	addSequential(new DriveMagic(100, 100)); // move forward, LONGER DISTANCE THAN ABOVE SEQUENCE
-        	addSequential(new TurnToArbritraryAngleMagic(270)); // turn left to face the switch
+        	addSequential(new TurnMagic(270)); // turn left to face the switch
         	addSequential(new ElevatorScalePosition()); //elevator to scale position
         	addSequential(new ArmReleasePosition()); //prepare arm to drop cube on scale
         	addSequential(new DriveMagic(100, 100)); // move forward to scale
@@ -91,12 +91,12 @@ public class TwoCubeAutoLeftPosition extends CommandGroup {
         	addSequential(new ElevatorGroundPosition()); //elevator to ground position
             addSequential(new ArmIntakePosition()); //prepare arm to intake cube
             addSequential(new DriveMagic(-100, -100)); // back up a tad more
-            addSequential(new TurnToArbritraryAngleMagic(90)); // turn right to face platform zone
+            addSequential(new TurnMagic(90)); // turn right to face platform zone
             addSequential(new DriveMagic(100, 100)); // forward to align to intake second cube
-            addSequential(new TurnToArbritraryAngleMagic(45)); // turn right to face second cube
+            addSequential(new TurnMagic(45)); // turn right to face second cube
             addSequential(new IntakeIn()); // spin up intake mech to intake cube
             addSequential(new DriveMagic(100, 100)); // forward to intake second cube
-            addSequential(new TurnToArbritraryAngleMagic(315)); // align ourselves to the switch
+            addSequential(new TurnMagic(315)); // align ourselves to the switch
             addSequential(new IntakeRelease()); // drop power cube on switch
             //done
         	} else { //switch on left
@@ -109,12 +109,12 @@ public class TwoCubeAutoLeftPosition extends CommandGroup {
             addSequential(new ElevatorGroundPosition()); //elevator to ground position
             addSequential(new ArmIntakePosition()); //prepare arm to intake cube
             addSequential(new DriveMagic(-100, -100)); // back up a tad more
-            addSequential(new TurnToArbritraryAngleMagic(90)); // turn right to face platform zone
+            addSequential(new TurnMagic(90)); // turn right to face platform zone
             addSequential(new DriveMagic(100, 100)); // forward to align to intake second cube, SHORTER THAN ABOVE SEQUENCE
-            addSequential(new TurnToArbritraryAngleMagic(45)); // turn right to face second cube
+            addSequential(new TurnMagic(45)); // turn right to face second cube
             addSequential(new IntakeIn()); // spin up intake mech to intake cube
             addSequential(new DriveMagic(100, 100)); // forward to intake second cube
-            addSequential(new TurnToArbritraryAngleMagic(315)); // align ourselves to the switch
+            addSequential(new TurnMagic(315)); // align ourselves to the switch
             addSequential(new IntakeRelease()); // drop power cube on switch
         	}
     	}
