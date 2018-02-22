@@ -5,10 +5,11 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+// Dependent on Pathfinder for Java: https://github.com/JacisNonsense/Pathfinder
+
 package org.usfirst.frc.team4561.robot;
 
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.vision.USBCamera;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
