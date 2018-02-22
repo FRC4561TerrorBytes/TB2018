@@ -220,6 +220,12 @@ public class Robot extends IterativeRobot {
 			autonomousCommand = new TwoCubeAutoLeftPosition();
 			break;
 		case 9:
+			autonomousCommand = new ScaleLeftCurveTest();
+			break;
+		case 10:
+			autonomousCommand = new SwitchCenterCurveTest();
+			break;
+		case 11:
 			autonomousCommand = null;
 		}
 

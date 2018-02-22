@@ -8,6 +8,7 @@ import org.usfirst.frc.team4561.robot.commands.DriveMagic;
 import org.usfirst.frc.team4561.robot.commands.ElevatorGroundPosition;
 import org.usfirst.frc.team4561.robot.commands.ElevatorScalePosition;
 import org.usfirst.frc.team4561.robot.commands.IntakeRelease;
+import org.usfirst.frc.team4561.robot.commands.SpeedGear;
 import org.usfirst.frc.team4561.robot.commands.TorqueGear;
 import org.usfirst.frc.team4561.robot.commands.TurnMagic;
 
@@ -18,7 +19,7 @@ public class ScaleLeftCurveTest extends CommandGroup {
 	double delay = Robot.oi.getDashboardDelaySlider();
 
 	public ScaleLeftCurveTest(){
-		addSequential(new TorqueGear());
+		addSequential(new SpeedGear());
     	addSequential(new ArmVertical());
     	// wait preassigned time
     	addSequential(new WaitCommand(delay));

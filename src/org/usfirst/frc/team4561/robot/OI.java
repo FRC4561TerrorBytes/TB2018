@@ -165,7 +165,9 @@ public class OI {
 	}
 	
 	public double getControllerAxis(int axis){
-		return controller.getRawAxis(axis);
+		double axes = controller.getRawAxis(axis);
+		if (Math.abs(axes) < RobotMap.CONTROLLER_DEADZONE) axes = 0;
+		return axes;
 	}
 	
 	public double getControllerLeftX(){
