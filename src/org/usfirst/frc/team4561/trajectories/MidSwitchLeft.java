@@ -10,7 +10,6 @@ import jaci.pathfinder.modifiers.TankModifier;
  *
  */
 public class MidSwitchLeft {
-	// TODO: Using Pathfinder, we can standardize on any unit we want. Which one should we pick? (probably feet or inches)
 	
 	Trajectory.Config config;
 	Waypoint[] points;
@@ -41,7 +40,7 @@ public class MidSwitchLeft {
     	// Positive Y is to the right, positive X is forward
     	// TODO: Not actually real points for MidSwitchLeft right now
     	points = new Waypoint[] {
-    			new Waypoint(-4, -1, Pathfinder.d2r(0)),
+    			new Waypoint(-4, -1, Pathfinder.d2r(-45)),
     			new Waypoint(-2, -2, 0),
     			new Waypoint(0, 0, 0)
     	};
