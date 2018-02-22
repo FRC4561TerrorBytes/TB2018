@@ -9,7 +9,7 @@ import jaci.pathfinder.modifiers.TankModifier;
  * @author kaiza
  *
  */
-public class MidSwitchLeft {
+public class MidSwitchLeft extends Path {
 	
 	Trajectory.Config config;
 	Waypoint[] points;
@@ -64,4 +64,16 @@ public class MidSwitchLeft {
 	
     	 */
     }
+
+	@Override
+	public Trajectory getLeftTrajectory() {
+		// TODO Auto-generated method stub
+		return left;
+	}
+
+	@Override
+	public Trajectory getRightTrajectory() {
+		// TODO Auto-generated method stub
+		return right;
+	}
 }

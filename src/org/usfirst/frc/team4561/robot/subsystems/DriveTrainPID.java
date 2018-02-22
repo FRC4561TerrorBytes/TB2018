@@ -5,6 +5,9 @@ import org.usfirst.frc.team4561.robot.RobotMap;
 import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team4561.robot.commands.TankDrive;
 
+import com.ctre.phoenix.motion.MotionProfileStatus;
+import com.ctre.phoenix.motion.SetValueMotionProfile;
+import com.ctre.phoenix.motion.TrajectoryPoint;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
@@ -17,6 +20,8 @@ import edu.wpi.first.wpilibj.hal.HAL;
 import edu.wpi.first.wpilibj.hal.FRCNetComm.tInstances;
 import edu.wpi.first.wpilibj.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import jaci.pathfinder.Pathfinder;
+import jaci.pathfinder.Trajectory;
 
 /**
  * @author Snehil
@@ -198,6 +203,55 @@ public class DriveTrainPID extends Subsystem {
 		//resetGyro();
 		
 		
+	}
+	public void setUpMotionProfiling(Trajectory pointsR, Trajectory pointsL){
+		frontRight.clearMotionProfileTrajectories();
+		frontLeft.clearMotionProfileTrajectories();
+		TrajectoryPoint pointR = new TrajectoryPoint();
+		TrajectoryPoint pointL = new TrajectoryPoint();
+		
+		for (int i = 0; i < pointsR.length(); i++){
+			pointR.position = pointsR.get(i).position;
+			pointR.velocity = pointsR.get(i).velocity;
+			pointR.headingDeg = Pathfinder.r2d(pointsR.get(i).heading);
+			
+			pointR.zeroPos = (i == 0);
+			pointR.isLastPoint = ((i+1) == pointsR.length());
+			frontRight.pushMotionProfileTrajectory(pointR);
+		}
+		
+		for (int i = 0; i < pointsL.length(); i++){
+			pointL.position = pointsL.get(i).position;
+			pointL.velocity = pointsL.get(i).velocity;
+			pointL.headingDeg = Pathfinder.r2d(pointsL.get(i).heading);
+			
+			pointL.zeroPos = (i == 0);
+			pointL.isLastPoint = ((i+1) == pointsL.length());
+			frontLeft.pushMotionProfileTrajectory(pointL);
+		}
+		
+	}
+	public void runMotionProfile(){
+		if (!frontRight.isMotionProfileTopLevelBufferFull()){
+			frontRight.processMotionProfileBuffer();
+		}
+		if (!frontLeft.isMotionProfileTopLevelBufferFull()){
+			frontLeft.processMotionProfileBuffer();
+		}
+		
+		frontRight.set(ControlMode.MotionProfile, SetValueMotionProfile.Enable.value);
+		frontLeft.set(ControlMode.MotionProfile, SetValueMotionProfile.Enable.value);
+	}
+	public void holdMotionProfile(){
+		frontRight.set(ControlMode.MotionProfile, SetValueMotionProfile.Hold.value);
+		frontLeft.set(ControlMode.MotionProfile, SetValueMotionProfile.Hold.value);
+	}
+	public boolean isProfileFinished(){
+		MotionProfileStatus statusR = new MotionProfileStatus();
+		frontRight.getMotionProfileStatus(statusR);
+		MotionProfileStatus statusL = new MotionProfileStatus();
+		frontLeft.getMotionProfileStatus(statusL);
+		return (statusR.activePointValid&&statusR.isLast)&&(statusL.activePointValid&&statusL.isLast);
 	}
 	public void setToPosition(){
 		frontLeft.set(ControlMode.Position, 0);
