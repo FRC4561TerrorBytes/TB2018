@@ -32,8 +32,7 @@ import org.usfirst.frc.team4561.robot.commands.ToggleArmPID;
 import org.usfirst.frc.team4561.robot.commands.ToggleDriveTrainPID;
 import org.usfirst.frc.team4561.robot.commands.ToggleElevatorPID;
 import org.usfirst.frc.team4561.robot.subsystems.*;
-import org.usfirst.frc.team4561.trajectories.MidSwitchLeft;
-import org.usfirst.frc.team4561.trajectories.Path;
+import org.usfirst.frc.team4561.trajectories.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -60,6 +59,7 @@ public class Robot extends IterativeRobot {
 	public static boolean scaleFMSSideRight; // true if right, false if left
 	private Command getFieldData;
 	public static final Path midSwitchLeft = new MidSwitchLeft();
+	public static final Path midScaleRightCSV = new WallToRightScaleCSV();
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
