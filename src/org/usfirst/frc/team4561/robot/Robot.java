@@ -58,8 +58,8 @@ public class Robot extends IterativeRobot {
 	public static boolean switchFMSSideRight; // true if right, false if left
 	public static boolean scaleFMSSideRight; // true if right, false if left
 	private Command getFieldData;
-	public static final Path midSwitchLeft = new MidSwitchLeft();
 	public static final Path midScaleRightCSV = new WallToRightScaleCSV();
+	public static Path midSwitchLeft;
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -83,6 +83,9 @@ public class Robot extends IterativeRobot {
 		oi.startElevatorRelative.whenActive(new ResetElevator());
 		oi.startArmRelative.whenActive(new ResetArm());
 		oi.stopArmRelative.whenActive(new ResetArm());
+		System.out.println("Constructing 1st Trajectory");
+		midSwitchLeft = new MidSwitchLeft();
+		System.out.println("Constructed 1st Trajectory");
 		
 	}
 
@@ -225,6 +228,9 @@ public class Robot extends IterativeRobot {
 			break;
 		case 9:
 			autonomousCommand = null;
+			break;
+		case 10:
+			autonomousCommand = new MotionProfileTest();
 		}
 
 		// schedule the autonomous command (example)
