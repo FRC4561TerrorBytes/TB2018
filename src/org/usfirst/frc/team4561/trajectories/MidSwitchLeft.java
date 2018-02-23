@@ -10,6 +10,7 @@ import jaci.pathfinder.modifiers.TankModifier;
  *
  */
 public class MidSwitchLeft extends Path {
+	// ALL units are in feet. Commands convert them to TalonSRX ticks later.
 	
 	Trajectory.Config config;
 	Waypoint[] points;
@@ -28,26 +29,26 @@ public class MidSwitchLeft extends Path {
     	//	                      SAMPLES_LOW  (10 000)
     	//	                      SAMPLES_FAST (1 000)
     	// Time Step:           0.05 Seconds
-    	// Max Velocity:        1.7 m/s
-    	// Max Acceleration:    2.0 m/s/s
-    	// Max Jerk:            60.0 m/s/s/s
+    	// Max Velocity:        1.7 ft/s
+    	// Max Acceleration:    2.0 ft/s/s
+    	// Max Jerk:            60.0 ft/s/s/s
     	config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC,
     			Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0);
     	
     	// Create waypoints (knots of the Hermite spline).
     	// First point is the starting position, last point is the end.
     	// Angles are in radians
-    	// Positive Y is to the right, positive X is forward
+    	// Positive Y is to the left, positive X is forward
     	// TODO: Not actually real points for MidSwitchLeft right now
     	points = new Waypoint[] {
-    			new Waypoint(38.5, 158.75, 0),
-    			new Waypoint(120, 85.25, 0),
-    			new Waypoint(165, 85.25, 0)
+    			new Waypoint(3.22, 13.23, 0),
+    			new Waypoint(6, 15, Pathfinder.d2r(45)),
+    			new Waypoint(11.67, 18.01, 0)
     	};
     	
     	trajectory = Pathfinder.generate(points, config);
-    	// Wheelbase Width (meters)
-    	modifier = new TankModifier(trajectory).modify(0.568452); // According to CAD
+    	// Wheelbase Width
+    	modifier = new TankModifier(trajectory).modify(1.865); // According to CAD
     	// Do something with the new Trajectories...
     	left = modifier.getLeftTrajectory();
     	right = modifier.getRightTrajectory();
