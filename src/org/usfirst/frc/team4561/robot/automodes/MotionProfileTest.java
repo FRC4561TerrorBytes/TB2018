@@ -10,7 +10,7 @@ public class MotionProfileTest extends CommandGroup {
 	public MotionProfileTest(){
 		Trajectory pointsR = Robot.midSwitchLeft.getRightTrajectory();
 		Trajectory pointsL = Robot.midSwitchLeft.getLeftTrajectory();
-		int count = 3;
 		addSequential(new DriveProfile(pointsR, pointsL));
+		//addSequential(new WaitUntilPosition());
 	}
 }

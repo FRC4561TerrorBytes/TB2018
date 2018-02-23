@@ -18,7 +18,7 @@ public class DriveProfile extends Command {
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return Robot.driveTrain.isProfileFinished();
+		return true;
 	}
 	
 	protected void initialize(){
@@ -29,6 +29,6 @@ public class DriveProfile extends Command {
 		Robot.driveTrain.runMotionProfile();
 	}
 	protected void end(){
-		Robot.driveTrain.holdMotionProfile();
+		//Robot.driveTrain.holdMotionProfile();
 	}
 }

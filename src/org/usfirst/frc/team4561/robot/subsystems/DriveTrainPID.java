@@ -211,7 +211,7 @@ public class DriveTrainPID extends Subsystem {
 		TrajectoryPoint pointL = new TrajectoryPoint();
 		
 		for (int i = 0; i < pointsR.length(); i++){
-			pointR.position = pointsR.get(i).position;
+			pointR.position = pointsR.get(i).position*kInchesToTicks;
 			pointR.velocity = pointsR.get(i).velocity;
 			pointR.headingDeg = Pathfinder.r2d(pointsR.get(i).heading);
 			
@@ -221,7 +221,7 @@ public class DriveTrainPID extends Subsystem {
 		}
 		
 		for (int i = 0; i < pointsL.length(); i++){
-			pointL.position = pointsL.get(i).position;
+			pointL.position = pointsL.get(i).position*kInchesToTicks;
 			pointL.velocity = pointsL.get(i).velocity;
 			pointL.headingDeg = Pathfinder.r2d(pointsL.get(i).heading);
 			

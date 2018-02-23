@@ -40,9 +40,9 @@ public class MidSwitchLeft extends Path {
     	// Positive Y is to the right, positive X is forward
     	// TODO: Not actually real points for MidSwitchLeft right now
     	points = new Waypoint[] {
-    			new Waypoint(-4, -1, Pathfinder.d2r(-45)),
-    			new Waypoint(-2, -2, 0),
-    			new Waypoint(0, 0, 0)
+    			new Waypoint(38.5, 158.75, 0),
+    			new Waypoint(120, 85.25, 0),
+    			new Waypoint(165, 85.25, 0)
     	};
     	
     	trajectory = Pathfinder.generate(points, config);
