@@ -83,9 +83,11 @@ public class Robot extends IterativeRobot {
 		oi.startElevatorRelative.whenActive(new ResetElevator());
 		oi.startArmRelative.whenActive(new ResetArm());
 		oi.stopArmRelative.whenActive(new ResetArm());
-		System.out.println("Constructing 1st Trajectory");
+		
+		double beforeTime = System.currentTimeMillis();
 		midSwitchLeft = new MidSwitchLeft();
-		System.out.println("Constructed 1st Trajectory");
+		double afterTime = System.currentTimeMillis();
+		System.out.println("Time to construct MidSwitchLeft (ms): " + Double.toString(afterTime-beforeTime));
 		
 	}
 
