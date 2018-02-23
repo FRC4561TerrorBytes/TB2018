@@ -1,4 +1,6 @@
 package org.usfirst.frc.team4561.trajectories;
+import org.usfirst.frc.team4561.robot.RobotMap;
+
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
@@ -10,46 +12,25 @@ import jaci.pathfinder.modifiers.TankModifier;
  *
  */
 public class MidSwitchLeft extends Path {
-	// ALL units are in feet. Commands convert them to TalonSRX ticks later.
 	
-	Trajectory.Config config;
-	Waypoint[] points;
-    Trajectory trajectory;
-    TankModifier modifier;
-    Trajectory left;
-    Trajectory right;
+	// ALL units are in feet. Commands convert them to TalonSRX ticks later.
 	
     public MidSwitchLeft() {
     	
-    	// Create the Trajectory Configuration
-    	//
-    	// Arguments:
-    	// Fit Method:          HERMITE_CUBIC or HERMITE_QUINTIC
-    	// Sample Count:        SAMPLES_HIGH (100 000)
-    	//	                      SAMPLES_LOW  (10 000)
-    	//	                      SAMPLES_FAST (1 000)
-    	// Time Step:           0.05 Seconds
-    	// Max Velocity:        1.7 ft/s
-    	// Max Acceleration:    2.0 ft/s/s
-    	// Max Jerk:            60.0 ft/s/s/s
-    	config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC,
-    			Trajectory.Config.SAMPLES_HIGH, 0.05, 1.7, 2.0, 60.0);
-    	
-    	// Create waypoints (knots of the Hermite spline).
+    	// Create waypoints (knots of the Hermite spline). Units are in feet.
     	// First point is the starting position, last point is the end.
-    	// Angles are in radians
-    	// Positive Y is to the left, positive X is forward
-    	// TODO: Not actually real points for MidSwitchLeft right now
+    	// Angles are in radians, positive Y is to the left, positive X is forward
     	points = new Waypoint[] {
     			new Waypoint(3.22, 13.23, 0),
     			new Waypoint(6, 15, Pathfinder.d2r(45)),
     			new Waypoint(11.67, 18.01, 0)
     	};
     	
+    	// Create the trajectory for the center of the robot
     	trajectory = Pathfinder.generate(points, config);
-    	// Wheelbase Width
-    	modifier = new TankModifier(trajectory).modify(1.865); // According to CAD
-    	// Do something with the new Trajectories...
+    	
+    	// Change that trajectory into two separate trajectories: one for the left side and one for the right
+    	modifier = new TankModifier(trajectory).modify(RobotMap.WHEELBASE_WIDTH);
     	left = modifier.getLeftTrajectory();
     	right = modifier.getRightTrajectory();
     	
@@ -65,16 +46,4 @@ public class MidSwitchLeft extends Path {
 	
     	 */
     }
-
-	@Override
-	public Trajectory getLeftTrajectory() {
-		// TODO Auto-generated method stub
-		return left;
-	}
-
-	@Override
-	public Trajectory getRightTrajectory() {
-		// TODO Auto-generated method stub
-		return right;
-	}
 }
