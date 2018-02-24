@@ -114,6 +114,13 @@ public class RobotMap {
 	public static boolean ELEVATOR_PID = true || MASTER_PID;
 	public static boolean ARM_PID = true || MASTER_PID;
 	
+	// Automode constraints
+	public static final double TIME_STEP = 0.05; // sec
+	public static final double WHEELBASE_WIDTH = 1.865; // ft
+	public static final double MAX_VELOCITY = 1.7; // ft/s TODO: Placeholder
+	public static final double MAX_ACCELERATION = 2.0; // ft/s/s TODO: Placeholder
+	public static final double MAX_JERK = 60.0; // ft/s/s/s TODO: Placeholder
+	
 	// If you are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:
 	// public static int rangefinderPort = 1;
