@@ -19,7 +19,7 @@ public class WaitUntilPositionPercent extends Command {
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return (Robot.driveTrain.getLeftPos()+startPos)/(DriveTrainPID.kInchesToTicks*12)>=goal*fullPos;
+		return (Robot.driveTrain.getLeftPos()+startPos)/(DriveTrainPID.kFeetToTicks)>=goal*fullPos;
 	}
 	
 	protected void end(){

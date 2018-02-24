@@ -63,6 +63,9 @@ public class DriveTrainPID extends Subsystem {
 	double rightSpeedOriginal;
 	
 	public static final double kInchesToTicks = 487.6;
+	public static final double kFeetToTicks = kInchesToTicks*12;
+	public static final double kInchesToTicksSpeed = kInchesToTicks/10;
+	public static final double kFeetToTicksSpeed = kFeetToTicks/10;
 		
 	//Set middle and back motors as followers to front two motors, and set the PIDF values (currently placeholders)
 	public DriveTrainPID() {
@@ -211,8 +214,8 @@ public class DriveTrainPID extends Subsystem {
 		TrajectoryPoint pointL = new TrajectoryPoint();
 		
 		for (int i = 0; i < pointsR.length(); i++){
-			pointR.position = pointsR.get(i).position*kInchesToTicks*12;
-			pointR.velocity = pointsR.get(i).velocity*kInchesToTicks*1.2;
+			pointR.position = pointsR.get(i).position*kFeetToTicks;
+			pointR.velocity = pointsR.get(i).velocity*kFeetToTicksSpeed;
 			pointR.headingDeg = Pathfinder.r2d(pointsR.get(i).heading);
 			
 			pointR.zeroPos = (i == 0);
@@ -221,8 +224,8 @@ public class DriveTrainPID extends Subsystem {
 		}
 		
 		for (int i = 0; i < pointsL.length(); i++){
-			pointL.position = pointsL.get(i).position*kInchesToTicks*12;
-			pointL.velocity = pointsL.get(i).velocity*kInchesToTicks*1.2;
+			pointL.position = pointsL.get(i).position*kFeetToTicks;
+			pointL.velocity = pointsL.get(i).velocity*kFeetToTicksSpeed;
 			pointL.headingDeg = Pathfinder.r2d(pointsL.get(i).heading);
 			
 			pointL.zeroPos = (i == 0);
