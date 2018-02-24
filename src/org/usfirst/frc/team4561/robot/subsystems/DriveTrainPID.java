@@ -84,8 +84,8 @@ public class DriveTrainPID extends Subsystem {
 		midRight.setInverted(true);
 		rearRight.setInverted(true);
 		
-		frontLeft.setSensorPhase(false);
-		frontRight.setSensorPhase(false);
+		frontLeft.setSensorPhase(true);
+		frontRight.setSensorPhase(true);
 		
 		gyro.calibrate();
 		

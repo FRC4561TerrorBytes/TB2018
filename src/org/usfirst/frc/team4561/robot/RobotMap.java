@@ -100,9 +100,9 @@ public class RobotMap {
 	public static final int TOGGLE_PID_BUTTON_TWO = 7;
 	
 	// Debug variables
-	public static final boolean MASTER_DEBUG = true;
-	public static final boolean DRIVETRAIN_DEBUG = false || MASTER_DEBUG;
-	public static final boolean ELEVATOR_DEBUG = true || MASTER_DEBUG;
+	public static final boolean MASTER_DEBUG = false;
+	public static final boolean DRIVETRAIN_DEBUG = true || MASTER_DEBUG;
+	public static final boolean ELEVATOR_DEBUG = false || MASTER_DEBUG;
 	public static final boolean TRANSMISSION_DEBUG = false || MASTER_DEBUG;
 	public static final boolean ARM_DEBUG = false || MASTER_DEBUG;
 	
