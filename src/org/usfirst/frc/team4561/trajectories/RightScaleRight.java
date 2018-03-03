@@ -22,8 +22,8 @@ public class RightScaleRight extends Path {
     	// Angles are in radians, positive Y is to the left, positive X is forward
     	points = new Waypoint[] {
     			new Waypoint(3.22, 2.32, 0),
-    			    	new Waypoint(20, 6, 0),
-    				new Waypoint(24.88, 6.8, 0)
+    			    	new Waypoint(18, 6, 0),
+    				new Waypoint(24.88, 7.5, 0)
     			};
     	
     	// Create the trajectory for the center of the robot

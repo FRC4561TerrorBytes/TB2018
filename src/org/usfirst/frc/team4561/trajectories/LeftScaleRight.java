@@ -24,7 +24,7 @@ public class LeftScaleRight extends Path {
     			new Waypoint(17, 23.43, Pathfinder.d2r(-15)),
     			new Waypoint(20, 20, Pathfinder.d2r(-85)),
     			new Waypoint(21, 9, Pathfinder.d2r(-50)),
-    			new Waypoint(24.97, 6.50, Pathfinder.d2r(0))
+    			new Waypoint(24.97, 7.50, Pathfinder.d2r(0))
     	};
 
     	

@@ -23,8 +23,8 @@ public class RightScaleLeft extends Path {
     			new Waypoint(3.22, 2.32, 0),
     			new Waypoint(17, 2.32, Pathfinder.d2r(15)),
     			new Waypoint(20, 5, Pathfinder.d2r(85)),
-    			new Waypoint(21, 20, Pathfinder.d2r(50)),
-    			new Waypoint(24.97, 20.5, Pathfinder.d2r(0))
+    			new Waypoint(21, 18, Pathfinder.d2r(50)),
+    			new Waypoint(24.97, 19.5, Pathfinder.d2r(0))
     	};
 
     	

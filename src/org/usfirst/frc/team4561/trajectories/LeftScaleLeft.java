@@ -23,7 +23,7 @@ public class LeftScaleLeft extends Path {
     	points = new Waypoint[] {
     			new Waypoint(3.22, 23.43, 0),
     			new Waypoint(20, 21.25, 0),
-    			new Waypoint(24.88, 20.15, 0)
+    			new Waypoint(24.97, 19.5, 0)
     		};
     	
     	// Create the trajectory for the center of the robot
