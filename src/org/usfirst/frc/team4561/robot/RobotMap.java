@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team4561.robot;
 
+import org.usfirst.frc.team4561.robot.subsystems.DriveTrainPID;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -59,8 +61,8 @@ public class RobotMap {
 	// public static int rightMotor = 2;
 	
 	//Left Motor Ports
-	public static final int FRONT_LEFT_MOTOR_PORT = 7;
-	public static final int MID_LEFT_MOTOR_PORT = 11;
+	public static final int FRONT_LEFT_MOTOR_PORT = 7; //7
+	public static final int MID_LEFT_MOTOR_PORT = 11; //11
 	public static final int BACK_LEFT_MOTOR_PORT = 12;
 	
 	//Right Motor Ports
@@ -117,7 +119,7 @@ public class RobotMap {
 	// Automode constraints
 	public static final double TIME_STEP = 0.05; // sec
 	public static final double WHEELBASE_WIDTH = 1.865; // ft
-	public static final double MAX_VELOCITY = 1.7; // ft/s TODO: Placeholder
+	public static final double MAX_VELOCITY = 15.9; // ft/s in speed gear (not a placeholder anymore!)
 	public static final double MAX_ACCELERATION = 2.0; // ft/s/s TODO: Placeholder
 	public static final double MAX_JERK = 60.0; // ft/s/s/s TODO: Placeholder
 	
