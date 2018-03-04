@@ -108,7 +108,7 @@ public class RobotMap {
 	public static final boolean TRANSMISSION_DEBUG = false || MASTER_DEBUG;
 	public static final boolean ARM_DEBUG = false || MASTER_DEBUG;
 	
-	public static final double DRIVETRAIN_CIRCUMFERENCE = 72.25;
+	public static final double DRIVETRAIN_CIRCUMFERENCE = 78;
 	
 	//PID variables
 	public static boolean MASTER_PID = false;
