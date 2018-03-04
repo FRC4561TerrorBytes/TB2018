@@ -23,15 +23,8 @@ public class ScaleRightSwitchRightCube extends Path {
     			new Waypoint(22, 3, Pathfinder.d2r(90)),
     			new Waypoint(17, 9.99, Pathfinder.d2r(180))
     	};
-
-    	
-    	// Create the trajectory for the center of the robot
-    	trajectory = Pathfinder.generate(points, config);
-    	
-    	// Change that trajectory into two separate trajectories: one for the left side and one for the right
-    	modifier = new TankModifier(trajectory).modify(RobotMap.WHEELBASE_WIDTH);
-    	left = modifier.getLeftTrajectory();
-    	right = modifier.getRightTrajectory();
+    	reverse = false;
+    	generateTrajectoriesAndArrays();
     	
     	/* To print out points along trajectory...
     	 

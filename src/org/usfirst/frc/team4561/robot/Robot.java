@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team4561.trajectories.MotionProfileRunner;
 import org.usfirst.frc.team4561.robot.automodes.*;
 import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team4561.robot.commands.ArmDrive;
@@ -60,6 +61,9 @@ public class Robot extends IterativeRobot {
 	private Command getFieldData;
 	public static final Path midScaleRightCSV = new WallToRightScaleCSV();
 	public static Path midSwitchLeft;
+	
+	public static MotionProfileRunner motionProfileRunner = new MotionProfileRunner(Robot.driveTrain.frontLeft, Robot.driveTrain.frontRight);
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -233,6 +237,9 @@ public class Robot extends IterativeRobot {
 			break;
 		case 10:
 			autonomousCommand = new MotionProfileTest();
+			break;
+		case 11:
+			autonomousCommand = new AutoMidSwitchProfiling();
 		}
 
 		// schedule the autonomous command (example)
@@ -247,6 +254,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		motionProfileRunner.control();
 	}
 
 	@Override

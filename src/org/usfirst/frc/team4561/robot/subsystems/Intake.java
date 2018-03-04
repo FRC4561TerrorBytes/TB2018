@@ -28,7 +28,8 @@ public class Intake extends Subsystem {
 	public Intake () {
 		intakeLeftMotor = new WPI_TalonSRX (RobotMap.INTAKE_LEFT_MOTOR_PORT);
 		intakeRightMotor = new WPI_TalonSRX (RobotMap.INTAKE_RIGHT_MOTOR_PORT);
-		intakeLeftMotor.setInverted(true);
+		intakeLeftMotor.setInverted(false);
+		intakeRightMotor.setInverted(true);
 		intakeLeftMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		intakeRightMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 	}
@@ -45,8 +46,8 @@ public class Intake extends Subsystem {
 		intakeRightMotor.set(SmartDashboard.getNumber("DB/Slider 3", 0));
 	}
 	public void intakeOutHalf(){
-		intakeLeftMotor.set(-0.4);
-		intakeRightMotor.set(-0.4);
+		intakeLeftMotor.set(-0.5);
+		intakeRightMotor.set(-0.5);
 	}
 	public void stop(){
 		intakeLeftMotor.set(0);

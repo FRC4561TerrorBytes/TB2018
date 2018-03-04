@@ -24,14 +24,8 @@ public class RightScaleTurnAroundS4 extends Path {
     			new Waypoint(24.88, 6.8, 0),
     			    	new Waypoint(22, 3, 90)
     			};
-    	
-    	// Create the trajectory for the center of the robot
-    	trajectory = Pathfinder.generate(points, config);
-    	
-    	// Change that trajectory into two separate trajectories: one for the left side and one for the right
-    	modifier = new TankModifier(trajectory).modify(RobotMap.WHEELBASE_WIDTH);
-    	left = modifier.getLeftTrajectory();
-    	right = modifier.getRightTrajectory();
+    	reverse = false;
+    	generateTrajectoriesAndArrays();
     	
     	/* To print out points along trajectory...
     	 

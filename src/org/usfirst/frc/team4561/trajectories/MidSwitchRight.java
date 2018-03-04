@@ -24,14 +24,8 @@ public class MidSwitchRight extends Path {
     			new Waypoint(3.22, 13.23, Pathfinder.d2r(0)),
     			new Waypoint(11.67, 8.04, Pathfinder.d2r(0))
     	};
-
-    	// Create the trajectory for the center of the robot
-    	trajectory = Pathfinder.generate(points, config);
-    	
-    	// Change that trajectory into two separate trajectories: one for the left side and one for the right
-    	modifier = new TankModifier(trajectory).modify(RobotMap.WHEELBASE_WIDTH);
-    	left = modifier.getLeftTrajectory();
-    	right = modifier.getRightTrajectory();
+    	reverse = false;
+    	generateTrajectoriesAndArrays();
     	
     	/* To print out points along trajectory...
     	 

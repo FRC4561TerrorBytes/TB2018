@@ -3,23 +3,18 @@ package org.usfirst.frc.team4561.robot.commands;
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.subsystems.DriveTrainPID;
 
+import com.ctre.phoenix.motion.SetValueMotionProfile;
+
 import edu.wpi.first.wpilibj.command.Command;
 
-public class WaitUntilPositionPercent extends Command {
+public class WaitUntilTrajectoryFinished extends Command {
 
-	double goal;
-	double startPos;
-	double fullPos;
-	
-	public WaitUntilPositionPercent(double percent, double start, double end){
-		goal = percent;
-		startPos = start;
-		fullPos = end;
+	public WaitUntilTrajectoryFinished() {
 	}
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return (Robot.driveTrain.getLeftPos())/(DriveTrainPID.kFeetToTicks)+startPos>=goal*fullPos;
+		return Robot.motionProfileRunner.getSetValue() == SetValueMotionProfile.Disable;
 	}
 	
 	protected void end(){

@@ -41,14 +41,17 @@ public class DriveTrainPID extends Subsystem {
 	private ControlMode velocity = com.ctre.phoenix.motorcontrol.ControlMode.Velocity;
 	
 	//Declare all motors variables as TalonSRXs
-	private TalonSRX frontRight = new TalonSRX(RobotMap.FRONT_RIGHT_MOTOR_PORT);
-	private TalonSRX frontLeft = new TalonSRX(RobotMap.FRONT_LEFT_MOTOR_PORT);
+	public TalonSRX frontRight = new TalonSRX(RobotMap.FRONT_RIGHT_MOTOR_PORT);
+	public TalonSRX frontLeft = new TalonSRX(RobotMap.FRONT_LEFT_MOTOR_PORT);
 		
 	private TalonSRX midRight = new TalonSRX(RobotMap.MID_RIGHT_MOTOR_PORT);
 	private TalonSRX midLeft = new TalonSRX(RobotMap.MID_LEFT_MOTOR_PORT);
 		
 	private TalonSRX rearRight = new TalonSRX(RobotMap.BACK_RIGHT_MOTOR_PORT);
 	private TalonSRX rearLeft = new TalonSRX(RobotMap.BACK_LEFT_MOTOR_PORT);
+	
+	public static final boolean LEFT_SIDE_INVERTED = false;
+	public static final boolean RIGHT_SIDE_INVERTED = true;
 	
 	double angleAccum = 0;
 	double rateAccum = 0;
@@ -80,12 +83,16 @@ public class DriveTrainPID extends Subsystem {
 		
 		rearLeft.set(follower, RobotMap.FRONT_LEFT_MOTOR_PORT);
 		
-		frontRight.setInverted(true);
-		midRight.setInverted(true);
-		rearRight.setInverted(true);
+		frontLeft.setInverted(LEFT_SIDE_INVERTED);
+		midLeft.setInverted(LEFT_SIDE_INVERTED);
+		rearLeft.setInverted(LEFT_SIDE_INVERTED);
 		
-		frontLeft.setSensorPhase(true);
-		frontRight.setSensorPhase(true);
+		frontRight.setInverted(RIGHT_SIDE_INVERTED);
+		midRight.setInverted(RIGHT_SIDE_INVERTED);
+		rearRight.setInverted(RIGHT_SIDE_INVERTED);
+		
+		frontLeft.setSensorPhase(false);
+		frontRight.setSensorPhase(false);
 		
 		gyro.calibrate();
 		
@@ -133,7 +140,12 @@ public class DriveTrainPID extends Subsystem {
 		
 		double leftMotorOutput = 0;
 		double rightMotorOutput = 0;
-
+		
+		
+		double exponent = SmartDashboard.getNumber("DB/Slider 2", 1);
+		
+		zRotation = Math.copySign(Math.pow(zRotation, exponent), zRotation);
+		
 		double maxInput = Math.copySign(Math.max(Math.abs(xSpeed), Math.abs(zRotation)), xSpeed);
 		zRotation = -zRotation;
 		if (xSpeed >= 0.0) {
@@ -427,5 +439,30 @@ public class DriveTrainPID extends Subsystem {
 			setDefaultCommand(new TankDrive());
 		}
 	}	
-
+	public void invertLeftSide(boolean invert) {
+		frontLeft.setInverted(invert);
+		midLeft.setInverted(invert);
+		rearLeft.setInverted(invert);
+	}
+	public void invertRightSide(boolean invert) {
+		frontRight.setInverted(invert);
+		midRight.setInverted(invert);
+		rearRight.setInverted(invert);
+	}
+	
+	public void setUpForMotionProfiling() {
+		frontLeft.configMotionProfileTrajectoryPeriod(0, 0);
+		frontLeft.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0); // Status 10 is also for motion profiling
+		frontLeft.setSelectedSensorPosition(0, 0, 0);
+		frontLeft.setInverted(LEFT_SIDE_INVERTED);
+		midLeft.setInverted(LEFT_SIDE_INVERTED);
+		rearLeft.setInverted(LEFT_SIDE_INVERTED);
+		
+		frontRight.configMotionProfileTrajectoryPeriod(0, 0);
+		frontRight.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0); // Status 10 is also for motion profiling
+		frontRight.setSelectedSensorPosition(0, 0, 0);
+		frontRight.setInverted(RIGHT_SIDE_INVERTED);
+		midRight.setInverted(RIGHT_SIDE_INVERTED);
+		rearRight.setInverted(RIGHT_SIDE_INVERTED);
+	}
 }

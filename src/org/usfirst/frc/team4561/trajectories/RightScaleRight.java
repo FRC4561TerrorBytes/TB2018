@@ -25,14 +25,8 @@ public class RightScaleRight extends Path {
     			    	new Waypoint(18, 6, 0),
     				new Waypoint(24.88, 7.5, 0)
     			};
-    	
-    	// Create the trajectory for the center of the robot
-    	trajectory = Pathfinder.generate(points, config);
-    	
-    	// Change that trajectory into two separate trajectories: one for the left side and one for the right
-    	modifier = new TankModifier(trajectory).modify(RobotMap.WHEELBASE_WIDTH);
-    	left = modifier.getLeftTrajectory();
-    	right = modifier.getRightTrajectory();
+    	reverse = false;
+    	generateTrajectoriesAndArrays();
     	
     	/* To print out points along trajectory...
     	 
