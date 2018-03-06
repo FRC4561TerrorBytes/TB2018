@@ -61,7 +61,12 @@ public class Robot extends IterativeRobot {
 	private Command getFieldData;
 	public static final Path midScaleRightCSV = new WallToRightScaleCSV();
 	public static Path midSwitchLeft;
-	
+	public static final Path leftScaleLeft = new LeftScaleLeft();
+	public static final Path leftScaleTurnAroundS3 = new LeftScaleTurnAroundS3();
+	public static final Path scaleLeftSwitchLeftCube = new ScaleLeftSwitchLeftCube();
+	public static final Path rightScaleRight = new RightScaleRight();
+	public static final Path rightScaleTurnAroundS4 = new RightScaleTurnAroundS4();
+	public static final Path scaleRightSwitchRightCube = new ScaleRightSwitchRightCube();
 	public static MotionProfileRunner motionProfileRunner = new MotionProfileRunner(Robot.driveTrain.frontLeft, Robot.driveTrain.frontRight);
 	
 	/**
