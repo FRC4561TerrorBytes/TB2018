@@ -24,7 +24,7 @@ public class Path {
     public void generateTrajectoriesAndArrays() {
     	trajectory = Pathfinder.generate(points, config);
     	// Wheelbase Width (feet)
-    	modifier = new TankModifier(trajectory).modify(3.2); // 1.865 (1.375 for kongo)
+    	modifier = new TankModifier(trajectory).modify(RobotMap.WHEELBASE_WIDTH); // 1.865 (1.375 for kongo)
     	// Do something with the new Trajectories...
     	left = modifier.getLeftTrajectory();
     	right = modifier.getRightTrajectory();

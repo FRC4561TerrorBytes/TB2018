@@ -117,6 +117,7 @@ public class Robot extends IterativeRobot {
 	}
 	
 	public void robotPeriodic(){
+		motionProfileRunner.control();
 		if (RobotMap.ARM_DEBUG){
 			SmartDashboard.putNumber("Arm/Encoder Position", Robot.arm.getEncoderPosition());
 	    	SmartDashboard.putNumber("Arm/Encoder Velocity", Robot.arm.getEncoderVelocity());
@@ -208,6 +209,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		motionProfileRunner.control();
 		int auto = (int) SmartDashboard.getNumber("DB/Slider 0", 0);
 		switch (auto){
 		case 0:

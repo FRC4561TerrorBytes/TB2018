@@ -123,6 +123,9 @@ public class RobotMap {
 	public static final double MAX_ACCELERATION = 6.0; // ft/s/s TODO: Placeholder
 	public static final double MAX_JERK = 60.0; // ft/s/s/s TODO: Placeholder
 	
+	public static final int OUTTAKE_WEAK_BUTTON = 3;
+
+	
 	// If you are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:
 	// public static int rangefinderPort = 1;

@@ -42,12 +42,16 @@ public class Intake extends Subsystem {
 		intakeRightMotor.set(1);
 	}
 	public void intakeIn(){
-		intakeLeftMotor.set(SmartDashboard.getNumber("DB/Slider 3", 0));
-		intakeRightMotor.set(SmartDashboard.getNumber("DB/Slider 3", 0));
+		intakeLeftMotor.set(0.75);
+		intakeRightMotor.set(0.75);
 	}
 	public void intakeOutHalf(){
 		intakeLeftMotor.set(-0.5);
 		intakeRightMotor.set(-0.5);
+	}
+	public void intakeOutWeak() {
+		intakeLeftMotor.set(-0.25);
+		intakeRightMotor.set(-0.25);
 	}
 	public void stop(){
 		intakeLeftMotor.set(0);
