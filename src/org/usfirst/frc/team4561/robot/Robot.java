@@ -213,40 +213,20 @@ public class Robot extends IterativeRobot {
 		int auto = (int) SmartDashboard.getNumber("DB/Slider 0", 0);
 		switch (auto){
 		case 0:
-			autonomousCommand = new AutoDriveToLine();
+			autonomousCommand = null;
 			break;
 		case 1:
-			autonomousCommand = new AutoDriveToLineCenter();
+			autonomousCommand = new AutoDriveToLine();
 			break;
 		case 2:
-			autonomousCommand = new AutoScaleCenterPosition();
+			autonomousCommand = new AutoMidSwitchProfiling();
 			break;
 		case 3:
-			autonomousCommand = new AutoScaleLeftPosition();
+			autonomousCommand = new AutoRightScaleProfiling();
 			break;
 		case 4:
-			autonomousCommand = new AutoScaleRightPosition();
+			autonomousCommand = new AutoLeftScaleProfiling();
 			break;
-		case 5:
-			autonomousCommand = new AutoSwitchCenterPosition();
-			break;
-		case 6:
-			autonomousCommand = new AutoSwitchLeftPosition();
-			break;
-		case 7:
-			autonomousCommand = new AutoSwitchRightPosition();
-			break;
-		case 8:
-			autonomousCommand = new TwoCubeAutoLeftPosition();
-			break;
-		case 9:
-			autonomousCommand = new ScaleLeftCurveTest();
-			break;
-		case 10:
-			autonomousCommand = new MotionProfileTest();
-			break;
-		case 11:
-			autonomousCommand = new AutoMidSwitchProfiling();
 		}
 
 		// schedule the autonomous command (example)

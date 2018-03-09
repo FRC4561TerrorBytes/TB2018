@@ -3,6 +3,7 @@ package org.usfirst.frc.team4561.robot.automodes;
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
 import org.usfirst.frc.team4561.robot.commands.ArmReleasePosition;
+import org.usfirst.frc.team4561.robot.commands.ArmVertical;
 import org.usfirst.frc.team4561.robot.commands.CheckSwitchSide;
 import org.usfirst.frc.team4561.robot.commands.DriveMagic;
 import org.usfirst.frc.team4561.robot.commands.IntakeRelease;
@@ -30,6 +31,8 @@ public class AutoMidSwitchProfiling extends CommandGroup {
     public AutoMidSwitchProfiling() {
         
     	addSequential(new SpeedGear());
+		addSequential(new ArmVertical());
+
     	// wait preassigned time
     	addSequential(new WaitCommand(delay));
     
