@@ -5,10 +5,11 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+// Dependent on Pathfinder for Java: https://github.com/JacisNonsense/Pathfinder
+
 package org.usfirst.frc.team4561.robot;
 
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.vision.USBCamera;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -17,6 +18,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team4561.trajectories.MotionProfileRunner;
 import org.usfirst.frc.team4561.robot.automodes.*;
 import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team4561.robot.commands.ArmDrive;
@@ -31,6 +33,7 @@ import org.usfirst.frc.team4561.robot.commands.ToggleArmPID;
 import org.usfirst.frc.team4561.robot.commands.ToggleDriveTrainPID;
 import org.usfirst.frc.team4561.robot.commands.ToggleElevatorPID;
 import org.usfirst.frc.team4561.robot.subsystems.*;
+import org.usfirst.frc.team4561.trajectories.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -56,6 +59,16 @@ public class Robot extends IterativeRobot {
 	public static boolean switchFMSSideRight; // true if right, false if left
 	public static boolean scaleFMSSideRight; // true if right, false if left
 	private Command getFieldData;
+	public static final Path midScaleRightCSV = new WallToRightScaleCSV();
+	public static Path midSwitchLeft;
+	public static final Path leftScaleLeft = new LeftScaleLeft();
+	public static final Path leftScaleTurnAroundS3 = new LeftScaleTurnAroundS3();
+	public static final Path scaleLeftSwitchLeftCube = new ScaleLeftSwitchLeftCube();
+	public static final Path rightScaleRight = new RightScaleRight();
+	public static final Path rightScaleTurnAroundS4 = new RightScaleTurnAroundS4();
+	public static final Path scaleRightSwitchRightCube = new ScaleRightSwitchRightCube();
+	public static MotionProfileRunner motionProfileRunner = new MotionProfileRunner(Robot.driveTrain.frontLeft, Robot.driveTrain.frontRight);
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -80,6 +93,11 @@ public class Robot extends IterativeRobot {
 		oi.startArmRelative.whenActive(new ResetArm());
 		oi.stopArmRelative.whenActive(new ResetArm());
 		
+		double beforeTime = System.currentTimeMillis();
+		midSwitchLeft = new MidSwitchLeft();
+		double afterTime = System.currentTimeMillis();
+		System.out.println("Time to construct MidSwitchLeft (ms): " + Double.toString(afterTime-beforeTime));
+		
 	}
 
 	/**
@@ -99,6 +117,7 @@ public class Robot extends IterativeRobot {
 	}
 	
 	public void robotPeriodic(){
+		motionProfileRunner.control();
 		if (RobotMap.ARM_DEBUG){
 			SmartDashboard.putNumber("Arm/Encoder Position", Robot.arm.getEncoderPosition());
 	    	SmartDashboard.putNumber("Arm/Encoder Velocity", Robot.arm.getEncoderVelocity());
@@ -190,6 +209,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		motionProfileRunner.control();
 		int auto = (int) SmartDashboard.getNumber("DB/Slider 0", 0);
 		switch (auto){
 		case 0:
@@ -223,10 +243,10 @@ public class Robot extends IterativeRobot {
 			autonomousCommand = new ScaleLeftCurveTest();
 			break;
 		case 10:
-			autonomousCommand = new SwitchCenterCurveTest();
+			autonomousCommand = new MotionProfileTest();
 			break;
 		case 11:
-			autonomousCommand = null;
+			autonomousCommand = new AutoMidSwitchProfiling();
 		}
 
 		// schedule the autonomous command (example)
@@ -241,6 +261,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		motionProfileRunner.control();
 	}
 
 	@Override

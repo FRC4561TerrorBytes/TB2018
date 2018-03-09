@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team4561.robot;
 
+import org.usfirst.frc.team4561.robot.subsystems.DriveTrainPID;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -59,8 +61,8 @@ public class RobotMap {
 	// public static int rightMotor = 2;
 	
 	//Left Motor Ports
-	public static final int FRONT_LEFT_MOTOR_PORT = 7;
-	public static final int MID_LEFT_MOTOR_PORT = 11;
+	public static final int FRONT_LEFT_MOTOR_PORT = 7; //7
+	public static final int MID_LEFT_MOTOR_PORT = 11; //11
 	public static final int BACK_LEFT_MOTOR_PORT = 12;
 	
 	//Right Motor Ports
@@ -80,8 +82,8 @@ public class RobotMap {
 	public static final int ARM_MOTOR_1_PORT = 6;
 
 	//Intake ports
-	public static final int INTAKE_LEFT_MOTOR_PORT = 4;
-	public static final int INTAKE_RIGHT_MOTOR_PORT = 3;
+	public static final int INTAKE_LEFT_MOTOR_PORT = 3;
+	public static final int INTAKE_RIGHT_MOTOR_PORT = 4;
 	
 	//Transmission Ports
 	public static final int TRANSMISSION_SOLENOID_PORT = 0;
@@ -101,12 +103,12 @@ public class RobotMap {
 	
 	// Debug variables
 	public static final boolean MASTER_DEBUG = true;
-	public static final boolean DRIVETRAIN_DEBUG = false || MASTER_DEBUG;
-	public static final boolean ELEVATOR_DEBUG = true || MASTER_DEBUG;
+	public static final boolean DRIVETRAIN_DEBUG = true || MASTER_DEBUG;
+	public static final boolean ELEVATOR_DEBUG = false || MASTER_DEBUG;
 	public static final boolean TRANSMISSION_DEBUG = false || MASTER_DEBUG;
 	public static final boolean ARM_DEBUG = false || MASTER_DEBUG;
 	
-	public static final double DRIVETRAIN_CIRCUMFERENCE = 72.25;
+	public static final double DRIVETRAIN_CIRCUMFERENCE = 78;
 	public static final double CONTROLLER_DEADZONE = 0.25;
 	
 	//PID variables
@@ -114,6 +116,16 @@ public class RobotMap {
 	public static boolean DRIVETRAIN_PID = false || MASTER_PID;
 	public static boolean ELEVATOR_PID = true || MASTER_PID;
 	public static boolean ARM_PID = true || MASTER_PID;
+	
+	// Automode constraints
+	public static final double TIME_STEP = 0.05; // sec
+	public static final double WHEELBASE_WIDTH = 1.865; // ft
+	public static final double MAX_VELOCITY = 13.9; //TODO: Is actually 15.9, but fudged, ft/s in speed gear (not a placeholder anymore!)
+	public static final double MAX_ACCELERATION = 6.0; // ft/s/s TODO: Placeholder
+	public static final double MAX_JERK = 60.0; // ft/s/s/s TODO: Placeholder
+	
+	public static final int OUTTAKE_WEAK_BUTTON = 3;
+
 	
 	// If you are using multiple modules, make sure to define both the port
 	// number and the module. For example you with a rangefinder:

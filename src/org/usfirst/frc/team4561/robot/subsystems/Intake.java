@@ -1,7 +1,5 @@
 package org.usfirst.frc.team4561.robot.subsystems;
 
-import java.util.ResourceBundle.Control;
-
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
 import org.usfirst.frc.team4561.robot.commands.IntakeDrive;
@@ -31,7 +29,8 @@ public class Intake extends Subsystem {
 	public Intake () {
 		intakeLeftMotor = new WPI_TalonSRX (RobotMap.INTAKE_LEFT_MOTOR_PORT);
 		intakeRightMotor = new WPI_TalonSRX (RobotMap.INTAKE_RIGHT_MOTOR_PORT);
-		intakeLeftMotor.setInverted(true);
+		intakeLeftMotor.setInverted(false);
+		intakeRightMotor.setInverted(true);
 		intakeLeftMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		intakeRightMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 	}
@@ -44,12 +43,16 @@ public class Intake extends Subsystem {
 		intakeRightMotor.set(1);
 	}
 	public void intakeIn(){
-		intakeLeftMotor.set(0.65);
-		intakeRightMotor.set(0.65);
+		intakeLeftMotor.set(0.75);
+		intakeRightMotor.set(0.75);
 	}
 	public void intakeOutHalf(){
-		intakeLeftMotor.set(-0.4);
-		intakeRightMotor.set(-0.4);
+		intakeLeftMotor.set(-0.5);
+		intakeRightMotor.set(-0.5);
+	}
+	public void intakeOutWeak() {
+		intakeLeftMotor.set(-0.25);
+		intakeRightMotor.set(-0.25);
 	}
 	public void stop(){
 		intakeLeftMotor.set(0);

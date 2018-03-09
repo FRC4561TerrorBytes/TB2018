@@ -26,6 +26,9 @@ public class IntakeDrive extends Command {
 		else if (Robot.oi.getLeftButton(RobotMap.RELEASE_BUTTON)){
 			Robot.intake.intakeOutHalf();
 		}
+		else if (Robot.oi.getLeftButton(RobotMap.OUTTAKE_WEAK_BUTTON)) {
+			Robot.intake.intakeOutWeak();
+		}
 		else{
 			Robot.intake.set(Robot.oi.getControllerLTrigger(), Robot.oi.getControllerRTrigger());
 		}

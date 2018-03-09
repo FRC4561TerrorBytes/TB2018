@@ -10,6 +10,7 @@ package org.usfirst.frc.team4561.robot.subsystems;
 import org.usfirst.frc.team4561.robot.RobotMap;
 import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team4561.robot.commands.TankDrive;
+import org.usfirst.frc.team4561.trajectories.LeftScaleTurnAroundS3;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;

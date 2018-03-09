@@ -5,6 +5,9 @@ import org.usfirst.frc.team4561.robot.RobotMap;
 import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team4561.robot.commands.TankDrive;
 
+import com.ctre.phoenix.motion.MotionProfileStatus;
+import com.ctre.phoenix.motion.SetValueMotionProfile;
+import com.ctre.phoenix.motion.TrajectoryPoint;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
@@ -17,6 +20,8 @@ import edu.wpi.first.wpilibj.hal.HAL;
 import edu.wpi.first.wpilibj.hal.FRCNetComm.tInstances;
 import edu.wpi.first.wpilibj.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import jaci.pathfinder.Pathfinder;
+import jaci.pathfinder.Trajectory;
 
 /**
  * @author Snehil
@@ -36,14 +41,17 @@ public class DriveTrainPID extends Subsystem {
 	private ControlMode velocity = com.ctre.phoenix.motorcontrol.ControlMode.Velocity;
 	
 	//Declare all motors variables as TalonSRXs
-	private TalonSRX frontRight = new TalonSRX(RobotMap.FRONT_RIGHT_MOTOR_PORT);
-	private TalonSRX frontLeft = new TalonSRX(RobotMap.FRONT_LEFT_MOTOR_PORT);
+	public TalonSRX frontRight = new TalonSRX(RobotMap.FRONT_RIGHT_MOTOR_PORT);
+	public TalonSRX frontLeft = new TalonSRX(RobotMap.FRONT_LEFT_MOTOR_PORT);
 		
 	private TalonSRX midRight = new TalonSRX(RobotMap.MID_RIGHT_MOTOR_PORT);
 	private TalonSRX midLeft = new TalonSRX(RobotMap.MID_LEFT_MOTOR_PORT);
 		
 	private TalonSRX rearRight = new TalonSRX(RobotMap.BACK_RIGHT_MOTOR_PORT);
 	private TalonSRX rearLeft = new TalonSRX(RobotMap.BACK_LEFT_MOTOR_PORT);
+	
+	public static final boolean LEFT_SIDE_INVERTED = false;
+	public static final boolean RIGHT_SIDE_INVERTED = true;
 	
 	double angleAccum = 0;
 	double rateAccum = 0;
@@ -58,6 +66,9 @@ public class DriveTrainPID extends Subsystem {
 	double rightSpeedOriginal;
 	
 	public static final double kInchesToTicks = 487.6;
+	public static final double kFeetToTicks = kInchesToTicks*12;
+	public static final double kInchesToTicksSpeed = kInchesToTicks/10;
+	public static final double kFeetToTicksSpeed = kFeetToTicks/10;
 		
 	//Set middle and back motors as followers to front two motors, and set the PIDF values (currently placeholders)
 	public DriveTrainPID() {
@@ -72,9 +83,13 @@ public class DriveTrainPID extends Subsystem {
 		
 		rearLeft.set(follower, RobotMap.FRONT_LEFT_MOTOR_PORT);
 		
-		frontRight.setInverted(true);
-		midRight.setInverted(true);
-		rearRight.setInverted(true);
+		frontLeft.setInverted(LEFT_SIDE_INVERTED);
+		midLeft.setInverted(LEFT_SIDE_INVERTED);
+		rearLeft.setInverted(LEFT_SIDE_INVERTED);
+		
+		frontRight.setInverted(RIGHT_SIDE_INVERTED);
+		midRight.setInverted(RIGHT_SIDE_INVERTED);
+		rearRight.setInverted(RIGHT_SIDE_INVERTED);
 		
 		frontLeft.setSensorPhase(false);
 		frontRight.setSensorPhase(false);
@@ -125,7 +140,12 @@ public class DriveTrainPID extends Subsystem {
 		
 		double leftMotorOutput = 0;
 		double rightMotorOutput = 0;
-
+		
+		
+		double exponent = SmartDashboard.getNumber("DB/Slider 2", 1);
+		
+		zRotation = Math.copySign(Math.pow(zRotation, exponent), zRotation);
+		
 		double maxInput = Math.copySign(Math.max(Math.abs(xSpeed), Math.abs(zRotation)), xSpeed);
 		zRotation = -zRotation;
 		if (xSpeed >= 0.0) {
@@ -216,6 +236,55 @@ public class DriveTrainPID extends Subsystem {
 		//resetGyro();
 		
 		
+	}
+	public void setUpMotionProfiling(Trajectory pointsR, Trajectory pointsL){
+		frontRight.clearMotionProfileTrajectories();
+		frontLeft.clearMotionProfileTrajectories();
+		TrajectoryPoint pointR = new TrajectoryPoint();
+		TrajectoryPoint pointL = new TrajectoryPoint();
+		
+		for (int i = 0; i < pointsR.length(); i++){
+			pointR.position = pointsR.get(i).position*kFeetToTicks;
+			pointR.velocity = pointsR.get(i).velocity*kFeetToTicksSpeed;
+			pointR.headingDeg = Pathfinder.r2d(pointsR.get(i).heading);
+			
+			pointR.zeroPos = (i == 0);
+			pointR.isLastPoint = ((i+1) == pointsR.length());
+			frontRight.pushMotionProfileTrajectory(pointR);
+		}
+		
+		for (int i = 0; i < pointsL.length(); i++){
+			pointL.position = pointsL.get(i).position*kFeetToTicks;
+			pointL.velocity = pointsL.get(i).velocity*kFeetToTicksSpeed;
+			pointL.headingDeg = Pathfinder.r2d(pointsL.get(i).heading);
+			
+			pointL.zeroPos = (i == 0);
+			pointL.isLastPoint = ((i+1) == pointsL.length());
+			frontLeft.pushMotionProfileTrajectory(pointL);
+		}
+		
+	}
+	public void runMotionProfile(){
+		if (!frontRight.isMotionProfileTopLevelBufferFull()){
+			frontRight.processMotionProfileBuffer();
+		}
+		if (!frontLeft.isMotionProfileTopLevelBufferFull()){
+			frontLeft.processMotionProfileBuffer();
+		}
+		
+		frontRight.set(ControlMode.MotionProfile, SetValueMotionProfile.Enable.value);
+		frontLeft.set(ControlMode.MotionProfile, SetValueMotionProfile.Enable.value);
+	}
+	public void holdMotionProfile(){
+		frontRight.set(ControlMode.MotionProfile, SetValueMotionProfile.Hold.value);
+		frontLeft.set(ControlMode.MotionProfile, SetValueMotionProfile.Hold.value);
+	}
+	public boolean isProfileFinished(){
+		MotionProfileStatus statusR = new MotionProfileStatus();
+		frontRight.getMotionProfileStatus(statusR);
+		MotionProfileStatus statusL = new MotionProfileStatus();
+		frontLeft.getMotionProfileStatus(statusL);
+		return (statusR.activePointValid&&statusR.isLast)&&(statusL.activePointValid&&statusL.isLast);
 	}
 	public void setToPosition(){
 		frontLeft.set(ControlMode.Position, 0);
@@ -402,5 +471,30 @@ public class DriveTrainPID extends Subsystem {
 			setDefaultCommand(new TankDrive());
 		}
 	}	
-
+	public void invertLeftSide(boolean invert) {
+		frontLeft.setInverted(invert);
+		midLeft.setInverted(invert);
+		rearLeft.setInverted(invert);
+	}
+	public void invertRightSide(boolean invert) {
+		frontRight.setInverted(invert);
+		midRight.setInverted(invert);
+		rearRight.setInverted(invert);
+	}
+	
+	public void setUpForMotionProfiling() {
+		frontLeft.configMotionProfileTrajectoryPeriod(0, 0);
+		frontLeft.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0); // Status 10 is also for motion profiling
+		frontLeft.setSelectedSensorPosition(0, 0, 0);
+		frontLeft.setInverted(LEFT_SIDE_INVERTED);
+		midLeft.setInverted(LEFT_SIDE_INVERTED);
+		rearLeft.setInverted(LEFT_SIDE_INVERTED);
+		
+		frontRight.configMotionProfileTrajectoryPeriod(0, 0);
+		frontRight.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0); // Status 10 is also for motion profiling
+		frontRight.setSelectedSensorPosition(0, 0, 0);
+		frontRight.setInverted(RIGHT_SIDE_INVERTED);
+		midRight.setInverted(RIGHT_SIDE_INVERTED);
+		rearRight.setInverted(RIGHT_SIDE_INVERTED);
+	}
 }
