@@ -80,7 +80,6 @@ public class Robot extends IterativeRobot {
 		UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
 		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		getFieldData = new CheckScaleSide();
 		//(new CheckSwitchSide()).start();
 		
 		SmartDashboard.putData("Auto mode", chooser);
@@ -214,6 +213,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		getFieldData = new CheckScaleSide();
 		motionProfileRunner.control();
 		int auto = (int) SmartDashboard.getNumber("DB/Slider 0", 0);
 		switch (auto){

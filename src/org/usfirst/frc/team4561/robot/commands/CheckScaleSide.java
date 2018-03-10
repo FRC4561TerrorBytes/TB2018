@@ -33,7 +33,7 @@ public class CheckScaleSide extends Command {
     	}
     	if (!failed)	Robot.scaleFMSSideRight = data.charAt(1) == 'R';
     	else			Robot.scaleFMSSideRight = false;
-    	if (!failed)	Robot.switchFMSSideRight = data.charAt(1) == 'R';
+    	if (!failed)	Robot.switchFMSSideRight = data.charAt(0) == 'R';
     	else			Robot.switchFMSSideRight = false;
     	if (failed) System.out.println("Failed to get field data, assuming everything is on the left");
     }
