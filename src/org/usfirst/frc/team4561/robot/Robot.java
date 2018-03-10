@@ -236,6 +236,7 @@ public class Robot extends IterativeRobot {
 
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null) {
+			if (RobotMap.ELEVATOR_PID) elevator.setToGoal();
 			autonomousCommand.start();
 		}
 	}
@@ -258,7 +259,6 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}
-		getFieldData.cancel();
 		if (RobotMap.DRIVE_MODE == 1) (new ArcadeDrive()).start();
 		else (new TankDrive()).start();
 		(new ResetElevator()).start();

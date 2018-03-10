@@ -119,7 +119,7 @@ public class RobotMap {
 	
 	// Automode constraints
 	public static final double TIME_STEP = 0.05; // sec
-	public static final double WHEELBASE_WIDTH = 1.865; // ft
+	public static final double WHEELBASE_WIDTH = 2.83; // ft TODO: actually 1.865, but fudged
 	public static final double MAX_VELOCITY = 13.9; //TODO: Is actually 15.9, but fudged, ft/s in speed gear (not a placeholder anymore!)
 	public static final double MAX_ACCELERATION = 6.0; // ft/s/s TODO: Placeholder
 	public static final double MAX_JERK = 60.0; // ft/s/s/s TODO: Placeholder
