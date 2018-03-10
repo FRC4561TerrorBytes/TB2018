@@ -108,11 +108,16 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledInit() {
 		intake.stop();
+		elevator.resetGoal();
+		arm.reset();
 	}
 
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		intake.stop();
+		elevator.resetGoal();
+		arm.reset();
 		//arm.resetEncoder();
 	}
 	

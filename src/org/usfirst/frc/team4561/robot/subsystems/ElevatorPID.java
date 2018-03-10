@@ -28,7 +28,7 @@ public class ElevatorPID extends Subsystem {
 	private WPI_TalonSRX motorOne = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_1_PORT);
 	private WPI_TalonSRX motorTwo = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_2_PORT);
 	
-	private int goal = 0;
+	private int goal = 31;
 	
 	public ElevatorPID() {
 		//motorOne.set(RobotMap.ELEVATOR_MOTOR_1_PORT);
@@ -61,7 +61,9 @@ public class ElevatorPID extends Subsystem {
 		motorOne.config_kD(0, 0, 0);
 	}
 	
-	
+	public void resetGoal() {
+		goal = (int) getElevatorPos();
+	}
 	public void set(double speed){
 		goal = (int) (goal + speed*10);
 		if (goal > 593) {
