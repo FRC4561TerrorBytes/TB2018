@@ -34,8 +34,7 @@ public class TwoCubeAutoS8MP extends CommandGroup {
     	double start = pointsL.get(0).position;
     	double end = pointsR.get(pointsL.length()-1).position;
     	addSequential(new DriveProfile(pointsR, pointsL)); // run LeftScaleRight
-    	addSequential(new WaitUntilPositionPercent(0.5, start, end)); // run LeftScaleRight
-    	addSequential(new ElevatorScalePosition()); // elevator to scale
+    	addSequential(new WaitUntilPositionPercent(0.5, start, end, new ElevatorScalePosition())); // run LeftScaleRight
     	addSequential(new ArmReleasePosition()); // arm to release
     	addSequential(new IntakeOutFull()); // pop cube out
     	pointsL = new ScaleRightTurnAround().getLeftTrajectory();
@@ -43,8 +42,7 @@ public class TwoCubeAutoS8MP extends CommandGroup {
     	start = pointsL.get(0).position;
     	end = pointsR.get(pointsL.length()-1).position;
     	addSequential(new DriveProfile(pointsR, pointsL)); // run ScaleRightTurnAround
-    	addSequential(new WaitUntilPositionPercent(0.5, start, end)); // run ScaleRightTurnAround
-    	addSequential(new ElevatorGroundPosition()); // elevator to ground
+    	addSequential(new WaitUntilPositionPercent(0.5, start, end, new ElevatorGroundPosition())); // run ScaleRightTurnAround
     	addSequential(new ArmIntakePosition()); // arm to intake
     	addSequential(new IntakeIn()); // activate intake
     	pointsL = new ScaleRightSwitchRightCube().getLeftTrajectory();
@@ -52,8 +50,7 @@ public class TwoCubeAutoS8MP extends CommandGroup {
     	start = pointsL.get(0).position;
     	end = pointsR.get(pointsL.length()-1).position;
     	addSequential(new DriveProfile(pointsR, pointsL)); // run ScaleRightSwitchRightCube
-    	addSequential(new WaitUntilPositionPercent(0.5, start, end)); // run ScaleRightSwitchLeftCube
-    	addSequential(new ElevatorSwitchPosition()); // elevator to switch
+    	addSequential(new WaitUntilPositionPercent(0.5, start, end, new ElevatorSwitchPosition())); // run ScaleRightSwitchLeftCube
     	addSequential(new ArmReleasePosition()); // arm to release
     	addSequential(new IntakeOutFull()); // pop cube out
     }

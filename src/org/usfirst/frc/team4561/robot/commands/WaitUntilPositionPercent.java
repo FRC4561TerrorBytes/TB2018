@@ -10,11 +10,13 @@ public class WaitUntilPositionPercent extends Command {
 	double goal;
 	double startPos;
 	double fullPos;
+	Command toRunWhenComplete;
 	
-	public WaitUntilPositionPercent(double percent, double start, double end){
+	public WaitUntilPositionPercent(double percent, double start, double end, Command toRunWhenComplete){
 		goal = percent;
 		startPos = start;
 		fullPos = end;
+		this.toRunWhenComplete = toRunWhenComplete;
 	}
 	@Override
 	protected boolean isFinished() {
@@ -23,6 +25,8 @@ public class WaitUntilPositionPercent extends Command {
 	}
 	
 	protected void end(){
-		System.out.println("It happened");
+		
+		System.out.println("WaitUntilPositionPercent finished.");
+		toRunWhenComplete.start();
 	}
 }

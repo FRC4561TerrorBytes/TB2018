@@ -32,9 +32,8 @@ double delay = Robot.oi.getDashboardDelaySlider();
     	//addSequential(new CheckSwitchSide());
     	// on the left
     	if (!(Robot.switchFMSSideRight)) {
-    		addParallel(new RunTrajectory(MotionProfileRunner.TrajectorySelect.LeftScaleLeft));
-    		addSequential(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.LeftScaleLeft.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.LeftScaleLeft.getLeftArrayLastPosition()));
-    		addSequential(new ElevatorScalePosition());
+    		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.LeftScaleLeft));
+    		addParallel(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.LeftScaleLeft.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.LeftScaleLeft.getLeftArrayLastPosition(), new ElevatorScalePosition()));
     		addSequential(new ArmReleasePosition());
     		addSequential(new WaitUntilTrajectoryFinished());
     		addSequential(new IntakeRelease()); // drop power cubeq
@@ -46,9 +45,8 @@ double delay = Robot.oi.getDashboardDelaySlider();
     	}
     	// on the right
     	else {
-    		addParallel(new RunTrajectory(MotionProfileRunner.TrajectorySelect.LeftScaleRight));
-    		addSequential(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.LeftScaleRight.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.LeftScaleRight.getLeftArrayLastPosition()));
-    		addSequential(new ElevatorScalePosition());
+    		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.LeftScaleRight));
+    		addParallel(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.LeftScaleRight.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.LeftScaleRight.getLeftArrayLastPosition(), new ElevatorScalePosition()));
     		addSequential(new ArmReleasePosition());
     		addSequential(new WaitUntilTrajectoryFinished());
     		addSequential(new IntakeRelease()); // drop power cubeq

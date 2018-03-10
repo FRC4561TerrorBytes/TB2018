@@ -20,10 +20,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Intake extends Subsystem {
 //Two wheels: one turns left other turns right 	
 	
-	//Motors
+	// Motors
 	private WPI_TalonSRX intakeLeftMotor;
 	private WPI_TalonSRX intakeRightMotor; 
-	//Cube Detector
+	// Cube Detector
 	public DigitalInput cubeDetector = new DigitalInput(0);
 	
 	public Intake () {

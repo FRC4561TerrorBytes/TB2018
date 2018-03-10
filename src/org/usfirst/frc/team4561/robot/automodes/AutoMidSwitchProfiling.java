@@ -40,17 +40,15 @@ public class AutoMidSwitchProfiling extends CommandGroup {
     	//addSequential(new CheckSwitchSide());
     	// on the left
     	if (!(Robot.switchFMSSideRight)) {
-    		addParallel(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidSwitchLeft));
-    		addSequential(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.MidSwitchLeft.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.MidSwitchLeft.getLeftArrayLastPosition()));
-    		addSequential(new ArmReleasePosition());
+    		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidSwitchLeft));
+    		addParallel(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.MidSwitchLeft.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.MidSwitchLeft.getLeftArrayLastPosition(), new ArmReleasePosition()));
     		addSequential(new WaitUntilTrajectoryFinished());
     		addSequential(new IntakeRelease()); // drop power cubeq
     	}
     	// on the right
     	else {
-    		addParallel(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidSwitchRight));
-    		addSequential(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.MidSwitchRight.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.MidSwitchRight.getLeftArrayLastPosition()));
-    		addSequential(new ArmReleasePosition());
+    		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidSwitchRight));
+    		addParallel(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.MidSwitchRight.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.MidSwitchRight.getLeftArrayLastPosition(), new ArmReleasePosition()));
     		addSequential(new WaitUntilTrajectoryFinished());
     		addSequential(new IntakeRelease()); // drop power cubeq
     	}

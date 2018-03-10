@@ -14,6 +14,5 @@ public class MotionProfileTest extends CommandGroup {
 		double start = pointsL.get(0).position;
 		double end = pointsL.get(pointsL.length()-1).position;
 		addSequential(new DriveProfile(pointsR, pointsL));
-		addSequential(new WaitUntilPositionPercent(0.5, start, end));
 	}
 }

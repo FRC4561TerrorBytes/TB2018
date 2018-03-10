@@ -347,7 +347,7 @@ public class MotionProfileRunner {
 
 			/* printfs and/or logging */
 			// TODO: Rewrite Instrumentation for both talons? Right now only left.
-			Instrumentation.process(leftStatus, leftPos, leftVel, leftHeading);
+			//Instrumentation.process(leftStatus, leftPos, leftVel, leftHeading);
 		}
 	}
 	/**

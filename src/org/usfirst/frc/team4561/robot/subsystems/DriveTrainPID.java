@@ -142,7 +142,7 @@ public class DriveTrainPID extends Subsystem {
 		double rightMotorOutput = 0;
 		
 		
-		double exponent = SmartDashboard.getNumber("DB/Slider 2", 1);
+		double exponent = 2;
 		
 		zRotation = Math.copySign(Math.pow(zRotation, exponent), zRotation);
 		
