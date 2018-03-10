@@ -26,18 +26,28 @@ public class ElevatorDrive extends Command {
 			}
 		}
 		else if (Robot.oi.getControllerButton(2)){
-			Robot.elevator.ScalePositionHigh();
+			if (!Robot.oi.getControllerButton(6)){
+				Robot.elevator.ScalePositionHigh();
+			}
+			else{
+				Robot.elevator.ScalePositionHighArmFlat();
+			}
 		}
 		else if (Robot.oi.getControllerButton(3)){
 			if (!Robot.oi.getControllerButton(6)){
 				Robot.elevator.ScalePositionLow();
 			}
 			else {
-				Robot.elevator.ScalePositionLow();
+				Robot.elevator.ScalePositionLowArmFlat();
 			}
 		}
 		else if (Robot.oi.getControllerButton(4)){
-			Robot.elevator.ScalePositionMid();
+			if (!Robot.oi.getControllerButton(6)){
+				Robot.elevator.ScalePositionMid();
+			}
+			else {
+				Robot.elevator.ScalePositionMidArmFlat();
+			}
 		}
 		else if (Robot.oi.getControllerButton(6)){
 			Robot.elevator.SwitchPosition();

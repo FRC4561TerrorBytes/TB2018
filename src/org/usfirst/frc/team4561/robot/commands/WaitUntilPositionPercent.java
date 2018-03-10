@@ -14,19 +14,21 @@ public class WaitUntilPositionPercent extends Command {
 	
 	public WaitUntilPositionPercent(double percent, double start, double end, Command toRunWhenComplete){
 		goal = percent;
-		startPos = start;
-		fullPos = end;
+		startPos = start*DriveTrainPID.kFeetToTicks;
+		fullPos = end*DriveTrainPID.kFeetToTicks;
 		this.toRunWhenComplete = toRunWhenComplete;
+		System.out.println("Starting at " + startPos + ", going until " + fullPos*percent + " out of " + fullPos);
 	}
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return (Robot.driveTrain.getLeftPos())/(DriveTrainPID.kFeetToTicks)+startPos>=goal*fullPos;
+		return (Robot.driveTrain.getLeftPos())+startPos>=goal*fullPos;
 	}
 	
 	protected void end(){
 		
-		System.out.println("WaitUntilPositionPercent finished.");
+		System.out.println("WaitUntilPositionPercent finished at " + Robot.driveTrain.getLeftPos() + "/" + fullPos*goal + " out of " + fullPos);
+		
 		toRunWhenComplete.start();
 	}
 }

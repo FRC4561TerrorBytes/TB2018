@@ -114,6 +114,19 @@ public class ElevatorPID extends Subsystem {
 		goal = 460;
 		if (RobotMap.ELEVATOR_PID) setToGoal();
 	}
+	//Elevator position with Arm at scale height and arm flat
+	public void ScalePositionMidArmFlat() {
+		goal = 476;
+		if (RobotMap.ELEVATOR_PID) setToGoal();
+	}
+	public void ScalePositionLowArmFlat(){
+		goal = 411;
+		if (RobotMap.ELEVATOR_PID) setToGoal();
+	}
+	public void ScalePositionHighArmFlat(){
+		goal = 593;
+		if (RobotMap.ELEVATOR_PID) setToGoal();
+	}
 	
     public void setPowerOne(double power) {
            motorOne.set(ControlMode.PercentOutput, power);
