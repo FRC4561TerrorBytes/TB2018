@@ -49,9 +49,6 @@ public class ElevatorDrive extends Command {
 				Robot.elevator.ScalePositionMidArmFlat();
 			}
 		}
-		else if (Robot.oi.getControllerButton(6)){
-			Robot.elevator.SwitchPosition();
-		}
 		Robot.elevator.set(-Robot.oi.getControllerRightY());
 		
 		//SmartDashboard.putNumber("Elevator Pos", Robot.elevator.getElevatorPos());

@@ -65,7 +65,7 @@ public class ElevatorPID extends Subsystem {
 		goal = (int) getElevatorPos();
 	}
 	public void set(double speed){
-		goal = (int) (goal + speed*10);
+		goal = (int) (goal + speed*20);
 		if (goal > 593) {
 			goal = 593;
 		}
@@ -103,24 +103,24 @@ public class ElevatorPID extends Subsystem {
 	}
 	//Elevator position with Arm at scale height
 	public void ScalePositionMid() {
-		goal = 343;
+		goal = 383; // 343
 		if (RobotMap.ELEVATOR_PID) setToGoal();
 	}
 	public void ScalePositionLow(){
-		goal = 278;
+		goal = 318; // 278
 		if (RobotMap.ELEVATOR_PID) setToGoal();
 	}
 	public void ScalePositionHigh(){
-		goal = 460;
+		goal = 500; // 460
 		if (RobotMap.ELEVATOR_PID) setToGoal();
 	}
 	//Elevator position with Arm at scale height and arm flat
 	public void ScalePositionMidArmFlat() {
-		goal = 476;
+		goal = 576;
 		if (RobotMap.ELEVATOR_PID) setToGoal();
 	}
 	public void ScalePositionLowArmFlat(){
-		goal = 411;
+		goal = 541;
 		if (RobotMap.ELEVATOR_PID) setToGoal();
 	}
 	public void ScalePositionHighArmFlat(){
