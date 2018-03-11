@@ -22,9 +22,13 @@ public class WaitUntilPositionPercent extends Command {
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return (Robot.driveTrain.getLeftPos())+startPos>=goal*fullPos;
+		return ((Robot.driveTrain.getLeftPos())+startPos) > (goal*fullPos);
 	}
-	
+	protected void execute() {
+		if ((Robot.driveTrain.getLeftPos()+startPos) > (goal*fullPos)) {
+			System.out.println("It is greater than the set point, should be finishing now");
+		}
+	}
 	protected void end(){
 		
 		System.out.println("WaitUntilPositionPercent finished at " + Robot.driveTrain.getLeftPos() + "/" + fullPos*goal + " out of " + fullPos);
