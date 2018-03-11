@@ -57,6 +57,10 @@ public class MotionProfileRunner {
 	public static Path scaleLeftTurnAround = new ScaleLeftTurnAround();
 	public static Path scaleRightSwitchRightCube = new ScaleRightSwitchRightCube();
 	public static Path scaleRightTurnAround = new ScaleRightTurnAround();
+	public static Path midSwitchLeftReverse = new MidSwitchLeftReverse();
+	public static Path midCubePile = new MidCubePile();
+	public static Path midCubePileReverse = new MidCubePileReverse();
+	public static Path midSwitchRightReverse = new MidSwitchRightReverse();
 	
 	public enum TrajectorySelect {
 		LeftScaleLeft(leftScaleLeft.getLeftArray(), leftScaleLeft.getRightArray(),
@@ -82,7 +86,15 @@ public class MotionProfileRunner {
 		ScaleRightSwitchRightCube(scaleRightSwitchRightCube.getLeftArray(), scaleRightSwitchRightCube.getRightArray(),
 				scaleRightSwitchRightCube.getCount(), scaleRightSwitchRightCube.isReversed()),
 		ScaleRightTurnAround(scaleRightTurnAround.getLeftArray(), scaleRightTurnAround.getRightArray(),
-				scaleRightTurnAround.getCount(), scaleRightTurnAround.isReversed());
+				scaleRightTurnAround.getCount(), scaleRightTurnAround.isReversed()),
+		MidSwitchLeftReverse(midSwitchLeftReverse.getLeftArray(), midSwitchLeftReverse.getRightArray(),
+				midSwitchLeftReverse.getCount(), midSwitchLeftReverse.isReversed()),
+		MidCubePile(midCubePile.getLeftArray(), midCubePile.getRightArray(),
+				midCubePile.getCount(), midCubePile.isReversed()),
+		MidCubePileReversed(midCubePileReverse.getLeftArray(), midCubePileReverse.getRightArray(),
+				midCubePileReverse.getCount(), midCubePileReverse.isReversed()),
+		MidSwitchRightReverse(midSwitchRightReverse.getLeftArray(), midSwitchRightReverse.getRightArray(),
+				midSwitchRightReverse.getCount(), midSwitchRightReverse.isReversed());
 		
 		private final double[][] leftArray;
 		private final double[][] rightArray;

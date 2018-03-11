@@ -15,21 +15,15 @@ public class IntakeIn extends Command {
 	}
 
     protected void execute(){
-    	System.out.println(Robot.intake.detectorState());
-    	if(Robot.intake.detectorState() == false){
-    		stop();
-    	}
-    	else{
+    	
+    	
     		Robot.intake.intakeIn();
-    	}
     }
     protected boolean isFinished(){
-    	return false;
+    	return true;
     }
     protected void stop(){
-    	Robot.intake.stop();
     }
     protected void interrupted(){
-    	stop();
     }
 }
