@@ -32,10 +32,9 @@ double delay = Robot.oi.getDashboardDelaySlider();
     	//addSequential(new CheckSwitchSide());
     	// on the left
     	if (!(Robot.switchFMSSideRight)) {
-    		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.LeftScaleLeft));
+    		addParallel(new RunTrajectory(MotionProfileRunner.TrajectorySelect.LeftScaleLeft));
     		addParallel(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.LeftScaleLeft.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.LeftScaleLeft.getLeftArrayLastPosition(), new ElevatorScalePosition()));
-    		addSequential(new ArmReleasePosition());
-    		addSequential(new WaitUntilTrajectoryFinished());
+    		addSequential(new WaitUntilPositionPercent(0.9, MotionProfileRunner.TrajectorySelect.LeftScaleLeft.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.LeftScaleLeft.getLeftArrayLastPosition(), new ArmReleasePosition()));
     		addSequential(new IntakeRelease()); // drop power cubeq
     		addSequential(new WaitCommand(0.5));
     		addSequential(new IntakeStop());
@@ -45,10 +44,9 @@ double delay = Robot.oi.getDashboardDelaySlider();
     	}
     	// on the right
     	else {
-    		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.LeftScaleRight));
+    		addParallel(new RunTrajectory(MotionProfileRunner.TrajectorySelect.LeftScaleRight));
     		addParallel(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.LeftScaleRight.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.LeftScaleRight.getLeftArrayLastPosition(), new ElevatorScalePosition()));
-    		addSequential(new ArmReleasePosition());
-    		addSequential(new WaitUntilTrajectoryFinished());
+    		addSequential(new WaitUntilPositionPercent(0.9, MotionProfileRunner.TrajectorySelect.LeftScaleRight.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.LeftScaleRight.getLeftArrayLastPosition(), new ArmReleasePosition()));
     		addSequential(new IntakeRelease()); // drop power cubeq
     		addSequential(new WaitCommand(0.5));
     		addSequential(new IntakeStop());

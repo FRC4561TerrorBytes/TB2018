@@ -232,6 +232,9 @@ public class Robot extends IterativeRobot {
 		case 4:
 			autonomousCommand = new AutoLeftScaleProfiling();
 			break;
+		case 5:
+			autonomousCommand = new AutoTwoSwitchCube();
+			break;
 		}
 
 		// schedule the autonomous command (example)

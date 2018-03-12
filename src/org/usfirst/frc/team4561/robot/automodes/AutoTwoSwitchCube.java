@@ -31,16 +31,17 @@ double delay = Robot.oi.getDashboardDelaySlider();
     		addSequential(new IntakeStop());
     		addParallel(new ArmVertical());
     		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidSwitchLeftReverse));
-    		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidCubePile));
     		addSequential(new ArmIntakePosition());
+    		addParallel(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidCubePile));
+    		addSequential(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.MidCubePile.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.MidCubePile.getLeftArrayLastPosition(), new Nothing()));
     		addSequential(new IntakeIn());
-    		addSequential(new DriveMagic(10, 10));
+    		addSequential(new WaitUntilTrajectoryFinished());
     		addSequential(new IntakeStop());
     		addParallel(new ArmVertical());
     		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidCubePileReversed));
     		addParallel(new ArmReleasePosition());
     		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidSwitchLeft));
-    		addSequential(new IntakeRelease());
+//    		addSequential(new IntakeRelease());
     	}
     	// on the right
     	else {
@@ -52,16 +53,17 @@ double delay = Robot.oi.getDashboardDelaySlider();
     		addSequential(new IntakeStop());
     		addParallel(new ArmVertical());
     		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidSwitchRightReverse));
-    		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidCubePile));
     		addSequential(new ArmIntakePosition());
+    		addParallel(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidCubePile));
+    		addSequential(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.MidCubePile.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.MidCubePile.getLeftArrayLastPosition(), new Nothing()));
     		addSequential(new IntakeIn());
-    		addSequential(new DriveMagic(10, 10));
+    		addSequential(new WaitUntilTrajectoryFinished());
     		addSequential(new IntakeStop());
     		addParallel(new ArmVertical());
     		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidCubePileReversed));
     		addParallel(new ArmReleasePosition());
     		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidSwitchRight));
-    		addSequential(new IntakeRelease());
+//    		addSequential(new IntakeRelease());
     	}
     }
 }

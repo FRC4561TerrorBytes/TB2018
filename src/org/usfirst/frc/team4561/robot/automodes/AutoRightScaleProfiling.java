@@ -8,6 +8,7 @@ import org.usfirst.frc.team4561.robot.commands.ElevatorGroundPosition;
 import org.usfirst.frc.team4561.robot.commands.ElevatorScalePosition;
 import org.usfirst.frc.team4561.robot.commands.IntakeRelease;
 import org.usfirst.frc.team4561.robot.commands.IntakeStop;
+import org.usfirst.frc.team4561.robot.commands.Nothing;
 import org.usfirst.frc.team4561.robot.commands.RunTrajectory;
 import org.usfirst.frc.team4561.robot.commands.SpeedGear;
 import org.usfirst.frc.team4561.robot.commands.WaitUntilPositionPercent;
@@ -33,9 +34,8 @@ double delay = Robot.oi.getDashboardDelaySlider();
     	// on the left
     	if (!(Robot.switchFMSSideRight)) {
     		addParallel(new RunTrajectory(MotionProfileRunner.TrajectorySelect.RightScaleLeft));
-    		addSequential(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.RightScaleLeft.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.RightScaleLeft.getLeftArrayLastPosition(), new ElevatorScalePosition()));
-    		addSequential(new ArmReleasePosition());
-    		addSequential(new WaitUntilTrajectoryFinished());
+    		addParallel(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.RightScaleLeft.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.RightScaleLeft.getLeftArrayLastPosition(), new ElevatorScalePosition()));
+    		addSequential(new WaitUntilPositionPercent(0.9, MotionProfileRunner.TrajectorySelect.RightScaleLeft.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.RightScaleLeft.getLeftArrayLastPosition(), new ArmReleasePosition()));
     		addSequential(new IntakeRelease()); // drop power cubeq
     		addSequential(new WaitCommand(0.5));
     		addSequential(new IntakeStop());
@@ -46,9 +46,8 @@ double delay = Robot.oi.getDashboardDelaySlider();
     	// on the right
     	else {
     		addParallel(new RunTrajectory(MotionProfileRunner.TrajectorySelect.RightScaleRight));
-    		addSequential(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.RightScaleRight.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.RightScaleRight.getLeftArrayLastPosition(), new ElevatorScalePosition()));
-    		addSequential(new ArmReleasePosition());
-    		addSequential(new WaitUntilTrajectoryFinished());
+    		addParallel(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.RightScaleRight.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.RightScaleRight.getLeftArrayLastPosition(), new ElevatorScalePosition()));
+    		addSequential(new WaitUntilPositionPercent(0.9, MotionProfileRunner.TrajectorySelect.RightScaleRight.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.RightScaleRight.getLeftArrayLastPosition(), new ArmReleasePosition()));
     		addSequential(new IntakeRelease()); // drop power cubeq
     		addSequential(new WaitCommand(0.5));
     		addSequential(new IntakeStop());

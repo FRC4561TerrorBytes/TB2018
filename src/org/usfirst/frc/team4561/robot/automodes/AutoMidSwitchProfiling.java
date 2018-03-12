@@ -7,6 +7,8 @@ import org.usfirst.frc.team4561.robot.commands.ArmVertical;
 import org.usfirst.frc.team4561.robot.commands.CheckSwitchSide;
 import org.usfirst.frc.team4561.robot.commands.DriveMagic;
 import org.usfirst.frc.team4561.robot.commands.IntakeRelease;
+import org.usfirst.frc.team4561.robot.commands.IntakeStop;
+import org.usfirst.frc.team4561.robot.commands.ResetDrive;
 import org.usfirst.frc.team4561.robot.commands.RunTrajectory;
 import org.usfirst.frc.team4561.robot.commands.SpeedGear;
 import org.usfirst.frc.team4561.robot.commands.TankDriveTimed;
@@ -29,21 +31,23 @@ public class AutoMidSwitchProfiling extends CommandGroup {
 	double delay = Robot.oi.getDashboardDelaySlider();
 	
     public AutoMidSwitchProfiling() {
-        
+    	addSequential(new WaitCommand(delay));
+
     	addSequential(new SpeedGear());
 		addSequential(new ArmVertical());
-
+		addSequential(new ResetDrive());
     	// wait preassigned time
-    	addSequential(new WaitCommand(delay));
     
     	// get side of switch from FMS
     	//addSequential(new CheckSwitchSide());
     	// on the left
     	if (!(Robot.switchFMSSideRight)) {
-    		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidSwitchLeft));
-    		addParallel(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.MidSwitchLeft.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.MidSwitchLeft.getLeftArrayLastPosition(), new ArmReleasePosition()));
+    		addParallel(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidSwitchLeft));
+    		addSequential(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.MidSwitchLeft.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.MidSwitchLeft.getLeftArrayLastPosition(), new ArmReleasePosition()));
     		addSequential(new WaitUntilTrajectoryFinished());
     		addSequential(new IntakeRelease()); // drop power cubeq
+    		addSequential(new WaitCommand(0.5));
+    		addSequential(new IntakeStop());
     	}
     	// on the right
     	else {
@@ -51,6 +55,8 @@ public class AutoMidSwitchProfiling extends CommandGroup {
     		addParallel(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.MidSwitchRight.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.MidSwitchRight.getLeftArrayLastPosition(), new ArmReleasePosition()));
     		addSequential(new WaitUntilTrajectoryFinished());
     		addSequential(new IntakeRelease()); // drop power cubeq
+    		addSequential(new WaitCommand(0.5));
+    		addSequential(new IntakeStop());
     	}
     }
 }

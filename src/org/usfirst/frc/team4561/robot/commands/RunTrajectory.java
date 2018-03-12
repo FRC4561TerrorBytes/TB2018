@@ -49,6 +49,7 @@ public class RunTrajectory extends Command {
     protected void end() {
     	System.out.println("Ending trajectory: " + trajectory.toString());
     	Robot.motionProfileRunner.reset();
+    	Robot.driveTrain.resetEncoders();
     }
 
     // Called when another command which requires one or more of the same
