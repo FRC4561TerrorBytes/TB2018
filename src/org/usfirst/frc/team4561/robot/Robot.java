@@ -73,6 +73,18 @@ public class Robot extends IterativeRobot {
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
+	
+	public static boolean elevatorHealthy = true;
+	public static boolean armHealthy = true;
+	public static boolean driveHealthy = true;
+	
+	public static boolean autoDisableElvPID = false; //If true, disables elevator PID if a problem is detected with the sensor
+	public static boolean autoDisableArmPID = false; //If true, disables arm PID if a problem is detected with the sensor
+	public static boolean autoDisableDrvPID = false; //If true, disables drivetrain PID if a problem is detected with the sensor
+	
+	public static boolean autoShiftTorque = false; //If true, automatically shifts to low gear when stalled
+	public static boolean autoShiftSpeed = false; //If true, automatically shifts to high gear when at max speed in low gear
+	
 	@Override
 	public void robotInit() {
 		oi = new OI();
@@ -187,17 +199,78 @@ public class Robot extends IterativeRobot {
     		SmartDashboard.putString("DB/String 3", "!!Arm PID: OFF!!");
     	}
     	if (RobotMap.ELEVATOR_PID){
-    		SmartDashboard.putString("DB/String 2", "Elv PID: ON");
+    		SmartDashboard.putString("DB/String 2", "Elevator PID: ON");
     	}
     	else {
-    		SmartDashboard.putString("DB/String 2", "!!Elv PID: OFF!!");
+    		SmartDashboard.putString("DB/String 2", "!!Elevator PID: OFF!!");
     	}
     	if (RobotMap.DRIVETRAIN_PID) {
-    		SmartDashboard.putString("DB/String 1", "Drv PID: ON");
+    		SmartDashboard.putString("DB/String 1", "Drivetrain PID: ON");
     	}
     	else {
-    		SmartDashboard.putString("DB/String 1", "!!Drv PID: OFF!!");
+    		SmartDashboard.putString("DB/String 1", "!!Drivetrain PID: OFF!!");
     	}
+    	
+    	if (arm.getEncoderPosition()==0&&!arm.getFwdSwitch() || arm.getEncoderPosition() < -1120) {
+    		//0 position on the arm is where the forward limit switch is, going beyond -1120 should never happen
+    		armHealthy = false;
+    		SmartDashboard.putString("DB/String 8", "!!CHECK ARM ENCODER!!");
+    		if (autoDisableArmPID) {
+    			RobotMap.ARM_PID = false;
+    			arm.stop();
+    		}
+    	}
+    	else {
+    		armHealthy = true;
+    		SmartDashboard.putString("DB/String 8", "Arm Healthy");
+    	}
+    	if (elevator.getElevatorPos() == 0) { //Bottom position of the elevator is 29 - we should never hit 0
+    		elevatorHealthy = false;
+    		SmartDashboard.putString("DB/String 7", "!!CHECK ELEVATOR SENSOR!!");
+    		if (autoDisableElvPID) {
+    			RobotMap.ELEVATOR_PID = false;
+    			elevator.stop();
+    		}
+    	}
+    	else {
+    		elevatorHealthy = true;
+    		SmartDashboard.putString("DB/String 7", "Elevator Healthy");
+    	}
+    	if (Math.abs(driveTrain.fLThrottle()) > 0.125 && driveTrain.getLeftSpeed() == 0) {
+    		driveHealthy = false;
+    		if (driveTrain.getLeftPos() == 0) { //If all values from the sensor are 0 while the motor is getting power, sensor is likely not connected
+    			SmartDashboard.putString("DB/String 6", "!!CHECK DRIVETRAIN SENSORS!!");
+    			SmartDashboard.putString("DB/String 9", "");
+    			if (autoDisableDrvPID) {
+    				RobotMap.DRIVETRAIN_PID = false;
+    				driveTrain.stop();
+    			}
+    		}
+    		else if (driveTrain.getLeftSpeed() != 0) { //If we are receiving positional data from the sensor, we are likely just stalling
+        		SmartDashboard.putString("DB/String 6", "!!DRIVETRAIN STALLING!!");
+        		if (autoShiftTorque && !transmission.isTorque()) {
+        			transmission.torqueGear();
+        		}
+        		else {
+            		SmartDashboard.putString("DB/String 9", "!!SHIFTING RECOMMENDED!!");
+        		}
+    		}
+    		else if (Math.abs(driveTrain.fLThrottle()) == 1 && Math.abs(driveTrain.fRThrottle()) == 1 && transmission.isTorque()) {
+        		if (autoShiftSpeed) {
+        			transmission.speedGear();
+        		}
+        		else {
+        			SmartDashboard.putString("DB/String 9", "!!SHIFTING RECOMMENDED!!");
+        		}
+        	}
+    	}
+    	else {
+    		driveHealthy = true;
+    		SmartDashboard.putString("DB/String 6", "Drivetrain Healthy");
+    		SmartDashboard.putString("DB/String 9", "");
+    	}
+    	
+    	
 	}
 
 	/**

@@ -196,7 +196,10 @@ public class DriveTrainPID extends Subsystem {
 			frontLeft.set(ControlMode.PercentOutput, leftSpeed);
 		}
 	}
-	
+	public void stop() {
+		frontLeft.set(ControlMode.PercentOutput, 0);
+		frontRight.set(ControlMode.PercentOutput, 0);
+	}
 	public double avgSpeed(){
 		return (getLeftSpeed()+(getRightSpeed()))/2;
 	}

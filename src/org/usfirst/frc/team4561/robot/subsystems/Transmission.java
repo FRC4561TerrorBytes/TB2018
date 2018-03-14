@@ -64,10 +64,12 @@ public class Transmission extends Subsystem {
   			System.out.println("[Transmission] Robot stops");
 		}
   			doubleSolenoidTransLeft.set(DoubleSolenoid.Value.kOff);
-  			doubleSolenoidTransLeft.set(DoubleSolenoid.Value.kOff);
+  			doubleSolenoidTransRight.set(DoubleSolenoid.Value.kOff);
 		
 	}
-	
+	public boolean isTorque() {
+		return doubleSolenoidTransLeft.get()==DoubleSolenoid.Value.kForward;
+	}
 }
 	
 	
