@@ -45,7 +45,7 @@ public class ElevatorPID extends Subsystem {
 		motorOne.overrideLimitSwitchesEnable(true);
 		motorOne.setSelectedSensorPosition(motorOne.getSensorCollection().getAnalogInRaw(), 0, 0);
 		
-		motorOne.configForwardSoftLimitThreshold(593, 0);
+		motorOne.configForwardSoftLimitThreshold(610, 0);
 		motorOne.configForwardSoftLimitEnable(true, 0);
 		
 		motorOne.configPeakCurrentLimit(20, 0);
