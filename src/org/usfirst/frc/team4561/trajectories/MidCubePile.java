@@ -9,8 +9,8 @@ public class MidCubePile extends Path {
     	// First point is the starting position, last point is the end.
     	// Angles are in radians, positive Y is to the left, positive X is forward
     	points = new Waypoint[] {
-    			new Waypoint(5, 13.23, 0),
-    			new Waypoint(10.15, 13.23, 0)
+    			new Waypoint(3.22, 13.23, 0),
+    			new Waypoint(9, 13.5, 0)
     	};
     	reverse = false;
     	generateTrajectoriesAndArrays();
