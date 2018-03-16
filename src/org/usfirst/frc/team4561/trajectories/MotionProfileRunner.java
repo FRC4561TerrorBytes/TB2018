@@ -31,6 +31,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Notifier;
 
 import org.usfirst.frc.team4561.robot.Robot;
+import org.usfirst.frc.team4561.robot.subsystems.DriveTrainPID;
 
 import com.ctre.phoenix.motion.*;
 import com.ctre.phoenix.motion.TrajectoryPoint.TrajectoryDuration;
@@ -62,72 +63,78 @@ public class MotionProfileRunner {
 	public static Path midCubePileReverse = new MidCubePileReverse();
 	public static Path midSwitchRightReverse = new MidSwitchRightReverse();
 	
+	/**
+	 * All the different trajectories the robot can run.
+	 */
 	public enum TrajectorySelect {
-		LeftScaleLeft(leftScaleLeft.getLeftArray(), leftScaleLeft.getRightArray(),
-				leftScaleLeft.getCount(), leftScaleLeft.isReversed()),
-		LeftScaleRight(leftScaleRight.getLeftArray(), leftScaleRight.getRightArray(),
-				leftScaleRight.getCount(), leftScaleRight.isReversed()),
-		LeftScaleTurnAroundS3(leftScaleTurnAroundS3.getLeftArray(), leftScaleTurnAroundS3.getRightArray(),
-				leftScaleTurnAroundS3.getCount(), leftScaleTurnAroundS3.isReversed()),
-		MidSwitchLeft(midSwitchLeft.getLeftArray(), midSwitchLeft.getRightArray(),
-				midSwitchLeft.getCount(), midSwitchLeft.isReversed()),
-		MidSwitchRight(midSwitchRight.getLeftArray(), midSwitchRight.getRightArray(),
-				midSwitchRight.getCount(), midSwitchRight.isReversed()),
-		RightScaleLeft(rightScaleLeft.getLeftArray(), rightScaleLeft.getRightArray(),
-				rightScaleLeft.getCount(), rightScaleLeft.isReversed()),
-		RightScaleRight(rightScaleRight.getLeftArray(), rightScaleRight.getRightArray(),
-				rightScaleRight.getCount(), rightScaleRight.isReversed()),
-		RightScaleTurnAroundS4(rightScaleTurnAroundS4.getLeftArray(), rightScaleTurnAroundS4.getRightArray(),
-				rightScaleTurnAroundS4.getCount(), rightScaleTurnAroundS4.isReversed()),
-		ScaleLeftSwitchLeftCube(scaleLeftSwitchLeftCube.getLeftArray(), scaleLeftSwitchLeftCube.getRightArray(),
-				scaleLeftSwitchLeftCube.getCount(), scaleLeftSwitchLeftCube.isReversed()),
-		ScaleLeftTurnAround(scaleLeftTurnAround.getLeftArray(), scaleLeftTurnAround.getRightArray(),
-				scaleLeftTurnAround.getCount(), scaleLeftTurnAround.isReversed()),
-		ScaleRightSwitchRightCube(scaleRightSwitchRightCube.getLeftArray(), scaleRightSwitchRightCube.getRightArray(),
-				scaleRightSwitchRightCube.getCount(), scaleRightSwitchRightCube.isReversed()),
-		ScaleRightTurnAround(scaleRightTurnAround.getLeftArray(), scaleRightTurnAround.getRightArray(),
-				scaleRightTurnAround.getCount(), scaleRightTurnAround.isReversed()),
-		MidSwitchLeftReverse(midSwitchLeftReverse.getLeftArray(), midSwitchLeftReverse.getRightArray(),
-				midSwitchLeftReverse.getCount(), midSwitchLeftReverse.isReversed()),
-		MidCubePile(midCubePile.getLeftArray(), midCubePile.getRightArray(),
-				midCubePile.getCount(), midCubePile.isReversed()),
-		MidCubePileReversed(midCubePileReverse.getLeftArray(), midCubePileReverse.getRightArray(),
-				midCubePileReverse.getCount(), midCubePileReverse.isReversed()),
-		MidSwitchRightReverse(midSwitchRightReverse.getLeftArray(), midSwitchRightReverse.getRightArray(),
-				midSwitchRightReverse.getCount(), midSwitchRightReverse.isReversed());
+		LeftScaleLeft(leftScaleLeft),
+		LeftScaleRight(leftScaleRight),
+		LeftScaleTurnAroundS3(leftScaleTurnAroundS3),
+		MidSwitchLeft(midSwitchLeft),
+		MidSwitchRight(midSwitchRight),
+		RightScaleLeft(rightScaleLeft),
+		RightScaleRight(rightScaleRight),
+		RightScaleTurnAroundS4(rightScaleTurnAroundS4),
+		ScaleLeftSwitchLeftCube(scaleLeftSwitchLeftCube),
+		ScaleLeftTurnAround(scaleLeftTurnAround),
+		ScaleRightSwitchRightCube(scaleRightSwitchRightCube),
+		ScaleRightTurnAround(scaleRightTurnAround),
+		MidSwitchLeftReverse(midSwitchLeftReverse),
+		MidCubePile(midCubePile),
+		MidCubePileReversed(midCubePileReverse),
+		MidSwitchRightReverse(midSwitchRightReverse);
 		
-		private final double[][] leftArray;
-		private final double[][] rightArray;
-		private final int count;
-		private final boolean reverse;
-		TrajectorySelect(double[][] leftArray, double[][] rightArray, int count, boolean reverse) {
-			this.leftArray = leftArray;
-			this.rightArray = rightArray;
-			this.count = count;
-			this.reverse = reverse;
+		Path trajectory;
+		TrajectorySelect(Path trajectory) {
+			this.trajectory = trajectory;
 		}
+		/**
+		 * @return An array of waypoints for the left side of the trajectory, each waypoint containing position, velocity, and time step. 
+		 */
 		private double[][] getLeftArray() {
-			return leftArray;
+			return trajectory.getLeftArray();
 		}
+		/**
+		 * @return An array of waypoints for the right side of the trajectory, each waypoint containing position, velocity, and time step. 
+		 */
 		private double[][] getRightArray() {
-			return rightArray;
+			return trajectory.getRightArray();
 		}
+		/**
+		 * @return The number of waypoints in the trajectory. This will be the length of the left and right arrays.
+		 */
 		private int getCount() {
-			return count;
+			return trajectory.getCount();
 		}
+		/**
+		 * @return Whether or not the robot goes backwards for this trajectory.
+		 */
 		private boolean isReversed() {
-			return reverse;
+			return trajectory.isReversed();
 		}
-		public double getLeftArrayLastPosition() {
-			return leftArray[leftArray.length-1][0];
-		}
+		/**
+		 * @return The first position in the left trajectory.
+		 */
 		public double getLeftArrayFirstPosition() {
-			return leftArray[0][0];
+			return trajectory.getLeftArray()[0][0];
+		}
+		/**
+		 * @return The last position in the left trajectory.
+		 */
+		public double getLeftArrayLastPosition() {
+			return trajectory.getLeftArray()[trajectory.getCount()-1][0];
 		}
 	}
 	
-	public TrajectorySelect currentTrajectory;
+	/**
+	 * The trajectory we are running right now.
+	 */
+	private TrajectorySelect currentTrajectory;
 	
+	/**
+	 * Sets the trajectory that the robot should run next.
+	 * @param traj
+	 */
 	public void setProfile(TrajectorySelect traj) {
 		currentTrajectory = traj;
 	}
@@ -144,7 +151,7 @@ public class MotionProfileRunner {
 	double leftPos = 0, leftVel = 0, leftHeading = 0, rightPos = 0, rightVel = 0, rightHeading = 0;
 
 	/**
-	 * Reference to the talon we plan on manipulating. We will not changeMode()
+	 * Reference to the talons we plan on manipulating. We will not changeMode()
 	 * or call set(), just get motion profile status and make decisions based on
 	 * motion profile.
 	 */
@@ -234,9 +241,9 @@ public class MotionProfileRunner {
 		 * sitting in memory.
 		 */
 		leftTalon.clearMotionProfileTrajectories();
-		Robot.driveTrain.invertLeftSide(Robot.driveTrain.LEFT_SIDE_INVERTED);
-		Robot.driveTrain.invertRightSide(Robot.driveTrain.RIGHT_SIDE_INVERTED);
 		rightTalon.clearMotionProfileTrajectories();
+		Robot.driveTrain.invertLeftSide(DriveTrainPID.LEFT_SIDE_INVERTED);
+		Robot.driveTrain.invertRightSide(DriveTrainPID.RIGHT_SIDE_INVERTED);
 		/* When we do re-enter motionProfile control mode, stay disabled. */
 		setValue = SetValueMotionProfile.Disable;
 		/* When we do start running our state machine start at the beginning. */
@@ -458,13 +465,13 @@ public class MotionProfileRunner {
 				rightPoint.isLastPoint = true; /* set this to true on the last point  */
 
 			if (!currentTrajectory.isReversed()) {
-				Robot.driveTrain.invertLeftSide(!Robot.driveTrain.LEFT_SIDE_INVERTED);
-				Robot.driveTrain.invertRightSide(!Robot.driveTrain.RIGHT_SIDE_INVERTED);
+				Robot.driveTrain.invertLeftSide(!DriveTrainPID.LEFT_SIDE_INVERTED);
+				Robot.driveTrain.invertRightSide(!DriveTrainPID.RIGHT_SIDE_INVERTED);
 				leftTalon.pushMotionProfileTrajectory(leftPoint);
 				rightTalon.pushMotionProfileTrajectory(rightPoint);
 			} else {
-				Robot.driveTrain.invertLeftSide(Robot.driveTrain.LEFT_SIDE_INVERTED);
-				Robot.driveTrain.invertRightSide(Robot.driveTrain.RIGHT_SIDE_INVERTED);
+				Robot.driveTrain.invertLeftSide(DriveTrainPID.LEFT_SIDE_INVERTED);
+				Robot.driveTrain.invertRightSide(DriveTrainPID.RIGHT_SIDE_INVERTED);
 				leftTalon.pushMotionProfileTrajectory(rightPoint);
 				rightTalon.pushMotionProfileTrajectory(leftPoint);
 			}
