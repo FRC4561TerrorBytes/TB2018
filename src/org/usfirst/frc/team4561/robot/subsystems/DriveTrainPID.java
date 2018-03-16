@@ -352,16 +352,16 @@ public class DriveTrainPID extends Subsystem {
 		rateAvg = 0;
 		resetEncoders();
 	}
-	public double getLeftSpeed(){
+	public int getLeftSpeed(){
 		return frontLeft.getSelectedSensorVelocity(0);
 	}
-	public double getRightSpeed(){
+	public int getRightSpeed(){
 		return frontRight.getSelectedSensorVelocity(0);
 	}
-	public double getLeftPos(){
+	public int getLeftPos(){
 		return frontLeft.getSelectedSensorPosition(0);
 	}
-	public double getRightPos(){
+	public int getRightPos(){
 		return frontRight.getSelectedSensorPosition(0);
 	}
 	public void resetEncoders(){
