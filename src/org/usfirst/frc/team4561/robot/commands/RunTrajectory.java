@@ -25,7 +25,7 @@ public class RunTrajectory extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	System.out.println("Starting trajectory: " + trajectory.toString());
-    	Robot.motionProfileRunner.currentTrajectory = trajectory;
+    	Robot.motionProfileRunner.setCurrentTrajectory(trajectory);
 		SetValueMotionProfile setOutput = Robot.motionProfileRunner.getSetValue();
 		Robot.driveTrain.frontLeft.set(ControlMode.MotionProfile, setOutput.value);
 		Robot.driveTrain.frontRight.set(ControlMode.MotionProfile, setOutput.value);

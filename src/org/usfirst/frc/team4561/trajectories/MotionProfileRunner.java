@@ -135,8 +135,15 @@ public class MotionProfileRunner {
 	 * Sets the trajectory that the robot should run next.
 	 * @param traj
 	 */
-	public void setProfile(TrajectorySelect traj) {
+	public void setCurrentTrajectory(TrajectorySelect traj) {
 		currentTrajectory = traj;
+	}
+	/**
+	 * Gets the trajectory that the robot is ready to run next.
+	 * @param traj
+	 */
+	public TrajectorySelect getCurrentTrajectory() {
+		return currentTrajectory;
 	}
 	
 	/**
