@@ -43,19 +43,62 @@ public class Gyroscope extends Subsystem {
 		return real;
 	}
 	public double getHead() {
-		return gyro.getCompassHeading();
+		if (real) return gyro.getCompassHeading();
+		else return 0;
 	}
 	public double getPressure() {
-		return gyro.getBarometricPressure();
+		if (real) return gyro.getBarometricPressure();
+		else return 0;
 	}
 	public double getAltitude() {
-		return gyro.getAltitude();
+		if (real) return gyro.getAltitude();
+		else return 0;
 	}
 	public double getAccel() {
-		return gyro.getAccelFullScaleRangeG();
+		if (real) return gyro.getAccelFullScaleRangeG();
+		else return 0;
 	}
 	public double getTemp() {
-		return gyro.getTempC();
+		if (real) return gyro.getTempC();
+		else return 0;
+	}
+	public double getSpeedX() {
+		if (real) return gyro.getVelocityX();
+		else return 0;
+	}
+	public double getSpeedY() {
+		if (real) return gyro.getVelocityY();
+		else return 0;
+	}
+	public double getSpeedZ() {
+		if (real) return gyro.getVelocityZ();
+		else return 0;
+	}
+	public double getDisplacementX() {
+		if (real) return gyro.getDisplacementX();
+		else return 0;
+	}
+	public double getDisplacementY() {
+		if (real) return gyro.getDisplacementY();
+		else return 0;
+	}
+	public double getDisplacementZ() {
+		if (real) return gyro.getDisplacementZ();
+		else return 0;
+	}
+	public boolean isTipping() { //TODO: needs tuning probably
+		return (getPitch() > 30 && getPitch() < 80) || (getRoll() > 25 && getRoll() < 80);
+	}
+	public boolean isTipped() {
+		return (getPitch() >= 80) || (getRoll() >= 80);
+	}
+	public boolean isMoving() {
+		if (real) return gyro.isMoving();
+		else return false;
+	}
+	public boolean isRotating() {
+		if (real) return gyro.isRotating();
+		else return false;
 	}
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
