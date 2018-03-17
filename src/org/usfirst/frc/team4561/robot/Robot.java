@@ -10,6 +10,7 @@
 package org.usfirst.frc.team4561.robot;
 
 import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -81,10 +82,12 @@ public class Robot extends IterativeRobot {
 	
 	public static boolean autoDisableElvPID = false; //If true, disables elevator PID if a problem is detected with the sensor
 	public static boolean autoDisableArmPID = false; //If true, disables arm PID if a problem is detected with the sensor
-	public static boolean autoDisableDrvPID = false; //If true, disables drivetrain PID if a problem is detected with the sensor
+	public static boolean autoDisableDrvPID = false; //If true, disables drivetrain PID if a problem is detected with the sensors
 	
 	public static boolean autoShiftTorque = false; //If true, automatically shifts to low gear when stalled
 	public static boolean autoShiftSpeed = false; //If true, automatically shifts to high gear when at max speed in low gear
+	
+	public static boolean tipPrevent = false; //If true, automatically tries to avoid tipping by lowering elevator to bottom if tipping is detected
 	
 	@Override
 	public void robotInit() {
@@ -187,6 +190,31 @@ public class Robot extends IterativeRobot {
     	SmartDashboard.putNumber("Left Error", Robot.driveTrain.getLeftError());
 		SmartDashboard.putNumber("Right Error", Robot.driveTrain.getRightError());
 		
+		
+		if (true) { //Does absolutely nothing, but makes things easier to read
+			SmartDashboard.putNumber("Gyro/Compass/Compass Heading", gyro.getHead());
+			SmartDashboard.putNumber("Gyro/Barometer/Altitude", gyro.getAltitude());
+			SmartDashboard.putNumber("Gyro/Barometer/Pressure", gyro.getPressure());
+			SmartDashboard.putNumber("Gyro/Gyroscope/Angle", gyro.getAngle());
+			SmartDashboard.putNumber("Gyro/Gyroscope/Rate", gyro.getRate());
+			SmartDashboard.putNumber("Gyro/Gyroscope/Yaw", gyro.getYaw());
+			SmartDashboard.putNumber("Gyro/Gyroscope/Pitch", gyro.getPitch());
+			SmartDashboard.putNumber("Gyro/Gyroscope/Roll", gyro.getRoll());
+			SmartDashboard.putNumber("Gyro/Accelerometer/Acceleration", gyro.getAccel());
+			SmartDashboard.putNumber("Gyro/Velocity/XVel", gyro.getSpeedX());
+			SmartDashboard.putNumber("Gyro/Velocity/YVel", gyro.getSpeedY());
+			SmartDashboard.putNumber("Gyro/Velocity/ZVel", gyro.getSpeedZ());
+			SmartDashboard.putNumber("Gyro/Thermometer/Temperature", gyro.getTemp());
+			SmartDashboard.putNumber("Gyro/Position/XDis", gyro.getDisplacementX());
+			SmartDashboard.putNumber("Gyro/Position/YDis", gyro.getDisplacementY());
+			SmartDashboard.putNumber("Gyro/Position/ZDis", gyro.getDisplacementZ());
+			SmartDashboard.putBoolean("Gyro/Exists", gyro.exists());
+			SmartDashboard.putBoolean("Gyro/Tipping", gyro.isTipping());
+			SmartDashboard.putBoolean("Gyro/Tipped", gyro.isTipped());
+			SmartDashboard.putBoolean("Gyro/Moving", gyro.isMoving());
+			SmartDashboard.putBoolean("Gyro/Rotating", gyro.isRotating());
+		}
+		
     	//SmartDashboard.putNumber("Controller POV", oi.getControllerPOV());
     	if (Robot.arm.getRevSwitch()){
 			Robot.arm.setEncoderPos(-1120);
@@ -237,15 +265,15 @@ public class Robot extends IterativeRobot {
     	}
     	if (Math.abs(driveTrain.fLThrottle()) > 0.125 && driveTrain.getLeftSpeed() == 0) {
     		driveHealthy = false;
-    		if (driveTrain.getLeftPos() == 0) { //If all values from the sensor are 0 while the motor is getting power, sensor is likely not connected
-    			SmartDashboard.putString("DB/String 6", "!!CHECK DRIVETRAIN SENSORS!!");
+    		if (gyro.isMoving() || gyro.isRotating()) { //If gyro thinks we're moving while sensors don't, sensors probably aren't connected
+    			SmartDashboard.putString("DB/String 6", "!!CHECK DRIVETRAIN ENCODERS!!");
     			SmartDashboard.putString("DB/String 9", "");
     			if (autoDisableDrvPID) {
     				RobotMap.DRIVETRAIN_PID = false;
     				driveTrain.stop();
     			}
     		}
-    		else if (driveTrain.getLeftSpeed() != 0) { //If we are receiving positional data from the sensor, we are likely just stalling
+    		else if (!gyro.isMoving() && !gyro.isRotating() && gyro.exists()) { //If we really aren't moving, we are likely just stalling
         		SmartDashboard.putString("DB/String 6", "!!DRIVETRAIN STALLING!!");
         		if (autoShiftTorque && !transmission.isTorque()) {
         			transmission.torqueGear();
@@ -268,6 +296,37 @@ public class Robot extends IterativeRobot {
     		SmartDashboard.putString("DB/String 6", "Drivetrain Healthy");
     		SmartDashboard.putString("DB/String 9", "");
     	}
+    	if (gyro.exists()) {
+    		SmartDashboard.putString("DB/String 5", "Gyroscope Healthy");
+    	}
+    	else {
+    		SmartDashboard.putString("DB/String 5", "!!CHECK GYROSCOPE!!");
+    	}
+    	
+    	if (gyro.isTipping()) {
+    		if (tipPrevent) {
+    			elevator.GroundPosition();
+    		}
+    		SmartDashboard.putString("DB/String 0", "!!TIPPING!!");
+    	}
+    	else if (gyro.isTipped()) {
+    		SmartDashboard.putString("DB/String 0", "Robot is on its side :(");
+    	}
+    	else {
+    		SmartDashboard.putString("DB/String 0", "");
+    	}
+    	
+    	if (gyro.getAltitude() > 15) { //TODO: is this in inches?
+    		SmartDashboard.putString("DB/String 4", "Climb Successful! :D");
+    	}
+    	else if (DriverStation.getInstance().isDisabled() && DriverStation.getInstance().getMatchTime() == 0) {
+    		SmartDashboard.putString("DB/String 4", "No climb! :'(");
+    	}
+    	else {
+    		SmartDashboard.putString("DB/String 4", "");
+    	}
+    	
+    	
     	
     	
 	}
