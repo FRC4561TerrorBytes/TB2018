@@ -11,7 +11,6 @@ package org.usfirst.frc.team4561.robot;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -69,6 +68,7 @@ public class Robot extends IterativeRobot {
 	public static final Path rightScaleTurnAroundS4 = new RightScaleTurnAroundS4();
 	public static final Path scaleRightSwitchRightCube = new ScaleRightSwitchRightCube();
 	public static MotionProfileRunner motionProfileRunner = new MotionProfileRunner(Robot.driveTrain.frontLeft, Robot.driveTrain.frontRight);
+	public static MotionProfileOnboardRunner motionProfileOnboardRunner = new MotionProfileOnboardRunner(Robot.driveTrain.frontLeft, Robot.driveTrain.frontRight);
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -104,12 +104,6 @@ public class Robot extends IterativeRobot {
 		oi.startElevatorRelative.whenActive(new ResetElevator());
 		oi.startArmRelative.whenActive(new ResetArm());
 		oi.stopArmRelative.whenActive(new ResetArm());
-		
-		double beforeTime = System.currentTimeMillis();
-		midSwitchLeft = new MidSwitchLeft();
-		double afterTime = System.currentTimeMillis();
-		System.out.println("Time to construct MidSwitchLeft (ms): " + Double.toString(afterTime-beforeTime));
-		
 	}
 
 	/**
@@ -122,6 +116,8 @@ public class Robot extends IterativeRobot {
 		intake.stop();
 		elevator.resetGoal();
 		arm.reset();
+		driveTrain.stop();
+		motionProfileOnboardRunner.reset();
 	}
 
 	@Override
@@ -130,11 +126,13 @@ public class Robot extends IterativeRobot {
 		intake.stop();
 		elevator.resetGoal();
 		arm.reset();
+		driveTrain.stop();
 		//arm.resetEncoder();
 	}
 	
 	public void robotPeriodic(){
 		motionProfileRunner.control();
+		motionProfileOnboardRunner.control();
 		if (RobotMap.ARM_DEBUG){
 			SmartDashboard.putNumber("Arm/Encoder Position", Robot.arm.getEncoderPosition());
 	    	SmartDashboard.putNumber("Arm/Encoder Velocity", Robot.arm.getEncoderVelocity());
@@ -287,7 +285,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		getFieldData = new CheckScaleSide();
+		//getFieldData = new CheckScaleSide();
 		motionProfileRunner.control();
 		int auto = (int) SmartDashboard.getNumber("DB/Slider 0", 0);
 		switch (auto){
@@ -309,6 +307,9 @@ public class Robot extends IterativeRobot {
 		case 5:
 			autonomousCommand = new AutoTwoSwitchCube();
 			break;
+		case 6:
+			autonomousCommand = new AutoMidSwitchOnboardProfiling();
+			break;
 		}
 
 		// schedule the autonomous command (example)
@@ -325,6 +326,7 @@ public class Robot extends IterativeRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		motionProfileRunner.control();
+		motionProfileOnboardRunner.control();
 	}
 
 	@Override
@@ -336,6 +338,7 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null) {
 			autonomousCommand.cancel();
 		}
+		motionProfileOnboardRunner.reset();
 		if (RobotMap.DRIVE_MODE == 1) (new ArcadeDrive()).start();
 		else (new TankDrive()).start();
 		(new ResetElevator()).start();
