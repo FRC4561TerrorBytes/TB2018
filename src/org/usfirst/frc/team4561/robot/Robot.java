@@ -256,7 +256,7 @@ public class Robot extends IterativeRobot {
     	}
     	if (elevator.getElevatorPos() == 0) { //Bottom position of the elevator is 29 - we should never hit 0
     		elevatorHealthy = false;
-    		SmartDashboard.putString("DB/String 7", "!!CHECK ELEVATOR SENSOR!!");
+    		SmartDashboard.putString("DB/String 7", "!!CHECK ELEVATOR!!");
     		if (autoDisableElvPID) {
     			RobotMap.ELEVATOR_PID = false;
     			elevator.stop();
