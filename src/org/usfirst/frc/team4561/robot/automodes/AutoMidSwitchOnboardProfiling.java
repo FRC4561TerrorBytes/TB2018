@@ -10,13 +10,15 @@ import org.usfirst.frc.team4561.robot.commands.IntakeRelease;
 import org.usfirst.frc.team4561.robot.commands.IntakeStop;
 import org.usfirst.frc.team4561.robot.commands.ResetDrive;
 import org.usfirst.frc.team4561.robot.commands.RunTrajectory;
+import org.usfirst.frc.team4561.robot.commands.RunTrajectoryOnboard;
 import org.usfirst.frc.team4561.robot.commands.SpeedGear;
 import org.usfirst.frc.team4561.robot.commands.TankDriveTimed;
 import org.usfirst.frc.team4561.robot.commands.TorqueGear;
 import org.usfirst.frc.team4561.robot.commands.TurnMagic;
+import org.usfirst.frc.team4561.robot.commands.WaitUntilOnboardTrajectoryFinished;
 import org.usfirst.frc.team4561.robot.commands.WaitUntilPositionPercent;
 import org.usfirst.frc.team4561.robot.commands.WaitUntilTrajectoryFinished;
-import org.usfirst.frc.team4561.trajectories.MotionProfileRunner;
+import org.usfirst.frc.team4561.trajectories.MotionProfileOnboardRunner;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
@@ -26,35 +28,35 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
  * This is currently in progress.
  * @author Ben
  */
-public class AutoMidSwitchProfiling extends CommandGroup {
+public class AutoMidSwitchOnboardProfiling extends CommandGroup {
 
 	double delay = Robot.oi.getDashboardDelaySlider();
 	
-    public AutoMidSwitchProfiling() {
+    public AutoMidSwitchOnboardProfiling() {
     	addSequential(new WaitCommand(delay));
 
     	addSequential(new SpeedGear());
 		addSequential(new ArmVertical());
-		addSequential(new ResetDrive());
     	// wait preassigned time
     
     	// get side of switch from FMS
-    	//addSequential(new CheckSwitchSide());
     	// on the left
     	if (!(Robot.switchFMSSideRight)) {
-    		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidSwitchLeft));
-    		addParallel(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.MidSwitchLeft.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.MidSwitchLeft.getLeftArrayLastPosition(), new ArmReleasePosition()));
-    		addSequential(new WaitUntilTrajectoryFinished());
-    		addSequential(new IntakeRelease()); // drop power cubeq
+    		addSequential(new RunTrajectoryOnboard(MotionProfileOnboardRunner.TrajectorySelect.MidSwitchLeft));
+    		addSequential(new WaitUntilPositionPercent(0.5));
+    		addSequential(new ArmReleasePosition());
+    		addSequential(new WaitUntilOnboardTrajectoryFinished());
+    		addSequential(new IntakeRelease()); // drop power cube
     		addSequential(new WaitCommand(0.5));
     		addSequential(new IntakeStop());
     	}
     	// on the right
     	else {
-    		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidSwitchRight));
-    		addParallel(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.MidSwitchRight.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.MidSwitchRight.getLeftArrayLastPosition(), new ArmReleasePosition()));
-    		addSequential(new WaitUntilTrajectoryFinished());
-    		addSequential(new IntakeRelease()); // drop power cubeq
+    		addSequential(new RunTrajectoryOnboard(MotionProfileOnboardRunner.TrajectorySelect.MidSwitchRight));
+    		addSequential(new WaitUntilPositionPercent(0.5));
+    		addSequential(new ArmReleasePosition());
+    		addSequential(new WaitUntilOnboardTrajectoryFinished());
+    		addSequential(new IntakeRelease()); // drop power cube
     		addSequential(new WaitCommand(0.5));
     		addSequential(new IntakeStop());
     	}

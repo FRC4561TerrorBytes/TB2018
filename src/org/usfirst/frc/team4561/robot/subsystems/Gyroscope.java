@@ -46,6 +46,13 @@ public class Gyroscope extends Subsystem {
 		if (real) return gyro.getCompassHeading();
 		else return 0;
 	}
+	public double getFusedHeading() {
+		if (real) return gyro.getFusedHeading();
+		else return 0;
+	}
+	public void reset() {
+		if (real) gyro.reset();
+	}
 	public double getPressure() {
 		if (real) return gyro.getBarometricPressure();
 		else return 0;

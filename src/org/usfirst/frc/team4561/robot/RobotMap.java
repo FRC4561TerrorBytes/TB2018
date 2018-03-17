@@ -119,10 +119,13 @@ public class RobotMap {
 	
 	// Automode constraints
 	public static final double TIME_STEP = 0.05; // sec
-	public static final double WHEELBASE_WIDTH = 2.95; // ft TODO: actually 1.865, but fudged
-	public static final double MAX_VELOCITY = 13.9; //TODO: Is actually 15.9, but fudged, ft/s in speed gear (not a placeholder anymore!)
-	public static final double MAX_ACCELERATION = 12.0; // 6 ft/s/s TODO: Placeholder
-	public static final double MAX_JERK = 60.0; // ft/s/s/s TODO: Placeholder
+	public static final double WHEELBASE_WIDTH = 1.375; // ft: 1.865 for Delta (fudged fo 2.95), 1.375 for Kongo, 1.865 for Janderson
+	public static final double MAX_VELOCITY = 2; //ft/sec: 15.9 for Delta (decreased to 13.9) in speed gear
+	public static final double MAX_ACCELERATION = 0.3; // ft/s/s: 6 for Delta
+	public static final double MAX_JERK = 60.0; // ft/s/s/s
+	
+	public static final double UNITS_PER_10_ROBOT_REVOLUTIONS = 274700; // 274700 for Janderson
+	public static final double UNITS_PER_10_FEET = 40500; // 40500 for Janderson
 	
 	public static final int OUTTAKE_WEAK_BUTTON = 3;
 

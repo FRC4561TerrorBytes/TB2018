@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4561.trajectories;
 
+import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
 
 import jaci.pathfinder.Pathfinder;
@@ -9,7 +10,7 @@ import jaci.pathfinder.modifiers.TankModifier;
 
 public class Path {
 	// Sample Counts: SAMPLES_HIGH (100 000), SAMPLES_LOW  (10 000), SAMPLES_FAST (1 000)
-	Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_CUBIC, Trajectory.Config.SAMPLES_FAST,
+	Trajectory.Config config = new Trajectory.Config(Trajectory.FitMethod.HERMITE_QUINTIC, Trajectory.Config.SAMPLES_FAST,
 			RobotMap.TIME_STEP, RobotMap.MAX_VELOCITY, RobotMap.MAX_ACCELERATION, RobotMap.MAX_JERK);
 	
 	Waypoint[] points;
@@ -24,7 +25,10 @@ public class Path {
     public void generateTrajectoriesAndArrays() {
     	trajectory = Pathfinder.generate(points, config);
     	// Wheelbase Width (feet)
-    	modifier = new TankModifier(trajectory).modify(RobotMap.WHEELBASE_WIDTH); // 1.865 (1.375 for kongo)
+    	double wheelbaseWidth = RobotMap.UNITS_PER_10_ROBOT_REVOLUTIONS / 10.0;
+    	wheelbaseWidth /= Math.PI; // Diameter in units
+    	wheelbaseWidth = Robot.motionProfileOnboardRunner.units2Ft(wheelbaseWidth);
+    	modifier = new TankModifier(trajectory).modify(wheelbaseWidth); // 1.865 (1.375 for kongo)
     	// Do something with the new Trajectories...
     	left = modifier.getLeftTrajectory();
     	right = modifier.getRightTrajectory();

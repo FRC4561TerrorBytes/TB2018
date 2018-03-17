@@ -50,8 +50,8 @@ public class DriveTrainPID extends Subsystem {
 	private TalonSRX rearRight = new TalonSRX(RobotMap.BACK_RIGHT_MOTOR_PORT);
 	private TalonSRX rearLeft = new TalonSRX(RobotMap.BACK_LEFT_MOTOR_PORT);
 	
-	public static final boolean LEFT_SIDE_INVERTED = false;
-	public static final boolean RIGHT_SIDE_INVERTED = true;
+	public static final boolean LEFT_SIDE_INVERTED = false; // Delta: false, Kongo: false, Janderson: true
+	public static final boolean RIGHT_SIDE_INVERTED = true; // Delta: true, Kongo: true, Janderson: false
 	
 	double angleAccum = 0;
 	double rateAccum = 0;
@@ -91,8 +91,8 @@ public class DriveTrainPID extends Subsystem {
 		midRight.setInverted(RIGHT_SIDE_INVERTED);
 		rearRight.setInverted(RIGHT_SIDE_INVERTED);
 		
-		frontLeft.setSensorPhase(false);
-		frontRight.setSensorPhase(false);
+		frontLeft.setSensorPhase(false); // TODO: SHOULD BE FALSE FOR DELTA
+		frontRight.setSensorPhase(true); // TODO: SHOULD BE FALSE FOR DELTA
 		
 		gyro.calibrate();
 		
@@ -362,7 +362,7 @@ public class DriveTrainPID extends Subsystem {
 		return frontLeft.getSelectedSensorPosition(0);
 	}
 	public int getRightPos(){
-		return frontRight.getSelectedSensorPosition(0);
+		return frontRight.getSelectedSensorPosition(0) * 2; // TODO: THIS IS ONLY FOR JANDERSON
 	}
 	public void resetEncoders(){
 		frontLeft.setSelectedSensorPosition(0, 0, 0);

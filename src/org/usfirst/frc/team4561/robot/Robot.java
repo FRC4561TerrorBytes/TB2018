@@ -57,6 +57,8 @@ public class Robot extends IterativeRobot {
 	public static Transmission transmission = new Transmission();
 	//public static Arm arm = new Arm(); // non-PID arm
 	
+	public static MotionProfileOnboardRunner motionProfileOnboardRunner = new MotionProfileOnboardRunner(Robot.driveTrain.frontLeft, Robot.driveTrain.frontRight);
+	
 	public static boolean switchFMSSideRight; // true if right, false if left
 	public static boolean scaleFMSSideRight; // true if right, false if left
 	private Command getFieldData;
@@ -69,7 +71,6 @@ public class Robot extends IterativeRobot {
 	public static final Path rightScaleTurnAroundS4 = new RightScaleTurnAroundS4();
 	public static final Path scaleRightSwitchRightCube = new ScaleRightSwitchRightCube();
 	public static MotionProfileRunner motionProfileRunner = new MotionProfileRunner(Robot.driveTrain.frontLeft, Robot.driveTrain.frontRight);
-	public static MotionProfileOnboardRunner motionProfileOnboardRunner = new MotionProfileOnboardRunner(Robot.driveTrain.frontLeft, Robot.driveTrain.frontRight);
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -346,6 +347,8 @@ public class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		//getFieldData = new CheckScaleSide();
 		motionProfileRunner.control();
+		gyro.reset();
+		driveTrain.resetEncoders();
 		int auto = (int) SmartDashboard.getNumber("DB/Slider 0", 0);
 		switch (auto){
 		case 0:
