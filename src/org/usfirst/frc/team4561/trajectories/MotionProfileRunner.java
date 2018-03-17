@@ -217,7 +217,7 @@ public class MotionProfileRunner {
 	    	rightTalon.processMotionProfileBuffer();
 	    }
 	}
-	Notifier notifer = new Notifier(new PeriodicRunnable());
+	Notifier notifier = new Notifier(new PeriodicRunnable());
 	
 	/**
 	 * @param leftTalon reference to left master TalonSRX object.
@@ -234,7 +234,7 @@ public class MotionProfileRunner {
 		 */
 		leftTalon.changeMotionControlFramePeriod(2);
 		rightTalon.changeMotionControlFramePeriod(2);
-		notifer.startPeriodic(0.002);
+		notifier.startPeriodic(0.002);
 	}
 
 	/**
