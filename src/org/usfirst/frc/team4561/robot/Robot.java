@@ -322,7 +322,7 @@ public class Robot extends IterativeRobot {
     		SmartDashboard.putString("DB/String 0", "");
     	}
     	
-    	if (gyro.getAltitude() > 15.4) { //TODO: is this in inches?
+    	if (gyro.getDisplacementZ() > 15.4) { //TODO: is this in inches?
     		SmartDashboard.putString("DB/String 4", "Climb Successful! :D");
     	}
     	else if (DriverStation.getInstance().isDisabled() && DriverStation.getInstance().getMatchTime() == 0) {
