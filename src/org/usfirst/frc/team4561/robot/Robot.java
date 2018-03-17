@@ -79,6 +79,7 @@ public class Robot extends IterativeRobot {
 	public static boolean elevatorHealthy = true;
 	public static boolean armHealthy = true;
 	public static boolean driveHealthy = true;
+	public static boolean driveStalling = false;
 	
 	public static boolean autoDisableElvPID = false; //If true, disables elevator PID if a problem is detected with the sensor
 	public static boolean autoDisableArmPID = false; //If true, disables arm PID if a problem is detected with the sensor
@@ -265,8 +266,7 @@ public class Robot extends IterativeRobot {
     		elevatorHealthy = true;
     		SmartDashboard.putString("DB/String 7", "Elevator Healthy");
     	}
-    	if (Math.abs(driveTrain.fLThrottle()) > 0.125 && driveTrain.getLeftSpeed() == 0) {
-    		driveHealthy = false;
+    	if ((Math.abs(driveTrain.fLThrottle()) > 0.125 && driveTrain.getLeftSpeed() == 0) || (Math.abs(driveTrain.fRThrottle()) > 0.125 && driveTrain.getRightSpeed() == 0)) {
     		if (gyro.isMoving() || gyro.isRotating()) { //If gyro thinks we're moving while sensors don't, sensors probably aren't connected
     			SmartDashboard.putString("DB/String 6", "!!CHECK DRIVETRAIN ENCODERS!!");
     			SmartDashboard.putString("DB/String 9", "");
@@ -274,6 +274,7 @@ public class Robot extends IterativeRobot {
     				RobotMap.DRIVETRAIN_PID = false;
     				driveTrain.stop();
     			}
+        		driveHealthy = false;
     		}
     		else if (!gyro.isMoving() && !gyro.isRotating() && gyro.exists()) { //If we really aren't moving, we are likely just stalling
         		SmartDashboard.putString("DB/String 6", "!!DRIVETRAIN STALLING!!");
@@ -283,18 +284,21 @@ public class Robot extends IterativeRobot {
         		else {
             		SmartDashboard.putString("DB/String 9", "!!SHIFTING RECOMMENDED!!");
         		}
+        		driveHealthy = true;
+        		driveStalling = true;
     		}
-    		else if (Math.abs(driveTrain.fLThrottle()) == 1 && Math.abs(driveTrain.fRThrottle()) == 1 && transmission.isTorque()) {
-        		if (autoShiftSpeed) {
-        			transmission.speedGear();
-        		}
-        		else {
-        			SmartDashboard.putString("DB/String 9", "!!SHIFTING RECOMMENDED!!");
-        		}
-        	}
+    	}
+		if (Math.abs(driveTrain.fLThrottle()) == 1 && Math.abs(driveTrain.fRThrottle()) == 1 && transmission.isTorque() && gyro.isMoving()) {
+    		if (autoShiftSpeed) {
+    			transmission.speedGear();
+    		}
+    		else {
+    			SmartDashboard.putString("DB/String 9", "!!SHIFTING RECOMMENDED!!");
+    		}
     	}
     	else {
     		driveHealthy = true;
+    		driveStalling = false;
     		SmartDashboard.putString("DB/String 6", "Drivetrain Healthy");
     		SmartDashboard.putString("DB/String 9", "");
     	}
@@ -318,7 +322,7 @@ public class Robot extends IterativeRobot {
     		SmartDashboard.putString("DB/String 0", "");
     	}
     	
-    	if (gyro.getAltitude() > 15) { //TODO: is this in inches?
+    	if (gyro.getAltitude() > 15.4) { //TODO: is this in inches?
     		SmartDashboard.putString("DB/String 4", "Climb Successful! :D");
     	}
     	else if (DriverStation.getInstance().isDisabled() && DriverStation.getInstance().getMatchTime() == 0) {
