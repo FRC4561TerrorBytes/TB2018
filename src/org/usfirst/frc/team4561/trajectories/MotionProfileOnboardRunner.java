@@ -49,12 +49,6 @@ import com.ctre.phoenix.motion.TrajectoryPoint.TrajectoryDuration;
  */
 public class MotionProfileOnboardRunner {
 	
-	
-	public static final double WHEEL_DIAMETER = 3.5; //inches: 5 for Delta, 6 for Kongo, 3.5 for Janderson
-	public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
-	
-	public static final int UNITS_PER_REVOLUTION = (int)((RobotMap.UNITS_PER_10_FEET / 10.0 * (WHEEL_CIRCUMFERENCE / 12.0)) * 0.95);// 3700; //encoder ticks: 7659 for Delta, 8192 for Kongo, 3700 for Janderson
-	
 	public static Path leftScaleLeft = new LeftScaleLeft();
 	public static Path leftScaleRight = new LeftScaleRight();
 	public static Path leftScaleTurnAroundS3 = new LeftScaleTurnAroundS3();
@@ -195,18 +189,12 @@ public class MotionProfileOnboardRunner {
 	EncoderFollower leftFollower = new EncoderFollower();
 	EncoderFollower rightFollower = new EncoderFollower();
 	
-	double MAX_UNITS_PER_100MS = 4011; // 4011 for Janderson, 6450 for Kongo;
-	double MAX_UNITS_PER_SECOND = MAX_UNITS_PER_100MS * 10;
-	double MAX_REVOLUTIONS_PER_SECOND = MAX_UNITS_PER_SECOND / UNITS_PER_REVOLUTION;
-	double MAX_INCHES_PER_SECOND = MAX_REVOLUTIONS_PER_SECOND * WHEEL_DIAMETER * Math.PI;
-	double MAX_FEET_PER_SECOND = MAX_INCHES_PER_SECOND / 12;
-	
-	private final double kP = 0.25; // Proportional gain: 0.25 for Kongo
+	private final double kP = 0.1; // Proportional gain: 0.25 for Kongo
 	private final double kI = 0; // Integral gain (UNIMPLEMENTED in EncoderFollower)
 	private final double kD = 0; // Derivative gain
-	private final double kV = 1 / MAX_FEET_PER_SECOND; // TODO: Find drivetrain max units/100ms in speed gear (6450 for Kongo)
+	private final double kV = 1.0 / RobotMap.MAX_FEET_PER_SECOND;
 	private final double kA = 0; // Should be able to be left at 0 if max accel is configured correctly in trajectory config
-	private final double kG = 0.075; // Gyro gain: 0.075 for Kongo
+	private final double kG = 0.075; //0.075; // Gyro gain: 0.075 for Kongo
 	
 	/**
 	 * If start() gets called, this flag is set and in the control() we will
@@ -223,8 +211,8 @@ public class MotionProfileOnboardRunner {
 	public MotionProfileOnboardRunner(TalonSRX leftTalon, TalonSRX rightTalon) {
 		this.leftTalon = leftTalon;
 		this.rightTalon = rightTalon;
-		leftFollower.configureEncoder(Robot.driveTrain.getLeftPos(), UNITS_PER_REVOLUTION, WHEEL_DIAMETER / 12);
-		rightFollower.configureEncoder(Robot.driveTrain.getRightPos(), UNITS_PER_REVOLUTION, WHEEL_DIAMETER / 12);
+		leftFollower.configureEncoder(Robot.driveTrain.getLeftPos(), RobotMap.UNITS_PER_REVOLUTION, RobotMap.WHEEL_DIAMETER / 12);
+		rightFollower.configureEncoder(Robot.driveTrain.getRightPos(), RobotMap.UNITS_PER_REVOLUTION, RobotMap.WHEEL_DIAMETER / 12);
 		leftFollower.configurePIDVA(kP, kI, kD, kV, kA);
 		rightFollower.configurePIDVA(kP, kI, kD, kV, kA);
 		notifier.startPeriodic(RobotMap.TIME_STEP); // TODO: Try turning up the time step and see how things change
@@ -235,10 +223,10 @@ public class MotionProfileOnboardRunner {
 	 * disabled and when Talon is not in MP control mode.
 	 */
 	public void reset() {
-		leftFollower.configureEncoder(Robot.driveTrain.getLeftPos(), UNITS_PER_REVOLUTION, WHEEL_DIAMETER / 12);
-		rightFollower.configureEncoder(Robot.driveTrain.getRightPos(), UNITS_PER_REVOLUTION, WHEEL_DIAMETER / 12);
-		Robot.driveTrain.invertLeftSide(DriveTrainPID.LEFT_SIDE_INVERTED);
-		Robot.driveTrain.invertRightSide(DriveTrainPID.RIGHT_SIDE_INVERTED);
+		leftFollower.configureEncoder(Robot.driveTrain.getLeftPos(), RobotMap.UNITS_PER_REVOLUTION, RobotMap.WHEEL_DIAMETER / 12);
+		rightFollower.configureEncoder(Robot.driveTrain.getRightPos(), RobotMap.UNITS_PER_REVOLUTION, RobotMap.WHEEL_DIAMETER / 12);
+		Robot.driveTrain.invertLeftSide(RobotMap.LEFT_SIDE_INVERTED);
+		Robot.driveTrain.invertRightSide(RobotMap.RIGHT_SIDE_INVERTED);
 		start = false;
 	}
 
@@ -250,7 +238,8 @@ public class MotionProfileOnboardRunner {
 		if (start) {
 			double leftOutputRaw = leftFollower.calculate(Robot.driveTrain.getLeftPos());
 			double rightOutputRaw = rightFollower.calculate(Robot.driveTrain.getRightPos());
-			
+			SmartDashboard.putNumber("left output" , leftOutputRaw);
+			SmartDashboard.putNumber("right output" , rightOutputRaw);
 			double gyro_heading = Robot.gyro.getYaw(); // Get our angle in degrees from -180..180
 			double desired_heading = Pathfinder.r2d(leftFollower.getHeading());
 
@@ -287,8 +276,8 @@ public class MotionProfileOnboardRunner {
 	public void startMotionProfile() {
 		leftFollower.setTrajectory(getCurrentTrajectory().getLeftTrajectory());
 		rightFollower.setTrajectory(getCurrentTrajectory().getRightTrajectory());
-		leftFollower.configureEncoder(Robot.driveTrain.getLeftPos(), UNITS_PER_REVOLUTION, WHEEL_DIAMETER / 12);
-		rightFollower.configureEncoder(Robot.driveTrain.getRightPos(), UNITS_PER_REVOLUTION, WHEEL_DIAMETER / 12);
+		leftFollower.configureEncoder(Robot.driveTrain.getLeftPos(), RobotMap.UNITS_PER_REVOLUTION, RobotMap.WHEEL_DIAMETER / 12);
+		rightFollower.configureEncoder(Robot.driveTrain.getRightPos(), RobotMap.UNITS_PER_REVOLUTION, RobotMap.WHEEL_DIAMETER / 12);
 		start = true;
 	}
 	
@@ -304,8 +293,8 @@ public class MotionProfileOnboardRunner {
 	 */
 	public static double ft2Units(double feet) {
 		feet *= 12; // inches
-		feet /= WHEEL_DIAMETER * Math.PI; // revolutions
-		feet *= UNITS_PER_REVOLUTION; // Units
+		feet /= RobotMap.WHEEL_DIAMETER * Math.PI; // revolutions
+		feet *= RobotMap.UNITS_PER_REVOLUTION; // Units
 		return feet;
 	}
 
@@ -316,8 +305,8 @@ public class MotionProfileOnboardRunner {
 	 * @return encoder units
 	 */
 	public static double units2Ft(double units) {
-		units /= UNITS_PER_REVOLUTION; // revolutions
-		units *= WHEEL_DIAMETER * Math.PI; // inches
+		units /= RobotMap.UNITS_PER_REVOLUTION; // revolutions
+		units *= RobotMap.WHEEL_DIAMETER * Math.PI; // inches
 		units /= 12; // feet
 		
 		return units;
@@ -332,8 +321,8 @@ public class MotionProfileOnboardRunner {
 	public static double fps2UnitsPerRev(double fps) {
 		fps /= 10; // ft/100ms
 		fps *= 12; // in/100ms
-		fps /= WHEEL_DIAMETER * Math.PI; // revolutions/100ms
-		fps *= UNITS_PER_REVOLUTION; // Units/100ms
+		fps /= RobotMap.WHEEL_DIAMETER * Math.PI; // revolutions/100ms
+		fps *= RobotMap.UNITS_PER_REVOLUTION; // Units/100ms
 		return fps;
 	}
 }

@@ -21,9 +21,12 @@ public class MidSwitchLeft extends Path {
     	// First point is the starting position, last point is the end.
     	// Angles are in radians, positive Y is to the left, positive X is forward
     	points = new Waypoint[] {
-    			new Waypoint(3.22, 13.23, 0),
-    			new Waypoint(6, 15, Pathfinder.d2r(45)),
-    			new Waypoint(11.67, 18.01, 0)
+    			//new Waypoint(3.22, 13.23, 0),
+    			//new Waypoint(6, 15, Pathfinder.d2r(45)),
+    			//new Waypoint(11.67, 18.01, 0)
+    			new Waypoint(0, 0, 0),
+    			new Waypoint(3, 3, Pathfinder.d2r(90)),
+    			new Waypoint(6, 6, 0)
     	};
     	reverse = false;
     	generateTrajectoriesAndArrays();

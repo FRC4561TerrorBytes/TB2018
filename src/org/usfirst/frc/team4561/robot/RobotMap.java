@@ -49,6 +49,8 @@ public class RobotMap {
 	public static final int TRANSMISSION_SPEED_BUTTON = 5;
 	public static final int TRANSMISSION_TORQUE_BUTTON = 3;
 	
+	public static final int OUTTAKE_WEAK_BUTTON = 3;
+	
 	public static final double RIGHT_JOYSTICK_DEAD_ZONE = 0.25;
 	public static final double LEFT_JOYSTICK_DEAD_ZONE = 0.25;
 	public static final double RIGHT_JOYSTICK_REDUCTION = 0.25;
@@ -119,15 +121,25 @@ public class RobotMap {
 	
 	// Automode constraints
 	public static final double TIME_STEP = 0.05; // sec
-	public static final double WHEELBASE_WIDTH = 1.375; // ft: 1.865 for Delta (fudged fo 2.95), 1.375 for Kongo, 1.865 for Janderson
-	public static final double MAX_VELOCITY = 2; //ft/sec: 15.9 for Delta (decreased to 13.9) in speed gear
-	public static final double MAX_ACCELERATION = 0.3; // ft/s/s: 6 for Delta
+	public static final double WHEELBASE_WIDTH = 2.95; // ft: 1.865 for Delta (fudged fo 2.95), 1.375 for Kongo, 1.865 for Janderson
+	public static final double MAX_VELOCITY = 8; //ft/sec: 15.9 for Delta (decreased to 13.9) in speed gear
+	public static final double MAX_ACCELERATION = 2; // ft/s/s: 6 for Delta
 	public static final double MAX_JERK = 60.0; // ft/s/s/s
 	
-	public static final double UNITS_PER_10_ROBOT_REVOLUTIONS = 274700; // 274700 for Janderson
-	public static final double UNITS_PER_10_FEET = 40500; // 40500 for Janderson
+	public static final boolean LEFT_SIDE_INVERTED = false; // Delta: false, Kongo: false, Janderson: false
+	public static final boolean RIGHT_SIDE_INVERTED = true; // Delta: true, Kongo: true, Janderson: true
 	
-	public static final int OUTTAKE_WEAK_BUTTON = 3;
+	// Used for MotionProfileOnboardRunner
+	public static final double WHEEL_DIAMETER = 5; //inches: 5 for Delta, 6 for Kongo, 3.5 for Janderson
+	public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
+	public static final int UNITS_PER_REVOLUTION = (int)((RobotMap.UNITS_PER_10_FEET / 10.0 * (WHEEL_CIRCUMFERENCE / 12.0)) * 1.0); //encoder ticks: 7659 for Delta, 8192 for Kongo, 3700 for Janderson
+	public static final double UNITS_PER_10_ROBOT_REVOLUTIONS = 410000; // 410000 for Delta, 274700 for Janderson (currently unused), using WHEELBASE_WIDTH instead
+	public static final double UNITS_PER_10_FEET = 59500; // 59500 for Delta, 40500 for Janderson
+	public static final double MAX_UNITS_PER_100MS = 9900; // 9900 for Delta, 4011 for Janderson, 6450 for Kongo
+	public static final double MAX_UNITS_PER_SECOND = MAX_UNITS_PER_100MS * 10;
+	public static final double MAX_REVOLUTIONS_PER_SECOND = MAX_UNITS_PER_SECOND / UNITS_PER_REVOLUTION;
+	public static final double MAX_INCHES_PER_SECOND = MAX_REVOLUTIONS_PER_SECOND * WHEEL_DIAMETER * Math.PI;
+	public static final double MAX_FEET_PER_SECOND = MAX_INCHES_PER_SECOND / 12;
 
 	
 	// If you are using multiple modules, make sure to define both the port

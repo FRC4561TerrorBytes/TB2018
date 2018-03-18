@@ -36,7 +36,7 @@ public class AutoMidSwitchOnboardProfiling extends CommandGroup {
     	addSequential(new WaitCommand(delay));
 
     	addSequential(new SpeedGear());
-		addSequential(new ArmVertical());
+		//addSequential(new ArmVertical());
     	// wait preassigned time
     
     	// get side of switch from FMS

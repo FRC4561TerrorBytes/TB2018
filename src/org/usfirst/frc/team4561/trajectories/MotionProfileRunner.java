@@ -31,6 +31,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Notifier;
 
 import org.usfirst.frc.team4561.robot.Robot;
+import org.usfirst.frc.team4561.robot.RobotMap;
 import org.usfirst.frc.team4561.robot.subsystems.DriveTrainPID;
 
 import com.ctre.phoenix.motion.*;
@@ -42,9 +43,6 @@ import com.ctre.phoenix.motion.TrajectoryPoint.TrajectoryDuration;
  *
  */
 public class MotionProfileRunner {
-	
-	public static final double WHEEL_DIAMETER = 5; // inches
-	public static final int UNITS_PER_REVOLUTION = 7659; // encoder ticks
 	
 	public static Path leftScaleLeft = new LeftScaleLeft();
 	public static Path leftScaleRight = new LeftScaleRight();
@@ -249,8 +247,8 @@ public class MotionProfileRunner {
 		 */
 		leftTalon.clearMotionProfileTrajectories();
 		rightTalon.clearMotionProfileTrajectories();
-		Robot.driveTrain.invertLeftSide(DriveTrainPID.LEFT_SIDE_INVERTED);
-		Robot.driveTrain.invertRightSide(DriveTrainPID.RIGHT_SIDE_INVERTED);
+		Robot.driveTrain.invertLeftSide(RobotMap.LEFT_SIDE_INVERTED);
+		Robot.driveTrain.invertRightSide(RobotMap.RIGHT_SIDE_INVERTED);
 		/* When we do re-enter motionProfile control mode, stay disabled. */
 		setValue = SetValueMotionProfile.Disable;
 		/* When we do start running our state machine start at the beginning. */
@@ -472,13 +470,13 @@ public class MotionProfileRunner {
 				rightPoint.isLastPoint = true; /* set this to true on the last point  */
 
 			if (!currentTrajectory.isReversed()) {
-				Robot.driveTrain.invertLeftSide(!DriveTrainPID.LEFT_SIDE_INVERTED);
-				Robot.driveTrain.invertRightSide(!DriveTrainPID.RIGHT_SIDE_INVERTED);
+				Robot.driveTrain.invertLeftSide(!RobotMap.LEFT_SIDE_INVERTED);
+				Robot.driveTrain.invertRightSide(!RobotMap.RIGHT_SIDE_INVERTED);
 				leftTalon.pushMotionProfileTrajectory(leftPoint);
 				rightTalon.pushMotionProfileTrajectory(rightPoint);
 			} else {
-				Robot.driveTrain.invertLeftSide(DriveTrainPID.LEFT_SIDE_INVERTED);
-				Robot.driveTrain.invertRightSide(DriveTrainPID.RIGHT_SIDE_INVERTED);
+				Robot.driveTrain.invertLeftSide(RobotMap.LEFT_SIDE_INVERTED);
+				Robot.driveTrain.invertRightSide(RobotMap.RIGHT_SIDE_INVERTED);
 				leftTalon.pushMotionProfileTrajectory(rightPoint);
 				rightTalon.pushMotionProfileTrajectory(leftPoint);
 			}
@@ -510,8 +508,8 @@ public class MotionProfileRunner {
 	 */
 	double ft2Units(double feet) {
 		feet *= 12; // inches
-		feet /= WHEEL_DIAMETER * Math.PI; // revolutions
-		feet *= UNITS_PER_REVOLUTION; // Units
+		feet /= RobotMap.WHEEL_DIAMETER * Math.PI; // revolutions
+		feet *= RobotMap.UNITS_PER_REVOLUTION; // Units
 		return feet;
 	}
 	
@@ -524,8 +522,8 @@ public class MotionProfileRunner {
 	double fps2UnitsPerRev(double fps) {
 		fps /= 10; // ft/100ms
 		fps *= 12; // in/100ms
-		fps /= WHEEL_DIAMETER * Math.PI; // revolutions/100ms
-		fps *= UNITS_PER_REVOLUTION; // Units/100ms
+		fps /= RobotMap.WHEEL_DIAMETER * Math.PI; // revolutions/100ms
+		fps *= RobotMap.UNITS_PER_REVOLUTION; // Units/100ms
 		return fps;
 	}
 }

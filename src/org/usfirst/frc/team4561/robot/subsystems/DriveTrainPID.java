@@ -50,9 +50,6 @@ public class DriveTrainPID extends Subsystem {
 	private TalonSRX rearRight = new TalonSRX(RobotMap.BACK_RIGHT_MOTOR_PORT);
 	private TalonSRX rearLeft = new TalonSRX(RobotMap.BACK_LEFT_MOTOR_PORT);
 	
-	public static final boolean LEFT_SIDE_INVERTED = false; // Delta: false, Kongo: false, Janderson: true
-	public static final boolean RIGHT_SIDE_INVERTED = true; // Delta: true, Kongo: true, Janderson: false
-	
 	double angleAccum = 0;
 	double rateAccum = 0;
 	double angleAvg = 0;
@@ -83,16 +80,16 @@ public class DriveTrainPID extends Subsystem {
 		
 		rearLeft.set(follower, RobotMap.FRONT_LEFT_MOTOR_PORT);
 		
-		frontLeft.setInverted(LEFT_SIDE_INVERTED);
-		midLeft.setInverted(LEFT_SIDE_INVERTED);
-		rearLeft.setInverted(LEFT_SIDE_INVERTED);
+		frontLeft.setInverted(RobotMap.LEFT_SIDE_INVERTED);
+		midLeft.setInverted(RobotMap.LEFT_SIDE_INVERTED);
+		rearLeft.setInverted(RobotMap.LEFT_SIDE_INVERTED);
 		
-		frontRight.setInverted(RIGHT_SIDE_INVERTED);
-		midRight.setInverted(RIGHT_SIDE_INVERTED);
-		rearRight.setInverted(RIGHT_SIDE_INVERTED);
+		frontRight.setInverted(RobotMap.RIGHT_SIDE_INVERTED);
+		midRight.setInverted(RobotMap.RIGHT_SIDE_INVERTED);
+		rearRight.setInverted(RobotMap.RIGHT_SIDE_INVERTED);
 		
-		frontLeft.setSensorPhase(false); // TODO: SHOULD BE FALSE FOR DELTA
-		frontRight.setSensorPhase(true); // TODO: SHOULD BE FALSE FOR DELTA
+		frontLeft.setSensorPhase(true);
+		frontRight.setSensorPhase(true);
 		
 		gyro.calibrate();
 		
@@ -362,7 +359,7 @@ public class DriveTrainPID extends Subsystem {
 		return frontLeft.getSelectedSensorPosition(0);
 	}
 	public int getRightPos(){
-		return frontRight.getSelectedSensorPosition(0) * 2; // TODO: THIS IS ONLY FOR JANDERSON
+		return frontRight.getSelectedSensorPosition(0);
 	}
 	public void resetEncoders(){
 		frontLeft.setSelectedSensorPosition(0, 0, 0);
@@ -489,15 +486,15 @@ public class DriveTrainPID extends Subsystem {
 		frontLeft.configMotionProfileTrajectoryPeriod(0, 0);
 		frontLeft.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0); // Status 10 is also for motion profiling
 		frontLeft.setSelectedSensorPosition(0, 0, 0);
-		frontLeft.setInverted(LEFT_SIDE_INVERTED);
-		midLeft.setInverted(LEFT_SIDE_INVERTED);
-		rearLeft.setInverted(LEFT_SIDE_INVERTED);
+		frontLeft.setInverted(RobotMap.LEFT_SIDE_INVERTED);
+		midLeft.setInverted(RobotMap.LEFT_SIDE_INVERTED);
+		rearLeft.setInverted(RobotMap.LEFT_SIDE_INVERTED);
 		
 		frontRight.configMotionProfileTrajectoryPeriod(0, 0);
 		frontRight.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0); // Status 10 is also for motion profiling
 		frontRight.setSelectedSensorPosition(0, 0, 0);
-		frontRight.setInverted(RIGHT_SIDE_INVERTED);
-		midRight.setInverted(RIGHT_SIDE_INVERTED);
-		rearRight.setInverted(RIGHT_SIDE_INVERTED);
+		frontRight.setInverted(RobotMap.RIGHT_SIDE_INVERTED);
+		midRight.setInverted(RobotMap.RIGHT_SIDE_INVERTED);
+		rearRight.setInverted(RobotMap.RIGHT_SIDE_INVERTED);
 	}
 }
