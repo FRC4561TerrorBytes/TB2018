@@ -63,7 +63,7 @@ public class ElevatorPID extends Subsystem {
 	
 	public void resetGoal() {
 		goal = (int) getElevatorPos();
-		motorOne.set(ControlMode.Position, goal);
+		if (RobotMap.ELEVATOR_PID) motorOne.set(ControlMode.Position, goal);
 	}
 	public void set(double speed){
 		motorOne.set(ControlMode.PercentOutput, speed);

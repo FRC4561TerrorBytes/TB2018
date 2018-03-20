@@ -93,7 +93,7 @@ public class ArmPID extends Subsystem {
      */
     public void reset(){
     	goal = motorOne.getSelectedSensorPosition(0);
-    	motorOne.set(ControlMode.Position, goal);
+    	if (RobotMap.ARM_PID) motorOne.set(ControlMode.Position, goal);
     }
     public double getEncoderVelocity() {
     	return motorOne.getSelectedSensorVelocity(0);
