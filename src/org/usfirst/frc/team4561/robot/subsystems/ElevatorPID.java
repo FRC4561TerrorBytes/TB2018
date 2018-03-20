@@ -99,15 +99,15 @@ public class ElevatorPID extends Subsystem {
 	}
 	//Elevator position with Arm at scale height
 	public void ScalePositionMid() {
-		goal = 383; // 343
+		goal = 343;
 		if (RobotMap.ELEVATOR_PID) setToGoal();
 	}
 	public void ScalePositionLow(){
-		goal = 318; // 278
+		goal = 278;
 		if (RobotMap.ELEVATOR_PID) setToGoal();
 	}
 	public void ScalePositionHigh(){
-		goal = 500; // 460
+		goal = 460;
 		if (RobotMap.ELEVATOR_PID) setToGoal();
 	}
 	//Elevator position with Arm at scale height and arm flat
