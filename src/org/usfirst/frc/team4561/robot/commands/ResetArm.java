@@ -13,7 +13,7 @@ public class ResetArm extends Command {
 	}
 	
 	protected void execute(){
-		Robot.arm.reset();
+		Robot.arm.resetGoal();
 	}
 
 }
