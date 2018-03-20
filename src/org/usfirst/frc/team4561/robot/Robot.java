@@ -120,7 +120,7 @@ public class Robot extends IterativeRobot {
 	public void disabledInit() {
 		intake.stop();
 		elevator.resetGoal();
-		arm.reset();
+		arm.resetGoal();
 		driveTrain.stop();
 		motionProfileOnboardRunner.reset();
 	}
@@ -130,7 +130,7 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		intake.stop();
 		elevator.resetGoal();
-		arm.reset();
+		arm.resetGoal();
 		driveTrain.stop();
 		//arm.resetEncoder();
 	}
