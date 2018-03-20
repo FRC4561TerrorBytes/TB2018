@@ -10,6 +10,7 @@ import org.usfirst.frc.team4561.robot.commands.ElevatorSwitchPosition;
 import org.usfirst.frc.team4561.robot.commands.IntakeIn;
 import org.usfirst.frc.team4561.robot.commands.IntakeOutFull;
 import org.usfirst.frc.team4561.robot.commands.WaitUntilPositionPercent;
+import org.usfirst.frc.team4561.robot.commands.WaitUntilPositionPercentOnboard;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import jaci.pathfinder.Trajectory;

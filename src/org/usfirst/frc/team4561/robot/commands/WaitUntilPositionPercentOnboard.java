@@ -2,24 +2,28 @@ package org.usfirst.frc.team4561.robot.commands;
 
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.subsystems.DriveTrainPID;
+import org.usfirst.frc.team4561.trajectories.MotionProfileOnboardRunner;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class WaitUntilPositionPercent extends Command {
+public class WaitUntilPositionPercentOnboard extends Command {
 
 	double goal;
 	double startPos;
 	double fullPos;
 	Command toRunWhenComplete;
 	
-	public WaitUntilPositionPercent(double percent, double start, double end, Command toRunWhenComplete){
+	public WaitUntilPositionPercentOnboard(double percent){
 		goal = percent;
-		startPos = start*DriveTrainPID.kFeetToTicks;
-		fullPos = end*DriveTrainPID.kFeetToTicks;
-		this.toRunWhenComplete = toRunWhenComplete;
-		System.out.println("Starting at " + startPos + ", going until " + fullPos*percent + " out of " + fullPos);
-		Robot.driveTrain.resetEncoders();
 	}
+	
+	@Override
+	protected void initialize() {
+		startPos = MotionProfileOnboardRunner.ft2Units(Robot.motionProfileOnboardRunner.getCurrentTrajectory().getLeftArrayFirstPosition());
+		fullPos = MotionProfileOnboardRunner.ft2Units(Robot.motionProfileOnboardRunner.getCurrentTrajectory().getLeftArrayLastPosition());
+		System.out.println("Starting at " + startPos + ", going until " + fullPos*goal + " out of " + fullPos);
+	}
+	
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
@@ -36,7 +40,5 @@ public class WaitUntilPositionPercent extends Command {
 	protected void end(){
 		
 		System.out.println("WaitUntilPositionPercent finished at " + Math.abs(Robot.driveTrain.getLeftPos()) + "/" + Math.abs(fullPos*goal) + " out of " + Math.abs(fullPos));
-		
-		toRunWhenComplete.start();
 	}
 }

@@ -16,7 +16,7 @@ import org.usfirst.frc.team4561.robot.commands.TankDriveTimed;
 import org.usfirst.frc.team4561.robot.commands.TorqueGear;
 import org.usfirst.frc.team4561.robot.commands.TurnMagic;
 import org.usfirst.frc.team4561.robot.commands.WaitUntilOnboardTrajectoryFinished;
-import org.usfirst.frc.team4561.robot.commands.WaitUntilPositionPercent;
+import org.usfirst.frc.team4561.robot.commands.WaitUntilPositionPercentOnboard;
 import org.usfirst.frc.team4561.robot.commands.WaitUntilTrajectoryFinished;
 import org.usfirst.frc.team4561.trajectories.MotionProfileOnboardRunner;
 
@@ -43,7 +43,7 @@ public class AutoMidSwitchOnboardProfiling extends CommandGroup {
     	// on the left
     	if (!(Robot.switchFMSSideRight)) {
     		addSequential(new RunTrajectoryOnboard(MotionProfileOnboardRunner.TrajectorySelect.MidSwitchLeft));
-    		addSequential(new WaitUntilPositionPercent(0.5));
+    		addSequential(new WaitUntilPositionPercentOnboard(0.5));
     		addSequential(new ArmReleasePosition());
     		addSequential(new WaitUntilOnboardTrajectoryFinished());
     		addSequential(new IntakeRelease()); // drop power cube
@@ -53,7 +53,7 @@ public class AutoMidSwitchOnboardProfiling extends CommandGroup {
     	// on the right
     	else {
     		addSequential(new RunTrajectoryOnboard(MotionProfileOnboardRunner.TrajectorySelect.MidSwitchRight));
-    		addSequential(new WaitUntilPositionPercent(0.5));
+    		addSequential(new WaitUntilPositionPercentOnboard(0.5));
     		addSequential(new ArmReleasePosition());
     		addSequential(new WaitUntilOnboardTrajectoryFinished());
     		addSequential(new IntakeRelease()); // drop power cube

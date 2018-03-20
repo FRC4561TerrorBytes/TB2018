@@ -12,6 +12,7 @@ import org.usfirst.frc.team4561.robot.commands.Nothing;
 import org.usfirst.frc.team4561.robot.commands.RunTrajectory;
 import org.usfirst.frc.team4561.robot.commands.SpeedGear;
 import org.usfirst.frc.team4561.robot.commands.WaitUntilPositionPercent;
+import org.usfirst.frc.team4561.robot.commands.WaitUntilPositionPercentOnboard;
 import org.usfirst.frc.team4561.robot.commands.WaitUntilTrajectoryFinished;
 import org.usfirst.frc.team4561.trajectories.MotionProfileRunner;
 

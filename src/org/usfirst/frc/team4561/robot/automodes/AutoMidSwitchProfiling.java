@@ -15,6 +15,7 @@ import org.usfirst.frc.team4561.robot.commands.TankDriveTimed;
 import org.usfirst.frc.team4561.robot.commands.TorqueGear;
 import org.usfirst.frc.team4561.robot.commands.TurnMagic;
 import org.usfirst.frc.team4561.robot.commands.WaitUntilPositionPercent;
+import org.usfirst.frc.team4561.robot.commands.WaitUntilPositionPercentOnboard;
 import org.usfirst.frc.team4561.robot.commands.WaitUntilTrajectoryFinished;
 import org.usfirst.frc.team4561.trajectories.MotionProfileRunner;
 

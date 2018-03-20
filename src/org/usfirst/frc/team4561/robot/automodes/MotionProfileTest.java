@@ -2,7 +2,7 @@ package org.usfirst.frc.team4561.robot.automodes;
 
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.commands.DriveProfile;
-import org.usfirst.frc.team4561.robot.commands.WaitUntilPositionPercent;
+import org.usfirst.frc.team4561.robot.commands.WaitUntilPositionPercentOnboard;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import jaci.pathfinder.Trajectory;

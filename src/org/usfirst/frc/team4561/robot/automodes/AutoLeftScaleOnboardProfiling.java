@@ -10,7 +10,7 @@ import org.usfirst.frc.team4561.robot.commands.IntakeRelease;
 import org.usfirst.frc.team4561.robot.commands.IntakeStop;
 import org.usfirst.frc.team4561.robot.commands.RunTrajectory;
 import org.usfirst.frc.team4561.robot.commands.SpeedGear;
-import org.usfirst.frc.team4561.robot.commands.WaitUntilPositionPercent;
+import org.usfirst.frc.team4561.robot.commands.WaitUntilPositionPercentOnboard;
 import org.usfirst.frc.team4561.robot.commands.WaitUntilTrajectoryFinished;
 import org.usfirst.frc.team4561.trajectories.MotionProfileRunner;
 
@@ -33,9 +33,9 @@ double delay = Robot.oi.getDashboardDelaySlider();
     	// on the left
     	if (!(Robot.switchFMSSideRight)) {
     		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.LeftScaleLeft));
-    		addSequential(new WaitUntilPositionPercent(0.5));
+    		addSequential(new WaitUntilPositionPercentOnboard(0.5));
     		addSequential(new ElevatorScalePosition());
-    		addSequential(new WaitUntilPositionPercent(0.9));
+    		addSequential(new WaitUntilPositionPercentOnboard(0.9));
     		addSequential(new ArmReleasePosition());
     		addSequential(new IntakeRelease()); // drop power cubeq
     		addSequential(new WaitCommand(0.5));
@@ -47,8 +47,10 @@ double delay = Robot.oi.getDashboardDelaySlider();
     	// on the right
     	else {
     		addParallel(new RunTrajectory(MotionProfileRunner.TrajectorySelect.LeftScaleRight));
-    		addParallel(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.LeftScaleRight.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.LeftScaleRight.getLeftArrayLastPosition(), new ElevatorScalePosition()));
-    		addSequential(new WaitUntilPositionPercent(0.9, MotionProfileRunner.TrajectorySelect.LeftScaleRight.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.LeftScaleRight.getLeftArrayLastPosition(), new ArmReleasePosition()));
+    		addParallel(new WaitUntilPositionPercentOnboard(0.5));
+    		addSequential(new ElevatorScalePosition());
+    		addSequential(new WaitUntilPositionPercentOnboard(0.9));
+    		addSequential(new ArmReleasePosition());
     		addSequential(new IntakeRelease()); // drop power cubeq
     		addSequential(new WaitCommand(0.5));
     		addSequential(new IntakeStop());
