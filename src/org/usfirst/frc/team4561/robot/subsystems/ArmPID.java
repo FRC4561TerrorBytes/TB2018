@@ -86,15 +86,14 @@ public class ArmPID extends Subsystem {
     	return motorOne.getSelectedSensorPosition(0);
     }
     public void set(double speed){
-    		goal = goal + (int) (100*speed);
-    		if (RobotMap.ARM_PID) setToGoal();
-    		else motorOne.set(ControlMode.PercentOutput, 0.5*speed);
+    		motorOne.set(ControlMode.PercentOutput, speed);
     }
     /**
      * Gets the encoder velocity of the arm.
      */
     public void reset(){
     	goal = motorOne.getSelectedSensorPosition(0);
+    	motorOne.set(ControlMode.Position, goal);
     }
     public double getEncoderVelocity() {
     	return motorOne.getSelectedSensorVelocity(0);
