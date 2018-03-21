@@ -32,7 +32,7 @@ double delay = Robot.oi.getDashboardDelaySlider();
     	// get side of switch from FMS
     	//addSequential(new CheckSwitchSide());
     	// on the left
-    	if (!(Robot.switchFMSSideRight)) {
+    	if (!(Robot.scaleFMSSideRight)) {
     		addParallel(new RunTrajectory(MotionProfileRunner.TrajectorySelect.LeftScaleLeft));
     		addParallel(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.LeftScaleLeft.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.LeftScaleLeft.getLeftArrayLastPosition(), new ElevatorScalePosition()));
     		addSequential(new WaitUntilPositionPercent(0.9, MotionProfileRunner.TrajectorySelect.LeftScaleLeft.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.LeftScaleLeft.getLeftArrayLastPosition(), new ArmReleasePosition()));

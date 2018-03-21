@@ -12,6 +12,11 @@ public class WaitUntilPositionPercent extends Command {
 	double fullPos;
 	Command toRunWhenComplete;
 	
+	public WaitUntilPositionPercent(double percent, Command toRunWhenComplete) {
+		goal = percent;
+	}
+	
+	@Deprecated
 	public WaitUntilPositionPercent(double percent, double start, double end, Command toRunWhenComplete){
 		goal = percent;
 		startPos = start*DriveTrainPID.kFeetToTicks;
@@ -20,6 +25,13 @@ public class WaitUntilPositionPercent extends Command {
 		System.out.println("Starting at " + startPos + ", going until " + fullPos*percent + " out of " + fullPos);
 		Robot.driveTrain.resetEncoders();
 	}
+	
+	@Override
+	protected void initialize() {
+		startPos = Robot.motionProfileRunner.getCurrentTrajectory().getLeftArrayFirstPosition() * DriveTrainPID.kFeetToTicks;
+		fullPos = Robot.motionProfileRunner.getCurrentTrajectory().getLeftArrayLastPosition() * DriveTrainPID.kFeetToTicks;
+	}
+	
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub

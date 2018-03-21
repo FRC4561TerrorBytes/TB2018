@@ -37,7 +37,6 @@ public class AutoMidSwitchOnboardProfiling extends CommandGroup {
 
     	addSequential(new SpeedGear());
 		//addSequential(new ArmVertical());
-    	// wait preassigned time
     
     	// get side of switch from FMS
     	// on the left
@@ -47,7 +46,7 @@ public class AutoMidSwitchOnboardProfiling extends CommandGroup {
     		addSequential(new ArmReleasePosition());
     		addSequential(new WaitUntilOnboardTrajectoryFinished());
     		addSequential(new IntakeRelease()); // drop power cube
-    		addSequential(new WaitCommand(0.5));
+    		addSequential(new WaitCommand(2));
     		addSequential(new IntakeStop());
     	}
     	// on the right
@@ -57,7 +56,7 @@ public class AutoMidSwitchOnboardProfiling extends CommandGroup {
     		addSequential(new ArmReleasePosition());
     		addSequential(new WaitUntilOnboardTrajectoryFinished());
     		addSequential(new IntakeRelease()); // drop power cube
-    		addSequential(new WaitCommand(0.5));
+    		addSequential(new WaitCommand(2));
     		addSequential(new IntakeStop());
     	}
     }

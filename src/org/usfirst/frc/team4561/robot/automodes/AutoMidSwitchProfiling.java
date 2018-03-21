@@ -37,10 +37,7 @@ public class AutoMidSwitchProfiling extends CommandGroup {
     	addSequential(new SpeedGear());
 		addSequential(new ArmVertical());
 		addSequential(new ResetDrive());
-    	// wait preassigned time
     
-    	// get side of switch from FMS
-    	//addSequential(new CheckSwitchSide());
     	// on the left
     	if (!(Robot.switchFMSSideRight)) {
     		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidSwitchLeft));

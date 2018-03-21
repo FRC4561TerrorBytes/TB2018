@@ -21,9 +21,9 @@ public class RightScaleRight extends Path {
     	// First point is the starting position, last point is the end.
     	// Angles are in radians, positive Y is to the left, positive X is forward
     	points = new Waypoint[] {
-    			new Waypoint(3.22, 2.32, 0),
-    			    	new Waypoint(18, 6, 0),
-    				new Waypoint(24.88, 7.5, 0)
+    				new Waypoint(3.22, 3.58, 0),
+    				new Waypoint(20, 5.76, 0),
+    				new Waypoint(24.97, 6.80, 0)
     			};
     	reverse = false;
     	generateTrajectoriesAndArrays();

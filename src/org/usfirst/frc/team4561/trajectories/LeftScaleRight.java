@@ -21,10 +21,10 @@ public class LeftScaleRight extends Path {
     	// Angles are in radians, positive Y is to the left, positive X is forward
     	points = new Waypoint[] {
     			new Waypoint(3.22, 23.43, 0),
-    			new Waypoint(17, 23.43, Pathfinder.d2r(-15)),
-    			new Waypoint(20, 20, Pathfinder.d2r(-85)),
-    			new Waypoint(21, 9, Pathfinder.d2r(-50)),
-    			new Waypoint(24.97, 7.50, Pathfinder.d2r(0))
+    			new Waypoint(14, 23.43, Pathfinder.d2r(-4)),
+    			new Waypoint(19.5, 13.5, Pathfinder.d2r(-90)),
+    			new Waypoint(20, 8, Pathfinder.d2r(-70)),
+    			new Waypoint(24.97, 6.80, 0)
     	};
 
     	
