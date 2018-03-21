@@ -53,7 +53,7 @@ public class Gyroscope extends Subsystem {
 				DriverStation.reportError("Failed to connect to backup Gyro - is it plugged in?", false);
 			}
 		}
-		else {
+		else if (gyro.getActualUpdateRate() != 0) {
 			primary = true;
 			System.out.println("Main Gyro reconnected");
 		}
