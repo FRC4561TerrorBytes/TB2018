@@ -61,6 +61,10 @@ public class Intake extends Subsystem {
 	public void leftIntakeStop () {
 		intakeLeftMotor.set(0);
 	}
+	public void intakeForever() {
+		intakeLeftMotor.set(3.5/13.5);
+		intakeRightMotor.set(3.5/13.5);
+	}
 	public void rightIntakeStop () {
 		intakeRightMotor.set(0);
 	}

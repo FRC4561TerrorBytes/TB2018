@@ -29,6 +29,9 @@ public class IntakeDrive extends Command {
 		else if (Robot.oi.getLeftButton(RobotMap.OUTTAKE_WEAK_BUTTON)) {
 			Robot.intake.intakeOutWeak();
 		}
+		else if (Robot.oi.getControllerButton(RobotMap.INTAKE_INFINITE_BUTTON)) {
+			Robot.intake.intakeForever();
+		}
 		else{
 			Robot.intake.set(Robot.oi.getControllerLTrigger(), Robot.oi.getControllerRTrigger());
 		}
