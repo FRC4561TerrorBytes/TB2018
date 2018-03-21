@@ -18,10 +18,10 @@ import org.usfirst.frc.team4561.trajectories.MotionProfileOnboardRunner;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 
-public class AutoLeftScaleOnboardProfiling extends CommandGroup {
+public class AutoRightScaleOnboardProfiling extends CommandGroup {
 double delay = Robot.oi.getDashboardDelaySlider();
 	
-    public AutoLeftScaleOnboardProfiling() {
+    public AutoRightScaleOnboardProfiling() {
         
     	addSequential(new SpeedGear());
 		addSequential(new ArmVertical());
@@ -29,28 +29,28 @@ double delay = Robot.oi.getDashboardDelaySlider();
     	// wait preassigned time
     	addSequential(new WaitCommand(delay));
     
-    	// on the left
-    	if (!(Robot.scaleFMSSideRight)) {
-    		addSequential(new RunTrajectoryOnboard(MotionProfileOnboardRunner.TrajectorySelect.LeftScaleLeft));
+    	// on the right
+    	if (Robot.scaleFMSSideRight) {
+    		addSequential(new RunTrajectoryOnboard(MotionProfileOnboardRunner.TrajectorySelect.RightScaleRight));
     		addSequential(new WaitUntilPositionPercentOnboard(0.5));
     		addSequential(new ElevatorScalePosition());
     		addSequential(new WaitUntilPositionPercentOnboard(0.9));
     		addSequential(new ArmReleasePosition());
-    		addSequential(new IntakeRelease()); // drop power cube
+    		addSequential(new IntakeRelease()); // drop power cubeq
     		addSequential(new WaitCommand(0.5));
     		addSequential(new IntakeStop());
     		addSequential(new DriveMagic(-20, -20));
     		addSequential(new ArmVertical());
     		addSequential(new ElevatorGroundPosition());
     	}
-    	// on the right
+    	// on the left
     	else {
-    		addSequential(new RunTrajectoryOnboard(MotionProfileOnboardRunner.TrajectorySelect.LeftScaleRight));
+    		addSequential(new RunTrajectoryOnboard(MotionProfileOnboardRunner.TrajectorySelect.RightScaleLeft));
     		addSequential(new WaitUntilPositionPercentOnboard(0.5));
     		addSequential(new ElevatorScalePosition());
     		addSequential(new WaitUntilPositionPercentOnboard(0.9));
     		addSequential(new ArmReleasePosition());
-    		addSequential(new IntakeRelease()); // drop power cube
+    		addSequential(new IntakeRelease()); // drop power cubeq
     		addSequential(new WaitCommand(0.5));
     		addSequential(new IntakeStop());
     		addSequential(new DriveMagic(-20, -20));

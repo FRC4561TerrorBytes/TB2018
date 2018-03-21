@@ -385,6 +385,18 @@ public class Robot extends IterativeRobot {
 		case 6:
 			autonomousCommand = new AutoMidSwitchOnboardProfiling();
 			break;
+		case 7:
+			autonomousCommand = new AutoLeftScaleOnboardProfiling();
+			break;
+		case 8:
+			autonomousCommand = new AutoRightScaleOnboardProfiling();
+			break;
+		case 9:
+			autonomousCommand = new AutoTestProfiling();
+			break;
+		case 10:
+			autonomousCommand = new AutoTestOnboardProfiling();
+			break;
 		}
 
 		// schedule the autonomous command (example)

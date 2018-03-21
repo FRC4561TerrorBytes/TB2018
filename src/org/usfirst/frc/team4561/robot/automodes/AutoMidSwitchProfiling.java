@@ -41,7 +41,7 @@ public class AutoMidSwitchProfiling extends CommandGroup {
     	// on the left
     	if (!(Robot.switchFMSSideRight)) {
     		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidSwitchLeft));
-    		addParallel(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.MidSwitchLeft.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.MidSwitchLeft.getLeftArrayLastPosition(), new ArmReleasePosition()));
+    		addParallel(new WaitUntilPositionPercent(0.5, new ArmReleasePosition()));
     		addSequential(new WaitUntilTrajectoryFinished());
     		addSequential(new IntakeRelease()); // drop power cubeq
     		addSequential(new WaitCommand(0.5));
@@ -50,7 +50,7 @@ public class AutoMidSwitchProfiling extends CommandGroup {
     	// on the right
     	else {
     		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidSwitchRight));
-    		addParallel(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.MidSwitchRight.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.MidSwitchRight.getLeftArrayLastPosition(), new ArmReleasePosition()));
+    		addParallel(new WaitUntilPositionPercent(0.5, new ArmReleasePosition()));
     		addSequential(new WaitUntilTrajectoryFinished());
     		addSequential(new IntakeRelease()); // drop power cubeq
     		addSequential(new WaitCommand(0.5));

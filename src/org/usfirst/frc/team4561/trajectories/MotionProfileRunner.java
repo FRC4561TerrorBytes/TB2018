@@ -61,6 +61,7 @@ public class MotionProfileRunner {
 	public static Path midCubePile = new MidCubePile();
 	public static Path midCubePileReverse = new MidCubePileReverse();
 	public static Path midSwitchRightReverse = new MidSwitchRightReverse();
+	public static Path testTrajectory = new TestTrajectory();
 	
 	/**
 	 * All the different trajectories the robot can run.
@@ -81,7 +82,8 @@ public class MotionProfileRunner {
 		MidSwitchLeftReverse(midSwitchLeftReverse),
 		MidCubePile(midCubePile),
 		MidCubePileReversed(midCubePileReverse),
-		MidSwitchRightReverse(midSwitchRightReverse);
+		MidSwitchRightReverse(midSwitchRightReverse),
+		TestTrajectory(testTrajectory);
 		
 		Path trajectory;
 		TrajectorySelect(Path trajectory) {

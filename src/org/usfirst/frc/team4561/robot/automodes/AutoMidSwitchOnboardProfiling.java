@@ -36,9 +36,8 @@ public class AutoMidSwitchOnboardProfiling extends CommandGroup {
     	addSequential(new WaitCommand(delay));
 
     	addSequential(new SpeedGear());
-		//addSequential(new ArmVertical());
+		addSequential(new ArmVertical());
     
-    	// get side of switch from FMS
     	// on the left
     	if (!(Robot.switchFMSSideRight)) {
     		addSequential(new RunTrajectoryOnboard(MotionProfileOnboardRunner.TrajectorySelect.MidSwitchLeft));

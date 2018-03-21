@@ -8,7 +8,7 @@ import org.usfirst.frc.team4561.robot.commands.ElevatorGroundPosition;
 import org.usfirst.frc.team4561.robot.commands.ElevatorScalePosition;
 import org.usfirst.frc.team4561.robot.commands.IntakeRelease;
 import org.usfirst.frc.team4561.robot.commands.IntakeStop;
-import org.usfirst.frc.team4561.robot.commands.Nothing;
+import org.usfirst.frc.team4561.robot.commands.ResetDrive;
 import org.usfirst.frc.team4561.robot.commands.RunTrajectory;
 import org.usfirst.frc.team4561.robot.commands.SpeedGear;
 import org.usfirst.frc.team4561.robot.commands.WaitUntilPositionPercent;
@@ -26,33 +26,32 @@ double delay = Robot.oi.getDashboardDelaySlider();
         
     	addSequential(new SpeedGear());
 		addSequential(new ArmVertical());
+		addSequential(new ResetDrive());
 
     	// wait preassigned time
     	addSequential(new WaitCommand(delay));
     
-    	// get side of switch from FMS
-    	//addSequential(new CheckSwitchSide());
-    	// on the left
-    	if (!(Robot.switchFMSSideRight)) {
-    		addParallel(new RunTrajectory(MotionProfileRunner.TrajectorySelect.RightScaleLeft));
-    		addParallel(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.RightScaleLeft.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.RightScaleLeft.getLeftArrayLastPosition(), new ElevatorScalePosition()));
-    		addSequential(new WaitUntilPositionPercent(0.9, MotionProfileRunner.TrajectorySelect.RightScaleLeft.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.RightScaleLeft.getLeftArrayLastPosition(), new ArmReleasePosition()));
+    	// on the right
+    	if (Robot.scaleFMSSideRight) {
+    		addParallel(new RunTrajectory(MotionProfileRunner.TrajectorySelect.RightScaleRight));
+    		addParallel(new WaitUntilPositionPercent(0.5, new ElevatorScalePosition()));
+    		addParallel(new WaitUntilPositionPercent(0.9, new ArmReleasePosition()));
     		addSequential(new IntakeRelease()); // drop power cubeq
     		addSequential(new WaitCommand(0.5));
     		addSequential(new IntakeStop());
-    		addSequential(new DriveMagic(-10, -10));
+    		addSequential(new DriveMagic(-20, -20));
     		addSequential(new ArmVertical());
     		addSequential(new ElevatorGroundPosition());
     	}
-    	// on the right
+    	// on the left
     	else {
-    		addParallel(new RunTrajectory(MotionProfileRunner.TrajectorySelect.RightScaleRight));
-    		addParallel(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.RightScaleRight.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.RightScaleRight.getLeftArrayLastPosition(), new ElevatorScalePosition()));
-    		addSequential(new WaitUntilPositionPercent(0.9, MotionProfileRunner.TrajectorySelect.RightScaleRight.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.RightScaleRight.getLeftArrayLastPosition(), new ArmReleasePosition()));
+    		addParallel(new RunTrajectory(MotionProfileRunner.TrajectorySelect.RightScaleLeft));
+    		addParallel(new WaitUntilPositionPercent(0.5, new ElevatorScalePosition()));
+    		addParallel(new WaitUntilPositionPercent(0.9, new ArmReleasePosition()));
     		addSequential(new IntakeRelease()); // drop power cubeq
     		addSequential(new WaitCommand(0.5));
     		addSequential(new IntakeStop());
-    		addSequential(new DriveMagic(-10, -10));
+    		addSequential(new DriveMagic(-20, -20));
     		addSequential(new ArmVertical());
     		addSequential(new ElevatorGroundPosition());
     	}
