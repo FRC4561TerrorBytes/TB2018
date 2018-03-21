@@ -40,6 +40,7 @@ public class RobotMap {
 	
 	public static final int CONTROLLER_LEFT_INTAKE = 5;
 	public static final int CONTROLLER_RIGHT_INTAKE = 6;
+	public static final int INTAKE_INFINITE_BUTTON = 5;
 	
 	public static final int ARM_UP_POV = 0;
 	public static final int ARM_MIDDLE_POV1 = 90;
