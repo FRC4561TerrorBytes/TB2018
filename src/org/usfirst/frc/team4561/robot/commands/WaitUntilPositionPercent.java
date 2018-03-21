@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4561.robot.commands;
 
+import org.usfirst.frc.team4561.robot.OI;
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.subsystems.DriveTrainPID;
 
@@ -19,8 +20,8 @@ public class WaitUntilPositionPercent extends Command {
 	@Deprecated
 	public WaitUntilPositionPercent(double percent, double start, double end, Command toRunWhenComplete){
 		goal = percent;
-		startPos = start*DriveTrainPID.kFeetToTicks;
-		fullPos = end*DriveTrainPID.kFeetToTicks;
+		startPos = OI.ft2Units(start);
+		fullPos = OI.ft2Units(end);
 		this.toRunWhenComplete = toRunWhenComplete;
 		System.out.println("Starting at " + startPos + ", going until " + fullPos*percent + " out of " + fullPos);
 		Robot.driveTrain.resetEncoders();
@@ -28,8 +29,8 @@ public class WaitUntilPositionPercent extends Command {
 	
 	@Override
 	protected void initialize() {
-		startPos = Robot.motionProfileRunner.getCurrentTrajectory().getLeftArrayFirstPosition() * DriveTrainPID.kFeetToTicks;
-		fullPos = Robot.motionProfileRunner.getCurrentTrajectory().getLeftArrayLastPosition() * DriveTrainPID.kFeetToTicks;
+		startPos = OI.ft2Units(Robot.motionProfileRunner.getCurrentTrajectory().getLeftArrayFirstPosition());
+		fullPos = OI.ft2Units(Robot.motionProfileRunner.getCurrentTrajectory().getLeftArrayLastPosition());
 	}
 	
 	@Override
