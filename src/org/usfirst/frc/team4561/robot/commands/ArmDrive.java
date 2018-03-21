@@ -31,7 +31,9 @@ public class ArmDrive extends Command {
 			Robot.arm.UpPostition();
 		}
 		Robot.arm.set(-Robot.oi.getControllerLeftY());
-		if (RobotMap.ARM_PID) Robot.arm.setToGoal();
+		if (Robot.oi.getControllerLeftY() == 0 && RobotMap.ARM_PID) {
+			Robot.arm.setToGoal();
+		}
 //		if (Robot.arm.getEncoderVelocity() < 0){
 //			Robot.arm.setEncoderPos((int) (Robot.arm.getEncoderPosition()+Robot.arm.getEncoderVelocity()));
 //		}

@@ -80,13 +80,8 @@ public class DriveTrainPID extends Subsystem {
 		
 		rearLeft.set(follower, RobotMap.FRONT_LEFT_MOTOR_PORT);
 		
-		frontLeft.setInverted(RobotMap.LEFT_SIDE_INVERTED);
-		midLeft.setInverted(RobotMap.LEFT_SIDE_INVERTED);
-		rearLeft.setInverted(RobotMap.LEFT_SIDE_INVERTED);
-		
-		frontRight.setInverted(RobotMap.RIGHT_SIDE_INVERTED);
-		midRight.setInverted(RobotMap.RIGHT_SIDE_INVERTED);
-		rearRight.setInverted(RobotMap.RIGHT_SIDE_INVERTED);
+		invertLeftSide(RobotMap.LEFT_SIDE_INVERTED);
+		invertRightSide(RobotMap.RIGHT_SIDE_INVERTED);
 		
 		frontLeft.setSensorPhase(true);
 		frontRight.setSensorPhase(true);
