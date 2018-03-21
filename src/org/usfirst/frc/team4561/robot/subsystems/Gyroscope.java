@@ -42,7 +42,7 @@ public class Gyroscope extends Subsystem {
 		}
 		}
 	public void checkGyro() {
-		if (gyro.getActualUpdateRate() == 0) {
+		if (gyro.getActualUpdateRate() == 0 && primary) {
 			primary = false;
 			DriverStation.reportError("Failed to connect to Gyro - is it plugged in?", false);
 			try {
@@ -52,6 +52,10 @@ public class Gyroscope extends Subsystem {
 				real = false;
 				DriverStation.reportError("Failed to connect to backup Gyro - is it plugged in?", false);
 			}
+		}
+		else {
+			primary = true;
+			System.out.println("Main Gyro reconnected");
 		}
 	}
 	public double getPitch() {
