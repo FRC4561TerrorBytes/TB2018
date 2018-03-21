@@ -30,6 +30,7 @@ import com.ctre.phoenix.motorcontrol.can.*;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Notifier;
 
+import org.usfirst.frc.team4561.robot.OI;
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
 import org.usfirst.frc.team4561.robot.subsystems.DriveTrainPID;
@@ -431,8 +432,8 @@ public class MotionProfileRunner {
 			double leftPositionRaw = leftProfile[i][0]; // ft
 			double leftVelocityRaw = leftProfile[i][1]; // ft/sec
 			/* for each point, fill our structure and pass it to API */
-			leftPoint.position = ft2Units(leftPositionRaw);
-			leftPoint.velocity = fps2UnitsPerRev(leftVelocityRaw);
+			leftPoint.position = OI.ft2Units(leftPositionRaw);
+			leftPoint.velocity = OI.fps2UnitsPerRev(leftVelocityRaw);
 			
 			// SNEAKY PHOENIX CRAP:
 			// This TrajectoryDuration is only allowed to be 0, 5, 10, 20, 30, 40, 50, or 100.
@@ -454,8 +455,8 @@ public class MotionProfileRunner {
 			double rightVelocityRaw = rightProfile[i][1]; // ft/sec
 			/* for each point, fill our structure and pass it to API */
 			
-			rightPoint.position = ft2Units(rightPositionRaw);
-			rightPoint.velocity = fps2UnitsPerRev(rightVelocityRaw);
+			rightPoint.position = OI.ft2Units(rightPositionRaw);
+			rightPoint.velocity = OI.fps2UnitsPerRev(rightVelocityRaw);
 			
 			// SNEAKY PHOENIX CRAP:
 			// This TrajectoryDuration is only allowed to be 0, 5, 10, 20, 30, 40, 50, or 100.
@@ -498,32 +499,5 @@ public class MotionProfileRunner {
 	 */
 	public SetValueMotionProfile getSetValue() {
 		return setValue;
-	}
-	
-	/**
-	 * Converts feet to encoder units.
-	 * Uses {@value #WHEEL_DIAMETER}" for wheel diameter and {@value #UNITS_PER_REVOLUTION} for encoder units per revolution.
-	 * @param feet
-	 * @return encoder units
-	 */
-	double ft2Units(double feet) {
-		feet *= 12; // inches
-		feet /= RobotMap.WHEEL_DIAMETER * Math.PI; // revolutions
-		feet *= RobotMap.UNITS_PER_REVOLUTION; // Units
-		return feet;
-	}
-	
-	/**
-	 * Converts feet per second to encoder units per 100 milliseconds.
-	 * Uses {@value #WHEEL_DIAMETER}" for wheel diameter and {@value #UNITS_PER_REVOLUTION} for encoder units per revolution.
-	 * @param fps feet per second
-	 * @return encoder units per 100 milliseconds
-	 */
-	double fps2UnitsPerRev(double fps) {
-		fps /= 10; // ft/100ms
-		fps *= 12; // in/100ms
-		fps /= RobotMap.WHEEL_DIAMETER * Math.PI; // revolutions/100ms
-		fps *= RobotMap.UNITS_PER_REVOLUTION; // Units/100ms
-		return fps;
 	}
 }

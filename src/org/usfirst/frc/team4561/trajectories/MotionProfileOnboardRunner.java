@@ -284,45 +284,4 @@ public class MotionProfileOnboardRunner {
 	public boolean isFinished() {
 		return leftFollower.isFinished() && rightFollower.isFinished();
 	}
-	
-	/**
-	 * Converts feet to encoder units.
-	 * Uses {@value #WHEEL_DIAMETER}" for wheel diameter and {@value #UNITS_PER_REVOLUTION} for encoder units per revolution.
-	 * @param feet
-	 * @return encoder units
-	 */
-	public static double ft2Units(double feet) {
-		feet *= 12; // inches
-		feet /= RobotMap.WHEEL_DIAMETER * Math.PI; // revolutions
-		feet *= RobotMap.UNITS_PER_REVOLUTION; // Units
-		return feet;
-	}
-
-	/**
-	 * Converts feet to encoder units.
-	 * Uses {@value #WHEEL_DIAMETER}" for wheel diameter and {@value #UNITS_PER_REVOLUTION} for encoder units per revolution.
-	 * @param feet
-	 * @return encoder units
-	 */
-	public static double units2Ft(double units) {
-		units /= RobotMap.UNITS_PER_REVOLUTION; // revolutions
-		units *= RobotMap.WHEEL_DIAMETER * Math.PI; // inches
-		units /= 12; // feet
-		
-		return units;
-	}
-	
-	/**
-	 * Converts feet per second to encoder units per 100 milliseconds.
-	 * Uses {@value #WHEEL_DIAMETER}" for wheel diameter and {@value #UNITS_PER_REVOLUTION} for encoder units per revolution.
-	 * @param fps feet per second
-	 * @return encoder units per 100 milliseconds
-	 */
-	public static double fps2UnitsPerRev(double fps) {
-		fps /= 10; // ft/100ms
-		fps *= 12; // in/100ms
-		fps /= RobotMap.WHEEL_DIAMETER * Math.PI; // revolutions/100ms
-		fps *= RobotMap.UNITS_PER_REVOLUTION; // Units/100ms
-		return fps;
-	}
 }

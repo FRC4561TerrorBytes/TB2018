@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4561.trajectories;
 
+import org.usfirst.frc.team4561.robot.OI;
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
 
@@ -27,7 +28,7 @@ public class Path {
     	// Wheelbase Width (feet)
     	double wheelbaseWidth = RobotMap.UNITS_PER_10_ROBOT_REVOLUTIONS / 10.0;
     	wheelbaseWidth /= Math.PI; // Diameter in units
-    	wheelbaseWidth = Robot.motionProfileOnboardRunner.units2Ft(wheelbaseWidth);
+    	wheelbaseWidth = OI.units2Ft(wheelbaseWidth);
     	modifier = new TankModifier(trajectory).modify(RobotMap.WHEELBASE_WIDTH); // 1.865 (1.375 for kongo)
     	// Do something with the new Trajectories...
     	left = modifier.getLeftTrajectory();

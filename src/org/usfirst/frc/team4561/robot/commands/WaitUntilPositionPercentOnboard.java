@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4561.robot.commands;
 
+import org.usfirst.frc.team4561.robot.OI;
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.subsystems.DriveTrainPID;
 import org.usfirst.frc.team4561.trajectories.MotionProfileOnboardRunner;
@@ -19,8 +20,8 @@ public class WaitUntilPositionPercentOnboard extends Command {
 	
 	@Override
 	protected void initialize() {
-		startPos = MotionProfileOnboardRunner.ft2Units(Robot.motionProfileOnboardRunner.getCurrentTrajectory().getLeftArrayFirstPosition());
-		fullPos = MotionProfileOnboardRunner.ft2Units(Robot.motionProfileOnboardRunner.getCurrentTrajectory().getLeftArrayLastPosition());
+		startPos = OI.ft2Units(Robot.motionProfileOnboardRunner.getCurrentTrajectory().getLeftArrayFirstPosition());
+		fullPos = OI.ft2Units(Robot.motionProfileOnboardRunner.getCurrentTrajectory().getLeftArrayLastPosition());
 		System.out.println("Starting at " + startPos + ", going until " + fullPos*goal + " out of " + fullPos);
 	}
 	
