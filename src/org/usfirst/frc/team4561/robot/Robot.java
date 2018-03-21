@@ -138,6 +138,7 @@ public class Robot extends IterativeRobot {
 	public void robotPeriodic(){
 		motionProfileRunner.control();
 		motionProfileOnboardRunner.control();
+		gyro.checkGyro();
 		if (RobotMap.ARM_DEBUG){
 			SmartDashboard.putNumber("Arm/Encoder Position", Robot.arm.getEncoderPosition());
 	    	SmartDashboard.putNumber("Arm/Encoder Velocity", Robot.arm.getEncoderVelocity());
@@ -210,7 +211,9 @@ public class Robot extends IterativeRobot {
 			SmartDashboard.putNumber("Gyro/Position/XDis", gyro.getDisplacementX());
 			SmartDashboard.putNumber("Gyro/Position/YDis", gyro.getDisplacementY());
 			SmartDashboard.putNumber("Gyro/Position/ZDis", gyro.getDisplacementZ());
-			SmartDashboard.putBoolean("Gyro/Exists", gyro.exists());
+			SmartDashboard.putBoolean("Gyro/Primary Gyro", gyro.isBackup());
+			SmartDashboard.putBoolean("Gyro/Secondary Gyro", !gyro.isBackup());
+			SmartDashboard.putBoolean("Gyro/Is real", gyro.isReal());
 			SmartDashboard.putBoolean("Gyro/Tipping", gyro.isTipping());
 			SmartDashboard.putBoolean("Gyro/Tipped", gyro.isTipped());
 			SmartDashboard.putBoolean("Gyro/Moving", gyro.isMoving());
@@ -275,7 +278,7 @@ public class Robot extends IterativeRobot {
     			}
         		driveHealthy = false;
     		}
-    		else if (!gyro.isMoving() && !gyro.isRotating() && gyro.exists()) { //If we really aren't moving, we are likely just stalling
+    		else if (!gyro.isMoving() && !gyro.isRotating() && gyro.isBackup()) { //If we really aren't moving, we are likely just stalling
         		SmartDashboard.putString("DB/String 6", "!!DRIVETRAIN STALLING!!");
         		if (autoShiftTorque && !transmission.isTorque()) {
         			transmission.torqueGear();
@@ -301,8 +304,11 @@ public class Robot extends IterativeRobot {
     		SmartDashboard.putString("DB/String 6", "Drivetrain Healthy");
     		SmartDashboard.putString("DB/String 9", "");
     	}
-    	if (gyro.exists()) {
+    	if (gyro.isBackup()) {
     		SmartDashboard.putString("DB/String 5", "Gyroscope Healthy");
+    	}
+    	else if (gyro.isReal()) {
+    		SmartDashboard.putString("DB/String 5", "!!BACKUP GYROSCOPE!!");
     	}
     	else {
     		SmartDashboard.putString("DB/String 5", "!!CHECK GYROSCOPE!!");
@@ -326,6 +332,9 @@ public class Robot extends IterativeRobot {
     	}
     	else if (DriverStation.getInstance().isDisabled() && DriverStation.getInstance().getMatchTime() == 0) {
     		SmartDashboard.putString("DB/String 4", "No climb! :'(");
+    	}
+    	else if (gyro.isDisturbed()) {
+    		SmartDashboard.putString("DB/String 4", "Magnetic Disturbance");
     	}
     	else {
     		SmartDashboard.putString("DB/String 4", "");
