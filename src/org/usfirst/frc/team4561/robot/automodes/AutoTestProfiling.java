@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoTestProfiling extends CommandGroup {
 	public AutoTestProfiling(){
 		addSequential(new SpeedGear());
-		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidSwitchLeft));
+		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.TestTrajectory));
 		addParallel(new WaitUntilPositionPercent(0.5, new Nothing()));
 		addSequential(new WaitUntilTrajectoryFinished());
 		addSequential(new Nothing());

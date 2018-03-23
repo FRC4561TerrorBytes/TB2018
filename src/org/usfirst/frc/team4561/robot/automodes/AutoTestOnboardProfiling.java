@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoTestOnboardProfiling extends CommandGroup {
 	public AutoTestOnboardProfiling(){
 		addSequential(new SpeedGear());
-		addSequential(new RunTrajectoryOnboard(MotionProfileOnboardRunner.TrajectorySelect.MidSwitchLeft));
+		addSequential(new RunTrajectoryOnboard(MotionProfileOnboardRunner.TrajectorySelect.TestTrajectory));
 		addSequential(new WaitUntilPositionPercentOnboard(0.5));
 		addSequential(new WaitUntilTrajectoryFinished());
 		addSequential(new Nothing());

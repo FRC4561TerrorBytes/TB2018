@@ -39,9 +39,9 @@ double delay = Robot.oi.getDashboardDelaySlider();
     		addSequential(new IntakeRelease()); // drop power cubeq
     		addSequential(new WaitCommand(0.5));
     		addSequential(new IntakeStop());
-    		addSequential(new DriveMagic(-20, -20));
-    		addSequential(new ArmVertical());
-    		addSequential(new ElevatorGroundPosition());
+    		//addSequential(new DriveMagic(-20, -20));
+    		//addSequential(new ArmVertical());
+    		//addSequential(new ElevatorGroundPosition());
     	}
     	// on the left
     	else {
@@ -53,9 +53,9 @@ double delay = Robot.oi.getDashboardDelaySlider();
     		addSequential(new IntakeRelease()); // drop power cubeq
     		addSequential(new WaitCommand(0.5));
     		addSequential(new IntakeStop());
-    		addSequential(new DriveMagic(-20, -20));
-    		addSequential(new ArmVertical());
-    		addSequential(new ElevatorGroundPosition());
+    		//addSequential(new DriveMagic(-20, -20));
+    		//addSequential(new ArmVertical());
+    		//addSequential(new ElevatorGroundPosition());
     	}
     }
 }

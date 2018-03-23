@@ -30,7 +30,13 @@ public class ArmDrive extends Command {
 		else if (pov == RobotMap.ARM_UP_POV){
 			Robot.arm.UpPostition();
 		}
-		Robot.arm.set(-Robot.oi.getControllerLeftY());
+		if (Robot.oi.getControllerLeftY() != 0) {
+			double output = Math.copySign(Math.pow(Robot.oi.getControllerLeftY(), 4), -Robot.oi.getControllerLeftY());
+			if (output > 0 && output < 0.2) {
+				output = 0.2;
+			}
+			Robot.arm.set(output);
+		}
 		if (Robot.oi.getControllerLeftY() == 0 && RobotMap.ARM_PID) {
 			Robot.arm.setToGoal();
 		}

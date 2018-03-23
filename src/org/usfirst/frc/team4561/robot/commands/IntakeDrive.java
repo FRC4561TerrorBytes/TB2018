@@ -32,8 +32,12 @@ public class IntakeDrive extends Command {
 		else if (Robot.oi.getControllerButton(RobotMap.INTAKE_INFINITE_BUTTON)) {
 			Robot.intake.intakeForever();
 		}
-		else{
-			Robot.intake.set(Robot.oi.getControllerLTrigger(), Robot.oi.getControllerRTrigger());
+		else {
+			if (Robot.oi.getControllerButton(5)) {
+				Robot.intake.set(-Robot.oi.getControllerLTrigger(), -Robot.oi.getControllerRTrigger());
+			} else {
+				Robot.intake.set(Robot.oi.getControllerLTrigger(), Robot.oi.getControllerRTrigger());
+			}
 		}
 	}
 }

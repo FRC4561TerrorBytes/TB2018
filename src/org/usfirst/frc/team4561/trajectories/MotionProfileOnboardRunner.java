@@ -191,9 +191,9 @@ public class MotionProfileOnboardRunner {
 	EncoderFollower leftFollower = new EncoderFollower();
 	EncoderFollower rightFollower = new EncoderFollower();
 	
-	private final double kP = 0.1; // Proportional gain: 0.25 for Kongo
+	private final double kP = 0.35; // Proportional gain: 0.25 for Kongo
 	private final double kI = 0; // Integral gain (UNIMPLEMENTED in EncoderFollower)
-	private final double kD = 0; // Derivative gain
+	private final double kD = 0.1; // Derivative gain
 	private final double kV = 1.0 / RobotMap.MAX_FEET_PER_SECOND;
 	private final double kA = 0; // Should be able to be left at 0 if max accel is configured correctly in trajectory config
 	private final double kG = 0.075; //0.075; // Gyro gain: 0.075 for Kongo
@@ -213,8 +213,8 @@ public class MotionProfileOnboardRunner {
 	public MotionProfileOnboardRunner(TalonSRX leftTalon, TalonSRX rightTalon) {
 		this.leftTalon = leftTalon;
 		this.rightTalon = rightTalon;
-		leftFollower.configureEncoder(Robot.driveTrain.getLeftPos(), RobotMap.UNITS_PER_REVOLUTION, RobotMap.WHEEL_DIAMETER / 12);
-		rightFollower.configureEncoder(Robot.driveTrain.getRightPos(), RobotMap.UNITS_PER_REVOLUTION, RobotMap.WHEEL_DIAMETER / 12);
+		leftFollower.configureEncoder((int) (Robot.driveTrain.getLeftPos() * RobotMap.ONBOARD_ENCODER_MULTIPLIER), RobotMap.UNITS_PER_REVOLUTION, RobotMap.WHEEL_DIAMETER / 12);
+		rightFollower.configureEncoder((int) (Robot.driveTrain.getRightPos() * RobotMap.ONBOARD_ENCODER_MULTIPLIER), RobotMap.UNITS_PER_REVOLUTION, RobotMap.WHEEL_DIAMETER / 12);
 		leftFollower.configurePIDVA(kP, kI, kD, kV, kA);
 		rightFollower.configurePIDVA(kP, kI, kD, kV, kA);
 		notifier.startPeriodic(RobotMap.TIME_STEP); // TODO: Try turning up the time step and see how things change
@@ -225,8 +225,8 @@ public class MotionProfileOnboardRunner {
 	 * disabled and when Talon is not in MP control mode.
 	 */
 	public void reset() {
-		leftFollower.configureEncoder(Robot.driveTrain.getLeftPos(), RobotMap.UNITS_PER_REVOLUTION, RobotMap.WHEEL_DIAMETER / 12);
-		rightFollower.configureEncoder(Robot.driveTrain.getRightPos(), RobotMap.UNITS_PER_REVOLUTION, RobotMap.WHEEL_DIAMETER / 12);
+		leftFollower.configureEncoder((int) (Robot.driveTrain.getLeftPos() * RobotMap.ONBOARD_ENCODER_MULTIPLIER), RobotMap.UNITS_PER_REVOLUTION, RobotMap.WHEEL_DIAMETER / 12);
+		rightFollower.configureEncoder((int) (Robot.driveTrain.getRightPos() * RobotMap.ONBOARD_ENCODER_MULTIPLIER), RobotMap.UNITS_PER_REVOLUTION, RobotMap.WHEEL_DIAMETER / 12);
 		Robot.driveTrain.invertLeftSide(RobotMap.LEFT_SIDE_INVERTED);
 		Robot.driveTrain.invertRightSide(RobotMap.RIGHT_SIDE_INVERTED);
 		start = false;
@@ -238,8 +238,8 @@ public class MotionProfileOnboardRunner {
 	public void control() {
 		// TODO: Does not respect reversed trajectories.
 		if (start) {
-			double leftOutputRaw = leftFollower.calculate(Robot.driveTrain.getLeftPos());
-			double rightOutputRaw = rightFollower.calculate(Robot.driveTrain.getRightPos());
+			double leftOutputRaw = leftFollower.calculate((int) (Robot.driveTrain.getLeftPos() * RobotMap.ONBOARD_ENCODER_MULTIPLIER));
+			double rightOutputRaw = rightFollower.calculate((int) (Robot.driveTrain.getRightPos() * RobotMap.ONBOARD_ENCODER_MULTIPLIER));
 			SmartDashboard.putNumber("left output" , leftOutputRaw);
 			SmartDashboard.putNumber("right output" , rightOutputRaw);
 			double gyro_heading = Robot.gyro.getYaw(); // Get our angle in degrees from -180..180
@@ -278,8 +278,8 @@ public class MotionProfileOnboardRunner {
 	public void startMotionProfile() {
 		leftFollower.setTrajectory(getCurrentTrajectory().getLeftTrajectory());
 		rightFollower.setTrajectory(getCurrentTrajectory().getRightTrajectory());
-		leftFollower.configureEncoder(Robot.driveTrain.getLeftPos(), RobotMap.UNITS_PER_REVOLUTION, RobotMap.WHEEL_DIAMETER / 12);
-		rightFollower.configureEncoder(Robot.driveTrain.getRightPos(), RobotMap.UNITS_PER_REVOLUTION, RobotMap.WHEEL_DIAMETER / 12);
+		leftFollower.configureEncoder((int) (Robot.driveTrain.getLeftPos() * RobotMap.ONBOARD_ENCODER_MULTIPLIER), RobotMap.UNITS_PER_REVOLUTION, RobotMap.WHEEL_DIAMETER / 12);
+		rightFollower.configureEncoder((int) (Robot.driveTrain.getRightPos() * RobotMap.ONBOARD_ENCODER_MULTIPLIER), RobotMap.UNITS_PER_REVOLUTION, RobotMap.WHEEL_DIAMETER / 12);
 		start = true;
 	}
 	

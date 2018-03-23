@@ -43,8 +43,8 @@ public class Intake extends Subsystem {
 		intakeRightMotor.set(1);
 	}
 	public void intakeIn(){
-		intakeLeftMotor.set(0.75);
-		intakeRightMotor.set(0.75);
+		intakeLeftMotor.set(0.8);
+		intakeRightMotor.set(0.8);
 	}
 	public void intakeOutHalf(){
 		intakeLeftMotor.set(-0.35);

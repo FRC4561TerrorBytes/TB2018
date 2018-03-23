@@ -15,6 +15,7 @@ public class WaitUntilPositionPercent extends Command {
 	
 	public WaitUntilPositionPercent(double percent, Command toRunWhenComplete) {
 		goal = percent;
+		this.toRunWhenComplete = toRunWhenComplete;
 	}
 	
 	@Deprecated

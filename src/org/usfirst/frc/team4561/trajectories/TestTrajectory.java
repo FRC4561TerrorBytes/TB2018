@@ -24,6 +24,8 @@ public class TestTrajectory extends Path {
     			new Waypoint(0, 0, 0),
     			new Waypoint(4, 4, Pathfinder.d2r(90)),
     			new Waypoint(8, 8, 0)
+//    			new Waypoint(0, 0, 0),
+//    			new Waypoint(8, 0, 0),
     	};
     	reverse = false;
     	generateTrajectoriesAndArrays();
