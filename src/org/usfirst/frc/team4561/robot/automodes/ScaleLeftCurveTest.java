@@ -9,8 +9,6 @@ import org.usfirst.frc.team4561.robot.commands.ElevatorGroundPosition;
 import org.usfirst.frc.team4561.robot.commands.ElevatorScalePosition;
 import org.usfirst.frc.team4561.robot.commands.IntakeRelease;
 import org.usfirst.frc.team4561.robot.commands.SpeedGear;
-import org.usfirst.frc.team4561.robot.commands.TorqueGear;
-import org.usfirst.frc.team4561.robot.commands.TurnMagic;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;

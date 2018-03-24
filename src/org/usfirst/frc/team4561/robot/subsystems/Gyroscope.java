@@ -81,7 +81,7 @@ public class Gyroscope extends Subsystem {
 		else if (real) return backupGyro.getRate();
 		else return 0;
 	}
-	public boolean isBackup() {
+	public boolean isPrimary() {
 		return primary;
 	}
 	public double getHead() {

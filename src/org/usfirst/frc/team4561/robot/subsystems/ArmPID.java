@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import org.usfirst.frc.team4561.robot.RobotMap;
-import org.usfirst.frc.team4561.robot.commands.ArmDrive;
 
 import com.ctre.phoenix.ParamEnum;
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -39,10 +38,11 @@ public class ArmPID extends Subsystem {
 		motorOne.configNominalOutputForward(0, 0);
 		motorOne.configNominalOutputReverse(0, 0);
 		motorOne.configAllowableClosedloopError(0, 5, 0);
+		motorOne.enableCurrentLimit(false);
 	}
 	// Arm on ground to intake block
 	public void IntakePosition() {
-		goal = -1110;
+		goal = -1120;
 		if (RobotMap.ARM_PID) setToGoal();
 		if (RobotMap.ARM_DEBUG) {
 			System.out.println("[Subsystem] ArmPID: Down to Intake Position");
@@ -51,6 +51,10 @@ public class ArmPID extends Subsystem {
 	public double getVoltage(){
 		return motorOne.getMotorOutputVoltage();
 	}
+	public void limit() {
+		motorOne.configPeakCurrentLimit(40, 0);
+		motorOne.enableCurrentLimit(true);
+		}
 	//Arm in straight release position
 	public void ReleasePosition() {
 		goal = -1000;
@@ -94,6 +98,9 @@ public class ArmPID extends Subsystem {
     public void resetGoal(){
     	goal = motorOne.getSelectedSensorPosition(0);
     	if (RobotMap.ARM_PID) motorOne.set(ControlMode.Position, goal);
+    }
+    public void resetBetter() {
+    	goal = motorOne.getSelectedSensorPosition(0);
     }
     public double getEncoderVelocity() {
     	return motorOne.getSelectedSensorVelocity(0);

@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team4561.robot.automodes.AutoDriveToLine;
 import org.usfirst.frc.team4561.robot.commands.*;
 import org.usfirst.frc.team4561.robot.triggers.*;
 
@@ -32,6 +31,8 @@ public class OI {
 	private static JoystickButton speedButton = new JoystickButton(rightStick, RobotMap.TRANSMISSION_SPEED_BUTTON);
 	private static JoystickButton torqueButton = new JoystickButton(rightStick, RobotMap.TRANSMISSION_TORQUE_BUTTON);
 	
+	private static JoystickButton bobClawButton = new JoystickButton(leftStick, RobotMap.BOB_CLAW_BUTTON);
+	
 	public static Trigger startElevatorRelative;
 	public static Trigger toggleArmPID;
 	public static Trigger toggleElevatorPID;
@@ -45,6 +46,9 @@ public class OI {
 		
 		speedButton.whenPressed(new SpeedGear());
 		torqueButton.whenPressed(new TorqueGear());
+		
+		bobClawButton.whenPressed(new OpenBobClaw());
+		bobClawButton.whenReleased(new BobClawClose());
 		
 		//controllerIntake.whileHeld(new IntakeIn());
 		//controllerIntakeLeft.whileHeld(new IntakeLeft());

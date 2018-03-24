@@ -3,16 +3,12 @@ package org.usfirst.frc.team4561.robot.automodes;
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.commands.ArmReleasePosition;
 import org.usfirst.frc.team4561.robot.commands.ArmVertical;
-import org.usfirst.frc.team4561.robot.commands.DriveMagic;
-import org.usfirst.frc.team4561.robot.commands.ElevatorGroundPosition;
 import org.usfirst.frc.team4561.robot.commands.ElevatorScalePosition;
 import org.usfirst.frc.team4561.robot.commands.IntakeRelease;
 import org.usfirst.frc.team4561.robot.commands.IntakeStop;
-import org.usfirst.frc.team4561.robot.commands.RunTrajectory;
 import org.usfirst.frc.team4561.robot.commands.RunTrajectoryOnboard;
 import org.usfirst.frc.team4561.robot.commands.SpeedGear;
 import org.usfirst.frc.team4561.robot.commands.WaitUntilPositionPercentOnboard;
-import org.usfirst.frc.team4561.robot.commands.WaitUntilTrajectoryFinished;
 import org.usfirst.frc.team4561.trajectories.MotionProfileOnboardRunner;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;

@@ -2,7 +2,6 @@ package org.usfirst.frc.team4561.robot.subsystems;
 
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
-import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team4561.robot.commands.TankDrive;
 
 import com.ctre.phoenix.motion.MotionProfileStatus;
@@ -13,12 +12,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.hal.HAL;
-import edu.wpi.first.wpilibj.hal.FRCNetComm.tInstances;
-import edu.wpi.first.wpilibj.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
@@ -55,7 +49,6 @@ public class DriveTrainPID extends Subsystem {
 	double angleAvg = 0;
 	double rateAvg = 0;
 	
-	private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
 
 	double leftSpeed;
 	double rightSpeed;
@@ -86,7 +79,6 @@ public class DriveTrainPID extends Subsystem {
 		frontLeft.setSensorPhase(true); // Delta: false (true for onboard)
 		frontRight.setSensorPhase(true); // Delta: false (true for onboard)
 		
-		gyro.calibrate();
 		
 		double kP = 0.35;
 		double kI = 0.01;
@@ -124,7 +116,9 @@ public class DriveTrainPID extends Subsystem {
 		frontLeft.configPeakOutputReverse(-1, 0);
 		frontLeft.setStatusFramePeriod(StatusFrameEnhanced.Status_13_Base_PIDF0, 10, 0);
 		frontLeft.setStatusFramePeriod(StatusFrameEnhanced.Status_10_MotionMagic, 10, 0);
-		gyro.calibrate();
+		
+		frontLeft.enableCurrentLimit(false);
+		frontRight.enableCurrentLimit(false);
 	}		
 	
 	//Set the right and left sides of the robots to speeds based on input speed and rotation
@@ -172,7 +166,13 @@ public class DriveTrainPID extends Subsystem {
 			frontLeft.set(ControlMode.PercentOutput, leftMotorOutput);
 		}
 	}
-		
+	
+	public void limit() {
+		frontRight.configPeakCurrentLimit(40, 0);
+		frontLeft.configPeakCurrentLimit(40, 0);
+		frontRight.enableCurrentLimit(true);
+		frontLeft.enableCurrentLimit(true);
+	}
 	//Set the right and left sides of the robot to speeds based on input speeds in both motor sides.
 	public void tankDrive(double leftSpeed, double rightSpeed) { 
 			
@@ -293,7 +293,6 @@ public class DriveTrainPID extends Subsystem {
 		System.out.println("Turning to " + target);
 		double kP = 0.0035;
 		double kI = 0.000025;
-		double kD = 0.035;
 		double angle = getGyroAngle();
 		double error = target-Math.abs(angle);
 		double angleAccum = 0;
@@ -393,13 +392,10 @@ public class DriveTrainPID extends Subsystem {
     
 
 	public double getGyroAngle(){
-		return gyro.getAngle();
+		return Robot.gyro.getAngle();
 	}
 	public double getGyroRate(){
-		return gyro.getRate();
-	}
-	public void resetGyro(){
-		gyro.reset();
+		return Robot.gyro.getRate();
 	}
 	public double getLeftError(){
 		return frontLeft.getClosedLoopError(0);
@@ -457,6 +453,7 @@ public class DriveTrainPID extends Subsystem {
 		return value;
    }
 
+	@SuppressWarnings({ "unused" })
 	@Override
 	protected void initDefaultCommand() {
 		if (RobotMap.DRIVE_MODE == 1){

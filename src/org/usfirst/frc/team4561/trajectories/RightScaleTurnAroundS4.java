@@ -1,10 +1,5 @@
 package org.usfirst.frc.team4561.trajectories;
-import org.usfirst.frc.team4561.robot.RobotMap;
-
-import jaci.pathfinder.Pathfinder;
-import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
-import jaci.pathfinder.modifiers.TankModifier;
 
 /**
  * Trajectory from right scale position to pivot position.

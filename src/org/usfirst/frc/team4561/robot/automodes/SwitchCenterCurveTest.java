@@ -7,7 +7,6 @@ import org.usfirst.frc.team4561.robot.commands.ArmVertical;
 import org.usfirst.frc.team4561.robot.commands.DriveMagic;
 import org.usfirst.frc.team4561.robot.commands.IntakeRelease;
 import org.usfirst.frc.team4561.robot.commands.SpeedGear;
-import org.usfirst.frc.team4561.robot.commands.TurnMagic;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;

@@ -1,9 +1,9 @@
 package org.usfirst.frc.team4561.robot.commands;
 
 import org.usfirst.frc.team4561.robot.Robot;
+import org.usfirst.frc.team4561.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ElevatorDrive extends Command {
 
@@ -49,7 +49,17 @@ public class ElevatorDrive extends Command {
 				Robot.elevator.ScalePositionMidArmFlat();
 			}
 		}
-		Robot.elevator.set(-Robot.oi.getControllerRightY());
+		if (Robot.oi.getControllerRightY() != 0) {
+			double output = Math.copySign(Math.pow(Robot.oi.getControllerRightY(), 4), -Robot.oi.getControllerRightY());
+			if (output > 0 && output < 0.2) {
+				output = output;//0.2; //TODO: Tune later
+			}
+			Robot.elevator.set(-Robot.oi.getControllerRightY());
+			Robot.elevator.resetBetter();
+		}
+		if (Robot.oi.getControllerRightY() == 0 && RobotMap.ELEVATOR_PID) {
+			Robot.elevator.setToGoal();
+		}
 		
 		//SmartDashboard.putNumber("Elevator Pos", Robot.elevator.getElevatorPos());
 	}

@@ -1,10 +1,6 @@
 package org.usfirst.frc.team4561.trajectories;
-import org.usfirst.frc.team4561.robot.RobotMap;
-
 import jaci.pathfinder.Pathfinder;
-import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
-import jaci.pathfinder.modifiers.TankModifier;
 
 /**
  * Trajectory from the ending point of ScaleRightTurnAround to the second to right cube at the switch.

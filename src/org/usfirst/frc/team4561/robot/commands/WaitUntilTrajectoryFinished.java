@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4561.robot.commands;
 
 import org.usfirst.frc.team4561.robot.Robot;
-import org.usfirst.frc.team4561.robot.subsystems.DriveTrainPID;
 
 import com.ctre.phoenix.motion.SetValueMotionProfile;
 

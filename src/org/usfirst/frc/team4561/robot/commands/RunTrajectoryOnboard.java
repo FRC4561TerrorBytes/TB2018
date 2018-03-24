@@ -3,9 +3,6 @@ package org.usfirst.frc.team4561.robot.commands;
 import org.usfirst.frc.team4561.trajectories.MotionProfileOnboardRunner;
 import org.usfirst.frc.team4561.robot.Robot;
 
-import com.ctre.phoenix.motion.SetValueMotionProfile;
-import com.ctre.phoenix.motorcontrol.ControlMode;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 /**

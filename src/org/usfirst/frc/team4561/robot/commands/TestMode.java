@@ -3,7 +3,6 @@ package org.usfirst.frc.team4561.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team4561.robot.Robot;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class TestMode extends Command{
     

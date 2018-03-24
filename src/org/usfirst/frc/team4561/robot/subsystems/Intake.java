@@ -1,16 +1,14 @@
 package org.usfirst.frc.team4561.robot.subsystems;
 
-import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
-import org.usfirst.frc.team4561.robot.commands.IntakeDrive;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * This is the Intake subsystem
  * @author Karth, Lucas
@@ -25,6 +23,8 @@ public class Intake extends Subsystem {
 	private WPI_TalonSRX intakeRightMotor; 
 	// Cube Detector
 	public DigitalInput cubeDetector = new DigitalInput(0);
+	//BobClaw
+	public DoubleSolenoid bobClaw = new DoubleSolenoid(7, 6);
 	
 	public Intake () {
 		intakeLeftMotor = new WPI_TalonSRX (RobotMap.INTAKE_LEFT_MOTOR_PORT);
@@ -33,6 +33,24 @@ public class Intake extends Subsystem {
 		intakeRightMotor.setInverted(true);
 		intakeLeftMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		intakeRightMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+	}
+	
+	public void bobClawOpen() {
+		//Open the claw
+		bobClaw.set(Value.kForward);
+	}
+	
+	public void bobClawClose() {
+		//Close the claw
+		bobClaw.set(Value.kReverse);
+	}
+	
+	public void bobStop() {
+		bobClaw.set(Value.kOff);
+	}
+	
+	public String bobState() {
+		return bobClaw.get().toString();
 	}
 	
 	//Intake speed

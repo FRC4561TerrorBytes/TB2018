@@ -2,7 +2,6 @@ package org.usfirst.frc.team4561.robot.automodes;
 
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.commands.*;
-import org.usfirst.frc.team4561.robot.subsystems.Intake;
 import org.usfirst.frc.team4561.trajectories.MotionProfileRunner;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -11,7 +10,8 @@ import edu.wpi.first.wpilibj.command.WaitCommand;
 public class AutoTwoSwitchCube extends CommandGroup {
 double delay = Robot.oi.getDashboardDelaySlider();
 	
-    public AutoTwoSwitchCube() {
+    @SuppressWarnings("deprecation")
+	public AutoTwoSwitchCube() {
         
     	addSequential(new SpeedGear());
 		addSequential(new ArmVertical());

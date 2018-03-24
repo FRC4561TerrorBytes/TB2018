@@ -7,10 +7,7 @@ import org.usfirst.frc.team4561.robot.Robot;
 */
 import org.usfirst.frc.team4561.robot.RobotMap;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *This is the TorqueGear command

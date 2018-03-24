@@ -3,7 +3,6 @@ package org.usfirst.frc.team4561.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
-import org.usfirst.frc.team4561.robot.subsystems.DriveTrain;
 
 /**
  * This command drives in tank mode for a set time.

@@ -5,12 +5,9 @@ import org.usfirst.frc.team4561.robot.RobotMap;
 * @author Krishna P
 */
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  *This is the Transmission subsystem
  * @author Krishna
@@ -20,7 +17,8 @@ public class Transmission extends Subsystem {
 	
 	private DoubleSolenoid doubleSolenoidTransLeft = new DoubleSolenoid(RobotMap.PCM, RobotMap.TRANSMISSION_SOLENOID_PORT, RobotMap.TRANSMISSION_SOLENOID_PORT_TWO);
 	private DoubleSolenoid doubleSolenoidTransRight = new DoubleSolenoid(RobotMap.PCM, RobotMap.TRANSMISSION_SOLENOID_TWO_PORT, RobotMap.TRANSMISSION_SOLENOID_TWO_PORT_TWO);
-	private Solenoid funSolenoid = new Solenoid(RobotMap.PCM, 7);
+	@SuppressWarnings("unused")
+	private Solenoid funSolenoid = new Solenoid(RobotMap.PCM, 5); //This exists because the compressor doesn't run without a solenoid in the code
 	public Transmission() {
 	}
 	

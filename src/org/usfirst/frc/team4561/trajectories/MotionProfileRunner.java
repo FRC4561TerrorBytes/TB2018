@@ -33,7 +33,6 @@ import edu.wpi.first.wpilibj.Notifier;
 import org.usfirst.frc.team4561.robot.OI;
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
-import org.usfirst.frc.team4561.robot.subsystems.DriveTrainPID;
 
 import com.ctre.phoenix.motion.*;
 import com.ctre.phoenix.motion.TrajectoryPoint.TrajectoryDuration;

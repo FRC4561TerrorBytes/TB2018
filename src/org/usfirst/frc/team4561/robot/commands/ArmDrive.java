@@ -36,6 +36,7 @@ public class ArmDrive extends Command {
 				output = 0.2;
 			}
 			Robot.arm.set(output);
+			Robot.arm.resetBetter();
 		}
 		if (Robot.oi.getControllerLeftY() == 0 && RobotMap.ARM_PID) {
 			Robot.arm.setToGoal();

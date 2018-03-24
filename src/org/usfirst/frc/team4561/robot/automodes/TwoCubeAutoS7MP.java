@@ -12,7 +12,8 @@ import jaci.pathfinder.*;
  */
 public class TwoCubeAutoS7MP extends CommandGroup {
 
-    public TwoCubeAutoS7MP() {
+    @SuppressWarnings("deprecation")
+	public TwoCubeAutoS7MP() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

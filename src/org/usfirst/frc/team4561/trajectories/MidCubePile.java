@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4561.trajectories;
 
-import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Waypoint;
 
 public class MidCubePile extends Path {

@@ -10,9 +10,8 @@
 package org.usfirst.frc.team4561.robot;
 
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -23,7 +22,6 @@ import org.usfirst.frc.team4561.robot.automodes.*;
 import org.usfirst.frc.team4561.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team4561.robot.commands.ArmDrive;
 import org.usfirst.frc.team4561.robot.commands.CheckScaleSide;
-import org.usfirst.frc.team4561.robot.commands.CheckSwitchSide;
 import org.usfirst.frc.team4561.robot.commands.ElevatorDrive;
 import org.usfirst.frc.team4561.robot.commands.IntakeDrive;
 import org.usfirst.frc.team4561.robot.commands.ResetArm;
@@ -61,7 +59,6 @@ public class Robot extends IterativeRobot {
 	
 	public static boolean switchFMSSideRight; // true if right, false if left
 	public static boolean scaleFMSSideRight; // true if right, false if left
-	private Command getFieldData;
 	public static final Path midScaleRightCSV = new WallToRightScaleCSV();
 	public static Path midSwitchLeft;
 	public static final Path leftScaleLeft = new LeftScaleLeft();
@@ -81,21 +78,27 @@ public class Robot extends IterativeRobot {
 	public static boolean armHealthy = true;
 	public static boolean driveHealthy = true;
 	public static boolean driveStalling = false;
+	public static boolean hasBrownouted = false;
+	
+	public static boolean brownoutPrevention = false; //If true, limits power consumption if brownout is detected
+													  //TODO: tune the limits to make them good
 	
 	public static boolean autoDisableElvPID = false; //If true, disables elevator PID if a problem is detected with the sensor
 	public static boolean autoDisableArmPID = false; //If true, disables arm PID if a problem is detected with the sensor
 	public static boolean autoDisableDrvPID = false; //If true, disables drivetrain PID if a problem is detected with the sensors
+	//drivetrain PID is off by default anyways...
 	
 	public static boolean autoShiftTorque = false; //If true, automatically shifts to low gear when stalled
 	public static boolean autoShiftSpeed = false; //If true, automatically shifts to high gear when at max speed in low gear
 	
 	public static boolean tipPrevent = false; //If true, automatically tries to avoid tipping by lowering elevator to bottom if tipping is detected
 	
+	@SuppressWarnings("static-access")
 	@Override
 	public void robotInit() {
 		oi = new OI();
 		
-		UsbCamera cam = CameraServer.getInstance().startAutomaticCapture();
+		CameraServer.getInstance().startAutomaticCapture();
 		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		//(new CheckSwitchSide()).start();
@@ -211,13 +214,17 @@ public class Robot extends IterativeRobot {
 			SmartDashboard.putNumber("Gyro/Position/XDis", gyro.getDisplacementX());
 			SmartDashboard.putNumber("Gyro/Position/YDis", gyro.getDisplacementY());
 			SmartDashboard.putNumber("Gyro/Position/ZDis", gyro.getDisplacementZ());
-			SmartDashboard.putBoolean("Gyro/Primary Gyro", gyro.isBackup());
-			SmartDashboard.putBoolean("Gyro/Secondary Gyro", !gyro.isBackup());
+			SmartDashboard.putBoolean("Gyro/Primary Gyro", gyro.isPrimary());
+			SmartDashboard.putBoolean("Gyro/Secondary Gyro", !gyro.isPrimary());
 			SmartDashboard.putBoolean("Gyro/Is real", gyro.isReal());
 			SmartDashboard.putBoolean("Gyro/Tipping", gyro.isTipping());
 			SmartDashboard.putBoolean("Gyro/Tipped", gyro.isTipped());
 			SmartDashboard.putBoolean("Gyro/Moving", gyro.isMoving());
 			SmartDashboard.putBoolean("Gyro/Rotating", gyro.isRotating());
+		}
+		
+		if (true) {
+			SmartDashboard.putString("Intake/Bob State", intake.bobState());
 		}
 		
     	//SmartDashboard.putNumber("Controller POV", oi.getControllerPOV());
@@ -278,7 +285,7 @@ public class Robot extends IterativeRobot {
     			}
         		driveHealthy = false;
     		}
-    		else if (!gyro.isMoving() && !gyro.isRotating() && gyro.isBackup()) { //If we really aren't moving, we are likely just stalling
+    		else if (!gyro.isMoving() && !gyro.isRotating() && gyro.isPrimary()) { //If we really aren't moving, we are likely just stalling
         		SmartDashboard.putString("DB/String 6", "!!DRIVETRAIN STALLING!!");
         		if (autoShiftTorque && !transmission.isTorque()) {
         			transmission.torqueGear();
@@ -304,7 +311,7 @@ public class Robot extends IterativeRobot {
     		SmartDashboard.putString("DB/String 6", "Drivetrain Healthy");
     		SmartDashboard.putString("DB/String 9", "");
     	}
-    	if (gyro.isBackup()) {
+    	if (gyro.isPrimary()) {
     		SmartDashboard.putString("DB/String 5", "Gyroscope Healthy");
     	}
     	else if (gyro.isReal()) {
@@ -327,19 +334,19 @@ public class Robot extends IterativeRobot {
     		SmartDashboard.putString("DB/String 0", "");
     	}
     	
-    	if (gyro.getDisplacementZ() > 15.4) { //TODO: is this in inches?
-    		SmartDashboard.putString("DB/String 4", "Climb Successful! :D");
-    	}
-    	else if (DriverStation.getInstance().isDisabled() && DriverStation.getInstance().getMatchTime() == 0) {
-    		SmartDashboard.putString("DB/String 4", "No climb! :'(");
-    	}
-    	else if (gyro.isDisturbed()) {
-    		SmartDashboard.putString("DB/String 4", "Magnetic Disturbance");
+    	hasBrownouted = hasBrownouted || RobotController.isBrownedOut();
+    	if (hasBrownouted) {
+    		if (brownoutPrevention) {
+    			SmartDashboard.putString("DB/String 4", "!!BROWNOUT PREVENTION!!");
+    			driveTrain.limit();
+    			arm.limit();
+    			elevator.limit();
+    		}
+    		else SmartDashboard.putString("DB/String 4", "!!CHANGE BATTERY!!");
     	}
     	else {
     		SmartDashboard.putString("DB/String 4", "");
     	}
-    	
     	
     	
     	
@@ -358,7 +365,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		//getFieldData = new CheckScaleSide();
+		new CheckScaleSide();
 		motionProfileRunner.control();
 		gyro.reset();
 		driveTrain.resetEncoders();
@@ -416,6 +423,7 @@ public class Robot extends IterativeRobot {
 		motionProfileOnboardRunner.control();
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	public void teleopInit() {
 		// This makes sure that the autonomous stops running when

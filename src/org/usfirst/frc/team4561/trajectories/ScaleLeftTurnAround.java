@@ -1,10 +1,6 @@
 package org.usfirst.frc.team4561.trajectories;
-import org.usfirst.frc.team4561.robot.RobotMap;
-
 import jaci.pathfinder.Pathfinder;
-import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.Waypoint;
-import jaci.pathfinder.modifiers.TankModifier;
 
 /**
  * Trajectory that goes from left side of the scale, up, and turns to 270 degrees.

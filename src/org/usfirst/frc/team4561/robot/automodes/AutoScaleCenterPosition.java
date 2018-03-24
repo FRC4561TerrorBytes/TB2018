@@ -1,7 +1,6 @@
 package org.usfirst.frc.team4561.robot.automodes;
 
 import org.usfirst.frc.team4561.robot.Robot;
-import org.usfirst.frc.team4561.robot.RobotMap;
 import org.usfirst.frc.team4561.robot.commands.*;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;

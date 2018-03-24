@@ -1,19 +1,19 @@
 package org.usfirst.frc.team4561.robot.commands;
 
 import org.usfirst.frc.team4561.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
-public class WaitUntilOnboardTrajectoryFinished extends Command {
+public class OpenBobClaw extends Command {
 
-	public WaitUntilOnboardTrajectoryFinished() {
-	}
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return Robot.motionProfileOnboardRunner.isFinished();
+		return true;
 	}
 	
-	protected void end(){
-		System.out.println("It happened");
+	protected void excecute() {
+		Robot.intake.bobClawOpen();
 	}
+
 }

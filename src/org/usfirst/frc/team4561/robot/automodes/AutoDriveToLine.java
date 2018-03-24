@@ -7,8 +7,6 @@ import org.usfirst.frc.team4561.robot.commands.TurnMagic;
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.commands.ArmVertical;
 import org.usfirst.frc.team4561.robot.commands.DriveMagic;
-import org.usfirst.frc.team4561.robot.commands.PositionMode;
-import org.usfirst.frc.team4561.robot.commands.TankDriveTimed;
 /**
  * This auto mode drives past the auto line if the robot is on the left or right side of the field.
  * @author Ben

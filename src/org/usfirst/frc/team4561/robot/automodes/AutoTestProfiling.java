@@ -1,7 +1,5 @@
 package org.usfirst.frc.team4561.robot.automodes;
 
-import org.usfirst.frc.team4561.robot.commands.ArmReleasePosition;
-import org.usfirst.frc.team4561.robot.commands.IntakeRelease;
 import org.usfirst.frc.team4561.robot.commands.Nothing;
 import org.usfirst.frc.team4561.robot.commands.RunTrajectory;
 import org.usfirst.frc.team4561.robot.commands.SpeedGear;

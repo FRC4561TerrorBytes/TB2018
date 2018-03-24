@@ -7,8 +7,6 @@
 
 package org.usfirst.frc.team4561.robot;
 
-import org.usfirst.frc.team4561.robot.subsystems.DriveTrainPID;
-
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -104,8 +102,11 @@ public class RobotMap {
 	public static final int TOGGLE_PID_BUTTON_ONE = 8;
 	public static final int TOGGLE_PID_BUTTON_TWO = 7;
 	
+	public static final int BOB_CLAW_BUTTON = 1;
+	
 	// Debug variables
 	public static final boolean MASTER_DEBUG = true;
+	@SuppressWarnings("unused")
 	public static final boolean DRIVETRAIN_DEBUG = true || MASTER_DEBUG;
 	public static final boolean ELEVATOR_DEBUG = false || MASTER_DEBUG;
 	public static final boolean TRANSMISSION_DEBUG = false || MASTER_DEBUG;
@@ -117,7 +118,9 @@ public class RobotMap {
 	//PID variables
 	public static boolean MASTER_PID = false;
 	public static boolean DRIVETRAIN_PID = false || MASTER_PID;
+	@SuppressWarnings("unused")
 	public static boolean ELEVATOR_PID = true || MASTER_PID;
+	@SuppressWarnings("unused")
 	public static boolean ARM_PID = true || MASTER_PID;
 	
 	// Automode constraints

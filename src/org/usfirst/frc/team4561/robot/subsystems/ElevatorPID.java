@@ -1,9 +1,6 @@
 package org.usfirst.frc.team4561.robot.subsystems;
 
-import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
-import org.usfirst.frc.team4561.robot.commands.ElevatorDrive;
-
 import com.ctre.phoenix.ParamEnum;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -59,11 +56,20 @@ public class ElevatorPID extends Subsystem {
 		motorOne.config_kP(0, 16, 0);
 		motorOne.config_kI(0, 0, 0);
 		motorOne.config_kD(0, 0, 0);
+		
+		motorOne.enableCurrentLimit(false);
 	}
 	
 	public void resetGoal() {
 		goal = (int) getElevatorPos();
 		if (RobotMap.ELEVATOR_PID) motorOne.set(ControlMode.Position, goal);
+	}
+	public void resetBetter() {
+		goal = (int) getElevatorPos();
+	}
+	public void limit() {
+		motorOne.configPeakCurrentLimit(40, 0);
+		motorOne.enableCurrentLimit(true);
 	}
 	public void set(double speed){
 		motorOne.set(ControlMode.PercentOutput, speed);

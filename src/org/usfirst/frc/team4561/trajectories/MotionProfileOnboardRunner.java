@@ -27,7 +27,6 @@ package org.usfirst.frc.team4561.trajectories;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.*;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Notifier;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import jaci.pathfinder.Pathfinder;
@@ -36,11 +35,6 @@ import jaci.pathfinder.followers.EncoderFollower;
 
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
-import org.usfirst.frc.team4561.robot.subsystems.DriveTrainPID;
-import org.usfirst.frc.team4561.trajectories.MotionProfileRunner.PeriodicRunnable;
-
-import com.ctre.phoenix.motion.*;
-import com.ctre.phoenix.motion.TrajectoryPoint.TrajectoryDuration;
 
 /**
  * Based on https://github.com/CrossTheRoadElec/Phoenix-Examples-Languages/blob/master/Java/MotionProfile/src/org/usfirst/frc/team217/robot/MotionProfileExample.java
@@ -108,24 +102,28 @@ public class MotionProfileOnboardRunner {
 		/**
 		 * @return An array of waypoints for the left side of the trajectory, each waypoint containing position, velocity, and time step. 
 		 */
+		@SuppressWarnings("unused")
 		private double[][] getLeftArray() {
 			return trajectory.getLeftArray();
 		}
 		/**
 		 * @return An array of waypoints for the right side of the trajectory, each waypoint containing position, velocity, and time step. 
 		 */
+		@SuppressWarnings("unused")
 		private double[][] getRightArray() {
 			return trajectory.getRightArray();
 		}
 		/**
 		 * @return The number of waypoints in the trajectory. This will be the length of the left and right arrays.
 		 */
+		@SuppressWarnings("unused")
 		private int getCount() {
 			return trajectory.getCount();
 		}
 		/**
 		 * @return Whether or not the robot goes backwards for this trajectory.
 		 */
+		@SuppressWarnings("unused")
 		private boolean isReversed() {
 			return trajectory.isReversed();
 		}
