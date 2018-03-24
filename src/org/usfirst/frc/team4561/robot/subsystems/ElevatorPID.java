@@ -71,6 +71,9 @@ public class ElevatorPID extends Subsystem {
 		motorOne.configPeakCurrentLimit(40, 0);
 		motorOne.enableCurrentLimit(true);
 	}
+	public void unlimit() {
+		motorOne.enableCurrentLimit(false);
+	}
 	public void set(double speed){
 		motorOne.set(ControlMode.PercentOutput, speed);
 	}

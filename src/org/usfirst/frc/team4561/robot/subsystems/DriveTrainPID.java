@@ -173,6 +173,10 @@ public class DriveTrainPID extends Subsystem {
 		frontRight.enableCurrentLimit(true);
 		frontLeft.enableCurrentLimit(true);
 	}
+	public void unlimit() {
+		frontRight.enableCurrentLimit(false);
+		frontLeft.enableCurrentLimit(false);
+	}
 	//Set the right and left sides of the robot to speeds based on input speeds in both motor sides.
 	public void tankDrive(double leftSpeed, double rightSpeed) { 
 			

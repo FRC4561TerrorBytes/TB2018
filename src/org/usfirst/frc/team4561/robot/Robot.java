@@ -78,7 +78,7 @@ public class Robot extends IterativeRobot {
 	public static boolean armHealthy = true;
 	public static boolean driveHealthy = true;
 	public static boolean driveStalling = false;
-	public static boolean hasBrownouted = false;
+	public static boolean nearBrownout = false;
 	
 	public static boolean brownoutPrevention = false; //If true, limits power consumption if brownout is detected
 													  //TODO: tune the limits to make them good
@@ -275,8 +275,8 @@ public class Robot extends IterativeRobot {
     		elevatorHealthy = true;
     		SmartDashboard.putString("DB/String 7", "Elevator Healthy");
     	}
-    	if ((Math.abs(driveTrain.fLThrottle()) > 0.125 && driveTrain.getLeftSpeed() == 0) || (Math.abs(driveTrain.fRThrottle()) > 0.125 && driveTrain.getRightSpeed() == 0)) {
-    		if (gyro.isMoving() || gyro.isRotating()) { //If gyro thinks we're moving while sensors don't, sensors probably aren't connected
+    	if ((Math.abs(driveTrain.fLThrottle()) != 0 && driveTrain.getLeftSpeed() == 0) || (Math.abs(driveTrain.fRThrottle()) != 0 && driveTrain.getRightSpeed() == 0)) {
+    		if ((gyro.isMoving() || gyro.isRotating()) && gyro.isPrimary()) { //If gyro thinks we're moving while sensors don't, sensors probably aren't connected
     			SmartDashboard.putString("DB/String 6", "!!CHECK DRIVETRAIN ENCODERS!!");
     			SmartDashboard.putString("DB/String 9", "");
     			if (autoDisableDrvPID) {
@@ -296,8 +296,12 @@ public class Robot extends IterativeRobot {
         		driveHealthy = true;
         		driveStalling = true;
     		}
+    		else {
+    			SmartDashboard.putString("DB/String 6", "¿¿WHAT IS HAPPENING??");
+    			driveHealthy = false;
+    		}
     	}
-		if (Math.abs(driveTrain.fLThrottle()) == 1 && Math.abs(driveTrain.fRThrottle()) == 1 && transmission.isTorque() && gyro.isMoving()) {
+		if (Math.abs(driveTrain.fLThrottle()) > 0.85  && Math.abs(driveTrain.fRThrottle()) > 0.85 && transmission.isTorque() && gyro.isMoving()) {
     		if (autoShiftSpeed) {
     			transmission.speedGear();
     		}
@@ -334,18 +338,23 @@ public class Robot extends IterativeRobot {
     		SmartDashboard.putString("DB/String 0", "");
     	}
     	
-    	hasBrownouted = hasBrownouted || RobotController.isBrownedOut();
-    	if (hasBrownouted) {
+    	nearBrownout = RobotController.getBatteryVoltage() < 7.5;
+    	if (nearBrownout) {
     		if (brownoutPrevention) {
     			SmartDashboard.putString("DB/String 4", "!!BROWNOUT PREVENTION!!");
     			driveTrain.limit();
     			arm.limit();
     			elevator.limit();
     		}
-    		else SmartDashboard.putString("DB/String 4", "!!CHANGE BATTERY!!");
+    		else SmartDashboard.putString("DB/String 4", "!!NEAR BROWNOUT!!");
     	}
     	else {
-    		SmartDashboard.putString("DB/String 4", "");
+    		SmartDashboard.putString("DB/String 4", "Battery healthy");
+    		if (brownoutPrevention) {
+	    		driveTrain.unlimit();
+	    		arm.unlimit();
+	    		elevator.unlimit();
+    		}
     	}
     	
     	

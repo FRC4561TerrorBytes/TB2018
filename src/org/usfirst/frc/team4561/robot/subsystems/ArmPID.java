@@ -55,6 +55,9 @@ public class ArmPID extends Subsystem {
 		motorOne.configPeakCurrentLimit(40, 0);
 		motorOne.enableCurrentLimit(true);
 		}
+	public void unlimit() {
+		motorOne.enableCurrentLimit(false);
+	}
 	//Arm in straight release position
 	public void ReleasePosition() {
 		goal = -1000;
