@@ -125,13 +125,16 @@ public class RobotMap {
 	
 	// Automode constraints
 	public static final double TIME_STEP = 0.05; // sec
-	public static final double WHEELBASE_WIDTH = 2.8;// 3.3;//3.1; //7; // ft: 1.865 for Delta (fudged fo 2.95), 1.375 for Kongo, 1.865 for Janderson
+	public static final double WHEELBASE_WIDTH_SWITCH = 2.95; // 2.8;// 3.3;//3.1; //7; // ft: 1.865 for Delta (fudged fo 2.95), 1.375 for Kongo, 1.865 for Janderson
+	public static final double WHEELBASE_WIDTH_SCALE = 2.8;
 	public static final double MAX_VELOCITY = 5; //ft/sec: 15.9 for Delta (decreased to 13.9) in speed gear
 	public static final double MAX_ACCELERATION = 1; // ft/s/s: 6 for Delta
 	public static final double MAX_JERK = 60.0; // ft/s/s/s
 	
 	public static final boolean LEFT_SIDE_INVERTED = false; // Delta: false, Kongo: false, Janderson: false
 	public static final boolean RIGHT_SIDE_INVERTED = true; // Delta: true, Kongo: true, Janderson: true
+	public static final boolean LEFT_SIDE_SENSOR_PHASE_REVERSED = false;
+	public static final boolean RIGHT_SIDE_SENSOR_PHASE_REVERSED = false;
 	
 	// Used for MotionProfileOnboardRunner
 	public static final double WHEEL_DIAMETER = 5; //inches: 5 for Delta, 6 for Kongo, 3.5 for Janderson
@@ -145,7 +148,7 @@ public class RobotMap {
 	public static final double MAX_INCHES_PER_SECOND = MAX_REVOLUTIONS_PER_SECOND * WHEEL_DIAMETER * Math.PI;
 	public static final double MAX_FEET_PER_SECOND = MAX_INCHES_PER_SECOND / 12;
 	
-	public static final double ONBOARD_ENCODER_MULTIPLIER = 1.12;
+	public static final double ONBOARD_ENCODER_MULTIPLIER = 1;
 
 	
 	// If you are using multiple modules, make sure to define both the port

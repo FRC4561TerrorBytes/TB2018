@@ -1,4 +1,6 @@
 package org.usfirst.frc.team4561.trajectories;
+import org.usfirst.frc.team4561.robot.RobotMap;
+
 import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Waypoint;
 
@@ -23,6 +25,7 @@ public class RightScaleLeft extends Path {
     			new Waypoint(24.97, 20.2, 0)
     	};
     	reverse = false;
+    	this.config.max_velocity = RobotMap.WHEELBASE_WIDTH_SCALE;
     	generateTrajectoriesAndArrays();
     	
     	/* To print out points along trajectory...

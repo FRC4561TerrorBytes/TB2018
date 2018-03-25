@@ -4,7 +4,7 @@ import org.usfirst.frc.team4561.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class OpenBobClaw extends Command {
+public class ArmFlat extends Command {
 
 	@Override
 	protected boolean isFinished() {
@@ -12,8 +12,7 @@ public class OpenBobClaw extends Command {
 		return true;
 	}
 	
-	protected void excecute() {
-		Robot.intake.bobClawOpen();
+	protected void execute() {
+		Robot.arm.ReleasePosition();
 	}
-
 }

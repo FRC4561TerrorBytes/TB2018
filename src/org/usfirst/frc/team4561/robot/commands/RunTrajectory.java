@@ -2,6 +2,7 @@ package org.usfirst.frc.team4561.robot.commands;
 
 import org.usfirst.frc.team4561.trajectories.MotionProfileRunner;
 import org.usfirst.frc.team4561.robot.Robot;
+import org.usfirst.frc.team4561.robot.RobotMap;
 
 import com.ctre.phoenix.motion.SetValueMotionProfile;
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -24,6 +25,7 @@ public class RunTrajectory extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.driveTrain.setSensorPhase(RobotMap.LEFT_SIDE_SENSOR_PHASE_REVERSED, RobotMap.RIGHT_SIDE_SENSOR_PHASE_REVERSED);
     	System.out.println("Starting trajectory: " + trajectory.toString());
     	Robot.motionProfileRunner.setCurrentTrajectory(trajectory);
 		SetValueMotionProfile setOutput = Robot.motionProfileRunner.getSetValue();

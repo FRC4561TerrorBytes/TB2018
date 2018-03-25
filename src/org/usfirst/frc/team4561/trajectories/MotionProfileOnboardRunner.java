@@ -189,7 +189,7 @@ public class MotionProfileOnboardRunner {
 	EncoderFollower leftFollower = new EncoderFollower();
 	EncoderFollower rightFollower = new EncoderFollower();
 	
-	private final double kP = 0.35; // Proportional gain: 0.25 for Kongo
+	private final double kP = 0.25; // Proportional gain: 0.25 for Kongo
 	private final double kI = 0; // Integral gain (UNIMPLEMENTED in EncoderFollower)
 	private final double kD = 0.1; // Derivative gain
 	private final double kV = 1.0 / RobotMap.MAX_FEET_PER_SECOND;
@@ -211,11 +211,19 @@ public class MotionProfileOnboardRunner {
 	public MotionProfileOnboardRunner(TalonSRX leftTalon, TalonSRX rightTalon) {
 		this.leftTalon = leftTalon;
 		this.rightTalon = rightTalon;
+		prepare();
 		leftFollower.configureEncoder((int) (Robot.driveTrain.getLeftPos() * RobotMap.ONBOARD_ENCODER_MULTIPLIER), RobotMap.UNITS_PER_REVOLUTION, RobotMap.WHEEL_DIAMETER / 12);
 		rightFollower.configureEncoder((int) (Robot.driveTrain.getRightPos() * RobotMap.ONBOARD_ENCODER_MULTIPLIER), RobotMap.UNITS_PER_REVOLUTION, RobotMap.WHEEL_DIAMETER / 12);
 		leftFollower.configurePIDVA(kP, kI, kD, kV, kA);
 		rightFollower.configurePIDVA(kP, kI, kD, kV, kA);
 		notifier.startPeriodic(RobotMap.TIME_STEP); // TODO: Try turning up the time step and see how things change
+	}
+	
+	public void prepare() {
+		Robot.driveTrain.invertLeftSide(!RobotMap.LEFT_SIDE_INVERTED);
+		Robot.driveTrain.invertRightSide(!RobotMap.RIGHT_SIDE_INVERTED);
+		Robot.driveTrain.setSensorPhase(RobotMap.LEFT_SIDE_SENSOR_PHASE_REVERSED, RobotMap.RIGHT_SIDE_SENSOR_PHASE_REVERSED);
+		Robot.driveTrain.resetEncoders();
 	}
 	
 	/**
@@ -236,22 +244,37 @@ public class MotionProfileOnboardRunner {
 	public void control() {
 		// TODO: Does not respect reversed trajectories.
 		if (start) {
-			double leftOutputRaw = leftFollower.calculate((int) (Robot.driveTrain.getLeftPos() * RobotMap.ONBOARD_ENCODER_MULTIPLIER));
-			double rightOutputRaw = rightFollower.calculate((int) (Robot.driveTrain.getRightPos() * RobotMap.ONBOARD_ENCODER_MULTIPLIER));
+			
+			double leftOutputRaw;
+			double rightOutputRaw;
+			if (!getCurrentTrajectory().isReversed()) {
+				leftOutputRaw = leftFollower.calculate((int) (Robot.driveTrain.getLeftPos() * RobotMap.ONBOARD_ENCODER_MULTIPLIER));
+				rightOutputRaw = rightFollower.calculate((int) (Robot.driveTrain.getRightPos() * RobotMap.ONBOARD_ENCODER_MULTIPLIER));
+			}
+			else {
+				leftOutputRaw = leftFollower.calculate((int) (-Robot.driveTrain.getLeftPos() * RobotMap.ONBOARD_ENCODER_MULTIPLIER));
+				rightOutputRaw = rightFollower.calculate((int) (-Robot.driveTrain.getRightPos() * RobotMap.ONBOARD_ENCODER_MULTIPLIER));
+			}
 			SmartDashboard.putNumber("left output" , leftOutputRaw);
 			SmartDashboard.putNumber("right output" , rightOutputRaw);
 			double gyro_heading = Robot.gyro.getYaw(); // Get our angle in degrees from -180..180
 			double desired_heading = Pathfinder.r2d(leftFollower.getHeading());
-
-			double angleDifference = Pathfinder.boundHalfDegrees(desired_heading - gyro_heading);
-			double turn = kG * (-1.0/80.0) * angleDifference;
+			double angleDifference = Pathfinder.boundHalfDegrees(desired_heading + gyro_heading);
+			SmartDashboard.putNumber("angle error", angleDifference);
+			double turn;
+			if (!getCurrentTrajectory().isReversed()) turn = kG * (-1.0/80.0) * angleDifference;
+			else turn = kG * (1.0/80.0) * angleDifference;
 			SmartDashboard.putNumber("turn", turn);
 			double leftOutput = leftOutputRaw + turn;
 			double rightOutput = rightOutputRaw - turn;
 			
-			leftTalon.set(ControlMode.PercentOutput, -leftOutput);
-			rightTalon.set(ControlMode.PercentOutput, -rightOutput);
-			
+			if(getCurrentTrajectory().isReversed()) {
+				leftTalon.set(ControlMode.PercentOutput, -rightOutput);
+				rightTalon.set(ControlMode.PercentOutput, -leftOutput);
+			} else {
+				leftTalon.set(ControlMode.PercentOutput, leftOutput);
+				rightTalon.set(ControlMode.PercentOutput, rightOutput);
+			}
 			/* Get the motion profile status every loop */
 			//leftHeading = leftFollower.getHeading();
 			//leftPos = leftFollower.getSegment().position;
@@ -265,6 +288,7 @@ public class MotionProfileOnboardRunner {
 				System.out.println("Trajectory complete.");
 				Robot.driveTrain.stop();
 				start = false;
+				reset();
 			}
 		}
 		// TODO: Instrumentation implementation for onboard
@@ -274,6 +298,7 @@ public class MotionProfileOnboardRunner {
 	 * Call to start running the current trajectory.
 	 */
 	public void startMotionProfile() {
+		Robot.driveTrain.resetEncoders();
 		leftFollower.setTrajectory(getCurrentTrajectory().getLeftTrajectory());
 		rightFollower.setTrajectory(getCurrentTrajectory().getRightTrajectory());
 		leftFollower.configureEncoder((int) (Robot.driveTrain.getLeftPos() * RobotMap.ONBOARD_ENCODER_MULTIPLIER), RobotMap.UNITS_PER_REVOLUTION, RobotMap.WHEEL_DIAMETER / 12);

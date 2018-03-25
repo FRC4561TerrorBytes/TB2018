@@ -2,6 +2,7 @@ package org.usfirst.frc.team4561.robot.commands;
 
 import org.usfirst.frc.team4561.trajectories.MotionProfileOnboardRunner;
 import org.usfirst.frc.team4561.robot.Robot;
+import org.usfirst.frc.team4561.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -20,7 +21,7 @@ public class RunTrajectoryOnboard extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	System.out.println("Starting trajectory: " + trajectory.toString());
-    	Robot.motionProfileOnboardRunner.reset();
+    	Robot.motionProfileOnboardRunner.prepare();
     	Robot.motionProfileOnboardRunner.setCurrentTrajectory(trajectory);
     	Robot.motionProfileOnboardRunner.startMotionProfile();
     }
@@ -36,7 +37,7 @@ public class RunTrajectoryOnboard extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	System.out.println("Finished starting trajectory: " + trajectory.toString());
+    	System.out.println("Finished trajectory: " + trajectory.toString());
     }
 
     // Called when another command which requires one or more of the same

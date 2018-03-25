@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 public class Gyroscope extends Subsystem {
 	
@@ -29,7 +30,7 @@ public class Gyroscope extends Subsystem {
 				real = false;
 			}
 		}
-		if (gyro.getActualUpdateRate() == 0) {
+		if (getUpdate() == 0) {
 			primary = false;
 			DriverStation.reportError("Failed to connect to Gyro - is it plugged in?", false);
 			try {
@@ -42,7 +43,7 @@ public class Gyroscope extends Subsystem {
 		}
 		}
 	public void checkGyro() {
-		if (gyro.getActualUpdateRate() == 0 && primary) {
+		if (getUpdate() == 0 && primary) {
 			primary = false;
 			DriverStation.reportError("Failed to connect to Gyro - is it plugged in?", false);
 			try {
@@ -53,9 +54,22 @@ public class Gyroscope extends Subsystem {
 				DriverStation.reportError("Failed to connect to backup Gyro - is it plugged in?", false);
 			}
 		}
-		else if (gyro.getActualUpdateRate() != 0 && !primary) {
+		else if (getUpdate() != 0 && !primary) {
 			primary = true;
 			System.out.println("Main Gyro reconnected");
+		}
+	}
+	public int getUpdate() {
+		if (primary) {
+			try {
+				return gyro.getActualUpdateRate();
+			}
+			catch (RuntimeException e) {
+				return 0;
+			}
+		}
+		else {
+			return 0;
 		}
 	}
 	public double getPitch() {

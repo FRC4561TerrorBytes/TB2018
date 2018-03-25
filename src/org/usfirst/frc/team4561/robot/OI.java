@@ -47,8 +47,6 @@ public class OI {
 		speedButton.whenPressed(new SpeedGear());
 		torqueButton.whenPressed(new TorqueGear());
 		
-		bobClawButton.whenPressed(new OpenBobClaw());
-		bobClawButton.whenReleased(new BobClawClose());
 		
 		//controllerIntake.whileHeld(new IntakeIn());
 		//controllerIntakeLeft.whileHeld(new IntakeLeft());

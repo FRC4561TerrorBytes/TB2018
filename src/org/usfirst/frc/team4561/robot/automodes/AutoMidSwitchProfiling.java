@@ -37,7 +37,7 @@ public class AutoMidSwitchProfiling extends CommandGroup {
     		addParallel(new WaitUntilPositionPercent(0.5, new ArmReleasePosition()));
     		addSequential(new WaitUntilTrajectoryFinished());
     		addSequential(new IntakeRelease()); // drop power cubeq
-    		addSequential(new WaitCommand(0.5));
+    		addSequential(new WaitCommand(5));
     		addSequential(new IntakeStop());
     	}
     	// on the right
@@ -46,7 +46,7 @@ public class AutoMidSwitchProfiling extends CommandGroup {
     		addParallel(new WaitUntilPositionPercent(0.5, new ArmReleasePosition()));
     		addSequential(new WaitUntilTrajectoryFinished());
     		addSequential(new IntakeRelease()); // drop power cubeq
-    		addSequential(new WaitCommand(0.5));
+    		addSequential(new WaitCommand(5));
     		addSequential(new IntakeStop());
     	}
     }

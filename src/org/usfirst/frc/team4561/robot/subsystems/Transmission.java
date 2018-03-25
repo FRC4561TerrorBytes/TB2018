@@ -18,7 +18,7 @@ public class Transmission extends Subsystem {
 	private DoubleSolenoid doubleSolenoidTransLeft = new DoubleSolenoid(RobotMap.PCM, RobotMap.TRANSMISSION_SOLENOID_PORT, RobotMap.TRANSMISSION_SOLENOID_PORT_TWO);
 	private DoubleSolenoid doubleSolenoidTransRight = new DoubleSolenoid(RobotMap.PCM, RobotMap.TRANSMISSION_SOLENOID_TWO_PORT, RobotMap.TRANSMISSION_SOLENOID_TWO_PORT_TWO);
 	@SuppressWarnings("unused")
-	private Solenoid funSolenoid = new Solenoid(RobotMap.PCM, 5); //This exists because the compressor doesn't run without a solenoid in the code
+	private Solenoid funSolenoid = new Solenoid(RobotMap.PCM, 4); //This exists because the compressor doesn't run without a solenoid in the code
 	public Transmission() {
 	}
 	

@@ -4,16 +4,14 @@ import org.usfirst.frc.team4561.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class BobClawClose extends Command {
+public class BobOpen extends Command {
 
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
 		return true;
 	}
-	
 	protected void execute() {
-		Robot.intake.bobClawClose();
+		Robot.intake.bobClawOpen();
 	}
-
 }

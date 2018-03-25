@@ -21,7 +21,7 @@ public class ElevatorScalePosition extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.elevator.ScalePositionHigh();
+    	Robot.elevator.ScalePositionAuto();
     	
     	SmartDashboard.putNumber("Elevator Speed", Robot.elevator.getElevatorSpeed());
 		SmartDashboard.putNumber("Elevator Pos", Robot.elevator.getElevatorPos());

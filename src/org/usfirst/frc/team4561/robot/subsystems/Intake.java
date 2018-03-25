@@ -24,7 +24,8 @@ public class Intake extends Subsystem {
 	// Cube Detector
 	public DigitalInput cubeDetector = new DigitalInput(0);
 	//BobClaw
-	public DoubleSolenoid bobClaw = new DoubleSolenoid(7, 6);
+	public DoubleSolenoid bobClaw = new DoubleSolenoid(RobotMap.PCM, 6, 7);
+	
 	
 	public Intake () {
 		intakeLeftMotor = new WPI_TalonSRX (RobotMap.INTAKE_LEFT_MOTOR_PORT);
@@ -37,12 +38,12 @@ public class Intake extends Subsystem {
 	
 	public void bobClawOpen() {
 		//Open the claw
-		bobClaw.set(Value.kForward);
+		bobClaw.set(Value.kReverse);
 	}
 	
 	public void bobClawClose() {
 		//Close the claw
-		bobClaw.set(Value.kReverse);
+		bobClaw.set(Value.kForward);
 	}
 	
 	public void bobStop() {

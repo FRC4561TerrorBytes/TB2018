@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4561.robot.commands;
 
 import org.usfirst.frc.team4561.robot.Robot;
+import org.usfirst.frc.team4561.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -21,6 +22,7 @@ public class DriveMagic extends Command {
 	}
 	
 	protected void initialize(){
+		Robot.driveTrain.setSensorPhase(RobotMap.LEFT_SIDE_SENSOR_PHASE_REVERSED, RobotMap.RIGHT_SIDE_SENSOR_PHASE_REVERSED);
 		Robot.driveTrain.magicDrive(left, right);
 
 	}

@@ -27,33 +27,30 @@ public class ElevatorDrive extends Command {
 		}
 		else if (Robot.oi.getControllerButton(2)){
 			if (!Robot.oi.getControllerButton(6)){
-				Robot.elevator.ScalePositionHigh();
+				Robot.elevator.ScalePositionHighFlat();
 			}
 			else{
-				Robot.elevator.ScalePositionHighArmFlat();
+				Robot.elevator.ScalePositionHighArmAngled();
 			}
 		}
 		else if (Robot.oi.getControllerButton(3)){
 			if (!Robot.oi.getControllerButton(6)){
-				Robot.elevator.ScalePositionLow();
+				Robot.elevator.ScalePositionLowFlat();
 			}
 			else {
-				Robot.elevator.ScalePositionLowArmFlat();
+				Robot.elevator.ScalePositionLowArmAngled();
 			}
 		}
 		else if (Robot.oi.getControllerButton(4)){
 			if (!Robot.oi.getControllerButton(6)){
-				Robot.elevator.ScalePositionMid();
+				Robot.elevator.ScalePositionMidFlat();
 			}
 			else {
-				Robot.elevator.ScalePositionMidArmFlat();
+				Robot.elevator.ScalePositionMidArmAngled();
 			}
 		}
 		if (Robot.oi.getControllerRightY() != 0) {
-			double output = Math.copySign(Math.pow(Robot.oi.getControllerRightY(), 4), -Robot.oi.getControllerRightY());
-			if (output > 0 && output < 0.2) {
-				output = output;//0.2; //TODO: Tune later
-			}
+			double output = Math.copySign(Math.pow(Robot.oi.getControllerRightY(), 8), -Robot.oi.getControllerRightY());
 			Robot.elevator.set(-Robot.oi.getControllerRightY());
 			Robot.elevator.resetBetter();
 		}

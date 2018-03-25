@@ -39,5 +39,12 @@ public class IntakeDrive extends Command {
 				Robot.intake.set(Robot.oi.getControllerLTrigger(), Robot.oi.getControllerRTrigger());
 			}
 		}
+		
+		if (Robot.oi.getLeftButton(1)) {
+			Robot.intake.bobClawOpen();
+		}
+		else { 
+			Robot.intake.bobClawClose();
+		}
 	}
 }

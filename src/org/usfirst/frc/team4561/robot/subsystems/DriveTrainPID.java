@@ -76,8 +76,7 @@ public class DriveTrainPID extends Subsystem {
 		invertLeftSide(RobotMap.LEFT_SIDE_INVERTED);
 		invertRightSide(RobotMap.RIGHT_SIDE_INVERTED);
 		
-		frontLeft.setSensorPhase(true); // Delta: false (true for onboard)
-		frontRight.setSensorPhase(true); // Delta: false (true for onboard)
+		setSensorPhase(!RobotMap.LEFT_SIDE_SENSOR_PHASE_REVERSED, !RobotMap.LEFT_SIDE_SENSOR_PHASE_REVERSED);
 		
 		
 		double kP = 0.35;
@@ -476,6 +475,10 @@ public class DriveTrainPID extends Subsystem {
 		frontRight.setInverted(invert);
 		midRight.setInverted(invert);
 		rearRight.setInverted(invert);
+	}
+	public void setSensorPhase(boolean invertLeft, boolean invertRight) {
+		frontLeft.setSensorPhase(invertLeft);
+		frontRight.setSensorPhase(invertRight);
 	}
 	
 	public void setUpForMotionProfiling() {
