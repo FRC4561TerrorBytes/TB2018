@@ -28,7 +28,7 @@ public class ArmDrive extends Command {
 			Robot.arm.DiagonalPosition();
 		}
 		else if (pov == RobotMap.ARM_UP_POV){
-			Robot.arm.UpPostition();
+			Robot.arm.AnglePosition();
 		}
 		if (Robot.oi.getControllerLeftY() != 0) {
 			double output = Math.copySign(Math.pow(Robot.oi.getControllerLeftY(), 4), -Robot.oi.getControllerLeftY());

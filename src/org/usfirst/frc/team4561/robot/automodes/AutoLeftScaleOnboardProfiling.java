@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4561.robot.automodes;
 
 import org.usfirst.frc.team4561.robot.Robot;
+import org.usfirst.frc.team4561.robot.commands.ArmAngle;
 import org.usfirst.frc.team4561.robot.commands.ArmFlat;
 import org.usfirst.frc.team4561.robot.commands.ArmReleasePosition;
 import org.usfirst.frc.team4561.robot.commands.ArmVertical;
@@ -36,7 +37,7 @@ double delay = Robot.oi.getDashboardDelaySlider();
     		addSequential(new WaitUntilPositionPercentOnboard(0.5));
     		addSequential(new ElevatorScalePosition());
     		addSequential(new WaitUntilPositionPercentOnboard(0.9));
-    		addSequential(new ArmFlat());
+    		addSequential(new ArmAngle());
     		addSequential(new WaitUntilOnboardTrajectoryFinished());
     		addSequential(new IntakeRelease()); // drop power cube
     		addSequential(new WaitCommand(0.5));
@@ -49,15 +50,15 @@ double delay = Robot.oi.getDashboardDelaySlider();
     	else {
     		addSequential(new RunTrajectoryOnboard(MotionProfileOnboardRunner.TrajectorySelect.LeftScaleRight));
     		addSequential(new WaitUntilPositionPercentOnboard(0.5));
-//    		addSequential(new ElevatorScalePosition());
+////    		addSequential(new ElevatorScalePosition());
 //    		addSequential(new WaitUntilPositionPercentOnboard(0.9));
-    		addSequential(new ArmReleasePosition());
+//    		addSequential(new ArmAngle());
 //    		addSequential(new IntakeRelease()); // drop power cube
 //    		addSequential(new WaitCommand(0.5));
 //    		addSequential(new IntakeStop());
-//    		addSequential(new DriveMagic(-20, -20));
+//    		addSequential(new DriveMagic(-40, -40));
 //    		addSequential(new ArmVertical());
-    		//addSequential(new ElevatorGroundPosition());
+//    		addSequential(new ElevatorGroundPosition());
     	}
     }
 }

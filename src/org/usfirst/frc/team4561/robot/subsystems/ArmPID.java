@@ -66,6 +66,12 @@ public class ArmPID extends Subsystem {
 			System.out.println("[Subsystem] ArmPID: Up to Release Position");
 		}
 	}
+	public void AnglePosition() {
+		goal = -660;
+		if (RobotMap.ARM_PID) {
+			setToGoal();
+		}
+	}
 	public void DiagonalPosition(){
 		goal = -240;
 		if (RobotMap.ARM_PID) setToGoal();

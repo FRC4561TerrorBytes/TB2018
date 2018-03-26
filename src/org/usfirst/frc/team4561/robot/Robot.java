@@ -250,8 +250,8 @@ public class Robot extends IterativeRobot {
     		SmartDashboard.putString("DB/String 1", "!!Drivetrain PID: OFF!!");
     	}
     	
-    	if (arm.getEncoderPosition()==0&&!arm.getFwdSwitch() || arm.getEncoderPosition() < -1120) {
-    		//0 position on the arm is where the forward limit switch is, going beyond -1120 should never happen
+    	if (arm.getEncoderPosition()==0&&!arm.getFwdSwitch()) {
+    		//0 position on the arm is where the forward limit switch is
     		armHealthy = false;
     		SmartDashboard.putString("DB/String 8", "!!CHECK ARM ENCODER!!");
     		if (autoDisableArmPID) {
@@ -297,7 +297,7 @@ public class Robot extends IterativeRobot {
         		driveStalling = true;
     		}
     		else {
-    			SmartDashboard.putString("DB/String 6", "¿¿WHAT IS HAPPENING??");
+    			SmartDashboard.putString("DB/String 6", "??WHAT IS HAPPENING??");
     			driveHealthy = false;
     		}
     	}
@@ -412,6 +412,9 @@ public class Robot extends IterativeRobot {
 			break;
 		case 10:
 			autonomousCommand = new AutoTestOnboardProfiling();
+			break;
+		case 11:
+			autonomousCommand = new AutoTwoSwitchCubeOnboardProfiling();
 			break;
 		}
 
