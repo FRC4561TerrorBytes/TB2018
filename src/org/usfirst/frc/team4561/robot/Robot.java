@@ -255,8 +255,8 @@ public class Robot extends IterativeRobot {
     		armHealthy = false;
     		SmartDashboard.putString("DB/String 8", "!!CHECK ARM ENCODER!!");
     		if (autoDisableArmPID) {
+    			if (RobotMap.ARM_PID)  arm.stop();
     			RobotMap.ARM_PID = false;
-    			arm.stop();
     		}
     	}
     	else {
@@ -267,8 +267,8 @@ public class Robot extends IterativeRobot {
     		elevatorHealthy = false;
     		SmartDashboard.putString("DB/String 7", "!!CHECK ELEVATOR!!");
     		if (autoDisableElvPID) {
+    			if (RobotMap.ELEVATOR_PID) elevator.stop();
     			RobotMap.ELEVATOR_PID = false;
-    			elevator.stop();
     		}
     	}
     	else {
