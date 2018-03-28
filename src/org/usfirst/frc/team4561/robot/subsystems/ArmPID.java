@@ -34,7 +34,7 @@ public class ArmPID extends Subsystem {
 		motorOne.config_kI(0, 0.005, 0);
 		motorOne.config_kD(0, 360, 0);
 		motorOne.configPeakOutputForward(1, 0);
-		motorOne.configPeakOutputReverse(1, 0);
+		motorOne.configPeakOutputReverse(-1, 0);
 		motorOne.configNominalOutputForward(0, 0);
 		motorOne.configNominalOutputReverse(0, 0);
 		motorOne.configAllowableClosedloopError(0, 5, 0);
