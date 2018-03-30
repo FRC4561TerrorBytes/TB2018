@@ -16,7 +16,6 @@ double delay = Robot.oi.getDashboardDelaySlider();
         
     	addSequential(new SpeedGear());
 		addSequential(new ArmVertical());
-		Robot.gyro.reset();
 
     	// wait preassigned time
     	addSequential(new WaitCommand(delay));

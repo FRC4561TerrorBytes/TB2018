@@ -242,7 +242,6 @@ public class MotionProfileOnboardRunner {
 	 * Must be called every loop.
 	 */
 	public void control() {
-		// TODO: Does not respect reversed trajectories.
 		if (start) {
 			
 			double leftOutputRaw;
@@ -257,13 +256,23 @@ public class MotionProfileOnboardRunner {
 			}
 			SmartDashboard.putNumber("left output" , leftOutputRaw);
 			SmartDashboard.putNumber("right output" , rightOutputRaw);
-			double gyro_heading = Robot.gyro.getYaw(); // Get our angle in degrees from -180..180
-			double desired_heading = Pathfinder.r2d(leftFollower.getHeading());
-			double angleDifference = Pathfinder.boundHalfDegrees(desired_heading + gyro_heading);
-			SmartDashboard.putNumber("angle error", angleDifference);
+			
+			double angleDifference;
 			double turn;
-			if (!getCurrentTrajectory().isReversed()) turn = kG * (-1.0/80.0) * angleDifference;
-			else turn = kG * (1.0/80.0) * angleDifference;
+			if (getCurrentTrajectory().isReversed()) {
+				double gyro_heading = Robot.gyro.getYaw(); // Get our angle in degrees from -180..180
+				// Add 180 to desired_heading because bot's reversed
+				double desired_heading = Pathfinder.boundHalfDegrees(Pathfinder.r2d(leftFollower.getHeading()) + 180);
+				angleDifference = Pathfinder.boundHalfDegrees(desired_heading + gyro_heading);
+				turn = kG * (1.0/80.0) * angleDifference;
+			} else {
+				double gyro_heading = Robot.gyro.getYaw(); // Get our angle in degrees from -180..180
+				double desired_heading = Pathfinder.r2d(leftFollower.getHeading());
+				angleDifference = Pathfinder.boundHalfDegrees(desired_heading + gyro_heading);
+				turn = kG * (-1.0/80.0) * angleDifference;
+			}
+			
+			SmartDashboard.putNumber("angle error", angleDifference);
 			SmartDashboard.putNumber("turn", turn);
 			double leftOutput = leftOutputRaw + turn;
 			double rightOutput = rightOutputRaw - turn;
