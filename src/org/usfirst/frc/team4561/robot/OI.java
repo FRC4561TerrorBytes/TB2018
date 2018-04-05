@@ -62,6 +62,10 @@ public class OI {
 		
 		
 	}
+	/**
+	 * 
+	 * @return Y position of the right joystick, with deadzone and reduction applied
+	 */
 	public double getRightStickY() {
 		
 		double rightStickY = rightStick.getY(); 
@@ -87,7 +91,10 @@ public class OI {
 		return rightStickY;
 		
 	}
-	
+	/**
+	 * 
+	 * @return X Position of right joystick, with deadzone and reduction applied
+	 */
 	public double getRightStickX() {
 		
 		double rightStickX = rightStick.getX(); 
@@ -113,7 +120,10 @@ public class OI {
 		return rightStickX;
 		
 	}
-	
+	/**
+	 * 
+	 * @return Y Position of left joystick, with deadzone and reduction applied
+	 */
 	public double getLeftStickY() {
 		
 		double leftStickY = leftStick.getY(); 
@@ -139,7 +149,11 @@ public class OI {
 		return leftStickY;
 		
 	}
-	
+	/**
+	 * 
+	 * 
+	 * @return X Position of the left joystick, with deadzone and reduction applied
+	 */
 	public double getLeftStickX() {
 		
 		double leftStickX = leftStick.getX(); 
@@ -165,56 +179,100 @@ public class OI {
 		return leftStickX;
 		
 	}
-	
+	/**
+	 * 
+	 * @param axis
+	 * @return The position of the requested axis of the controller, with deadzone applied
+	 */
 	public double getControllerAxis(int axis){
 		double axes = controller.getRawAxis(axis);
 		if (Math.abs(axes) < RobotMap.CONTROLLER_DEADZONE) axes = 0;
 		return axes;
 	}
-	
+	/**
+	 * 
+	 * @return X position of the left stick of the controller
+	 */
 	public double getControllerLeftX(){
 		return controller.getRawAxis(0);
 	}
-	
+	/**
+	 * 
+	 * @return Y Position of the left stick of the controller
+	 */
 	public double getControllerLeftY(){
 		return controller.getRawAxis(1);
 	}
-	
+	/**
+	 * 
+	 * @return Position of the left trigger of the controller
+	 */
 	public double getControllerLTrigger(){
 		return controller.getRawAxis(2);
 	}
-	
+	/**
+	 * 
+	 * @return Position of the right trigger of the controller
+	 */
 	public double getControllerRTrigger(){
 		return controller.getRawAxis(3);
 	}
-	
+	/**
+	 * 
+	 * @return X Position of the right stick of the controller
+	 */
 	public double getControllerRightX(){
 		return controller.getRawAxis(4);
 	}
-	
+	/**
+	 * 
+	 * @return Y position of the right stick of the controller
+	 */
 	public double getControllerRightY(){
 		return controller.getRawAxis(5);
 	}
-	
+	/**
+	 * 
+	 * @param button
+	 * @return State of the requested button of the controller
+	 */
 	public boolean getControllerButton(int button){
 		return controller.getRawButton(button);
 	}
-	
+	/**
+	 * 
+	 * @param button
+	 * @return State of the requested button of the left joystick
+	 */
 	public boolean getLeftButton(int button){
 		return leftStick.getRawButton(button);
 	}
-	
+	/**
+	 * 
+	 * @return State of the POV of the controller
+	 */
 	public int getControllerPOV(){
 		return controller.getPOV();
 	}
-
+	/**
+	 * 
+	 * @param button
+	 * @return State of the requested button of the right joystick
+	 */
 	public boolean getRightButton(int button){
 		return rightStick.getRawButton(button);
 	}
-	
+	/**
+	 * 
+	 * @return Value of the second slider on the default dashboard
+	 */
 	public double getDashboardDelaySlider() {
 		return SmartDashboard.getNumber("DB/Slider 1", 0);
 	}
+	/**
+	 * 
+	 * @return Value of the fourth slider on the default dashboard
+	 */
     public double getDashboardSlider3() {
         return SmartDashboard.getNumber("DB/Slider 3", 0);
     }

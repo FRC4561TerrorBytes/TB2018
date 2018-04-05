@@ -65,7 +65,7 @@ public class Path {
 	
 	/**
 	 * Get 0-based number of indices in arrays.
-	 * @return
+	 * @return Length of spline
 	 */
 	public int getCount() {
 		return leftArray.length;
