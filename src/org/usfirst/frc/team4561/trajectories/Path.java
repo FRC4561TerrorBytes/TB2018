@@ -21,6 +21,7 @@ public class Path {
     double[][] leftArray;
     double[][] rightArray;
     boolean reverse;
+    double wheelbase = RobotMap.WHEELBASE_WIDTH_SWITCH;
 	
     public void generateTrajectoriesAndArrays() {
     	trajectory = Pathfinder.generate(points, config);
@@ -28,7 +29,7 @@ public class Path {
     	double wheelbaseWidth = RobotMap.UNITS_PER_10_ROBOT_REVOLUTIONS / 10.0;
     	wheelbaseWidth /= Math.PI; // Diameter in units
     	wheelbaseWidth = OI.units2Ft(wheelbaseWidth);
-    	modifier = new TankModifier(trajectory).modify(RobotMap.WHEELBASE_WIDTH_SWITCH); // 1.865 (1.375 for kongo)
+    	modifier = new TankModifier(trajectory).modify(this.wheelbase); // 1.865 (1.375 for kongo)
     	// Do something with the new Trajectories...
     	left = modifier.getLeftTrajectory();
     	right = modifier.getRightTrajectory();
