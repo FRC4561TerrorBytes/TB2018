@@ -35,31 +35,31 @@ double delay = Robot.oi.getDashboardDelaySlider();
     	// on the right
     	if (Robot.scaleFMSSideRight) {
     		addSequential(new RunTrajectoryOnboard(MotionProfileOnboardRunner.TrajectorySelect.RightScaleRight));
-    		addSequential(new WaitUntilPositionPercentOnboard(0.5));
-    		addSequential(new ElevatorScalePosition());
-    		addSequential(new WaitUntilPositionPercentOnboard(0.9));
-    		addSequential(new ArmAngle());
-    		addSequential(new WaitUntilOnboardTrajectoryFinished());
-    		addSequential(new IntakeRelease());
-    		addSequential(new WaitCommand(0.5));
-    		addSequential(new IntakeStop());
-    		addSequential(new DriveMagic(-40, -40));
-    		addSequential(new ArmVertical());
-    		addSequential(new ElevatorGroundPosition());
+//    		addSequential(new WaitUntilPositionPercentOnboard(0.5));
+//    		addSequential(new ElevatorScalePosition());
+//    		addSequential(new WaitUntilPositionPercentOnboard(0.9));
+//    		addSequential(new ArmAngle());
+//    		addSequential(new WaitUntilOnboardTrajectoryFinished());
+//    		addSequential(new IntakeRelease());
+//    		addSequential(new WaitCommand(0.5));
+//    		addSequential(new IntakeStop());
+//    		addSequential(new DriveMagic(-40, -40));
+//    		addSequential(new ArmVertical());
+//    		addSequential(new ElevatorGroundPosition());
     	}
     	// on the left
     	else {
     		addSequential(new RunTrajectoryOnboard(MotionProfileOnboardRunner.TrajectorySelect.RightScaleLeft));
-    		addSequential(new WaitUntilPositionPercentOnboard(0.5));
-    		addSequential(new ElevatorScalePosition());
-    		addSequential(new ArmAngle());
-    		addSequential(new WaitUntilOnboardTrajectoryFinished());
-    		addSequential(new IntakeRelease()); // drop power cubeq
-    		addSequential(new WaitCommand(0.5));
-    		addSequential(new IntakeStop());
-    		addSequential(new DriveMagic(-40, -40));
-    		addSequential(new ArmVertical());
-    		addSequential(new ElevatorGroundPosition());
+//    		addSequential(new WaitUntilPositionPercentOnboard(0.5));
+//    		addSequential(new ElevatorScalePosition());
+//    		addSequential(new ArmAngle());
+//    		addSequential(new WaitUntilOnboardTrajectoryFinished());
+//    		addSequential(new IntakeRelease()); // drop power cubeq
+//    		addSequential(new WaitCommand(0.5));
+//    		addSequential(new IntakeStop());
+//    		addSequential(new DriveMagic(-40, -40));
+//    		addSequential(new ArmVertical());
+//    		addSequential(new ElevatorGroundPosition());
     	}
     }
 }
