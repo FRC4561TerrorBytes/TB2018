@@ -24,9 +24,9 @@ public class RobotMap {
 	public static final int CONTROLLER_PORT = 2;
 	
 	//Buttons
-	public static final int RELEASE_BUTTON = 6;
+	public static final int RELEASE_BUTTON = 4;
 	public static final int INTAKE_BUTTON = 1;
-	public static final int OUTTAKE_FULL_BUTTON = 5;
+	public static final int OUTTAKE_FULL_BUTTON = 6;
 	
 	public static final int INTAKE_POSITION_BUTTON = 2;
 	public static final int RELEASE_POSITION_BUTTON = 2;
@@ -48,7 +48,7 @@ public class RobotMap {
 	public static final int TRANSMISSION_SPEED_BUTTON = 5;
 	public static final int TRANSMISSION_TORQUE_BUTTON = 3;
 	
-	public static final int OUTTAKE_WEAK_BUTTON = 4;
+	public static final int OUTTAKE_WEAK_BUTTON = 3;
 	
 	public static final double RIGHT_JOYSTICK_DEAD_ZONE = 0.25;
 	public static final double LEFT_JOYSTICK_DEAD_ZONE = 0.25;
@@ -112,7 +112,7 @@ public class RobotMap {
 	public static final boolean TRANSMISSION_DEBUG = false || MASTER_DEBUG;
 	public static final boolean ARM_DEBUG = false || MASTER_DEBUG;
 	
-	public static final double DRIVETRAIN_CIRCUMFERENCE = 78;
+	public static final double DRIVETRAIN_CIRCUMFERENCE = 88;
 	public static final double CONTROLLER_DEADZONE = 0.25;
 	
 	//PID variables
@@ -125,7 +125,7 @@ public class RobotMap {
 	
 	// Automode constraints
 	public static final double TIME_STEP = 0.05; // sec
-	public static final double WHEELBASE_WIDTH_SWITCH = 2.95; // 2.8;// 3.3;//3.1; //7; // ft: 1.865 for Delta (fudged fo 2.95), 1.375 for Kongo, 1.865 for Janderson
+	public static final double WHEELBASE_WIDTH_SWITCH = 2.25; // 2.8;// 3.3;//3.1; //7; // ft: 1.865 for Delta (fudged fo 2.95), 1.375 for Kongo, 1.865 for Janderson
 	public static final double WHEELBASE_WIDTH_SCALE = 2.8;
 	public static final double MAX_VELOCITY = 5; //ft/sec: 15.9 for Delta (decreased to 13.9) in speed gear
 	public static final double MAX_ACCELERATION = 1; // ft/s/s: 6 for Delta

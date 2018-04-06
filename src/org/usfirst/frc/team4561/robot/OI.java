@@ -93,55 +93,71 @@ public class OI {
 		double rightStickX = rightStick.getX(); 
 		
 		// Dead zone management
-				if (Math.abs(rightStick.getMagnitude()) < RobotMap.RIGHT_JOYSTICK_DEAD_ZONE) {
-					rightStickX = 0;
-				}
-				
-				// Reductions
-				if (rightStickX > 0) {
-					rightStickX = (rightStickX - RobotMap.RIGHT_JOYSTICK_REDUCTION) * (1/(1-RobotMap.LEFT_JOYSTICK_REDUCTION));
-					if (rightStickX < 0) {
-						rightStickX = 0;
-					}
-				} else if (rightStickX < 0) {
-					rightStickX = (rightStickX + RobotMap.RIGHT_JOYSTICK_REDUCTION) * (1/(1-RobotMap.LEFT_JOYSTICK_REDUCTION));
-					if (rightStickX > 0) {
-						rightStickX = 0;
-					}
-				}
+		if (Math.abs(rightStick.getMagnitude()) < RobotMap.RIGHT_JOYSTICK_DEAD_ZONE) {
+			rightStickX = 0;
+		}
+		
+		// Reductions
+		if (rightStickX > 0) {
+			rightStickX = (rightStickX - RobotMap.RIGHT_JOYSTICK_REDUCTION) * (1/(1-RobotMap.LEFT_JOYSTICK_REDUCTION));
+			if (rightStickX < 0) {
+				rightStickX = 0;
+			}
+		} else if (rightStickX < 0) {
+			rightStickX = (rightStickX + RobotMap.RIGHT_JOYSTICK_REDUCTION) * (1/(1-RobotMap.LEFT_JOYSTICK_REDUCTION));
+			if (rightStickX > 0) {
+				rightStickX = 0;
+			}
+		}
+		
+//		if (Math.abs(lastTurn - rightStickX) > 0.1) {
+//			double newOutput = rightStickX;
+//			 if (lastTurn < rightStickX) {
+//				 newOutput = lastTurn + 0.1;
+//				 if (newOutput > rightStickX) {
+//					 newOutput = rightStickX;
+//				 }
+//			 } else if (lastTurn > rightStickX) {
+//				 newOutput = lastTurn - 0.1;
+//				 if (newOutput < rightStickX) {
+//					 newOutput = rightStickX;
+//				 }
+//			 }
+//			 return newOutput;
+//		}
 		
 		return rightStickX;
 		
 	}
 	
+	double lastTurn = 0;
 	public double getLeftStickY() {
 		
 		double leftStickY = leftStick.getY(); 
 		
 		// Dead zone management
-				if (Math.abs(leftStick.getMagnitude()) < RobotMap.LEFT_JOYSTICK_DEAD_ZONE) {
-					leftStickY = 0;
-				}
-				
-				// Reductions
-				if (leftStickY > 0) {
-					leftStickY = (leftStickY - RobotMap.LEFT_JOYSTICK_REDUCTION) * (1/(1-RobotMap.LEFT_JOYSTICK_REDUCTION));
-					if(leftStickY < 0) {
-						leftStickY = 0;
-					}
-				} else if (leftStickY < 0) {
-					leftStickY = (leftStickY + RobotMap.LEFT_JOYSTICK_REDUCTION) * (1/(1-RobotMap.LEFT_JOYSTICK_REDUCTION));
-					if (leftStickY > 0) {
-						leftStickY = 0;
-					}
-				}
+		if (Math.abs(leftStick.getMagnitude()) < RobotMap.LEFT_JOYSTICK_DEAD_ZONE) {
+			leftStickY = 0;
+		}
+		
+		// Reductions
+		if (leftStickY > 0) {
+			leftStickY = (leftStickY - RobotMap.LEFT_JOYSTICK_REDUCTION) * (1/(1-RobotMap.LEFT_JOYSTICK_REDUCTION));
+			if(leftStickY < 0) {
+				leftStickY = 0;
+			}
+		} else if (leftStickY < 0) {
+			leftStickY = (leftStickY + RobotMap.LEFT_JOYSTICK_REDUCTION) * (1/(1-RobotMap.LEFT_JOYSTICK_REDUCTION));
+			if (leftStickY > 0) {
+				leftStickY = 0;
+			}
+		}
 		
 		return leftStickY;
 		
 	}
 	
-	public double getLeftStickX() {
-		
+	public double getLeftStickX() {	
 		double leftStickX = leftStick.getX(); 
 		
 		// Dead zone management
@@ -161,7 +177,6 @@ public class OI {
 						leftStickX = 0;
 					}
 				}
-		
 		return leftStickX;
 		
 	}

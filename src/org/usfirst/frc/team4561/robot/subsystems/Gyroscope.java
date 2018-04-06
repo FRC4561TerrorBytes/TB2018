@@ -45,13 +45,13 @@ public class Gyroscope extends Subsystem {
 	public void checkGyro() {
 		if (getUpdate() == 0 && primary) {
 			primary = false;
-			DriverStation.reportError("Failed to connect to Gyro - is it plugged in?", false);
+			//DriverStation.reportError("Failed to connect to Gyro - is it plugged in?", false);
 			try {
 				backupGyro = new ADXRS450_Gyro();
 			}
 			catch (RuntimeException ex) {
 				real = false;
-				DriverStation.reportError("Failed to connect to backup Gyro - is it plugged in?", false);
+				//DriverStation.reportError("Failed to connect to backup Gyro - is it plugged in?", false);
 			}
 		}
 		else if (getUpdate() != 0 && !primary) {

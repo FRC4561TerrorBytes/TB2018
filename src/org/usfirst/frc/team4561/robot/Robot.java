@@ -83,8 +83,8 @@ public class Robot extends IterativeRobot {
 	public static boolean brownoutPrevention = false; //If true, limits power consumption if brownout is detected
 													  //TODO: tune the limits to make them good
 	
-	public static boolean autoDisableElvPID = true; //If true, disables elevator PID if a problem is detected with the sensor
-	public static boolean autoDisableArmPID = true; //If true, disables arm PID if a problem is detected with the sensor
+	public static boolean autoDisableElvPID = false; //If true, disables elevator PID if a problem is detected with the sensor
+	public static boolean autoDisableArmPID = false; //If true, disables arm PID if a problem is detected with the sensor
 	public static boolean autoDisableDrvPID = false; //If true, disables drivetrain PID if a problem is detected with the sensors
 	//drivetrain PID is off by default anyways...
 	
@@ -98,6 +98,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		
+		CameraServer.getInstance().startAutomaticCapture();
 		CameraServer.getInstance().startAutomaticCapture();
 		//m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
@@ -415,6 +416,9 @@ public class Robot extends IterativeRobot {
 			break;
 		case 11:
 			autonomousCommand = new AutoTwoSwitchCubeOnboardProfiling();
+			break;
+		case 12:
+			autonomousCommand = new AutoLeftTwoScaleOnboardProfiling();
 			break;
 		}
 

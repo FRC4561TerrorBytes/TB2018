@@ -60,6 +60,11 @@ public class MotionProfileOnboardRunner {
 	public static Path midCubePileReverse = new MidCubePileReverse();
 	public static Path midSwitchRightReverse = new MidSwitchRightReverse();
 	public static Path testTrajectory = new TestTrajectory();
+	public static Path scaleLeftCubeLeft = new ScaleLeftCubeLeft();
+	public static Path cubeLeftScaleLeft = new CubeLeftScaleLeft();
+	public static Path scaleRightCubeRight = new ScaleRightCubeRight();
+	public static Path cubeRightScaleRight = new CubeRightScaleRight();
+	public static Path scaleLeftCubeLeft2 = new ScaleLeftCubeLeft2();
 	
 	/**
 	 * All the different trajectories the robot can run.
@@ -81,7 +86,12 @@ public class MotionProfileOnboardRunner {
 		MidCubePile(midCubePile),
 		MidCubePileReversed(midCubePileReverse),
 		MidSwitchRightReverse(midSwitchRightReverse),
-		TestTrajectory(testTrajectory);
+		TestTrajectory(testTrajectory),
+		ScaleLeftCubeLeft(scaleLeftCubeLeft),
+		CubeLeftScaleLeft(cubeLeftScaleLeft),
+		ScaleRightCubeRight(scaleRightCubeRight),
+		CubeRightScaleRight(cubeRightScaleRight),
+		ScaleLeftCubeLeft2(scaleLeftCubeLeft2);
 		
 		Path trajectory;
 		TrajectorySelect(Path trajectory) {
@@ -238,12 +248,14 @@ public class MotionProfileOnboardRunner {
 		start = false;
 	}
 
+	volatile int segment = 0;
+	
 	/**
 	 * Must be called every loop.
 	 */
 	public void control() {
 		if (start) {
-			
+			segment++;
 			double leftOutputRaw;
 			double rightOutputRaw;
 			if (!getCurrentTrajectory().isReversed()) {
@@ -297,6 +309,7 @@ public class MotionProfileOnboardRunner {
 				System.out.println("Trajectory complete.");
 				Robot.driveTrain.stop();
 				start = false;
+				segment = 0;
 				reset();
 			}
 		}
@@ -317,5 +330,44 @@ public class MotionProfileOnboardRunner {
 	
 	public boolean isFinished() {
 		return leftFollower.isFinished() && rightFollower.isFinished();
+	}
+	
+	/**
+	 * @return time elapsed in seconds since the current trajectory started. Returns -1 if current trajectory is not running.
+	 */
+	public double getTimeElapsed() {
+		int index = getCurrentSegmentIndex();
+		if (index == -1) { return -1; }
+		double timePassed = getCurrentSegmentIndex() * currentTrajectory.getLeftTrajectory().get(0).dt;
+		return timePassed;
+	}
+	
+	/**
+	 * @return time in seconds until the current trajectory ends. Returns -1 if current trajectory is not running.
+	 */
+	public double getTimeRemaining() {
+		int index = getCurrentSegmentIndex();
+		if (index == -1) { return -1; }
+		double timePassed = getCurrentSegmentIndex() * currentTrajectory.getLeftTrajectory().get(0).dt;
+		return getTotalTime() - timePassed;
+	}
+	
+	/**
+	 * @return time in seconds that running the full current trajectory will take.
+	 */
+	public double getTotalTime() {
+		return currentTrajectory.getCount() * currentTrajectory.getLeftTrajectory().get(0).dt;
+	}
+	
+	/**
+	 * @return the 0-based index of the segment currently being run. Returns -1 if a trajectory is 
+	 * not being run right now or if an ArrayIndexOutOfBoundsException occurs.
+	 */
+	public int getCurrentSegmentIndex() {
+		int index = -1;
+		if (start) {
+			index = segment;
+		}
+		return index;
 	}
 }
