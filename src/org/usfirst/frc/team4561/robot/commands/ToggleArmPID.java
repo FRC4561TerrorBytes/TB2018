@@ -14,7 +14,7 @@ public class ToggleArmPID extends Command {
 	}
 	
 	protected void execute(){
-		RobotMap.ARM_PID = !RobotMap.ARM_PID;
+		RobotMap.ARM_PID = true;
 		Robot.arm.setGoal((int) Robot.arm.getEncoderPosition());
 	}
 

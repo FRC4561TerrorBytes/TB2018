@@ -188,27 +188,27 @@ public class OI {
 	}
 	
 	public double getControllerLeftX(){
-		return controller.getRawAxis(0);
+		return getControllerAxis(0);
 	}
 	
 	public double getControllerLeftY(){
-		return controller.getRawAxis(1);
+		return getControllerAxis(1);
 	}
 	
 	public double getControllerLTrigger(){
-		return controller.getRawAxis(2);
+		return getControllerAxis(2);
 	}
 	
 	public double getControllerRTrigger(){
-		return controller.getRawAxis(3);
+		return getControllerAxis(3);
 	}
 	
 	public double getControllerRightX(){
-		return controller.getRawAxis(4);
+		return getControllerAxis(4);
 	}
 	
 	public double getControllerRightY(){
-		return controller.getRawAxis(5);
+		return getControllerAxis(5);
 	}
 	
 	public boolean getControllerButton(int button){

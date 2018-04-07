@@ -113,7 +113,7 @@ public class RobotMap {
 	public static final boolean ARM_DEBUG = false || MASTER_DEBUG;
 	
 	public static final double DRIVETRAIN_CIRCUMFERENCE = 88;
-	public static final double CONTROLLER_DEADZONE = 0.25;
+	public static final double CONTROLLER_DEADZONE = 0.1;
 	
 	//PID variables
 	public static boolean MASTER_PID = false;
@@ -126,8 +126,8 @@ public class RobotMap {
 	// Automode constraints
 	public static final double TIME_STEP = 0.05; // sec
 	public static final double WHEELBASE_WIDTH_SWITCH = 2.25; // 2.8;// 3.3;//3.1; //7; // ft: 1.865 for Delta (fudged fo 2.95), 1.375 for Kongo, 1.865 for Janderson
-	public static final double WHEELBASE_WIDTH_SCALE = 2.8;
-	public static final double MAX_VELOCITY = 5; //ft/sec: 15.9 for Delta (decreased to 13.9) in speed gear
+	public static final double WHEELBASE_WIDTH_SCALE = 2.95;
+	public static final double MAX_VELOCITY = 2; //ft/sec: 15.9 for Delta (decreased to 13.9) in speed gear
 	public static final double MAX_ACCELERATION = 1; // ft/s/s: 6 for Delta
 	public static final double MAX_JERK = 60.0; // ft/s/s/s
 	

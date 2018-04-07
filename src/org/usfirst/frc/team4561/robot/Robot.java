@@ -420,6 +420,9 @@ public class Robot extends IterativeRobot {
 		case 12:
 			autonomousCommand = new AutoLeftTwoScaleOnboardProfiling();
 			break;
+		case 99:
+			autonomousCommand = new AlwaysRightSwitch();
+			break;
 		}
 
 		// schedule the autonomous command (example)

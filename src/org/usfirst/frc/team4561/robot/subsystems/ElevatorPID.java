@@ -53,11 +53,14 @@ public class ElevatorPID extends Subsystem {
 		motorTwo.configPeakOutputForward(1, 0);
 		motorTwo.configPeakOutputReverse(-1, 0);
 		
-		motorOne.config_kP(0, 16, 0);
+		motorOne.config_kP(0, 8, 0);
 		motorOne.config_kI(0, 0, 0);
-		motorOne.config_kD(0, 0, 0);
+		motorOne.config_kD(0, 1023, 0);
 		
 		motorOne.enableCurrentLimit(false);
+		
+		motorOne.configOpenloopRamp(0.5, 0);
+		motorTwo.configOpenloopRamp(0.5, 0);
 	}
 	
 	public void resetGoal() {

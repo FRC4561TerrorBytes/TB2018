@@ -25,7 +25,7 @@ public class RightScaleLeft extends Path {
     			new Waypoint(24.97, 20.2, 0)
     	};
     	reverse = false;
-    	//this.config.max_velocity = RobotMap.WHEELBASE_WIDTH_SCALE;
+    	this.wheelbase = RobotMap.WHEELBASE_WIDTH_SCALE;
     	generateTrajectoriesAndArrays();
     	
     	/* To print out points along trajectory...

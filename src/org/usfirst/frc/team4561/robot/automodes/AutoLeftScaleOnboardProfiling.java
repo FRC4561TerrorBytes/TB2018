@@ -49,17 +49,17 @@ double delay = Robot.oi.getDashboardDelaySlider();
     	// on the right
     	else {
     		addSequential(new RunTrajectoryOnboard(MotionProfileOnboardRunner.TrajectorySelect.LeftScaleRight));
-    		addSequential(new WaitUntilPositionPercentOnboard(0.5));
-    		addSequential(new ElevatorScalePosition());
-    		addSequential(new WaitUntilPositionPercentOnboard(0.9));
-    		addSequential(new ArmAngle());
-    		addSequential(new WaitUntilOnboardTrajectoryFinished());
-    		addSequential(new IntakeRelease()); // drop power cube
-    		addSequential(new WaitCommand(0.5));
-    		addSequential(new IntakeStop());
-    		addSequential(new DriveMagic(-40, -40));
-    		addSequential(new ArmVertical());
-    		addSequential(new ElevatorGroundPosition());
+//    		addSequential(new WaitUntilPositionPercentOnboard(0.5));
+//    		addSequential(new ElevatorScalePosition());
+//    		addSequential(new WaitUntilPositionPercentOnboard(0.9));
+//    		addSequential(new ArmAngle());
+//    		addSequential(new WaitUntilOnboardTrajectoryFinished());
+//    		addSequential(new IntakeRelease()); // drop power cube
+//    		addSequential(new WaitCommand(0.5));
+//    		addSequential(new IntakeStop());
+//    		addSequential(new DriveMagic(-40, -40));
+//    		addSequential(new ArmVertical());
+//    		addSequential(new ElevatorGroundPosition());
     	}
     }
 }
