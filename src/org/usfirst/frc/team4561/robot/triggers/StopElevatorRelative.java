@@ -9,7 +9,7 @@ public class StopElevatorRelative extends Trigger {
 	@Override
 	public boolean get() {
 		// TODO Auto-generated method stub
-		return (Robot.elevator.getThrottle()==0);
+		return (Robot.elevator.getThrottle()==0 && Robot.oi.getControllerRightY() == 0);
 	}
 
 }
