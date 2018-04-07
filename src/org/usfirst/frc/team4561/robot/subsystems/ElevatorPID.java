@@ -80,6 +80,9 @@ public class ElevatorPID extends Subsystem {
 	public void set(double speed){
 		motorOne.set(ControlMode.PercentOutput, speed);
 	}
+	public double getThrottle() {
+		return motorOne.getMotorOutputPercent();
+	}
 	public void setToGoal(){
 		if (Math.abs(goal - getElevatorPos()) > 10){
 			motorOne.set(ControlMode.Position, goal);

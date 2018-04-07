@@ -47,8 +47,8 @@ public class MotionProfileRunner {
 	public static Path leftScaleLeft = new LeftScaleLeft();
 	public static Path leftScaleRight = new LeftScaleRight();
 	public static Path leftScaleTurnAroundS3 = new LeftScaleTurnAroundS3();
-	public static Path midSwitchLeft = new MidSwitchLeft();
-	public static Path midSwitchRight = new MidSwitchRight();
+	public static Path midSwitchLeft = new MidSwitchLeftOffboard();
+	public static Path midSwitchRight = new MidSwitchRightOffboard();
 	public static Path rightScaleLeft = new RightScaleLeft();
 	public static Path rightScaleRight = new RightScaleRight();
 	public static Path rightScaleTurnAroundS4 = new RightScaleTurnAroundS4();
