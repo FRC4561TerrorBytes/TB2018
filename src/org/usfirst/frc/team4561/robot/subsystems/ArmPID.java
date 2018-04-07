@@ -19,6 +19,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 public class ArmPID extends Subsystem {
 	private WPI_TalonSRX motorOne;
 	private int goal = -120;
+	private int speed = 1000;
 	//private WPI_TalonSRX motorTwo;
 	public ArmPID() {
 		motorOne = new WPI_TalonSRX(RobotMap.ARM_MOTOR_1_PORT);
@@ -32,15 +33,19 @@ public class ArmPID extends Subsystem {
 		//motorTwo.set(followerRobotMap.ARM_MOTOR_1_PORT);
 		motorOne.config_kP(0, 57, 0);
 		motorOne.config_kI(0, 0.005, 0);
-		motorOne.config_kD(0, 360, 0);
+		motorOne.config_kD(0, 1023, 0);
 		motorOne.configPeakOutputForward(1, 0);
 		motorOne.configPeakOutputReverse(-1, 0);
 		motorOne.configNominalOutputForward(0, 0);
 		motorOne.configNominalOutputReverse(0, 0);
 		motorOne.configAllowableClosedloopError(0, 5, 0);
 		motorOne.enableCurrentLimit(false);
+		motorOne.configOpenloopRamp(0, 0);
 	}
 	// Arm on ground to intake block
+	public double getThrottle() {
+		return motorOne.getMotorOutputPercent();
+	}
 	public void IntakePosition() {
 		goal = -1120;
 		if (RobotMap.ARM_PID) setToGoal();

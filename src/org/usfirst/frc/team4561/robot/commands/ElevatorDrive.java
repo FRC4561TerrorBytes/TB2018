@@ -52,7 +52,10 @@ public class ElevatorDrive extends Command {
 		if (Robot.oi.getControllerRightY() != 0) {
 			double output = Math.copySign(Math.pow(Robot.oi.getControllerRightY(), 8), -Robot.oi.getControllerRightY());
 			Robot.elevator.set(-Robot.oi.getControllerRightY());
-			Robot.elevator.resetBetter();
+			if (Math.abs(Robot.elevator.getElevatorPos() - Robot.elevator.getGoal()) > 24 || true) {
+				Robot.elevator.resetBetter();
+			}
+//			System.out.println("Right stick moved");
 		}
 		if (Robot.oi.getControllerRightY() == 0 && RobotMap.ELEVATOR_PID) {
 			Robot.elevator.setToGoal();

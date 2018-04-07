@@ -27,7 +27,7 @@ double delay = Robot.oi.getDashboardDelaySlider();
     		addSequential(new RunTrajectoryOnboard(MotionProfileOnboardRunner.TrajectorySelect.MidSwitchLeft));
     		addSequential(new WaitUntilPositionPercentOnboard(0.5));
     		addSequential(new ArmReleasePosition());
-    		addSequential(new WaitUntilOnboardTrajectoryFinished());
+    		addSequential(new WaitUntilTrajectoryFinished());
     		addSequential(new IntakeRelease()); // drop power cubeq
     		addSequential(new WaitCommand(0.5));
     		addSequential(new IntakeStop());

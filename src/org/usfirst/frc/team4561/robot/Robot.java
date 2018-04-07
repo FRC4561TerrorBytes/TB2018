@@ -423,6 +423,15 @@ public class Robot extends IterativeRobot {
 		case 99:
 			autonomousCommand = new AlwaysRightSwitch();
 			break;
+		case 999:
+			autonomousCommand = new RightAlwaysLeftScale();
+			break;
+		case 9999:
+			autonomousCommand = new IntakeCube();
+			break;
+		case 909:
+			autonomousCommand = new GetSecondCubeRightScale();
+			break;
 		}
 
 		// schedule the autonomous command (example)

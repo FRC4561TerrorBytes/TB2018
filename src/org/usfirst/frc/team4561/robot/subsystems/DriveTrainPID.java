@@ -292,59 +292,17 @@ public class DriveTrainPID extends Subsystem {
 		return frontLeft.getControlMode().toString();
 	}
 	public void goToAngle(double target){
-		int timeout = 0;
 		System.out.println("Turning to " + target);
-		double kP = 0.0035;
-		double kI = 0.000025;
+		double kP = 0.0055;
 		double angle = getGyroAngle();
 		double error = target-Math.abs(angle);
-		double angleAccum = 0;
-		while (Math.abs(error) > 0.25){
-			angle = Math.abs(getGyroAngle());
-			error = target-Math.abs(angle);
-			if (Math.abs(error) < 30) angleAccum = angleAccum + Math.abs(error);
-			if (error > 0){
-				if (Math.abs(error) < 30){
-					frontRight.set(ControlMode.PercentOutput, error*kP+(angleAccum*kI));
-					frontLeft.set(ControlMode.PercentOutput, error*kP+(angleAccum*kI));
-				}
-				else{
-					frontRight.set(ControlMode.PercentOutput, error*kP);
-					frontLeft.set(ControlMode.PercentOutput, error*kP);
-				}
-			}
-			else if (error < 0){
-				if (Math.abs(error) < 30){
-					frontRight.set(ControlMode.PercentOutput, -(Math.abs(error)*kP+(angleAccum*kI)));
-					frontLeft.set(ControlMode.PercentOutput, -(Math.abs(error)*kP+(angleAccum*kI)));
-				}
-				else{
-					frontRight.set(ControlMode.PercentOutput, -(Math.abs(error)*kP));
-					frontLeft.set(ControlMode.PercentOutput, -(Math.abs(error)*kP));
-				}
-			}
-			if (timeout > 0){
-				timeout--;
-			}
-			SmartDashboard.putNumber("Gyro Angle", angle);
-			SmartDashboard.putNumber("Gyro Rate", rateAvg);
-			SmartDashboard.putNumber("Correction Value", error);
-			SmartDashboard.putNumber("Left Speed", Robot.driveTrain.getLeftSpeed());
-			SmartDashboard.putNumber("Right Speed", Robot.driveTrain.getRightSpeed());
-			SmartDashboard.putNumber("Left Pos", Robot.driveTrain.getLeftPos());
-			SmartDashboard.putNumber("Right Pos", Robot.driveTrain.getRightPos());
-			SmartDashboard.putNumber("Left Error", Robot.driveTrain.getLeftError());
-			SmartDashboard.putNumber("Right Error", Robot.driveTrain.getRightError());
-			SmartDashboard.putNumber("Avg Speed", Robot.driveTrain.avgSpeed());
+		Robot.gyro.reset();
+		while (Math.abs(error) > 2.5) {
+			error = target - Math.abs(angle);
+			angle = Robot.gyro.getAngle();
+			frontLeft.set(ControlMode.PercentOutput, error*kP);
+			frontRight.set(ControlMode.PercentOutput, -error*kP);
 		}
-		System.out.println("Turned to the angle");
-		//frontLeft.set(ControlMode.PercentOutput, 0);
-		//frontRight.set(ControlMode.PercentOutput, 0);
-		angleAccum = 0;
-		rateAccum = 0;
-		angleAvg = 0;
-		rateAvg = 0;
-		resetEncoders();
 	}
 	public int getLeftSpeed(){
 		return frontLeft.getSelectedSensorVelocity(0);

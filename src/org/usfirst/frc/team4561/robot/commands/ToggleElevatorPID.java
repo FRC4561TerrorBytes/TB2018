@@ -16,6 +16,7 @@ public class ToggleElevatorPID extends Command {
 	protected void execute(){
 		RobotMap.ELEVATOR_PID = !RobotMap.ELEVATOR_PID;
 		Robot.elevator.setGoalRelative((int) Robot.elevator.getElevatorPos());
+		System.out.println("Toggled Elevator");
 	}
 
 }

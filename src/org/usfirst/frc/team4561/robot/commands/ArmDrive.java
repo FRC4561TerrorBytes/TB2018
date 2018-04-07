@@ -32,10 +32,10 @@ public class ArmDrive extends Command {
 		}
 		if (Robot.oi.getControllerLeftY() != 0) {
 			double output = Math.copySign(Math.pow(Robot.oi.getControllerLeftY(), 4), -Robot.oi.getControllerLeftY());
-			if (output > 0 && output < 0.2) {
-				output = 0.2;
-			}
-			Robot.arm.set(output);
+//			if (output > 0 && output < 0.2) {
+//				output = 0.2;
+//			}
+			Robot.arm.set(output/3);
 			Robot.arm.resetBetter();
 		}
 		if (Robot.oi.getControllerLeftY() == 0 && RobotMap.ARM_PID) {
