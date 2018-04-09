@@ -6,6 +6,7 @@ import org.usfirst.frc.team4561.trajectories.MotionProfileRunner;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
+import edu.wpi.first.wpilibj.command.WaitUntilCommand;
 
 public class AutoTwoSwitchCube extends CommandGroup {
 double delay = Robot.oi.getDashboardDelaySlider();
@@ -24,45 +25,59 @@ double delay = Robot.oi.getDashboardDelaySlider();
     	// on the left
     	if (!(Robot.switchFMSSideRight)) {
     		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidSwitchLeft));
-    		addParallel(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.MidSwitchLeft.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.MidSwitchLeft.getLeftArrayLastPosition(), new ArmReleasePosition()));
+    		addParallel(new WaitUntilPositionPercent(0.5, new ArmReleasePosition()));
     		addSequential(new WaitUntilTrajectoryFinished());
     		addSequential(new IntakeRelease()); // drop power cubeq
     		addSequential(new WaitCommand(0.5));
     		addSequential(new IntakeStop());
-    		addParallel(new ArmVertical());
+    		addParallel(new ArmReleasePosition());
     		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidSwitchLeftReverse));
+    		addSequential(new WaitUntilTrajectoryFinished());
     		addSequential(new ArmIntakePosition());
     		addParallel(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidCubePile));
-    		addSequential(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.MidCubePile.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.MidCubePile.getLeftArrayLastPosition(), new Nothing()));
+    		addSequential(new WaitUntilPositionPercent(0.5, new BobOpen()));
+    		addSequential(new BobOpen());
     		addSequential(new IntakeIn());
     		addSequential(new WaitUntilTrajectoryFinished());
+    		addSequential(new BobClose());
+    		addSequential(new WaitCommand(0.25));
     		addSequential(new IntakeStop());
-    		addParallel(new ArmVertical());
+    		addSequential(new WaitCommand(0.25));
+    		addSequential(new ArmReleasePosition());
     		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidCubePileReversed));
-    		addParallel(new ArmReleasePosition());
-    		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidSwitchLeft));
+    		addSequential(new WaitUntilTrajectoryFinished());
+//    		addParallel(new ArmReleasePosition());
+//    		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidSwitchLeft));
+//    		addSequential(new WaitUntilTrajectoryFinished());
 //    		addSequential(new IntakeRelease());
     	}
     	// on the right
     	else {
     		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidSwitchRight));
-    		addParallel(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.MidSwitchRight.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.MidSwitchRight.getLeftArrayLastPosition(), new ArmReleasePosition()));
+    		addParallel(new WaitUntilPositionPercent(0.5, new ArmReleasePosition()));
     		addSequential(new WaitUntilTrajectoryFinished());
     		addSequential(new IntakeRelease()); // drop power cubeq
     		addSequential(new WaitCommand(0.5));
     		addSequential(new IntakeStop());
-    		addParallel(new ArmVertical());
+    		addParallel(new ArmReleasePosition());
     		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidSwitchRightReverse));
+    		addSequential(new WaitUntilTrajectoryFinished());
     		addSequential(new ArmIntakePosition());
     		addParallel(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidCubePile));
-    		addSequential(new WaitUntilPositionPercent(0.5, MotionProfileRunner.TrajectorySelect.MidCubePile.getLeftArrayFirstPosition(), MotionProfileRunner.TrajectorySelect.MidCubePile.getLeftArrayLastPosition(), new Nothing()));
+    		addSequential(new WaitUntilPositionPercent(0.5, new BobOpen()));
     		addSequential(new IntakeIn());
+    		addSequential(new BobOpen());
     		addSequential(new WaitUntilTrajectoryFinished());
+    		addSequential(new BobClose());
+    		addSequential(new WaitCommand(0.25));
     		addSequential(new IntakeStop());
-    		addParallel(new ArmVertical());
+    		addSequential(new WaitCommand(0.25));
+    		addSequential(new ArmReleasePosition());
     		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidCubePileReversed));
-    		addParallel(new ArmReleasePosition());
-    		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidSwitchRight));
+    		addSequential(new WaitUntilTrajectoryFinished());
+//    		addParallel(new ArmReleasePosition());
+//    		addSequential(new RunTrajectory(MotionProfileRunner.TrajectorySelect.MidSwitchRight));
+//    		addSequential(new WaitUntilTrajectoryFinished());
 //    		addSequential(new IntakeRelease());
     	}
     }

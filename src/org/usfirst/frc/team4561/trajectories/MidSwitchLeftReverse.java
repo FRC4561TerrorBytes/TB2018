@@ -24,6 +24,9 @@ public class MidSwitchLeftReverse extends Path {
     			
     	};
     	reverse = true;
+    	this.config.max_velocity = 13.9;
+    	this.config.max_acceleration = 6;
+    	this.wheelbase = 3.1;
     	generateTrajectoriesAndArrays();
     	
     	/* To print out points along trajectory...

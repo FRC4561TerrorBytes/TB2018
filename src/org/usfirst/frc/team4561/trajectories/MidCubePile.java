@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4561.trajectories;
 
+import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Waypoint;
 
 public class MidCubePile extends Path {
@@ -9,9 +10,12 @@ public class MidCubePile extends Path {
     	// Angles are in radians, positive Y is to the left, positive X is forward
     	points = new Waypoint[] {
     			new Waypoint(3.22, 13.23, 0),
-    			new Waypoint(9, 13.5, 0)
+    			new Waypoint(9, 13.5, Pathfinder.d2r(-20))
     	};
     	reverse = false;
+    	this.config.max_velocity = 13.9;
+    	this.config.max_acceleration = 6;
+    	this.wheelbase = 3.1;
     	generateTrajectoriesAndArrays();
     	
     	/* To print out points along trajectory...

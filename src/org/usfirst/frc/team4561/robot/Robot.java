@@ -430,7 +430,10 @@ public class Robot extends IterativeRobot {
 			autonomousCommand = new IntakeCube();
 			break;
 		case 909:
-			autonomousCommand = new GetSecondCubeRightScale();
+			autonomousCommand = new GetSecondCubeLeftScale();
+			break;
+		case 9009:
+			autonomousCommand = new ReturnHome();
 			break;
 		}
 

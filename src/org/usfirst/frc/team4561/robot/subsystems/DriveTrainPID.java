@@ -390,6 +390,9 @@ public class DriveTrainPID extends Subsystem {
 		if (yes) System.out.println("Yes");
 		return yes;
 	}
+	public boolean nearAngle(double angle) {
+		return Math.abs(angle - Robot.gyro.getAngle()) < 2;
+	}
 	public double getRightRearCurrent(){
 		return rearRight.getOutputCurrent();
 	}

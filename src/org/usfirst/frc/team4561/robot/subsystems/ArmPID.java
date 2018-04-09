@@ -106,6 +106,9 @@ public class ArmPID extends Subsystem {
     public void set(double speed){
     	motorOne.set(ControlMode.PercentOutput, speed);
     }
+    public void resetFlow() {
+    	goal = motorOne.getSelectedSensorPosition(0)+ (motorOne.getSelectedSensorVelocity(0));
+    }
     /**
      * Gets the encoder velocity of the arm.
      */

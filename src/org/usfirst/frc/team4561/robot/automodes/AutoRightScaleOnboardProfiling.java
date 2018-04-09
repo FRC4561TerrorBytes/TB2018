@@ -48,7 +48,7 @@ double delay = Robot.oi.getDashboardDelaySlider();
     		addSequential(new WaitCommand(0.5));
     		addSequential(new IntakeStop());
     		addSequential(new ArmVertical());
-    		addSequential(new TurnMagic(180));
+    		addSequential(new TurnMagic(180), 2);
     		addSequential(new ElevatorGroundPosition());
     		addSequential(new ArmIntakePosition());
     		addSequential(new BobOpen());
@@ -56,15 +56,22 @@ double delay = Robot.oi.getDashboardDelaySlider();
     		addSequential(new RunTrajectoryOnboard(MotionProfileOnboardRunner.TrajectorySelect.CubeRightScaleRight));
     		addSequential(new WaitUntilOnboardTrajectoryFinished());
     		addSequential(new BobClose());
+    		addSequential(new WaitCommand(0.25));
     		addSequential(new IntakeStop());
+    		addSequential(new WaitCommand(0.25));
     		addSequential(new ArmVertical());
-    		addSequential(new TurnMagic(-180));
+    		addSequential(new TurnMagic(-180), 2);
+    		addSequential(new WaitCommand(0.25));
     		addSequential(new ElevatorScalePosition());
-    		addSequential(new RunTrajectoryOnboard(MotionProfileOnboardRunner.TrajectorySelect.CubeRightScaleRight));
-    		addSequential(new WaitUntilOnboardTrajectoryFinished());
+    		addSequential(new DriveMagic(40, 40));
     		addSequential(new ArmAngle());
     		addSequential(new WaitCommand(0.25));
     		addSequential(new IntakeRelease());
+    		addSequential(new WaitCommand(0.5));
+    		addSequential(new IntakeStop());
+    		addSequential(new DriveMagic(-40, -40));
+    		addSequential(new ArmVertical());
+    		addSequential(new ElevatorGroundPosition());
     	}
     	// on the left
     	else {
