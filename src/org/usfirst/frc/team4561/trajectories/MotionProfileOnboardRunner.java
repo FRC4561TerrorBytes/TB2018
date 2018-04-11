@@ -289,6 +289,17 @@ public class MotionProfileOnboardRunner {
 			double leftOutput = leftOutputRaw + turn;
 			double rightOutput = rightOutputRaw - turn;
 			
+			if (leftOutput > 1 || rightOutput > 1) {
+				if (leftOutput > rightOutput) {
+					leftOutput = leftOutput/leftOutput;
+					rightOutput = rightOutput/leftOutput;
+				}
+				else {
+					leftOutput = leftOutput/rightOutput;
+					rightOutput = rightOutput/rightOutput;
+				}
+			}
+			
 			if(getCurrentTrajectory().isReversed()) {
 				leftTalon.set(ControlMode.PercentOutput, -rightOutput);
 				rightTalon.set(ControlMode.PercentOutput, -leftOutput);
