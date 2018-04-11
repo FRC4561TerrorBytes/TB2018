@@ -105,7 +105,8 @@ public class Robot extends IterativeRobot {
 		//(new CheckSwitchSide()).start();
 		
 		SmartDashboard.putData("Auto mode", chooser);
-		System.out.println("Things are not on fire");
+		if (gyro.getTemp() < 298) System.out.println("Things are not on fire"); //298 C is the ignition point of Polypropylene, which is my best guess for what the rio is made of
+		else System.out.println("Things are probably on fire");
 		oi.toggleArmPID.whenActive(new ToggleArmPID());
 		oi.toggleElevatorPID.whenActive(new ToggleElevatorPID());
 		oi.toggleDriveTrainPID.whenActive(new ToggleDriveTrainPID());
