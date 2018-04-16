@@ -231,7 +231,7 @@ public class Robot extends IterativeRobot {
 		
     	//SmartDashboard.putNumber("Controller POV", oi.getControllerPOV());
     	if (Robot.arm.getRevSwitch()){
-			Robot.arm.setEncoderPos(-1120);
+			Robot.arm.setEncoderPos(-1560);
 		}
     	if (RobotMap.ARM_PID){
     		SmartDashboard.putString("DB/String 3", "Arm PID: ON");

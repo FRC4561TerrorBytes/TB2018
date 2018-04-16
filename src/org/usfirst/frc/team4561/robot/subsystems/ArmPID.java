@@ -50,7 +50,7 @@ public class ArmPID extends Subsystem {
 		return motorOne.getMotorOutputPercent();
 	}
 	public void IntakePosition() {
-		goal = -1120;
+		goal = -1560;
 		if (RobotMap.ARM_PID) setToGoal();
 		if (RobotMap.ARM_DEBUG) {
 			System.out.println("[Subsystem] ArmPID: Down to Intake Position");
@@ -68,27 +68,27 @@ public class ArmPID extends Subsystem {
 	}
 	//Arm in straight release position
 	public void ReleasePosition() {
-		goal = -1000;
+		goal = -1390;
 		if (RobotMap.ARM_PID) setToGoal();
 		if (RobotMap.ARM_DEBUG) {
 			System.out.println("[Subsystem] ArmPID: Up to Release Position");
 		}
 	}
 	public void AnglePosition() {
-		goal = -660;
+		goal = -919;
 		if (RobotMap.ARM_PID) {
 			setToGoal();
 		}
 	}
 	public void DiagonalPosition(){
-		goal = -240;
+		goal = -334;
 		if (RobotMap.ARM_PID) setToGoal();
 		if (RobotMap.ARM_DEBUG){
 			System.out.println("Subsystem ArmPID: Diagonal Position");
 		}
 	}
 	public void UpPostition(){
-		goal = -120;
+		goal = -167;
 		if (RobotMap.ARM_PID) setToGoal();
 		if (RobotMap.ARM_DEBUG){
 			System.out.println("[Subsystem] ArmPID: Up to Up Position");
