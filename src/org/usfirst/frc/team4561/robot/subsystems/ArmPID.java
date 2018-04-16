@@ -29,11 +29,13 @@ public class ArmPID extends Subsystem {
 		motorOne.configSetParameter(ParamEnum.eClearPositionOnLimitR, 0, 0, 0, 0);
 		motorOne.configSetParameter(ParamEnum.eClearPositionOnLimitF, 1, 0, 0, 0);
 		motorOne.setSensorPhase(true);
+		motorOne.setInverted(true);
 		//motorTwo = new WPI_TalonSRX(RobotMap.ARM_MOTOR_2_PORT);
 		//motorTwo.set(followerRobotMap.ARM_MOTOR_1_PORT);
-		motorOne.config_kP(0, 57, 0);
-		motorOne.config_kI(0, 0.005, 0);
+		motorOne.config_kP(0, 10, 0);
+		motorOne.config_kI(0, 0, 0);
 		motorOne.config_kD(0, 1023, 0);
+		motorOne.config_kP(1, 4, 0);
 		motorOne.configPeakOutputForward(1, 0);
 		motorOne.configPeakOutputReverse(-1, 0);
 		motorOne.configNominalOutputForward(0, 0);
@@ -41,6 +43,7 @@ public class ArmPID extends Subsystem {
 		motorOne.configAllowableClosedloopError(0, 5, 0);
 		motorOne.enableCurrentLimit(false);
 		motorOne.configOpenloopRamp(0, 0);
+		motorOne.selectProfileSlot(0, 0);
 	}
 	// Arm on ground to intake block
 	public double getThrottle() {
@@ -95,6 +98,7 @@ public class ArmPID extends Subsystem {
      * Gets the encoder position of the arm.
      */
     public void setToGoal(){
+    	motorOne.selectProfileSlot(0, 0);
     	motorOne.set(ControlMode.Position, goal);
     }
     public void setGoal(int gol){
@@ -104,7 +108,8 @@ public class ArmPID extends Subsystem {
     	return motorOne.getSelectedSensorPosition(0);
     }
     public void set(double speed){
-    	motorOne.set(ControlMode.PercentOutput, speed);
+    	motorOne.selectProfileSlot(1, 0);
+    	motorOne.set(ControlMode.Velocity, speed*100);
     }
     public void resetFlow() {
     	goal = motorOne.getSelectedSensorPosition(0)+ (motorOne.getSelectedSensorVelocity(0));

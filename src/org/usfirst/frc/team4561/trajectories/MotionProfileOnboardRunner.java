@@ -289,8 +289,8 @@ public class MotionProfileOnboardRunner {
 			double leftOutput = leftOutputRaw + turn;
 			double rightOutput = rightOutputRaw - turn;
 			
-			if (leftOutput > 1 || rightOutput > 1) {
-				if (leftOutput > rightOutput) {
+			if (Math.abs(leftOutput) > 1 || Math.abs(rightOutput) > 1) {
+				if (Math.abs(leftOutput) > Math.abs(rightOutput)) {
 					leftOutput = leftOutput/leftOutput;
 					rightOutput = rightOutput/leftOutput;
 				}
