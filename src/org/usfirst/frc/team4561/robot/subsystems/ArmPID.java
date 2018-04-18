@@ -19,6 +19,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 public class ArmPID extends Subsystem {
 	private WPI_TalonSRX motorOne;
 	private int goal = -120;
+	private int velGoal = 0;
 	private int speed = 1000;
 	//private WPI_TalonSRX motorTwo;
 	public ArmPID() {
@@ -32,22 +33,28 @@ public class ArmPID extends Subsystem {
 		motorOne.setInverted(true);
 		//motorTwo = new WPI_TalonSRX(RobotMap.ARM_MOTOR_2_PORT);
 		//motorTwo.set(followerRobotMap.ARM_MOTOR_1_PORT);
-		motorOne.config_kP(0, 10, 0);
-		motorOne.config_kI(0, 0, 0);
+		motorOne.config_kP(0, 4, 0);
+		motorOne.config_kI(0, 0.005, 0);
 		motorOne.config_kD(0, 1023, 0);
 		motorOne.config_kP(1, 4, 0);
+		motorOne.config_kF(1, 3.41, 0);
+		motorOne.config_IntegralZone(0, 70, 0);
 		motorOne.configPeakOutputForward(1, 0);
 		motorOne.configPeakOutputReverse(-1, 0);
 		motorOne.configNominalOutputForward(0, 0);
 		motorOne.configNominalOutputReverse(0, 0);
-		motorOne.configAllowableClosedloopError(0, 5, 0);
+		motorOne.configAllowableClosedloopError(0, 0, 0);
 		motorOne.enableCurrentLimit(false);
 		motorOne.configOpenloopRamp(0, 0);
 		motorOne.selectProfileSlot(0, 0);
+		motorOne.configClosedloopRamp(0.2, 1);
 	}
 	// Arm on ground to intake block
 	public double getThrottle() {
 		return motorOne.getMotorOutputPercent();
+	}
+	public void clear() {
+		motorOne.setIntegralAccumulator(0, 0, 0);
 	}
 	public void IntakePosition() {
 		goal = -1560;
@@ -99,6 +106,8 @@ public class ArmPID extends Subsystem {
      */
     public void setToGoal(){
     	motorOne.selectProfileSlot(0, 0);
+    	motorOne.configClosedloopRamp(0.2, 0);
+    	clear();
     	motorOne.set(ControlMode.Position, goal);
     }
     public void setGoal(int gol){
@@ -109,10 +118,19 @@ public class ArmPID extends Subsystem {
     }
     public void set(double speed){
     	motorOne.selectProfileSlot(1, 0);
-    	motorOne.set(ControlMode.Velocity, speed*100);
+    	motorOne.configClosedloopRamp(0, 0);
+    	clear();
+    	velGoal = (int) speed*300;
+    	motorOne.set(ControlMode.Velocity, speed*300);
+    }
+    public int getVGoal() {
+    	return velGoal;
+    }
+    public boolean isVelocity() {
+    	return motorOne.getControlMode() == ControlMode.Velocity;
     }
     public void resetFlow() {
-    	goal = motorOne.getSelectedSensorPosition(0)+ (motorOne.getSelectedSensorVelocity(0));
+    	goal = motorOne.getSelectedSensorPosition(0)+ (int) (1.25*motorOne.getSelectedSensorVelocity(0));
     }
     /**
      * Gets the encoder velocity of the arm.

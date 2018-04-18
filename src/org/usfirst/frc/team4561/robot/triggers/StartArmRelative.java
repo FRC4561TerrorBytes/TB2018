@@ -9,7 +9,7 @@ public class StartArmRelative extends Trigger {
 	@Override
 	public boolean get() {
 		// TODO Auto-generated method stub
-		return Robot.oi.getControllerLeftY()!=0;
+		return false;
 	}
 
 }

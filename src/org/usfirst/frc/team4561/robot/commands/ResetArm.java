@@ -13,7 +13,8 @@ public class ResetArm extends Command {
 	}
 	
 	protected void execute(){
-		Robot.arm.resetGoal();
+		if (Robot.oi.getControllerLeftY()==0) Robot.arm.resetFlow();
+//		else Robot.arm.resetFlow();
 	}
 
 }

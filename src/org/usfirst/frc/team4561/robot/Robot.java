@@ -138,8 +138,9 @@ public class Robot extends IterativeRobot {
 		arm.resetGoal();
 		driveTrain.stop();
 		//arm.resetEncoder();
+		arm.clear();
 	}
-	
+		
 	public void robotPeriodic(){
 		motionProfileRunner.control();
 		motionProfileOnboardRunner.control();
@@ -151,6 +152,7 @@ public class Robot extends IterativeRobot {
 	    	SmartDashboard.putBoolean("Arm/Forward Limit Switch", Robot.arm.getFwdSwitch());
 	    	SmartDashboard.putBoolean("Arm/Reverse Limit switch", Robot.arm.getRevSwitch());
 	    	SmartDashboard.putNumber("Arm/Motor Voltage", Robot.arm.getVoltage());
+	    	SmartDashboard.putNumber("Arm/Velocity Goal", Robot.arm.getVGoal());
 		}
     	
 		if (RobotMap.ELEVATOR_DEBUG){
