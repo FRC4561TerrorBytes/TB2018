@@ -205,6 +205,7 @@ public class MotionProfileOnboardRunner {
 	private final double kV = 1.0 / RobotMap.MAX_FEET_PER_SECOND;
 	private final double kA = 0; // Should be able to be left at 0 if max accel is configured correctly in trajectory config
 	private final double kG = 0.075; //0.075; // Gyro gain: 0.075 for Kongo
+	private double startAngle = 0;
 	
 	/**
 	 * If start() gets called, this flag is set and in the control() we will
@@ -234,6 +235,7 @@ public class MotionProfileOnboardRunner {
 		Robot.driveTrain.invertRightSide(!RobotMap.RIGHT_SIDE_INVERTED);
 		Robot.driveTrain.setSensorPhase(RobotMap.LEFT_SIDE_SENSOR_PHASE_REVERSED, RobotMap.RIGHT_SIDE_SENSOR_PHASE_REVERSED);
 		Robot.driveTrain.resetEncoders();
+		startAngle = getCurrentTrajectory().trajectory.trajectory.segments[0].heading - Robot.gyro.getAngle();
 	}
 	
 	/**
@@ -246,6 +248,7 @@ public class MotionProfileOnboardRunner {
 		Robot.driveTrain.invertLeftSide(RobotMap.LEFT_SIDE_INVERTED);
 		Robot.driveTrain.invertRightSide(RobotMap.RIGHT_SIDE_INVERTED);
 		start = false;
+		startAngle = 0;
 	}
 
 	volatile int segment = 0;
@@ -273,7 +276,7 @@ public class MotionProfileOnboardRunner {
 			double angleDifference;
 			double turn;
 			if (getCurrentTrajectory().isReversed()) {
-				double gyro_heading = Robot.gyro.getYaw(); // Get our angle in degrees from -180..180
+				double gyro_heading = Robot.gyro.getYaw() + startAngle; // Get our angle in degrees from -180..180
 				// Add 180 to desired_heading because bot's reversed
 				double desired_heading = Pathfinder.boundHalfDegrees(Pathfinder.r2d(leftFollower.getHeading()) + 180);
 				angleDifference = Pathfinder.boundHalfDegrees(desired_heading + gyro_heading);
