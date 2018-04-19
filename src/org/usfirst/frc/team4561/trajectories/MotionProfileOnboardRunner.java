@@ -226,7 +226,7 @@ public class MotionProfileOnboardRunner {
 		rightFollower.configureEncoder((int) (Robot.driveTrain.getRightPos() * RobotMap.ONBOARD_ENCODER_MULTIPLIER), RobotMap.UNITS_PER_REVOLUTION, RobotMap.WHEEL_DIAMETER / 12);
 		leftFollower.configurePIDVA(kP, kI, kD, kV, kA);
 		rightFollower.configurePIDVA(kP, kI, kD, kV, kA);
-		notifier.startPeriodic(RobotMap.TIME_STEP); // TODO: Try turning up the time step and see how things change
+		notifier.startSingle(RobotMap.TIME_STEP); // TODO: Try turning up the time step and see how things change
 	}
 	
 	public void prepare() {
@@ -254,6 +254,7 @@ public class MotionProfileOnboardRunner {
 	 * Must be called every loop.
 	 */
 	public void control() {
+		double highestOutput = 1;
 		if (start) {
 			segment++;
 			double leftOutputRaw;
@@ -291,10 +292,12 @@ public class MotionProfileOnboardRunner {
 			
 			if (Math.abs(leftOutput) > 1 || Math.abs(rightOutput) > 1) {
 				if (Math.abs(leftOutput) > Math.abs(rightOutput)) {
+					highestOutput = Math.abs(leftOutput);
 					leftOutput = leftOutput/leftOutput;
 					rightOutput = rightOutput/leftOutput;
 				}
 				else {
+					highestOutput = Math.abs(rightOutput);
 					leftOutput = leftOutput/rightOutput;
 					rightOutput = rightOutput/rightOutput;
 				}
@@ -325,6 +328,7 @@ public class MotionProfileOnboardRunner {
 			}
 		}
 		// TODO: Instrumentation implementation for onboard
+		notifier.startSingle(RobotMap.TIME_STEP * highestOutput);
 	}
 
 	/**
