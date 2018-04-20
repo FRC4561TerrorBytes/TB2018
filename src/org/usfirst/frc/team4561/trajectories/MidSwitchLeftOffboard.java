@@ -19,7 +19,7 @@ public class MidSwitchLeftOffboard extends Path {
     	points = new Waypoint[] {
     			new Waypoint(3.22, 13.23, 0),
     			new Waypoint(6, 15, Pathfinder.d2r(45)),
-    			new Waypoint(11.67, 18.01, 0)
+    			new Waypoint(11.85, 18.25, 0)
     	};
     	reverse = false;
     	this.config.max_velocity = 13.9;

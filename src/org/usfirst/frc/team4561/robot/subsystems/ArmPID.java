@@ -34,11 +34,11 @@ public class ArmPID extends Subsystem {
 		//motorTwo = new WPI_TalonSRX(RobotMap.ARM_MOTOR_2_PORT);
 		//motorTwo.set(followerRobotMap.ARM_MOTOR_1_PORT);
 		motorOne.config_kP(0, 4, 0);
-		motorOne.config_kI(0, 0.005, 0);
+		motorOne.config_kI(0, 0.0055, 0);
 		motorOne.config_kD(0, 1023, 0);
 		motorOne.config_kP(1, 4, 0);
 		motorOne.config_kF(1, 3.41, 0);
-		motorOne.config_IntegralZone(0, 70, 0);
+		motorOne.config_IntegralZone(0, 120, 0);
 		motorOne.configPeakOutputForward(1, 0);
 		motorOne.configPeakOutputReverse(-1, 0);
 		motorOne.configNominalOutputForward(0, 0);
@@ -75,7 +75,7 @@ public class ArmPID extends Subsystem {
 	}
 	//Arm in straight release position
 	public void ReleasePosition() {
-		goal = -1390;
+		goal = -1370;
 		if (RobotMap.ARM_PID) setToGoal();
 		if (RobotMap.ARM_DEBUG) {
 			System.out.println("[Subsystem] ArmPID: Up to Release Position");
@@ -117,17 +117,17 @@ public class ArmPID extends Subsystem {
     	return motorOne.getSelectedSensorPosition(0);
     }
     public void set(double speed){
-    	motorOne.selectProfileSlot(1, 0);
-    	motorOne.configClosedloopRamp(0, 0);
+//    	motorOne.selectProfileSlot(1, 0);
+//    	motorOne.configClosedloopRamp(0, 0);
     	clear();
     	velGoal = (int) speed*300;
-    	motorOne.set(ControlMode.Velocity, speed*300);
+    	motorOne.set(ControlMode.PercentOutput, speed);
     }
     public int getVGoal() {
     	return velGoal;
     }
     public boolean isVelocity() {
-    	return motorOne.getControlMode() == ControlMode.Velocity;
+    	return motorOne.getControlMode() == ControlMode.PercentOutput;
     }
     public void resetFlow() {
     	goal = motorOne.getSelectedSensorPosition(0)+ (int) (1.25*motorOne.getSelectedSensorVelocity(0));

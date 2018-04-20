@@ -19,7 +19,7 @@ public class MidSwitchRightOffboard extends Path {
     	points = new Waypoint[] {
     			new Waypoint(3.22, 13.23, 0),
     			new Waypoint(6.00, 11.0, Pathfinder.d2r(-45)),
-    			new Waypoint(11.87, 9.04, 0)
+    			new Waypoint(12.3, 9.25, 0)
     	};
 
     	reverse = false;

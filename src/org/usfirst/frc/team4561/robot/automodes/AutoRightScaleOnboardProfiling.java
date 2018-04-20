@@ -60,6 +60,7 @@ double delay = Robot.oi.getDashboardDelaySlider();
     		addSequential(new IntakeStop());
     		addSequential(new WaitCommand(0.25));
     		addSequential(new ArmVertical());
+    		
     		addSequential(new TurnMagic(-180), 2);
     		addSequential(new WaitCommand(0.25));
     		addSequential(new ElevatorScalePosition());
@@ -69,6 +70,7 @@ double delay = Robot.oi.getDashboardDelaySlider();
     		addSequential(new IntakeRelease());
     		addSequential(new WaitCommand(0.5));
     		addSequential(new IntakeStop());
+    		
     		addSequential(new DriveMagic(-40, -40));
     		addSequential(new ArmVertical());
     		addSequential(new ElevatorGroundPosition());

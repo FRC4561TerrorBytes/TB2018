@@ -10,7 +10,7 @@ public MidSwitchRightReverse() {
     	// First point is the starting position, last point is the end.
     	// Angles are in radians, positive Y is to the left, positive X is forward
     	points = new Waypoint[] {
-    			new Waypoint(11.87, 9.04, 0),
+    			new Waypoint(12.3, 9.25, 0),
     			new Waypoint(6.00, 11.0, Pathfinder.d2r(-45)),
     			new Waypoint(3.22, 13.23, 0)
     	};

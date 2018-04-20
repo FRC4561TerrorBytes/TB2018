@@ -33,8 +33,6 @@ import jaci.pathfinder.Pathfinder;
 import jaci.pathfinder.Trajectory;
 import jaci.pathfinder.followers.EncoderFollower;
 
-import javax.management.DescriptorRead;
-
 import org.usfirst.frc.team4561.robot.Robot;
 import org.usfirst.frc.team4561.robot.RobotMap;
 
@@ -43,7 +41,7 @@ import org.usfirst.frc.team4561.robot.RobotMap;
  * @author Kaiz
  *
  */
-public class MotionProfileOnboardRunner {
+public class MotionProfileOnboardRunnerOld {
 	
 	public static Path leftScaleLeft = new LeftScaleLeft();
 	public static Path leftScaleRight = new LeftScaleRight();
@@ -102,39 +100,41 @@ public class MotionProfileOnboardRunner {
 		/**
 		 * @return The trajectory for left side of the drivetrain.
 		 */
-		Trajectory getLeftTrajectory() {
+		private Trajectory getLeftTrajectory() {
 			return trajectory.getLeftTrajectory();
 		}
 		/**
 		 * @return The trajectory for right side of the drivetrain.
 		 */
-		Trajectory getRightTrajectory() {
+		private Trajectory getRightTrajectory() {
 			return trajectory.getRightTrajectory();
 		}
 		/**
 		 * @return An array of waypoints for the left side of the trajectory, each waypoint containing position, velocity, and time step. 
 		 */
 		@SuppressWarnings("unused")
-		double[][] getLeftArray() {
+		private double[][] getLeftArray() {
 			return trajectory.getLeftArray();
 		}
 		/**
 		 * @return An array of waypoints for the right side of the trajectory, each waypoint containing position, velocity, and time step. 
 		 */
 		@SuppressWarnings("unused")
-		double[][] getRightArray() {
+		private double[][] getRightArray() {
 			return trajectory.getRightArray();
 		}
 		/**
 		 * @return The number of waypoints in the trajectory. This will be the length of the left and right arrays.
 		 */
-		@SuppressWarnings("unused") int getCount() {
+		@SuppressWarnings("unused")
+		private int getCount() {
 			return trajectory.getCount();
 		}
 		/**
 		 * @return Whether or not the robot goes backwards for this trajectory.
 		 */
-		@SuppressWarnings("unused") boolean isReversed() {
+		@SuppressWarnings("unused")
+		private boolean isReversed() {
 			return trajectory.isReversed();
 		}
 		/**
@@ -154,20 +154,20 @@ public class MotionProfileOnboardRunner {
 	/**
 	 * The trajectory we are running right now.
 	 */
-	private TrajectorySelect currentTrajectory;
+	private org.usfirst.frc.team4561.trajectories.MotionProfileOnboardRunner.TrajectorySelect currentTrajectory;
 	
 	/**
 	 * Sets the trajectory that the robot should run next.
-	 * @param traj
+	 * @param trajectory
 	 */
-	public void setCurrentTrajectory(TrajectorySelect traj) {
-		currentTrajectory = traj;
+	public void setCurrentTrajectory(org.usfirst.frc.team4561.trajectories.MotionProfileOnboardRunner.TrajectorySelect trajectory) {
+		currentTrajectory = trajectory;
 	}
 	/**
 	 * Gets the trajectory that the robot is ready to run next.
 	 * @param traj
 	 */
-	public TrajectorySelect getCurrentTrajectory() {
+	public org.usfirst.frc.team4561.trajectories.MotionProfileOnboardRunner.TrajectorySelect getCurrentTrajectory() {
 		return currentTrajectory;
 	}
 
@@ -219,7 +219,7 @@ public class MotionProfileOnboardRunner {
 	 * @param leftArray array containing the left motion profile
 	 * @param rightArray array containing the right motion profile
 	 */
-	public MotionProfileOnboardRunner(TalonSRX leftTalon, TalonSRX rightTalon) {
+	public MotionProfileOnboardRunnerOld(TalonSRX leftTalon, TalonSRX rightTalon) {
 		this.leftTalon = leftTalon;
 		this.rightTalon = rightTalon;
 		prepare();
@@ -227,7 +227,7 @@ public class MotionProfileOnboardRunner {
 		rightFollower.configureEncoder((int) (Robot.driveTrain.getRightPos() * RobotMap.ONBOARD_ENCODER_MULTIPLIER), RobotMap.UNITS_PER_REVOLUTION, RobotMap.WHEEL_DIAMETER / 12);
 		leftFollower.configurePIDVA(kP, kI, kD, kV, kA);
 		rightFollower.configurePIDVA(kP, kI, kD, kV, kA);
-		notifier.startSingle(RobotMap.TIME_STEP); // TODO: Try turning up the time step and see how things change
+		notifier.startPeriodic(RobotMap.TIME_STEP); // TODO: Try turning up the time step and see how things change
 	}
 	
 	public void prepare() {
@@ -260,7 +260,7 @@ public class MotionProfileOnboardRunner {
 	 * Must be called every loop.
 	 */
 	public void control() {
-		double highestOutput = 1;
+//		double highestOutput = 1;
 		if (start) {
 			segment++;
 			double leftOutputRaw;
@@ -288,7 +288,6 @@ public class MotionProfileOnboardRunner {
 				double gyro_heading = Robot.gyro.getYaw(); // Get our angle in degrees from -180..180
 				double desired_heading = Pathfinder.r2d(leftFollower.getHeading());
 				angleDifference = Pathfinder.boundHalfDegrees(desired_heading + gyro_heading);
-				SmartDashboard.putNumber("Desired Angle", desired_heading);
 				turn = kG * (-1.0/80.0) * angleDifference;
 			}
 			
@@ -297,18 +296,18 @@ public class MotionProfileOnboardRunner {
 			double leftOutput = leftOutputRaw + turn;
 			double rightOutput = rightOutputRaw - turn;
 			
-			if (Math.abs(leftOutput) > 1 || Math.abs(rightOutput) > 1) {
-				if (Math.abs(leftOutput) > Math.abs(rightOutput)) {
-					highestOutput = Math.abs(leftOutput);
-					leftOutput = leftOutput/leftOutput;
-					rightOutput = rightOutput/leftOutput;
-				}
-				else {
-					highestOutput = Math.abs(rightOutput);
-					leftOutput = leftOutput/rightOutput;
-					rightOutput = rightOutput/rightOutput;
-				}
-			}
+//			if (Math.abs(leftOutput) > 1 || Math.abs(rightOutput) > 1) {
+//				if (Math.abs(leftOutput) > Math.abs(rightOutput)) {
+//					highestOutput = Math.abs(leftOutput);
+//					leftOutput = leftOutput/leftOutput;
+//					rightOutput = rightOutput/leftOutput;
+//				}
+//				else {
+//					highestOutput = Math.abs(rightOutput);
+//					leftOutput = leftOutput/rightOutput;
+//					rightOutput = rightOutput/rightOutput;
+//				}
+//			}
 			
 			if(getCurrentTrajectory().isReversed()) {
 				leftTalon.set(ControlMode.PercentOutput, -rightOutput);
@@ -335,7 +334,6 @@ public class MotionProfileOnboardRunner {
 			}
 		}
 		// TODO: Instrumentation implementation for onboard
-		notifier.startSingle(RobotMap.TIME_STEP * highestOutput);
 	}
 
 	/**

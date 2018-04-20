@@ -31,15 +31,15 @@ public class ArmDrive extends Command {
 			Robot.arm.AnglePosition();
 		}
 		if (Robot.oi.getControllerLeftY() != 0) {
-			double output = Math.copySign(Math.pow(Robot.oi.getControllerLeftY(), 4), -Robot.oi.getControllerLeftY());
-//			if (output > 0 && output < 0.2) {
-//				output = 0.2;
-//			}
-			Robot.arm.set(output/3);
+			double output = Math.copySign(Math.pow(Robot.oi.getControllerLeftY(), 4)/2, -Robot.oi.getControllerLeftY());
+			if (output > 0 && output < 0.2) {
+				output = 0.2;
+			}
+			Robot.arm.set(output);
 			Robot.arm.resetBetter();
 		}
 		if (Robot.oi.getControllerLeftY() == 0 && RobotMap.ARM_PID && Robot.arm.isVelocity()) {
-			Robot.arm.resetFlow();
+			Robot.arm.resetBetter();
 			Robot.arm.setToGoal();
 		}
 //		if (Robot.arm.getEncoderVelocity() < 0){
