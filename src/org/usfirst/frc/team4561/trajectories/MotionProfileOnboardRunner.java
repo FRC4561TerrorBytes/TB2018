@@ -241,6 +241,14 @@ public class MotionProfileOnboardRunner {
 			startAngle = 0;
 	}
 	
+	private double normalizeAngle(double angle) {
+		double norm = angle % 360.0;
+		if (Math.abs(norm) > 180.0) {
+			norm = (norm < 0) ? norm + 360.0 : norm - 360.0;
+		}
+		return norm;
+	}
+	
 	/**
 	 * Called to clear Motion profile buffer and reset state info during
 	 * disabled and when Talon is not in MP control mode.
@@ -279,15 +287,15 @@ public class MotionProfileOnboardRunner {
 			double angleDifference;
 			double turn;
 			if (getCurrentTrajectory().isReversed()) {
-				double gyro_heading = Robot.gyro.getYaw() + startAngle; // Get our angle in degrees from -180..180
+				double gyro_heading = normalizeAngle(Robot.gyro.getYaw() + startAngle); // Get our angle in degrees from -180..180
 				// Add 180 to desired_heading because bot's reversed
-				double desired_heading = Pathfinder.boundHalfDegrees(Pathfinder.r2d(leftFollower.getHeading()) + 180);
-				angleDifference = Pathfinder.boundHalfDegrees(desired_heading + gyro_heading);
+				double desired_heading = normalizeAngle(Pathfinder.boundHalfDegrees(Pathfinder.r2d(leftFollower.getHeading()) + 180));
+				angleDifference = normalizeAngle(Pathfinder.boundHalfDegrees(desired_heading + gyro_heading));
 				turn = kG * (1.0/80.0) * angleDifference;
 			} else {
-				double gyro_heading = Robot.gyro.getYaw(); // Get our angle in degrees from -180..180
-				double desired_heading = Pathfinder.r2d(leftFollower.getHeading());
-				angleDifference = Pathfinder.boundHalfDegrees(desired_heading + gyro_heading);
+				double gyro_heading = normalizeAngle(Robot.gyro.getYaw() + startAngle); // Get our angle in degrees from -180..180
+				double desired_heading = normalizeAngle(Pathfinder.r2d(leftFollower.getHeading()));
+				angleDifference = normalizeAngle(Pathfinder.boundHalfDegrees(desired_heading + gyro_heading));
 				SmartDashboard.putNumber("Desired Angle", desired_heading);
 				turn = kG * (-1.0/80.0) * angleDifference;
 			}
