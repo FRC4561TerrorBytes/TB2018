@@ -54,7 +54,7 @@ double delay = Robot.oi.getDashboardDelaySlider();
     		addSequential(new ArmIntakePosition());
     		addSequential(new BobOpen());
     		addSequential(new IntakeIn());
-    		addSequential(new RunTrajectoryOnboard(MotionProfileOnboardRunner.TrajectorySelect.CubeRightScaleRight));
+    		addSequential(new DriveMagic(50, 50));
     		addSequential(new WaitUntilOnboardTrajectoryFinished());
     		addSequential(new BobClose());
     		addSequential(new WaitCommand(0.25));

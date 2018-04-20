@@ -21,12 +21,12 @@ public class LeftScaleLeft extends Path {
     	points = new Waypoint[] {
     			new Waypoint(3.22, 23.43, 0),
     			new Waypoint(20, 21.25, Pathfinder.d2r(-20)),
-    			new Waypoint(24.8, 20.20, 0)
+    			new Waypoint(24.6, 20.1, 0)
     		};
     	reverse = false;
     	this.wheelbase = RobotMap.WHEELBASE_WIDTH_SCALE;
-    	this.config.max_velocity = 2;
-    	this.config.max_acceleration = 2;
+    	this.config.max_velocity = 3;
+    	this.config.max_acceleration = 3;
     	generateTrajectoriesAndArrays();
     	/* To print out points along trajectory...
     	 
