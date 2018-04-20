@@ -19,8 +19,8 @@ public class ScaleLeftCubeLeft extends Path {
     	// First point is the starting position, last point is the end.
     	// Angles are in radians, positive Y is to the left, positive X is forward
     	points = new Waypoint[] {
-    			new Waypoint(21.76, 20.20, Pathfinder.d2r(180)),
-    			new Waypoint(18, 19.6, Pathfinder.d2r(200))
+    			new Waypoint(21.76, 20.20, Pathfinder.d2r(0)),
+    			new Waypoint(18, 19.6, Pathfinder.d2r(20))
     		};
     	reverse = false;
     	//this.config.max_velocity = RobotMap.WHEELBASE_WIDTH_SCALE;

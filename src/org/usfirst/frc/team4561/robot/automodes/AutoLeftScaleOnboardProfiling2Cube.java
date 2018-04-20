@@ -24,10 +24,10 @@ import org.usfirst.frc.team4561.trajectories.MotionProfileOnboardRunner;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 
-public class AutoLeftScaleOnboardProfiling extends CommandGroup {
+public class AutoLeftScaleOnboardProfiling2Cube extends CommandGroup {
 double delay = Robot.oi.getDashboardDelaySlider();
 	
-    public AutoLeftScaleOnboardProfiling() {
+    public AutoLeftScaleOnboardProfiling2Cube() {
         
     	addSequential(new SpeedGear());
 		addSequential(new ArmVertical());
@@ -48,33 +48,33 @@ double delay = Robot.oi.getDashboardDelaySlider();
     		addSequential(new IntakeStop());
     		
     		addSequential(new ArmVertical());
-//    		addSequential(new TurnMagic(-180), 2);
-//    		addSequential(new ElevatorGroundPosition());
-//    		addSequential(new ArmIntakePosition());
-//    		addSequential(new BobOpen());
-//    		addSequential(new IntakeIn());
-//    		addSequential(new RunTrajectoryOnboard(MotionProfileOnboardRunner.TrajectorySelect.CubeLeftScaleLeft));
-//    		addSequential(new WaitUntilOnboardTrajectoryFinished());
-//    		addSequential(new BobClose());
-//    		addSequential(new WaitCommand(0.25));
-//    		addSequential(new IntakeStop());
-//    		addSequential(new WaitCommand(0.25));
-//    		addSequential(new ArmVertical());
-//    		addSequential(new TurnMagic(-180), 2);
-//    		addSequential(new WaitCommand(0.25));
-//    		addSequential(new ElevatorScalePosition());
-//    		addSequential(new DriveMagic(40, 40));
-//    		addSequential(new ArmAngle());
-//    		addSequential(new WaitCommand(0.25));
-//    		addSequential(new IntakeRelease());
-//    		addSequential(new WaitCommand(0.5));
-//    		addSequential(new IntakeStop());
+    		addSequential(new TurnMagic(-180), 2);
+    		addSequential(new ElevatorGroundPosition());
+    		addSequential(new ArmIntakePosition());
+    		addSequential(new BobOpen());
+    		addSequential(new IntakeIn());
+    		addSequential(new DriveMagic(50, 50));
+    		addSequential(new WaitUntilOnboardTrajectoryFinished());
+    		addSequential(new BobClose());
+    		addSequential(new WaitCommand(0.25));
+    		addSequential(new IntakeStop());
+    		addSequential(new WaitCommand(0.25));
+    		addSequential(new ArmVertical());
+    		addSequential(new TurnMagic(-180), 2);
+    		addSequential(new WaitCommand(0.25));
+    		addSequential(new ElevatorScalePosition());
+    		addSequential(new DriveMagic(40, 40));
+    		addSequential(new ArmAngle());
+    		addSequential(new WaitCommand(0.25));
+    		addSequential(new IntakeRelease());
+    		addSequential(new WaitCommand(0.5));
+    		addSequential(new IntakeStop());
     		
     		addSequential(new DriveMagic(-40, -40));
     		addSequential(new ArmVertical());
     		addSequential(new ElevatorGroundPosition());
     	}
-    	// on the right
+//    	 on the right
     	else {
     		addSequential(new RunTrajectoryOnboard(MotionProfileOnboardRunner.TrajectorySelect.LeftScaleRight));
     		addSequential(new WaitUntilPositionPercentOnboard(0.6));
@@ -85,6 +85,30 @@ double delay = Robot.oi.getDashboardDelaySlider();
     		addSequential(new IntakeRelease()); // drop power cube
     		addSequential(new WaitCommand(0.5));
     		addSequential(new IntakeStop());
+    		
+    		addSequential(new TurnMagic(180), 2);
+    		addSequential(new ElevatorGroundPosition());
+    		addSequential(new ArmIntakePosition());
+    		addSequential(new BobOpen());
+    		addSequential(new IntakeIn());
+    		addSequential(new DriveMagic(50, 50));
+    		addSequential(new WaitUntilOnboardTrajectoryFinished());
+    		addSequential(new BobClose());
+    		addSequential(new WaitCommand(0.25));
+    		addSequential(new IntakeStop());
+    		addSequential(new WaitCommand(0.25));
+    		addSequential(new ArmVertical());
+    		
+    		addSequential(new TurnMagic(-180), 2);
+    		addSequential(new WaitCommand(0.25));
+    		addSequential(new ElevatorScalePosition());
+    		addSequential(new DriveMagic(40, 40));
+    		addSequential(new ArmAngle());
+    		addSequential(new WaitCommand(0.25));
+    		addSequential(new IntakeRelease());
+    		addSequential(new WaitCommand(0.5));
+    		addSequential(new IntakeStop());
+    		
     		addSequential(new DriveMagic(-40, -40));
     		addSequential(new ArmVertical());
     		addSequential(new ElevatorGroundPosition());

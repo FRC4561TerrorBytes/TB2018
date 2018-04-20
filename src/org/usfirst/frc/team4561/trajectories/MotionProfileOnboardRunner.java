@@ -67,6 +67,7 @@ public class MotionProfileOnboardRunner {
 	public static Path scaleRightCubeRight = new ScaleRightCubeRight();
 	public static Path cubeRightScaleRight = new CubeRightScaleRight();
 	public static Path scaleLeftCubeLeft2 = new ScaleLeftCubeLeft2();
+	public static Path rightScaleLeftZoom = new RightScaleLeftZoom();
 	
 	/**
 	 * All the different trajectories the robot can run.
@@ -93,7 +94,8 @@ public class MotionProfileOnboardRunner {
 		CubeLeftScaleLeft(cubeLeftScaleLeft),
 		ScaleRightCubeRight(scaleRightCubeRight),
 		CubeRightScaleRight(cubeRightScaleRight),
-		ScaleLeftCubeLeft2(scaleLeftCubeLeft2);
+		ScaleLeftCubeLeft2(scaleLeftCubeLeft2),
+		RightScaleLeftZoom(rightScaleLeftZoom);
 		
 		Path trajectory;
 		TrajectorySelect(Path trajectory) {
@@ -204,7 +206,7 @@ public class MotionProfileOnboardRunner {
 	private final double kD = 0.1; // Derivative gain
 	private final double kV = 1.0 / RobotMap.MAX_FEET_PER_SECOND;
 	private final double kA = 0; // Should be able to be left at 0 if max accel is configured correctly in trajectory config
-	private final double kG = 0.075; //0.075; // Gyro gain: 0.075 for Kongo
+	private final double kG = 0;//.075;//.075; //0.075; // Gyro gain: 0.075 for Kongo
 	private double startAngle = 0;
 	
 	/**
@@ -235,10 +237,13 @@ public class MotionProfileOnboardRunner {
 		Robot.driveTrain.invertRightSide(!RobotMap.RIGHT_SIDE_INVERTED);
 		Robot.driveTrain.setSensorPhase(RobotMap.LEFT_SIDE_SENSOR_PHASE_REVERSED, RobotMap.RIGHT_SIDE_SENSOR_PHASE_REVERSED);
 		Robot.driveTrain.resetEncoders();
+		Robot.gyro.reset();
 		if (getCurrentTrajectory() != null)
 			startAngle = getCurrentTrajectory().trajectory.trajectory.segments[0].heading - Robot.gyro.getAngle();
 		else
 			startAngle = 0;
+		System.out.println("***"+startAngle+"***"
+				+ "");
 	}
 	
 	private double normalizeAngle(double angle) {
@@ -281,8 +286,7 @@ public class MotionProfileOnboardRunner {
 				leftOutputRaw = leftFollower.calculate((int) (-Robot.driveTrain.getLeftPos() * RobotMap.ONBOARD_ENCODER_MULTIPLIER));
 				rightOutputRaw = rightFollower.calculate((int) (-Robot.driveTrain.getRightPos() * RobotMap.ONBOARD_ENCODER_MULTIPLIER));
 			}
-			SmartDashboard.putNumber("left output" , leftOutputRaw);
-			SmartDashboard.putNumber("right output" , rightOutputRaw);
+			
 			
 			double angleDifference;
 			double turn;
@@ -317,7 +321,8 @@ public class MotionProfileOnboardRunner {
 					rightOutput = rightOutput/rightOutput;
 				}
 			}
-			
+			SmartDashboard.putNumber("left output" , leftOutput);
+			SmartDashboard.putNumber("right output" , rightOutput);
 			if(getCurrentTrajectory().isReversed()) {
 				leftTalon.set(ControlMode.PercentOutput, -rightOutput);
 				rightTalon.set(ControlMode.PercentOutput, -leftOutput);

@@ -24,10 +24,10 @@ import org.usfirst.frc.team4561.trajectories.MotionProfileOnboardRunner;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.WaitCommand;
 
-public class AutoLeftScaleOnboardProfiling extends CommandGroup {
+public class AutoLeftScaleOnboardProfilingNearOnly extends CommandGroup {
 double delay = Robot.oi.getDashboardDelaySlider();
 	
-    public AutoLeftScaleOnboardProfiling() {
+    public AutoLeftScaleOnboardProfilingNearOnly() {
         
     	addSequential(new SpeedGear());
 		addSequential(new ArmVertical());
@@ -76,18 +76,19 @@ double delay = Robot.oi.getDashboardDelaySlider();
     	}
     	// on the right
     	else {
-    		addSequential(new RunTrajectoryOnboard(MotionProfileOnboardRunner.TrajectorySelect.LeftScaleRight));
-    		addSequential(new WaitUntilPositionPercentOnboard(0.6));
-    		addSequential(new ElevatorScalePosition());
-    		addSequential(new WaitUntilPositionPercentOnboard(0.9));
-    		addSequential(new ArmAngle());
-    		addSequential(new WaitUntilOnboardTrajectoryFinished());
-    		addSequential(new IntakeRelease()); // drop power cube
-    		addSequential(new WaitCommand(0.5));
-    		addSequential(new IntakeStop());
-    		addSequential(new DriveMagic(-40, -40));
-    		addSequential(new ArmVertical());
-    		addSequential(new ElevatorGroundPosition());
+//    		addSequential(new RunTrajectoryOnboard(MotionProfileOnboardRunner.TrajectorySelect.LeftScaleRight));
+//    		addSequential(new WaitUntilPositionPercentOnboard(0.6));
+//    		addSequential(new ElevatorScalePosition());
+//    		addSequential(new WaitUntilPositionPercentOnboard(0.9));
+//    		addSequential(new ArmAngle());
+//    		addSequential(new WaitUntilOnboardTrajectoryFinished());
+//    		addSequential(new IntakeRelease()); // drop power cube
+//    		addSequential(new WaitCommand(0.5));
+//    		addSequential(new IntakeStop());
+//    		addSequential(new DriveMagic(-40, -40));
+//    		addSequential(new ArmVertical());
+//    		addSequential(new ElevatorGroundPosition());
+    		addSequential(new AutoDriveToLine());
     	}
     }
 }

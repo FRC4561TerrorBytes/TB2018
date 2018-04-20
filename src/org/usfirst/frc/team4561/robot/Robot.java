@@ -423,6 +423,18 @@ public class Robot extends IterativeRobot {
 		case 12:
 			autonomousCommand = new AutoLeftTwoScaleOnboardProfiling();
 			break;
+		case 13:
+			autonomousCommand = new AutoLeftScaleOnboardProfilingNearOnly();
+			break;
+		case 14:
+			autonomousCommand = new AutoRightScaleOnboardProfilingNearOnly();
+			break;
+		case 70:
+			autonomousCommand = new AutoLeftScaleOnboardProfiling2Cube();
+			break;
+		case 80:
+			autonomousCommand = new AutoRightScaleOnboardProfiling2Cube();
+			break;
 		case 99:
 			autonomousCommand = new AlwaysRightSwitch();
 			break;

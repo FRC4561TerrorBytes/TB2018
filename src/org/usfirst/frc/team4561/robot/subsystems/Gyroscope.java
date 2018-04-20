@@ -113,6 +113,12 @@ public class Gyroscope extends Subsystem {
 		if (primary) return gyro.getBarometricPressure();
 		else return 0;
 	}
+	public void set(double angle) {
+		gyro.setAngleAdjustment(angle);
+	}
+	public void unset() {
+		gyro.setAngleAdjustment(0);
+	}
 	public double getAltitude() {
 		if (primary) return gyro.getAltitude();
 		else return 0;

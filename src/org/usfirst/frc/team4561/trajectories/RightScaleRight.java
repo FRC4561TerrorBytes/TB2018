@@ -20,10 +20,12 @@ public class RightScaleRight extends Path {
     	points = new Waypoint[] {
     				new Waypoint(3.22, 3.58, 0),
     				new Waypoint(20, 5.76, 0),
-    				new Waypoint(24.97, 6.80, 0)
+    				new Waypoint(24.8, 6.80, 0)
     			};
     	reverse = false;
     	this.wheelbase = RobotMap.WHEELBASE_WIDTH_SCALE;
+    	this.config.max_velocity = 5;
+    	this.config.max_acceleration = 2;
     	generateTrajectoriesAndArrays();
     	
     	/* To print out points along trajectory...

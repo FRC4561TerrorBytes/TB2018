@@ -21,7 +21,7 @@ public class RunTrajectoryOnboard extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	System.out.println("Starting trajectory: " + trajectory.toString());
-    	Robot.gyro.reset();
+//    	Robot.gyro.reset();
     	Robot.motionProfileOnboardRunner.prepare();
     	Robot.motionProfileOnboardRunner.setCurrentTrajectory(trajectory);
     	Robot.motionProfileOnboardRunner.startMotionProfile();
