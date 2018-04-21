@@ -27,7 +27,7 @@ double delay = Robot.oi.getDashboardDelaySlider();
     public RightAlwaysLeftScale() {
         
     	addSequential(new SpeedGear());
-		addSequential(new ArmVertical());
+//		addSequential(new ArmVertical());
 
     	// wait preassigned time
     	addSequential(new WaitCommand(delay));
